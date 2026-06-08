@@ -63,26 +63,28 @@ export function usePermissions() {
   }
 
   function canViewMasterData(key: MasterDataMenuKey): boolean {
-    // กำหนด Role — เฉพาะ owner/admin เสมอ
-    if (key === 'roles') return isAdmin.value
     if (isAdmin.value) return true
     if (!hasOrgRole.value || !permissions.value) return true
     return canViewModule(`master.${key}`)
   }
 
-  function canAccessSetup(): boolean {
-    return isAdmin.value
+  const canAccessSetup = computed(() => isAdmin.value)
+
+  async function reloadPermissions() {
+    permissionsLoaded.value = false
+    await loadPermissions()
   }
 
   return {
     permissions,
     permissionsLoaded,
     isAdmin,
+    canAccessSetup,
     loadPermissions,
+    reloadPermissions,
     ensurePermissions,
     canViewModule,
     canViewAppMenu,
-    canViewMasterData,
-    canAccessSetup
+    canViewMasterData
   }
 }

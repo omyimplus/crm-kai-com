@@ -8,7 +8,6 @@ export type MasterDataMenuKey =
   | 'unit'
   | 'employee'
   | 'salesTeam'
-  | 'roles'
   | 'moduleStatuses'
   | 'jobCode'
 
@@ -21,7 +20,6 @@ export interface MasterDataMenuItem {
 }
 
 export const masterDataMenuItems: MasterDataMenuItem[] = [
-  { key: 'roles', to: '/app/master-data/roles', icon: 'i-lucide-shield-check', ready: true },
   { key: 'customer', to: '/app/master-data/customer', icon: 'i-lucide-building' },
   { key: 'contact', to: '/app/master-data/contact', icon: 'i-lucide-contact' },
   { key: 'salesTarget', to: '/app/master-data/sales-target', icon: 'i-lucide-target' },

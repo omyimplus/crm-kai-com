@@ -20,34 +20,14 @@
 | 7 | Unit | `/app/master-data/unit` | ⏳ |
 | 8 | Employee | `/app/master-data/employee` | ⏳ |
 | 9 | Sales team | `/app/master-data/sales-team` | ⏳ |
-| 10 | **Roles (กำหนด Role)** | `/app/master-data/roles` | ✅ Phase 2 (CRUD + assign ใน System Users) |
-| 11 | Module statuses | `/app/master-data/module-statuses` | ⏳ |
-| 12 | Job code (รหัสงาน) | `/app/master-data/job-code` | ⏳ |
+| 10 | Module statuses | `/app/master-data/module-statuses` | ⏳ |
+| 11 | Job code (รหัสงาน) | `/app/master-data/job-code` | ⏳ |
+
+> **กำหนด Role** ย้ายไป **Setup** → `/app/setup/roles` — ดู [SETUP-MENU.md § Roles](./SETUP-MENU.md)
 
 ---
 
-## 10 — Roles / กำหนด Role
-
-**วัตถุประสงค์:** กำหนด **บทบาทขององค์กร** และสิทธิ์ต่อโมดูล — **แยกจาก Setup (admin)**
-
-| ส่วน | รายละเอียด |
-|------|------------|
-| **Setup → ผู้ใช้ในระบบ** | บทบาทระบบ: owner, admin, sales, readonly + เปิด/ปิดบัญชี |
-| **Master Data → กำหนด Role** | Role ตามโครงสร้างองค์กร + สิทธิ์รายโมดูล (Phase 2+) |
-
-**DB:** ตาราง `org_roles` + `profiles.org_role_id` — migration `20260608120006_org_roles.sql`
-
-**RPC:** `list_org_roles`, `get_org_role`, `create_org_role`, `update_org_role`, `delete_org_role`
-
-**หน้าจัดการ Role:** `/app/master-data/roles/:id` — ข้อมูล Role + สิทธิ์ต่อเมนูในหน้าเดียว
-
-**ผูกผู้ใช้:** Setup → ผู้ใช้ในระบบ — เลือก Org role ได้ (แยกจาก system role)
-
-**เอกสารสิทธิ์:** [ORG-ROLE-PERMISSIONS.md](../06-crm-schema/ORG-ROLE-PERMISSIONS.md)
-
----
-
-## 12 — Job code / รหัสงาน
+## 11 — Job code / รหัสงาน
 
 **วัตถุประสงค์:** สร้างเลขที่เอกสาร/รหัสงานอัตโนมัติ — **ทุกส่วนกำหนดได้**
 

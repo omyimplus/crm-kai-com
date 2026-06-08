@@ -57,6 +57,12 @@ export interface OrgRole {
   updated_at: string
 }
 
+export interface OrgRoleCreatedPayload {
+  id: string
+  label: string
+  code: string
+}
+
 export interface OrgRoleCreate {
   code: string
   label: string

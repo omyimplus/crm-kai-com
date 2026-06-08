@@ -1,6 +1,6 @@
 # Org Role Permissions
 
-> สิทธิ์ต่อโมดูล/เมนูสำหรับ `org_roles` — กำหนดที่ `/app/master-data/roles/:id/permissions`
+> สิทธิ์ต่อโมดูล/เมนูสำหรับ `org_roles` — กำหนดที่ `/app/setup/roles/:id`
 
 ---
 

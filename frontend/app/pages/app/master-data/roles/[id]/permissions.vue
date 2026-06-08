@@ -1,6 +1,4 @@
 <script setup lang="ts">
-definePageMeta({ middleware: 'auth', layout: 'app' })
-
 const route = useRoute()
-await navigateTo(`/app/master-data/roles/${route.params.id}`)
+await navigateTo(`/app/setup/roles/${route.params.id}`, { redirectCode: 301 })
 </script>

@@ -13,11 +13,12 @@
 | # | เมนู | Route | สถานะ UI |
 |---|------|-------|----------|
 | 1 | System Users | `/app/setup/system-users` | ✅ |
-| 2 | Data Management | `/app/setup/data-management` | ⏳ Coming soon |
-| 3 | User Activity | `/app/setup/user-activity` | ✅ (อ่าน `data_change_logs`) |
-| 4 | Active Sessions | `/app/setup/active-sessions` | ⏳ Coming soon |
-| 5 | User Approvals | `/app/setup/user-approvals` | ⏳ Coming soon |
-| 6 | Settings | `/app/setup/settings` | ⏳ Coming soon |
+| 2 | **Roles (กำหนด Role)** | `/app/setup/roles` | ✅ |
+| 3 | Data Management | `/app/setup/data-management` | ⏳ Coming soon |
+| 4 | User Activity | `/app/setup/user-activity` | ✅ (อ่าน `data_change_logs`) |
+| 5 | Active Sessions | `/app/setup/active-sessions` | ⏳ Coming soon |
+| 6 | User Approvals | `/app/setup/user-approvals` | ⏳ Coming soon |
+| 7 | Settings | `/app/setup/settings` | ⏳ Coming soon |
 
 **แผน implement:** ไล่ทีละหน้า — แทนที่ `SetupComingSoon` ด้วยหน้าจริงเมื่อพร้อม
 
@@ -34,19 +35,40 @@
 | Username | `profiles.username` (unique ต่อ org) |
 | Password | `auth.users` (สร้าง/เปลี่ยนผ่าน RPC) |
 | System role | `profiles.role` — owner, admin, sales, readonly |
-| Org role | `profiles.org_role_id` → `org_roles` — กำหนดที่ Master Data → กำหนด Role |
+| Org role | `profiles.org_role_id` → `org_roles` — กำหนดที่ Setup → กำหนด Role |
 | Status | `profiles.is_active` |
 
 | ฟีเจอร์ UI |
 |------------|
 | ✅ รายชื่อ + แก้ไข + เพิ่มผู้ใช้ (owner/admin) |
-| Role องค์กรแบบกำหนดเอง → [MASTER-DATA-MENU § Roles](./MASTER-DATA-MENU.md) |
+| Role องค์กรแบบกำหนดเอง → [§ 2 Roles](#2--roles--กำหนด-role) |
 
 **RPC:** `list_org_users`, `admin_create_org_user`, `admin_update_org_user`
 
 ---
 
-## 2 — Data Management
+## 2 — Roles / กำหนด Role
+
+**วัตถุประสงค์:** กำหนด **บทบาทขององค์กร** และสิทธิ์ต่อโมดูล CRM / Master Data — **แยกจาก system role (owner/admin)**
+
+| ส่วน | รายละเอียด |
+|------|------------|
+| **Setup → ผู้ใช้ในระบบ** | บทบาทระบบ + เลือก Org role |
+| **Setup → กำหนด Role** | CRUD role + กำหนดสิทธิ์รายโมดูล |
+
+**Route:** `/app/setup/roles`, `/app/setup/roles/:id`
+
+**DB:** `org_roles` + `profiles.org_role_id` — migration `20260608120006_org_roles.sql`
+
+**RPC:** `list_org_roles`, `get_org_role`, `create_org_role`, `update_org_role`, `delete_org_role`
+
+**เอกสารสิทธิ์:** [ORG-ROLE-PERMISSIONS.md](../06-crm-schema/ORG-ROLE-PERMISSIONS.md)
+
+**Redirect เก่า:** `/app/master-data/roles*` → `/app/setup/roles*`
+
+---
+
+## 3 — Data Management
 
 **วัตถุประสงค์:** นำเข้าข้อมูล CRM จากไฟล์สเปรดชีต
 
@@ -61,7 +83,7 @@
 
 ---
 
-## 3 — User Activity
+## 4 — User Activity
 
 **วัตถุประสงค์:** audit trail กิจกรรมผู้ใช้
 
@@ -76,7 +98,7 @@
 
 ---
 
-## 4 — Active Sessions
+## 5 — Active Sessions
 
 **วัตถุประสงค์:** ดู session ที่ login อยู่และจุดเข้าใช้งานล่าสุด
 
@@ -90,7 +112,7 @@
 
 ---
 
-## 5 — User Approvals
+## 6 — User Approvals
 
 **วัตถุประสงค์:** อนุมัติผู้สมัครใหม่ก่อนเข้า CRM
 
@@ -105,7 +127,7 @@
 
 ---
 
-## 6 — Settings
+## 7 — Settings
 
 **วัตถุประสงค์:** ตั้งค่าองค์กรและระบบ auth / notification
 

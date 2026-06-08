@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { OrgRole, OrgUser, ProfileRole } from '~/types/crm'
+import type { OrgRole, OrgRoleCreatedPayload, OrgUser, ProfileRole } from '~/types/crm'
 
 const open = defineModel<boolean>('open', { required: true })
 
@@ -9,7 +9,10 @@ const props = defineProps<{
   orgRoleOptions: OrgRole[]
 }>()
 
-const emit = defineEmits<{ saved: [] }>()
+const emit = defineEmits<{
+  saved: []
+  openOrgRoleForm: []
+}>()
 
 const { t } = useI18n()
 const { create, update } = useSystemUsers()
@@ -25,10 +28,18 @@ const password = ref('')
 const role = ref<ProfileRole>('sales')
 const orgRoleId = ref<string | null>(null)
 const isActive = ref(true)
+const pendingOrgRoles = ref<OrgRole[]>([])
+
+const mergedOrgRoleOptions = computed(() => {
+  const byId = new Map<string, OrgRole>()
+  for (const role of props.orgRoleOptions) byId.set(role.id, role)
+  for (const role of pendingOrgRoles.value) byId.set(role.id, role)
+  return [...byId.values()]
+})
 
 const orgRoleSelectItems = computed(() => [
   { label: t('setup.systemUsers.noOrgRole'), value: null as string | null },
-  ...props.orgRoleOptions.map(r => ({
+  ...mergedOrgRoleOptions.value.map(r => ({
     label: r.label,
     value: r.id as string | null
   }))
@@ -49,7 +60,30 @@ const modalTitle = computed(() =>
   isCreate.value ? t('setup.systemUsers.createTitle') : t('setup.systemUsers.editTitle')
 )
 
+function applyCreatedOrgRole(created: OrgRoleCreatedPayload) {
+  pendingOrgRoles.value = [
+    ...pendingOrgRoles.value.filter(r => r.id !== created.id),
+    {
+      id: created.id,
+      org_id: profile.value?.org_id ?? '',
+      code: created.code,
+      label: created.label,
+      description: null,
+      is_active: true,
+      is_system: false,
+      permissions: {},
+      user_count: 0,
+      created_at: '',
+      updated_at: ''
+    }
+  ]
+  orgRoleId.value = created.id
+}
+
+defineExpose({ applyCreatedOrgRole })
+
 function resetForm() {
+  pendingOrgRoles.value = []
   if (isCreate.value) {
     fullName.value = ''
     email.value = ''
@@ -197,12 +231,25 @@ async function save() {
           </UFormField>
 
           <UFormField :label="t('setup.systemUsers.orgRole')">
-            <USelectMenu
-              v-model="orgRoleId"
-              :items="orgRoleSelectItems"
-              value-key="value"
-              :disabled="isAdminEditingOwner"
-            />
+            <div class="flex items-start gap-2">
+              <USelectMenu
+                v-model="orgRoleId"
+                class="min-w-0 flex-1"
+                :items="orgRoleSelectItems"
+                value-key="value"
+                :disabled="isAdminEditingOwner"
+              />
+              <UButton
+                type="button"
+                variant="outline"
+                color="neutral"
+                icon="i-lucide-plus"
+                :disabled="isAdminEditingOwner"
+                @click="emit('openOrgRoleForm')"
+              >
+                {{ t('setup.systemUsers.addOrgRole') }}
+              </UButton>
+            </div>
             <p class="mt-1 text-xs text-gray-500">
               {{ t('setup.systemUsers.orgRoleHint') }}
             </p>

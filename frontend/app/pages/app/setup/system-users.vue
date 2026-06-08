@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import type { OrgUser } from '~/types/crm'
+import type { OrgRoleCreatedPayload, OrgUser } from '~/types/crm'
+import type SystemUserFormModal from '~/components/setup/SystemUserFormModal.vue'
 
 definePageMeta({ middleware: 'auth', layout: 'app' })
 
 const { t } = useI18n()
-const { ensureProfile, profile } = useProfile()
+const { ensureProfile, profile, fetchProfile } = useProfile()
 const { canManage, list, assignableRoles } = useSystemUsers()
+const { reloadPermissions } = usePermissions()
 const { list: listOrgRoles, activeRoles } = useOrgRoles()
 
 await ensureProfile()
@@ -18,7 +20,9 @@ const users = ref<OrgUser[]>([])
 const orgRoles = ref<Awaited<ReturnType<typeof listOrgRoles>>>([])
 const loading = ref(true)
 const formOpen = ref(false)
+const orgRoleFormOpen = ref(false)
 const editingUser = ref<OrgUser | null>(null)
+const userFormRef = ref<InstanceType<typeof SystemUserFormModal> | null>(null)
 
 const roleOptions = computed(() => assignableRoles(profile.value?.role))
 const orgRoleOptions = computed(() => activeRoles(orgRoles.value))
@@ -59,6 +63,23 @@ function roleBadgeColor(role: OrgUser['role']) {
   if (role === 'admin') return 'info'
   if (role === 'readonly') return 'neutral'
   return 'success'
+}
+
+async function onSaved() {
+  await refresh()
+  await fetchProfile()
+  await reloadPermissions()
+}
+
+async function onOrgRoleCreated() {
+  const roleRows = await listOrgRoles()
+  orgRoles.value = roleRows
+}
+
+function onOrgRoleSavedFromUser(created?: OrgRoleCreatedPayload) {
+  if (!created) return
+  userFormRef.value?.applyCreatedOrgRole(created)
+  onOrgRoleCreated()
 }
 </script>
 
@@ -189,11 +210,20 @@ function roleBadgeColor(role: OrgUser['role']) {
     </div>
 
     <SystemUserFormModal
+      ref="userFormRef"
       v-model:open="formOpen"
       :user="editingUser"
       :role-options="roleOptions"
       :org-role-options="orgRoleOptions"
-      @saved="refresh"
+      @saved="onSaved"
+      @open-org-role-form="orgRoleFormOpen = true"
+    />
+
+    <OrgRoleFormModal
+      v-model:open="orgRoleFormOpen"
+      :role="null"
+      :navigate-on-create="false"
+      @saved="onOrgRoleSavedFromUser"
     />
   </div>
 </template>

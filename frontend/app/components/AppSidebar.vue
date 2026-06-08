@@ -5,12 +5,12 @@ import { setupMenuItems } from '~/config/setupMenu'
 
 const { t } = useI18n()
 const route = useRoute()
-const { canViewAppMenu, canViewMasterData, canAccessSetup } = usePermissions()
+const { canViewAppMenu, canViewMasterData, canAccessSetup, isAdmin } = usePermissions()
 
 const menuOpen = ref(true)
 // เปิด section ที่เกี่ยวข้อง — คนใหม่มักไม่รู้ว่าต้องคลิกขยาย
 const masterDataOpen = ref(true)
-const setupOpen = ref(route.path.startsWith('/app/setup'))
+const setupOpen = ref(route.path.startsWith('/app/setup') || isAdmin.value)
 
 watch(() => route.path, (path) => {
   if (path.startsWith('/app/master-data')) {
@@ -67,10 +67,14 @@ function isMenuActive(path: string) {
 }
 
 function isMasterDataActive(path: string) {
-  if (path === '/app/master-data/roles') {
-    return route.path.startsWith('/app/master-data/roles')
-  }
   return route.path === path || route.path.startsWith(`${path}/`)
+}
+
+function isSetupActive(path: string) {
+  if (path === '/app/setup/roles') {
+    return route.path.startsWith('/app/setup/roles')
+  }
+  return isMenuActive(path)
 }
 
 const isMenuSectionActive = computed(() =>
@@ -175,7 +179,7 @@ const isSetupSectionActive = computed(() => route.path.startsWith('/app/setup'))
               :to="link.to"
               :icon="link.icon"
               :label="link.label"
-              :active="isMenuActive(link.to)"
+              :active="isSetupActive(link.to)"
               :badge="link.ready ? undefined : comingSoonBadge"
             />
           </div>

@@ -48,12 +48,12 @@ async function confirmDelete() {
       <UCard>
         <template #header>
           <h2 class="font-semibold font-heading">
-            {{ t('masterData.roles.deleteTitle') }}
+            {{ t('setup.roles.deleteTitle') }}
           </h2>
         </template>
 
         <p class="text-sm text-gray-600 dark:text-gray-400">
-          {{ t('masterData.roles.deleteConfirm', { name: role?.label ?? '' }) }}
+          {{ t('setup.roles.deleteConfirm', { name: role?.label ?? '' }) }}
         </p>
 
         <UAlert
@@ -61,7 +61,7 @@ async function confirmDelete() {
           class="mt-4"
           color="warning"
           variant="subtle"
-          :title="t('masterData.roles.cannotDeleteAssigned')"
+          :title="t('setup.roles.cannotDeleteAssigned')"
         />
 
         <UAlert
@@ -69,7 +69,7 @@ async function confirmDelete() {
           class="mt-4"
           color="warning"
           variant="subtle"
-          :title="t('masterData.roles.cannotDeleteSystem')"
+          :title="t('setup.roles.cannotDeleteSystem')"
         />
 
         <p

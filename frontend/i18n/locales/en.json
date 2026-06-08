@@ -320,12 +320,81 @@
       "description": "Group sales employees into teams",
       "features": ["Team lead and members", "Team-level targets", "Territory assignment"]
     },
+    "moduleStatuses": {
+      "nav": "Module statuses",
+      "title": "Module statuses",
+      "description": "Define statuses per module and main menu — flexible per organization",
+      "features": [
+        "Statuses per module (deals, customers, quotes, etc.)",
+        "Order, color, and defaults",
+        "Enable/disable per org policy",
+        "Support different workflows per org"
+      ]
+    },
+    "jobCode": {
+      "nav": "Job code",
+      "title": "Job code",
+      "description": "Auto numbering format — prefix, date segment, and running number",
+      "features": [
+        "Configurable letter prefix (default) per module",
+        "Date segment: year, month, day (format configurable)",
+        "Running number 0001, 00001 — length and reset rules",
+        "Example: JOB-20260608-0001",
+        "Separate sequences per module (deals, quotes, customers, etc.)"
+      ]
+    }
+  },
+  "setup": {
+    "section": "System setup",
+    "overview": "Overview",
+    "comingSoon": "Coming soon",
+    "comingSoonBadge": "Soon",
+    "plannedFeatures": "Planned features",
+    "backToSetup": "Back to system setup",
+    "hubTitle": "System setup",
+    "hubSubtitle": "Manage users, data, security, and org settings — rolling out page by page",
+    "systemUsers": {
+      "nav": "System users",
+      "title": "System Users",
+      "subtitle": "Manage users — full name, email, username, password, role, status",
+      "description": "Manage system users, roles, and CRM access",
+      "fullName": "Full name",
+      "name": "Name",
+      "email": "Email",
+      "username": "Username",
+      "password": "Password",
+      "passwordHint": "Leave blank to keep the current password",
+      "passwordPlaceholder": "Leave blank = no change",
+      "passwordRequired": "Password is required",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "edit": "Edit user",
+      "editTitle": "Edit user",
+      "create": "Add user",
+      "createTitle": "Add user",
+      "createFirst": "Add first user",
+      "empty": "No users in this organization yet",
+      "cannotDeactivateSelf": "You cannot deactivate your own account",
+      "cannotEditOwner": "Admins cannot edit owner accounts",
+      "orgRole": "Org role",
+      "addOrgRole": "Add org role",
+      "orgRoleHint": "Pick an existing role or press + to create one — configure permissions under Setup → Roles",
+      "noOrgRole": "— None —",
+      "systemRoleHint": "System role — security level (owner, admin, sales, readonly)",
+      "features": [
+        "User list per org",
+        "Assign roles (owner, admin, sales, readonly)",
+        "Enable / disable accounts",
+        "Invite new users"
+      ]
+    },
     "roles": {
       "nav": "Roles",
       "title": "Role configuration",
       "pageTitle": "Role configuration",
       "pageSubtitle": "Create organization roles to assign to system users — separate from system roles (owner, admin)",
-      "description": "Create and manage organization roles (beyond system admin roles) — permissions per module",
+      "description": "Create and manage organization roles — permissions per CRM and Master Data module",
       "code": "Code",
       "codeHint": "Lowercase a-z, digits, underscore — e.g. sales_lead, finance",
       "label": "Role name",
@@ -386,77 +455,9 @@
       "features": [
         "Custom roles for your org (e.g. sales lead, finance)",
         "Read/write permissions per menu and module",
-        "Separate from system roles (owner, admin) in Setup",
+        "Separate from system roles (owner, admin)",
         "Assign roles to users from System Users",
         "Clone from default role templates"
-      ]
-    },
-    "moduleStatuses": {
-      "nav": "Module statuses",
-      "title": "Module statuses",
-      "description": "Define statuses per module and main menu — flexible per organization",
-      "features": [
-        "Statuses per module (deals, customers, quotes, etc.)",
-        "Order, color, and defaults",
-        "Enable/disable per org policy",
-        "Support different workflows per org"
-      ]
-    },
-    "jobCode": {
-      "nav": "Job code",
-      "title": "Job code",
-      "description": "Auto numbering format — prefix, date segment, and running number",
-      "features": [
-        "Configurable letter prefix (default) per module",
-        "Date segment: year, month, day (format configurable)",
-        "Running number 0001, 00001 — length and reset rules",
-        "Example: JOB-20260608-0001",
-        "Separate sequences per module (deals, quotes, customers, etc.)"
-      ]
-    }
-  },
-  "setup": {
-    "section": "System setup",
-    "overview": "Overview",
-    "comingSoon": "Coming soon",
-    "comingSoonBadge": "Soon",
-    "plannedFeatures": "Planned features",
-    "backToSetup": "Back to system setup",
-    "hubTitle": "System setup",
-    "hubSubtitle": "Manage users, data, security, and org settings — rolling out page by page",
-    "systemUsers": {
-      "nav": "System users",
-      "title": "System Users",
-      "subtitle": "Manage users — full name, email, username, password, role, status",
-      "description": "Manage system users, roles, and CRM access",
-      "fullName": "Full name",
-      "name": "Name",
-      "email": "Email",
-      "username": "Username",
-      "password": "Password",
-      "passwordHint": "Leave blank to keep the current password",
-      "passwordPlaceholder": "Leave blank = no change",
-      "passwordRequired": "Password is required",
-      "status": "Status",
-      "active": "Active",
-      "inactive": "Inactive",
-      "edit": "Edit user",
-      "editTitle": "Edit user",
-      "create": "Add user",
-      "createTitle": "Add user",
-      "createFirst": "Add first user",
-      "empty": "No users in this organization yet",
-      "cannotDeactivateSelf": "You cannot deactivate your own account",
-      "cannotEditOwner": "Admins cannot edit owner accounts",
-      "orgRole": "Org role",
-      "orgRoleHint": "Job function role — configure under Master Data → Roles",
-      "noOrgRole": "— None —",
-      "systemRoleHint": "System role — security level (owner, admin, sales, readonly)",
-      "features": [
-        "User list per org",
-        "Assign roles (owner, admin, sales, readonly)",
-        "Enable / disable accounts",
-        "Invite new users"
       ]
     },
     "dataManagement": {

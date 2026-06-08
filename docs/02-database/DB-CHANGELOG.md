@@ -11,12 +11,18 @@
 |--------|-----|
 | Phase | 1 |
 | Engine | Supabase (Postgres 15) |
-| Migrations | 9 files (schema + RLS + grants + system users + audit log + org roles + permissions + list logs) |
+| Migrations | 11 files (schema + RLS + grants + system users + audit log + org roles + permissions + list logs + signup owner + remove master.roles) |
 | Seed | demo org + Sales pipeline |
 
 ---
 
 ## ประวัติ
+
+### 2026-06-08 — move Roles to Setup; drop master.roles permission key
+
+- **ประเภท:** migration + frontend — กำหนด Role อยู่ Setup; ลบ `master.roles` จาก org permission matrix
+- **Migration file:** `supabase/migrations/20260608120011_remove_master_roles_permission.sql`
+- **Frontend:** `/app/setup/roles`, `/app/setup/roles/:id` (redirect จาก `/app/master-data/roles*`)
 
 ### 2026-06-08 — User Activity UI + list_data_change_logs
 
@@ -28,13 +34,13 @@
 
 - **ประเภท:** migration — `normalize_org_role_permissions`, `get_org_role`, `delete_org_role`, backfill keys
 - **Migration file:** `supabase/migrations/20260608120007_org_role_permissions.sql`
-- **Frontend:** `/app/master-data/roles/:id/permissions`, `permissionModules.ts`
+- **Frontend:** `/app/setup/roles/:id`, `permissionModules.ts` (เดิมอยู่ Master Data)
 
-### 2026-06-08 — add org_roles (Master Data → กำหนด Role)
+### 2026-06-08 — add org_roles (Setup → กำหนด Role)
 
 - **ประเภท:** migration — `org_roles`, `profiles.org_role_id`, RPC CRUD + wire system users
 - **Migration file:** `supabase/migrations/20260608120006_org_roles.sql`
-- **Frontend:** `/app/master-data/roles`, org role select ใน System Users
+- **Frontend:** `/app/setup/roles`, org role select ใน System Users
 
 ### 2026-06-08 — add data_change_logs (กฎเหล็ก §13)
 

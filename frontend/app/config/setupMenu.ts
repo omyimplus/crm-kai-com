@@ -1,5 +1,6 @@
 export type SetupMenuKey =
   | 'systemUsers'
+  | 'roles'
   | 'dataManagement'
   | 'userActivity'
   | 'activeSessions'
@@ -16,6 +17,7 @@ export interface SetupMenuItem {
 
 export const setupMenuItems: SetupMenuItem[] = [
   { key: 'systemUsers', to: '/app/setup/system-users', icon: 'i-lucide-users-round', ready: true },
+  { key: 'roles', to: '/app/setup/roles', icon: 'i-lucide-shield-check', ready: true },
   { key: 'dataManagement', to: '/app/setup/data-management', icon: 'i-lucide-file-spreadsheet' },
   { key: 'userActivity', to: '/app/setup/user-activity', icon: 'i-lucide-activity', ready: true },
   { key: 'activeSessions', to: '/app/setup/active-sessions', icon: 'i-lucide-monitor-smartphone' },

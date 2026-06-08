@@ -15,7 +15,7 @@ const { t } = useI18n()
 const actionColumns = computed(() =>
   PERMISSION_ACTIONS.map(action => ({
     action,
-    label: t(`masterData.roles.permissions.actions.${action}`)
+    label: t(`setup.roles.permissions.actions.${action}`)
   }))
 )
 
@@ -58,7 +58,7 @@ function modulesForGroup(group: 'app' | 'master') {
             color="neutral"
             @click="permissions = setGroupViewAll(permissions, section.group, true)"
           >
-            {{ t('masterData.roles.permissions.enableAllView') }}
+            {{ t('setup.roles.permissions.enableAllView') }}
           </UButton>
           <UButton
             size="xs"
@@ -66,7 +66,7 @@ function modulesForGroup(group: 'app' | 'master') {
             color="neutral"
             @click="permissions = setGroupViewAll(permissions, section.group, false)"
           >
-            {{ t('masterData.roles.permissions.disableAllView') }}
+            {{ t('setup.roles.permissions.disableAllView') }}
           </UButton>
         </div>
       </div>
@@ -76,7 +76,7 @@ function modulesForGroup(group: 'app' | 'master') {
           <thead>
             <tr class="border-b border-gray-200 dark:border-gray-800">
               <th class="p-3 text-left font-medium">
-                {{ t('masterData.roles.permissions.module') }}
+                {{ t('setup.roles.permissions.module') }}
               </th>
               <th
                 v-for="column in actionColumns"
@@ -125,7 +125,7 @@ function modulesForGroup(group: 'app' | 'master') {
     </div>
 
     <p class="text-xs text-gray-500">
-      {{ t('masterData.roles.permissions.hint') }}
+      {{ t('setup.roles.permissions.hint') }}
     </p>
   </div>
 </template>

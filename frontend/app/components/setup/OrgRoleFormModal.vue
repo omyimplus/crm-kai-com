@@ -1,13 +1,19 @@
 <script setup lang="ts">
-import type { OrgRole } from '~/types/crm'
+import type { OrgRole, OrgRoleCreatedPayload } from '~/types/crm'
 
 const open = defineModel<boolean>('open', { required: true })
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   role: OrgRole | null
-}>()
+  /** เมื่อสร้างสำเร็จ — ไปหน้าจัดการสิทธิ์ (ปิดเมื่อเปิดจากฟอร์มผู้ใช้) */
+  navigateOnCreate?: boolean
+}>(), {
+  navigateOnCreate: true
+})
 
-const emit = defineEmits<{ saved: [] }>()
+const emit = defineEmits<{
+  saved: [created?: OrgRoleCreatedPayload]
+}>()
 
 const { t } = useI18n()
 const { create, update, buildDefaultPermissions } = useOrgRoles()
@@ -23,7 +29,7 @@ const isActive = ref(true)
 const isCreate = computed(() => !props.role)
 
 const modalTitle = computed(() =>
-  isCreate.value ? t('masterData.roles.createTitle') : t('masterData.roles.editTitle')
+  isCreate.value ? t('setup.roles.createTitle') : t('setup.roles.editTitle')
 )
 
 function resetForm() {
@@ -50,15 +56,19 @@ async function save() {
   errorMsg.value = ''
   try {
     if (isCreate.value) {
+      const trimmedCode = code.value.trim()
+      const trimmedLabel = label.value.trim()
       const roleId = await create({
-        code: code.value.trim(),
-        label: label.value.trim(),
+        code: trimmedCode,
+        label: trimmedLabel,
         description: description.value.trim() || null,
         permissions: buildDefaultPermissions()
       })
       open.value = false
-      emit('saved')
-      await navigateTo(`/app/master-data/roles/${roleId}`)
+      emit('saved', { id: roleId, label: trimmedLabel, code: trimmedCode })
+      if (props.navigateOnCreate) {
+        await navigateTo(`/app/setup/roles/${roleId}`)
+      }
       return
     } else if (props.role) {
       await update(props.role.id, {
@@ -92,7 +102,7 @@ async function save() {
           @submit.prevent="save"
         >
           <UFormField
-            :label="t('masterData.roles.code')"
+            :label="t('setup.roles.code')"
             required
           >
             <UInput
@@ -101,18 +111,18 @@ async function save() {
               placeholder="sales_lead"
             />
             <p class="mt-1 text-xs text-gray-500">
-              {{ t('masterData.roles.codeHint') }}
+              {{ t('setup.roles.codeHint') }}
             </p>
           </UFormField>
 
           <UFormField
-            :label="t('masterData.roles.label')"
+            :label="t('setup.roles.label')"
             required
           >
             <UInput v-model="label" />
           </UFormField>
 
-          <UFormField :label="t('masterData.roles.descriptionLabel')">
+          <UFormField :label="t('setup.roles.descriptionLabel')">
             <UTextarea
               v-model="description"
               :rows="3"
@@ -121,7 +131,7 @@ async function save() {
 
           <UFormField
             v-if="!isCreate"
-            :label="t('masterData.roles.status')"
+            :label="t('setup.roles.status')"
           >
             <div class="flex items-center gap-3">
               <USwitch
@@ -129,14 +139,14 @@ async function save() {
                 :disabled="role?.is_system"
               />
               <span class="text-sm text-gray-600 dark:text-gray-400">
-                {{ isActive ? t('masterData.roles.active') : t('masterData.roles.inactive') }}
+                {{ isActive ? t('setup.roles.active') : t('setup.roles.inactive') }}
               </span>
             </div>
             <p
               v-if="role?.is_system"
               class="mt-1 text-xs text-gray-500"
             >
-              {{ t('masterData.roles.cannotDeactivateSystem') }}
+              {{ t('setup.roles.cannotDeactivateSystem') }}
             </p>
           </UFormField>
 
@@ -144,7 +154,7 @@ async function save() {
             v-if="isCreate"
             class="text-xs text-gray-500"
           >
-            {{ t('masterData.roles.createPermissionsHint') }}
+            {{ t('setup.roles.createPermissionsHint') }}
           </p>
 
           <p
