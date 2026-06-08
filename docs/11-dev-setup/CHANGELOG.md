@@ -6,6 +6,12 @@
 
 ## ประวัติ
 
+### 2026-06-08 — Node 20 + Supabase Realtime WebSocket
+
+- **ทำอะไร:** บันทึกใน NODE-VERSION — frontend ตั้ง `ws` transport สำหรับ SSR บน Node < 22
+- **ไฟล์ที่กระทบ:** `NODE-VERSION.md`
+- **Phase:** 1
+
 ### 2026-06-08 — TEST-ACCOUNTS.md (username login tester1)
 
 - **ทำอะไร:** บันทึกบัญชีทดสอบ Browser Tester + checklist login email/username

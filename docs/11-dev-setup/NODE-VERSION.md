@@ -19,7 +19,7 @@
 
 - **Nuxt 4** ต้องการ Node `^22.12.0 || ^24.11.0 || >=26.0.0`
 - **API (Phase 3+)** ใช้ runtime เดียวกับ frontend — ลดความสับสนใน CI และ local dev
-- Node 20 ยังรันได้บางส่วน แต่ **ไม่รองรับอย่างเป็นทางการ** — build อาจ warning/fail
+- Node 20 ยังรันได้บางส่วน แต่ **ไม่รองรับอย่างเป็นทางการ** — Supabase Realtime SSR ต้องการ `ws` (โปรเจกต์ตั้ง `clientOptions.realtime.transport` ให้แล้ว) หรือใช้ Node 22 ที่มี native WebSocket
 
 ---
 

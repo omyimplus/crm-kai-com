@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { APP_SEMVER } from './app/config/appVersion'
+import { getSupabaseRealtimeTransport } from './build/supabaseRealtimeTransport'
 import { getGitBuildInfo } from './scripts/gitBuildInfo.mjs'
 
 const gitBuildInfo = getGitBuildInfo()
@@ -43,7 +44,12 @@ export default defineNuxtConfig({
     url: process.env.NUXT_PUBLIC_SUPABASE_URL,
     key: process.env.NUXT_PUBLIC_SUPABASE_KEY
       ?? process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY,
-    redirect: false
+    redirect: false,
+    clientOptions: {
+      realtime: {
+        transport: getSupabaseRealtimeTransport()
+      }
+    }
   },
 
   runtimeConfig: {

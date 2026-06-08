@@ -148,6 +148,9 @@ function displayCompany(profile: OrgCompanyProfile) {
       <AppDataTable embedded>
         <template #head>
           <tr>
+            <AppDataTableTh class="w-14">
+              {{ t('setup.settings.companyInfo.columns.logo') }}
+            </AppDataTableTh>
             <AppDataTableTh>{{ t('setup.settings.companyInfo.columns.profile') }}</AppDataTableTh>
             <AppDataTableTh>{{ t('setup.settings.companyInfo.columns.company') }}</AppDataTableTh>
             <AppDataTableTh>{{ t('setup.settings.companyInfo.columns.taxId') }}</AppDataTableTh>
@@ -164,6 +167,24 @@ function displayCompany(profile: OrgCompanyProfile) {
           v-for="profile in profiles"
           :key="profile.id"
         >
+          <AppDataTableTd :class="appTableTextClass">
+            <div
+              class="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-800/50"
+            >
+              <img
+                v-if="profile.logoUrl"
+                :src="profile.logoUrl"
+                :alt="displayCompany(profile).primary"
+                class="h-full w-full object-contain"
+                decoding="async"
+              >
+              <UIcon
+                v-else
+                name="i-lucide-building-2"
+                class="size-5 text-primary"
+              />
+            </div>
+          </AppDataTableTd>
           <AppDataTableTd
             :class="appTableTextClass"
             class="font-semibold"

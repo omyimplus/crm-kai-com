@@ -741,6 +741,7 @@
           "noAddress": "No address yet"
         },
         "columns": {
+          "logo": "Logo",
           "profile": "Profile",
           "company": "Company",
           "taxId": "Tax ID",

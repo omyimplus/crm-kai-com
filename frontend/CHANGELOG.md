@@ -6,6 +6,18 @@
 
 ## ประวัติ
 
+### 2026-06-08 — Settings: ตารางข้อมูลบริษัทแสดงโลโก้
+
+- **ทำอะไร:** คอลัมน์โลโก้ในมุมมองตาราง — แสดงรูปที่อัปโหลด (fallback ไอคอน building)
+- **ไฟล์ที่กระทบ:** `SettingsCompanyProfilesTab.vue`, `i18n/locales/*`
+- **Phase:** 1
+
+### 2026-06-08 — Supabase Realtime: WebSocket บน Node < 22
+
+- **ทำอะไร:** ติดตั้ง `ws` + ส่ง `clientOptions.realtime.transport` ใน `nuxt.config` — แก้ warning "Node.js 20 detected without native WebSocket"
+- **ไฟล์ที่กระทบ:** `build/supabaseRealtimeTransport.ts`, `nuxt.config.ts`, `package.json`
+- **Phase:** 1
+
 ### 2026-06-08 — Sidebar version จาก git commit
 
 - **ทำอะไร:** แสดง `0.1.0 · fb58af4` ใน sidebar — อ่าน `git rev-parse --short HEAD` ตอน `dev`/`build`; CI ใช้ `NUXT_PUBLIC_GIT_COMMIT` ได้
