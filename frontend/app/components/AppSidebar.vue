@@ -5,12 +5,12 @@ import { setupMenuItems } from '~/config/setupMenu'
 
 const { t } = useI18n()
 const route = useRoute()
-const { canViewAppMenu, canViewMasterData, canAccessSetup, isAdmin } = usePermissions()
+const { canViewAppMenu, canViewMasterData, canAccessSetup } = usePermissions()
 
 const menuOpen = ref(true)
-// เปิด section ที่เกี่ยวข้อง — คนใหม่มักไม่รู้ว่าต้องคลิกขยาย
-const masterDataOpen = ref(true)
-const setupOpen = ref(route.path.startsWith('/app/setup') || isAdmin.value)
+/** ข้อมูลหลัก / ตั้งค่าระบบ — ปิดไว้ก่อน เปิดเมื่อเข้า route ใน section นั้น */
+const masterDataOpen = ref(route.path.startsWith('/app/master-data'))
+const setupOpen = ref(route.path.startsWith('/app/setup'))
 
 watch(() => route.path, (path) => {
   if (path.startsWith('/app/master-data')) {
@@ -85,8 +85,8 @@ const isSetupSectionActive = computed(() => route.path.startsWith('/app/setup'))
 </script>
 
 <template>
-  <aside class="flex w-72 shrink-0 flex-col border-r border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
-    <div class="border-b border-gray-200 px-5 py-5 dark:border-gray-800">
+  <aside class="flex h-full w-72 shrink-0 flex-col overflow-hidden border-r border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
+    <div class="shrink-0 border-b border-gray-200 px-5 py-5 dark:border-gray-800">
       <NuxtLink
         to="/app"
         class="block rounded-lg transition-opacity hover:opacity-90"
@@ -99,7 +99,7 @@ const isSetupSectionActive = computed(() => route.path.startsWith('/app/setup'))
       </NuxtLink>
     </div>
 
-    <nav class="flex flex-1 flex-col overflow-y-auto px-3 py-5">
+    <nav class="flex min-h-0 flex-1 flex-col overflow-y-auto px-3 py-5">
       <div v-if="menuLinks.length">
         <AppSidebarSectionLabel
           :label="t('appMenu.section')"

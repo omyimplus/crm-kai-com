@@ -5,6 +5,7 @@
     "save": "บันทึก",
     "cancel": "ยกเลิก",
     "create": "สร้าง",
+    "edit": "แก้ไข",
     "delete": "ลบ",
     "back": "กลับ",
     "optional": "ไม่บังคับ",
@@ -16,17 +17,69 @@
     "language": "ภาษา",
     "switchLanguage": "เปลี่ยนเป็น {language}",
     "theme": "สลับโหมดสว่าง/มืด",
+    "refresh": "รีเฟรช",
     "comingSoonBadge": "เร็ว ๆ นี้",
-    "version": "เวอร์ชัน {version}"
+    "version": "เวอร์ชัน {version}",
+    "pagination": {
+      "range": "แสดง {start}–{end} จาก {total}",
+      "previous": "ก่อนหน้า",
+      "next": "ถัดไป",
+      "page": "หน้า {page} / {total}"
+    },
+    "imageUpload": {
+      "upload": "อัปโหลดรูป",
+      "change": "เปลี่ยนรูป",
+      "remove": "ลบรูป",
+      "errors": {
+        "tooLarge": {
+          "avatar": "ไฟล์ใหญ่เกิน 5 MB",
+          "companyLogo": "ไฟล์ใหญ่เกิน 2 MB"
+        },
+        "invalidType": {
+          "avatar": "รองรับเฉพาะ JPG, PNG, WebP หรือ GIF",
+          "companyLogo": "รองรับเฉพาะ JPG, PNG, WebP หรือ SVG"
+        }
+      }
+    }
   },
   "auth": {
     "loginTitle": "เข้าสู่ระบบ",
     "loginSubtitle": "ยินดีต้อนรับกลับ — เข้าใช้งาน CRM ของคุณ",
     "signupTitle": "สมัครสมาชิก",
     "completeProfileTitle": "กรอกข้อมูลโปรไฟล์",
-    "signupSubtitle": "เข้าร่วมองค์กร demo (Phase 1)",
+    "signupSubtitle": "สมัครเข้าระบบ — บัญชีใหม่จะรออนุมัติจากผู้ดูแลก่อนเข้า CRM",
     "email": "อีเมล",
+    "loginIdentifier": "อีเมลหรือ Username",
+    "loginIdentifierPlaceholder": "username หรือ name{'@'}company.com",
+    "invalidCredentials": "อีเมล/username หรือรหัสผ่านไม่ถูกต้อง",
     "password": "รหัสผ่าน",
+    "confirmPassword": "ยืนยันรหัสผ่าน",
+    "confirmPasswordPlaceholder": "กรอกรหัสผ่านอีกครั้ง",
+    "confirmPasswordOptionalPlaceholder": "ยืนยันเมื่อต้องการเปลี่ยนรหัสผ่าน",
+    "generateStrongPassword": "สร้างรหัสแข็งแรง",
+    "showPassword": "แสดงรหัสผ่าน",
+    "hidePassword": "ซ่อนรหัสผ่าน",
+    "copyPassword": "คัดลอกรหัสผ่าน",
+    "passwordCopied": "คัดลอกรหัสผ่านแล้ว",
+    "passwordCopyFailed": "คัดลอกไม่สำเร็จ",
+    "passwordStrengthLabel": "ความแข็งแรงของรหัสผ่าน",
+    "passwordStrength": {
+      "weak": "อ่อน",
+      "fair": "พอใช้",
+      "good": "ดี",
+      "strong": "แข็งแรง"
+    },
+    "passwordRule": {
+      "length": "อย่างน้อย 6 ตัวอักษร",
+      "upper": "ตัวพิมพ์ใหญ่ (A–Z)",
+      "lower": "ตัวพิมพ์เล็ก (a–z)",
+      "digit": "ตัวเลข (0–9)",
+      "symbol": "อักขระพิเศษ (! # $ % ฯลฯ)",
+      "match": "รหัสผ่านตรงกันทั้งสองช่อง"
+    },
+    "passwordMismatch": "รหัสผ่านไม่ตรงกัน",
+    "passwordTooShort": "รหัสผ่านต้องมีอย่างน้อย {min} ตัวอักษร",
+    "passwordRequired": "กรุณากำหนดรหัสผ่าน",
     "fullName": "ชื่อ-นามสกุล",
     "emailPlaceholder": "name{'@'}company.com",
     "passwordPlaceholder": "••••••••",
@@ -45,7 +98,15 @@
     "backToLogin": "กลับไปหน้าเข้าสู่ระบบ",
     "confirmEmailHint": "สมัครสำเร็จ — กรุณายืนยันอีเมล แล้วเข้าสู่ระบบเพื่อตั้งค่าโปรไฟล์",
     "loginRequiredForProfile": "กรุณาเข้าสู่ระบบก่อนบันทึกโปรไฟล์",
-    "emailAlreadyRegistered": "อีเมลนี้มีบัญชีแล้ว — ลองเข้าสู่ระบบแทน"
+    "emailAlreadyRegistered": "อีเมลนี้มีบัญชีแล้ว — ลองเข้าสู่ระบบแทน",
+    "pendingTitle": "รอการอนุมัติ",
+    "pendingSubtitle": "บัญชีของคุณถูกสร้างแล้ว — รอผู้ดูแลระบบอนุมัติ",
+    "pendingMessage": "คุณสมัครในฐานะพนักงาน (employee) รออนุมัติ — ยังเข้า CRM ไม่ได้จนกว่าผู้ดูแลจะเปิดใช้งานและมอบบทบาททีม",
+    "pendingSteps": {
+      "wait": "รอผู้ดูแลตรวจสอบคำขอสมัครของคุณ",
+      "approve": "ผู้ดูแลอนุมัติบัญชีและกำหนดบทบาททีม (Manager, Sales, CS…)",
+      "login": "เข้าสู่ระบบอีกครั้งเพื่อใช้งาน CRM ตามสิทธิ์ที่ได้รับ"
+    }
   },
   "nav": {
     "crm": "เมนูหลัก",
@@ -193,13 +254,12 @@
     }
   },
   "profile": {
-    "role": "บทบาท",
-    "notAdminHint": "ไม่เห็นเมนูตั้งค่าระบบ/กำหนด Role",
+    "role": "ระดับองค์กร",
+    "notAdminHint": "ไม่เห็นเมนูตั้งค่าระบบ — สิทธิ์ CRM มาจากบทบาททีม",
     "roles": {
       "owner": "เจ้าของ",
       "admin": "ผู้ดูแล",
-      "sales": "ฝ่ายขาย",
-      "readonly": "อ่านอย่างเดียว"
+      "employee": "พนักงาน"
     }
   },
   "dashboard": {
@@ -358,6 +418,15 @@
       "title": "ผู้ใช้ในระบบ",
       "subtitle": "จัดการผู้ใช้ — ชื่อ, อีเมล, username, รหัสผ่าน, บทบาท, สถานะ",
       "description": "จัดการผู้ใช้ในระบบ บทบาท และสิทธิ์การเข้าถึง CRM",
+      "accountSection": "ข้อมูลบัญชี",
+      "avatar": "รูปพนักงาน",
+      "avatarHint": "อัปโหลดรูป JPG, PNG หรือ WebP สูงสุด 5 MB — ถ้าไม่อัปโหลดจะใช้โลโก้กลมเป็นค่าเริ่มต้น",
+      "avatarUpload": "อัปโหลดรูป",
+      "avatarChange": "เปลี่ยนรูป",
+      "avatarRemove": "ลบรูป",
+      "avatarTooLarge": "ไฟล์ใหญ่เกิน 5 MB",
+      "avatarInvalidType": "รองรับเฉพาะ JPG, PNG, WebP หรือ GIF",
+      "accessSection": "บทบาทและสิทธิ์",
       "fullName": "ชื่อ-นามสกุล",
       "name": "ชื่อ",
       "email": "อีเมล",
@@ -373,62 +442,103 @@
       "editTitle": "แก้ไขผู้ใช้",
       "create": "เพิ่มผู้ใช้",
       "createTitle": "เพิ่มผู้ใช้",
+      "createSubtitle": "สร้างบัญชีใหม่ — ระดับระบบสำหรับความปลอดภัย, บทบาททีมสำหรับเมนู CRM",
       "createFirst": "เพิ่มผู้ใช้คนแรก",
+      "backToList": "กลับรายการผู้ใช้",
+      "orgRoleSection": "บทบาททีม",
       "empty": "ยังไม่มีผู้ใช้ในองค์กร",
       "cannotDeactivateSelf": "ไม่สามารถปิดบัญชีของตัวเองได้",
       "cannotEditOwner": "ผู้ดูแลไม่สามารถแก้ไขบัญชีเจ้าของได้",
-      "orgRole": "Role องค์กร",
-      "addOrgRole": "เพิ่ม Role องค์กร",
-      "orgRoleHint": "เลือก Role ที่มีอยู่ หรือกด + เพื่อสร้าง Role ใหม่ — กำหนดสิทธิ์ได้ที่ Setup → กำหนด Role",
-      "noOrgRole": "— ไม่ระบุ —",
-      "systemRoleHint": "บทบาทระบบ — กำหนดสิทธิ์ความปลอดภัย (owner, admin, sales, readonly)",
+      "orgRole": "บทบาททีม",
+      "addOrgRole": "เพิ่มบทบาททีม",
+      "orgRoleHint": "กด chip เพื่อเลือกบทบาททีมได้หลายอัน (Manager, Sales, CS, Engineer หรือที่สร้างเอง)",
+      "noOrgRolesAvailable": "ยังไม่มีบทบาททีม — สร้างได้ที่เมนูกำหนดบทบาท",
+      "orgRoleRequired": "กรุณาเลือกบทบาททีมอย่างน้อย 1 อัน",
+      "platformRole": "ระดับองค์กร",
+      "platformRoleHint": "ความปลอดภัยและ Setup — owner, admin, employee · สิทธิ์ CRM จากบทบาททีม",
+      "employeeOrgRoleHint": "พนักงานต้องมีบทบาททีม (Manager, Sales, CS…) ถึงจะเข้าเมนู CRM ได้",
+      "filters": {
+        "searchBy": "ค้นหาจาก",
+        "search": "ค้นหาชื่อ, อีเมล หรือ username...",
+        "viewAll": "ดูข้อมูลทั้งหมด",
+        "byName": "ชื่อ",
+        "byEmail": "อีเมล",
+        "byUsername": "Username",
+        "noResults": "ไม่พบผู้ใช้ที่ค้นหา",
+        "roleTabs": "กรองตามระดับองค์กร",
+        "displayCount": "แสดงผลจำนวน {count} รายการ"
+      },
       "features": [
         "รายชื่อผู้ใช้ในองค์กร",
-        "กำหนดบทบาท (เจ้าของ, ผู้ดูแล, ฝ่ายขาย, อ่านอย่างเดียว)",
-        "เปิด/ปิดบัญชีผู้ใช้",
-        "เชิญผู้ใช้ใหม่"
+        "กำหนดระดับองค์กร (เจ้าของ, ผู้ดูแล, พนักงาน)",
+        "มอบบทบาททีมสำหรับเมนู CRM",
+        "เปิด/ปิดบัญชีผู้ใช้"
       ]
     },
     "roles": {
-      "nav": "กำหนด Role",
-      "title": "กำหนด Role",
-      "pageTitle": "กำหนด Role",
-      "pageSubtitle": "สร้างบทบาทขององค์กรเพื่อมอบหมายให้ผู้ใช้ในระบบ — แยกจากบทบาทระบบ (owner, admin)",
-      "description": "สร้างและจัดการบทบาทขององค์กร — กำหนดสิทธิ์ต่อโมดูล CRM และ Master Data",
+      "nav": "กำหนดบทบาท",
+      "title": "กำหนดบทบาท",
+      "pageTitle": "กำหนดบทบาท",
+      "pageSubtitle": "บทบาททีมกำหนดเมนู CRM — ระดับองค์กร owner / admin / employee",
+      "description": "จัดการบทบาททีม — กำหนดสิทธิ์ต่อเมนู CRM และ Master Data (Admin เก่า = ระดับระบบ admin)",
       "code": "รหัส",
-      "codeHint": "ตัวอักษรเล็ก a-z, ตัวเลข, _ — เช่น sales_lead, finance",
-      "label": "ชื่อ Role",
+      "codeHint": "ตัวอักษรเล็ก a–z ขึ้นต้นด้วยตัวอักษร · ใช้ตัวเลขและ _ ได้ · ห้ามเว้นวรรค ตัวใหญ่ หรือขีดกลาง (-) · 2–49 ตัวอักษร · เช่น sales_lead, finance",
+      "codeErrors": {
+        "required": "กรุณากรอกรหัสบทบาท",
+        "noSpaces": "ห้ามเว้นวรรค — ใช้ _ คั่นคำแทน เช่น sales_lead",
+        "noUppercase": "ห้ามตัวพิมพ์ใหญ่ — ใช้ตัวเล็กทั้งหมด เช่น finance",
+        "noHyphen": "ห้ามใช้ขีดกลาง (-) — ใช้ _ แทน เช่น sales_lead",
+        "invalidChars": "ใช้ได้เฉพาะตัวอักษรเล็ก a–z ตัวเลข และ _ เท่านั้น",
+        "mustStartLetter": "ต้องขึ้นต้นด้วยตัวอักษร a–z (ห้ามขึ้นต้นด้วยตัวเลขหรือ _)",
+        "tooShort": "รหัสสั้นเกินไป — อย่างน้อย {min} ตัวอักษร",
+        "tooLong": "รหัสยาวเกินไป — สูงสุด {max} ตัวอักษร",
+        "reserved": "รหัสนี้สงวนไว้สำหรับบทบาทระบบ — ใช้รหัสอื่น เช่น finance, sales_lead",
+        "duplicate": "มีรหัสบทบาทนี้ในองค์กรแล้ว — ใช้รหัสอื่น"
+      },
+      "label": "ชื่อบทบาท",
+      "labelRequired": "กรุณากรอกชื่อบทบาท",
       "descriptionLabel": "คำอธิบาย",
       "status": "สถานะ",
       "active": "ใช้งาน",
       "inactive": "ปิดใช้งาน",
       "userCount": "ผู้ใช้",
-      "create": "เพิ่ม Role",
-      "createTitle": "เพิ่ม Role",
-      "createFirst": "เพิ่ม Role แรก",
-      "edit": "แก้ไข Role",
-      "editTitle": "แก้ไข Role",
-      "empty": "ยังไม่มี Role ในองค์กร",
-      "createPermissionsHint": "หลังสร้างจะไปหน้ากำหนดสิทธิ์อัตโนมัติ — ทุกโมดูลเริ่มต้นปิดทั้งหมด",
-      "delete": "ลบ Role",
-      "deleteTitle": "ลบ Role",
-      "deleteConfirm": "ลบ Role \"{name}\" และสิทธิ์ทั้งหมดของ role นี้?",
-      "cannotDeleteAssigned": "ไม่สามารถลบได้ — มีผู้ใช้ผูกกับ Role นี้อยู่",
-      "cannotDeleteSystem": "ไม่สามารถลบ Role ระบบได้",
-      "cannotDeactivateSystem": "ไม่สามารถปิด Role ระบบได้",
+      "create": "เพิ่มบทบาท",
+      "createTitle": "เพิ่มบทบาท",
+      "createFirst": "เพิ่มบทบาทแรก",
+      "edit": "แก้ไขบทบาท",
+      "editTitle": "แก้ไขบทบาท",
+      "empty": "ยังไม่มีบทบาทในองค์กร",
+      "createPermissionsHint": "หลังสร้างจะไปหน้ากำหนดสิทธิ์ — ทุกโมดูลเริ่มต้นปิดทั้งหมด",
+      "delete": "ลบบทบาท",
+      "deleteTitle": "ลบบทบาท",
+      "deleteConfirm": "ลบบทบาท \"{name}\" และสิทธิ์ทั้งหมดของบทบาทนี้?",
+      "cannotDeleteAssigned": "ไม่สามารถลบได้ — มีผู้ใช้ผูกกับบทบาทนี้อยู่",
+      "cannotDeleteSystem": "ไม่สามารถลบบทบาทระบบได้",
+      "cannotDeactivateSystem": "ไม่สามารถปิดบทบาทระบบได้",
+      "card": {
+        "noDescription": "ยังไม่มีคำอธิบาย",
+        "edit": "แก้ไข",
+        "configure": "ตั้งค่าบทบาท"
+      },
       "manage": {
         "open": "จัดการ",
-        "back": "กลับรายการ Role",
-        "subtitle": "แก้ไขข้อมูล Role และกำหนดสิทธิ์ต่อเมนู/โมดูล",
-        "details": "ข้อมูล Role",
+        "back": "กลับรายการบทบาท",
+        "subtitle": "แก้ไขข้อมูลบทบาทและกำหนดสิทธิ์ต่อเมนู/โมดูล",
+        "details": "ข้อมูลบทบาท",
         "modules": "โมดูลทั้งหมด",
-        "saved": "บันทึก Role แล้ว",
+        "saved": "บันทึกบทบาทแล้ว",
+        "systemBadge": "บทบาทระบบ",
+        "codeReadonly": "รหัสกำหนดตอนสร้าง — แก้ไขไม่ได้",
+        "dangerZone": "ลบบทบาท",
+        "deleteHint": "ลบบทบาทที่ไม่มีผู้ใช้ผูกอยู่ — การลบไม่สามารถย้อนกลับได้",
         "assignUsers": "มอบหมายผู้ใช้",
-        "search": "ค้นหา Role...",
-        "emptyHint": "สร้าง Role แรกเพื่อกำหนดสิทธิ์ให้ทีมงาน",
-        "noResults": "ไม่พบ Role ที่ค้นหา",
+        "search": "ค้นหาบทบาท...",
+        "viewTable": "มุมมองตาราง",
+        "viewGrid": "มุมมองกล่อง",
+        "emptyHint": "สร้างบทบาทแรกเพื่อกำหนดสิทธิ์ให้ทีมงาน",
+        "noResults": "ไม่พบบทบาทที่ค้นหา",
         "stats": {
-          "total": "Role ทั้งหมด",
+          "total": "บทบาททั้งหมด",
           "active": "เปิดใช้งาน",
           "assigned": "ผู้ใช้ที่มอบหมาย"
         }
@@ -436,12 +546,14 @@
       "permissions": {
         "manage": "กำหนดสิทธิ์",
         "title": "กำหนดสิทธิ์",
-        "back": "กลับรายการ Role",
+        "pagesTitle": "หน้าที่เข้าได้",
+        "pagesHint": "เบื้องต้น — กำหนดว่า role นี้เห็นเมนู/หน้าไหนได้ (บันทึกได้ แต่ยังไม่ enforce ที่ sidebar/API)",
+        "back": "กลับรายการบทบาท",
         "module": "โมดูล / เมนู",
         "count": "สิทธิ์",
         "granted": "เปิดใช้งาน {count} สิทธิ์",
         "saved": "บันทึกสิทธิ์แล้ว",
-        "hint": "สิทธิ์นี้ใช้กับผู้ใช้ที่ถูกมอบ Role องค์กรนี้ — บทบาทระบบ (owner/admin) ยังมีผลเหนือกว่า",
+        "hint": "สิทธิ์ CRM สำหรับพนักงานที่มอบบทบาททีมนี้ — owner/admin เข้า Setup และ CRM เต็มโดยไม่ต้องมีบทบาททีม",
         "enableAllView": "เปิดดูทั้งหมด",
         "disableAllView": "ปิดดูทั้งหมด",
         "actions": {
@@ -453,11 +565,11 @@
         }
       },
       "features": [
-        "สร้าง role ตามโครงสร้างองค์กร (เช่น หัวหน้าทีมขาย, การเงิน)",
-        "กำหนดสิทธิ์อ่าน/เขียนต่อเมนูและโมดูล",
-        "แยกจากบทบาทระบบ (owner, admin)",
-        "ผูก role กับผู้ใช้ในหน้าผู้ใช้ในระบบ",
-        "คัดลอก role จากเทมเพลตเริ่มต้น"
+        "บทบาทระบบเริ่มต้น: Manager, Sales, CS, Engineer (สร้างให้อัตโนมัติตอนตั้งองค์กร)",
+        "สร้างบทบาททีมเพิ่มเองได้ (เช่น finance, sales_lead)",
+        "กำหนดสิทธิ์ต่อเมนูและโมดูลจริงในระบบ",
+        "แยกจากระดับระบบ (owner, admin) — ไม่ซ้ำสิทธิ์เมนู",
+        "มอบบทบาททีมให้ผู้ใช้ในหน้าผู้ใช้ในระบบ"
       ]
     },
     "dataManagement": {
@@ -495,7 +607,7 @@
       },
       "entityTypes": {
         "profiles": "ผู้ใช้ในระบบ",
-        "org_roles": "Role องค์กร",
+        "org_roles": "บทบาทองค์กร",
         "contacts": "ผู้ติดต่อ",
         "companies": "บริษัท",
         "deals": "ดีล",
@@ -513,18 +625,58 @@
     "activeSessions": {
       "nav": "เซสชันที่ใช้งาน",
       "title": "เซสชันที่ใช้งาน",
+      "subtitle": "ติดตามเซสชันผู้ใช้และข้อมูลอุปกรณ์",
       "description": "ดูเซสชันที่เข้าสู่ระบบอยู่และจุดที่เข้าใช้งานล่าสุด",
+      "empty": "ยังไม่มีบันทึกเซสชัน — จะแสดงหลังผู้ใช้เข้าสู่ระบบ",
+      "activeCount": "ใช้งาน {count}",
+      "never": "ไม่เคย",
+      "ipUnknown": "N/A",
+      "statusActive": "ใช้งาน",
+      "statusInactive": "ไม่ใช้งาน",
+      "stillActive": "—",
+      "endedApprox": "{when} (ประมาณ)",
+      "columns": {
+        "user": "ผู้ใช้",
+        "device": "อุปกรณ์",
+        "browser": "เบราว์เซอร์",
+        "ip": "ไอพี",
+        "loggedIn": "เข้าสู่ระบบ",
+        "lastActivity": "ใช้งานล่าสุด",
+        "ended": "สิ้นสุด",
+        "status": "สถานะ"
+      },
+      "devices": {
+        "desktop": "เดสก์ท็อป",
+        "mobile": "มือถือ",
+        "tablet": "แท็บเล็ต",
+        "unknown": "ไม่ทราบ"
+      },
+      "browsers": {
+        "chrome": "Chrome",
+        "firefox": "Firefox",
+        "safari": "Safari",
+        "edge": "Edge",
+        "opera": "Opera",
+        "unknown": "ไม่ทราบ"
+      },
       "features": [
-        "รายการเซสชันที่ใช้งานอยู่",
-        "ไอพี, อุปกรณ์, เบราว์เซอร์",
-        "เวลาเข้าสู่ระบบล่าสุด",
-        "บังคับออกจากระบบเซสชันอื่น"
+        "รายการเซสชันเข้าสู่ระบบ",
+        "เวลาเข้า / ใช้ล่าสุด / สิ้นสุด (logout หรือประมาณเมื่อปิด browser)",
+        "สถานะใช้งาน / ไม่ใช้งาน"
       ]
     },
     "userApprovals": {
       "nav": "อนุมัติผู้ใช้",
       "title": "อนุมัติผู้ใช้",
+      "subtitle": "ผู้สมัครจากหน้า webapp จะอยู่ในสถานะรออนุมัติ — เปิดใช้งานและมอบบทบาททีมก่อนเข้า CRM",
       "description": "อนุมัติผู้ใช้ที่สมัครใหม่ก่อนเข้าใช้งาน CRM",
+      "empty": "ไม่มีผู้ใช้รออนุมัติ",
+      "pendingBadge": "รออนุมัติ",
+      "approve": "อนุมัติ",
+      "approveTitle": "อนุมัติผู้ใช้",
+      "approveHint": "เปิดใช้งาน {name} และมอบบทบาททีม — จึงจะเข้า CRM ได้",
+      "approveConfirm": "อนุมัติและมอบบทบาท",
+      "orgRoleRequired": "กรุณาเลือกบทบาททีมอย่างน้อย 1 อัน",
       "features": [
         "คิวรออนุมัติจากการสมัครสมาชิก",
         "อนุมัติ / ปฏิเสธพร้อมเหตุผล",
@@ -535,12 +687,183 @@
     "settings": {
       "nav": "การตั้งค่า",
       "title": "การตั้งค่า",
+      "subtitle": "จัดการบัญชีและการตั้งค่าองค์กร",
       "description": "ตั้งค่าองค์กร การแจ้งเตือน อีเมล และวิธีเข้าสู่ระบบ",
+      "tabs": {
+        "companyInfo": {
+          "label": "ข้อมูลบริษัท",
+          "soon": "แท็บข้อมูลบริษัทพร้อมใช้งานแล้ว"
+        },
+        "notifications": {
+          "label": "การแจ้งเตือน",
+          "soon": "ตั้งค่าการแจ้งเตือน — เร็ว ๆ นี้"
+        },
+        "email": {
+          "label": "บริการอีเมล",
+          "soon": "ตั้งค่า SMTP / อีเมล — เร็ว ๆ นี้"
+        },
+        "authProviders": {
+          "label": "ผู้ให้บริการเข้าสู่ระบบ",
+          "soon": "Google, Microsoft 365, Azure AD — เร็ว ๆ นี้"
+        }
+      },
+      "companyInfo": {
+        "listHint": "จัดการข้อมูลบริษัทหลายรายการ — เช่น สำนักงานใหญ่และสาขา",
+        "add": "เพิ่มบริษัท",
+        "addFirst": "เพิ่มบริษัทแรก",
+        "empty": "ยังไม่มีข้อมูลบริษัท — เพิ่มสำนักงานใหญ่หรือสาขาได้",
+        "createTitle": "เพิ่มข้อมูลบริษัท",
+        "editTitle": "แก้ไขข้อมูลบริษัท",
+        "deleteTitle": "ลบข้อมูลบริษัท",
+        "deleteConfirm": "ลบโปรไฟล์ “{name}” หรือไม่? ไม่สามารถย้อนกลับได้",
+        "defaultBadge": "ค่าเริ่มต้น",
+        "firstDefaultHint": "โปรไฟล์แรกจะถูกตั้งเป็นค่าเริ่มต้นโดยอัตโนมัติ",
+        "profileName": "ชื่อโปรไฟล์",
+        "profileNamePlaceholder": "เช่น สำนักงานใหญ่",
+        "profileNameRequired": "กรุณากรอกชื่อโปรไฟล์",
+        "nameEn": "ชื่อบริษัท (EN)",
+        "nameEnRequired": "กรุณากรอกชื่อบริษัท (ภาษาอังกฤษ)",
+        "nameTh": "ชื่อบริษัท (TH)",
+        "taxId": "เลขประจำตัวผู้เสียภาษี",
+        "taxBranch": "สาขาภาษี",
+        "phone": "โทรศัพท์",
+        "email": "อีเมล",
+        "website": "เว็บไซต์",
+        "logo": "โลโก้บริษัท",
+        "uploadLogo": "อัปโหลดโลโก้",
+        "logoHint": "PNG, JPG, WebP หรือ SVG — สูงสุด 2 MB รูปแบบ raster จะถูกปรับเป็น WebP อัตโนมัติ",
+        "addressEn": "ที่อยู่ (EN)",
+        "addressTh": "ที่อยู่ (TH)",
+        "isDefault": "ตั้งเป็นค่าเริ่มต้น",
+        "viewTable": "มุมมองตาราง",
+        "viewGrid": "มุมมองกล่อง",
+        "card": {
+          "noAddress": "ยังไม่มีที่อยู่"
+        },
+        "columns": {
+          "profile": "โปรไฟล์",
+          "company": "บริษัท",
+          "taxId": "เลขผู้เสียภาษี",
+          "branch": "สาขา",
+          "address": "ที่อยู่",
+          "default": "ค่าเริ่มต้น"
+        }
+      },
+      "notifications": {
+        "preferencesTitle": "การตั้งค่าการแจ้งเตือน",
+        "sendEmailTitle": "ส่งอีเมลแจ้งเตือน",
+        "sendEmailHint": "ส่งการแจ้งเตือนปัจจุบันทางอีเมลทันที (ใช้การตั้งค่าจากแท็บบริการอีเมล)",
+        "sendEmailAction": "ส่งอีเมลแจ้งเตือนตอนนี้",
+        "sendEmailNotConfigured": "ตั้งค่าบริการอีเมลก่อน — ยังไม่ได้ตั้งค่า SMTP",
+        "sendEmailSoon": "การส่งอีเมลแจ้งเตือนจะพร้อมใช้งานหลังพัฒนาแท็บบริการอีเมล",
+        "sendEmailSuccess": "ส่งอีเมลแจ้งเตือนแล้ว",
+        "items": {
+          "emailNotifications": {
+            "title": "การแจ้งเตือนทางอีเมล",
+            "description": "รับการอัปเดตทางอีเมล"
+          },
+          "pushNotifications": {
+            "title": "การแจ้งเตือนแบบพุช",
+            "description": "การแจ้งเตือนผ่านเบราว์เซอร์"
+          },
+          "taskReminders": {
+            "title": "เตือนงาน",
+            "description": "แจ้งเตือนงานที่ใกล้ถึงกำหนด"
+          },
+          "paymentAlerts": {
+            "title": "แจ้งเตือนการชำระเงิน",
+            "description": "แจ้งเมื่อได้รับหรือค้างชำระ"
+          },
+          "leadAssignments": {
+            "title": "มอบหมายลีด",
+            "description": "แจ้งเมื่อมีลีดใหม่มอบหมายให้"
+          },
+          "weeklyReport": {
+            "title": "รายงานรายสัปดาห์",
+            "description": "รับสรุปผลงานรายสัปดาห์"
+          }
+        }
+      },
+      "email": {
+        "formTitle": "บริการอีเมล (SMTP)",
+        "formSubtitle": "ตั้งค่า SMTP สำหรับส่งอีเมลแจ้งเตือนจากระบบ",
+        "enabled": "เปิดใช้บริการอีเมล",
+        "enabledHint": "เปิด-ปิดการส่งอีเมลของระบบ",
+        "host": "SMTP Host",
+        "port": "พอร์ต",
+        "username": "ชื่อผู้ใช้ (อีเมล)",
+        "password": "รหัสผ่าน",
+        "passwordKeep": "เว้นว่างเพื่อใช้รหัสผ่านเดิม",
+        "fromName": "ชื่อผู้ส่ง",
+        "fromEmail": "อีเมลผู้ส่ง",
+        "useSslTls": "SSL/TLS",
+        "useSslTlsHint": "เปิดสำหรับพอร์ต 465 (SSL) ปิดสำหรับพอร์ต 587 (STARTTLS)",
+        "testRecipient": "อีเมลทดสอบ (ไม่บังคับ)",
+        "testRecipientPlaceholder": "กรอกอีเมลเพื่อส่งข้อความทดสอบ",
+        "testConnection": "ทดสอบการเชื่อมต่อ",
+        "testSoon": "การตั้งค่าดูถูกต้อง — การส่งทดสอบ SMTP จริงจะพร้อมในอัปเดตถัดไป",
+        "testNotConfigured": "บันทึกการตั้งค่า SMTP และเปิดใช้บริการอีเมลก่อน",
+        "testSuccess": "ส่งอีเมลทดสอบสำเร็จ",
+        "errors": {
+          "host": "กรุณากรอก SMTP host",
+          "port": "กรุณากรอกพอร์ตที่ถูกต้อง (1–65535)",
+          "username": "กรุณากรอกชื่อผู้ใช้",
+          "password": "กรุณากรอกรหัสผ่าน",
+          "fromName": "กรุณากรอกชื่อผู้ส่ง",
+          "fromEmail": "กรุณากรอกอีเมลผู้ส่ง"
+        }
+      },
+      "authProviders": {
+        "title": "ผู้ให้บริการเข้าสู่ระบบ",
+        "subtitle": "เปิด-ปิดและตั้งค่าวิธีเข้าสู่ระบบ รองรับหลาย tenant และหลายโดเมน",
+        "configure": "ตั้งค่า",
+        "tipsTitle": "คำแนะนำ",
+        "tips": {
+          "microsoftAzure": "Microsoft 365 และ Azure AD: สร้าง App Registration ใน Azure Portal และตั้ง Redirect URI",
+          "google": "Google: สร้าง OAuth Client ใน Google Cloud Console",
+          "tenantCommon": "Tenant ID \"common\" อนุญาตผู้ใช้จากทุกองค์กร (multi-tenant)",
+          "allowedDomains": "Allowed Domains จำกัดการเข้าสู่ระบบเฉพาะโดเมนอีเมล เช่น company.com",
+          "envVars": "OAuth ต้องการ env vars (MS_CLIENT_ID, MS_CLIENT_SECRET ฯลฯ) หรือตั้งค่าที่นี่"
+        },
+        "fields": {
+          "clientId": "Client ID",
+          "clientSecret": "Client Secret",
+          "clientSecretKeep": "เว้นว่างเพื่อใช้ secret เดิม",
+          "tenantId": "Tenant ID",
+          "tenantIdPlaceholder": "common",
+          "tenantIdHint": "ใช้ \"common\" สำหรับ Microsoft multi-tenant",
+          "allowedDomains": "โดเมนที่อนุญาต",
+          "allowedDomainsPlaceholder": "company.com, subsidiary.com"
+        },
+        "errors": {
+          "clientId": "กรุณากรอก Client ID",
+          "clientSecret": "กรุณากรอก Client Secret"
+        },
+        "providers": {
+          "microsoft365": {
+            "name": "Microsoft 365",
+            "configureTitle": "ตั้งค่า Microsoft 365"
+          },
+          "google": {
+            "name": "Google",
+            "configureTitle": "ตั้งค่า Google"
+          },
+          "azureAd": {
+            "name": "Azure AD",
+            "configureTitle": "ตั้งค่า Azure AD"
+          },
+          "usernamePassword": {
+            "name": "ชื่อผู้ใช้และรหัสผ่าน",
+            "configureTitle": "ชื่อผู้ใช้และรหัสผ่าน",
+            "configureBody": "เข้าสู่ระบบด้วยอีเมลและรหัสผ่านผ่าน Supabase Auth — ไม่ต้องตั้งค่า OAuth เพิ่มเติม"
+          }
+        }
+      },
       "features": [
-        "โปรไฟล์องค์กร (ชื่อ, โลโก้, เขตเวลา, สกุลเงิน)",
+        "ข้อมูลบริษัทหลายโปรไฟล์ — สำนักงานใหญ่และสาขา",
         "เปิด-ปิดการแจ้งเตือนแต่ละประเภท",
         "บริการอีเมล — ตั้งค่า SMTP",
-        "ผู้ให้บริการเข้าสู่ระบบ — Microsoft 365, Google, Azure AD, ชื่อผู้ใช้และรหัสผ่าน"
+        "ผู้ให้บริการเข้าสู่ระบบ — Microsoft 365, Google, Azure AD"
       ]
     }
   }

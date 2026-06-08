@@ -103,6 +103,11 @@ frontend/
 - [MASTER-DATA-MENU.md](./MASTER-DATA-MENU.md) — 11 หน้า master data
 - [SETUP-MENU.md](./SETUP-MENU.md) — 6 หน้า system admin
 
+## Shared UI components
+
+- [SHARED-COMPONENTS.md](./SHARED-COMPONENTS.md) — ตาราง, pagination, dialog, form — **ใช้ร่วมทั้งระบบ**
+- [IMAGE-UPLOAD.md](./IMAGE-UPLOAD.md) — อัปโหลดรูป (avatar, โลโก้บริษัท) — **ห้ามเขียน upload ซ้ำ**
+
 ---
 
 ## เอกสารที่เกี่ยวข้อง

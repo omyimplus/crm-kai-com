@@ -5,6 +5,7 @@
     "save": "Save",
     "cancel": "Cancel",
     "create": "Create",
+    "edit": "Edit",
     "delete": "Delete",
     "back": "Back",
     "optional": "Optional",
@@ -16,17 +17,69 @@
     "language": "Language",
     "switchLanguage": "Switch to {language}",
     "theme": "Toggle light/dark mode",
+    "refresh": "Refresh",
     "comingSoonBadge": "Soon",
-    "version": "Version {version}"
+    "version": "Version {version}",
+    "pagination": {
+      "range": "Showing {start}–{end} of {total}",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {page} / {total}"
+    },
+    "imageUpload": {
+      "upload": "Upload image",
+      "change": "Change image",
+      "remove": "Remove image",
+      "errors": {
+        "tooLarge": {
+          "avatar": "File exceeds 5 MB",
+          "companyLogo": "File exceeds 2 MB"
+        },
+        "invalidType": {
+          "avatar": "Only JPG, PNG, WebP or GIF images are supported",
+          "companyLogo": "Only JPG, PNG, WebP or SVG images are supported"
+        }
+      }
+    }
   },
   "auth": {
     "loginTitle": "Sign in",
     "loginSubtitle": "Welcome back — access your CRM",
     "signupTitle": "Sign up",
     "completeProfileTitle": "Complete profile",
-    "signupSubtitle": "Join demo org (Phase 1)",
+    "signupSubtitle": "Sign up — new accounts need admin approval before CRM access",
     "email": "Email",
+    "loginIdentifier": "Email or username",
+    "loginIdentifierPlaceholder": "username or name{'@'}company.com",
+    "invalidCredentials": "Invalid email/username or password",
     "password": "Password",
+    "confirmPassword": "Confirm password",
+    "confirmPasswordPlaceholder": "Re-enter password",
+    "confirmPasswordOptionalPlaceholder": "Confirm if changing password",
+    "generateStrongPassword": "Generate strong",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "copyPassword": "Copy password",
+    "passwordCopied": "Password copied",
+    "passwordCopyFailed": "Could not copy",
+    "passwordStrengthLabel": "Password strength",
+    "passwordStrength": {
+      "weak": "Weak",
+      "fair": "Fair",
+      "good": "Good",
+      "strong": "Strong"
+    },
+    "passwordRule": {
+      "length": "At least 6 characters",
+      "upper": "Uppercase letter (A–Z)",
+      "lower": "Lowercase letter (a–z)",
+      "digit": "Number (0–9)",
+      "symbol": "Special character (! # $ % etc.)",
+      "match": "Passwords match"
+    },
+    "passwordMismatch": "Passwords do not match",
+    "passwordTooShort": "Password must be at least {min} characters",
+    "passwordRequired": "Password is required",
     "fullName": "Full name",
     "emailPlaceholder": "name{'@'}company.com",
     "passwordPlaceholder": "••••••••",
@@ -45,7 +98,15 @@
     "backToLogin": "Back to login",
     "confirmEmailHint": "Account created — confirm your email, then sign in to complete your profile",
     "loginRequiredForProfile": "Please sign in before saving your profile",
-    "emailAlreadyRegistered": "This email is already registered — try signing in instead"
+    "emailAlreadyRegistered": "This email is already registered — try signing in instead",
+    "pendingTitle": "Pending approval",
+    "pendingSubtitle": "Your account was created — waiting for administrator approval",
+    "pendingMessage": "You signed up as an employee pending approval — CRM access requires activation and a team role from an admin.",
+    "pendingSteps": {
+      "wait": "Wait for an administrator to review your signup",
+      "approve": "Admin approves your account and assigns a team role (Manager, Sales, CS…)",
+      "login": "Sign in again to use CRM according to your assigned permissions"
+    }
   },
   "nav": {
     "crm": "Main menu",
@@ -193,13 +254,12 @@
     }
   },
   "profile": {
-    "role": "Role",
-    "notAdminHint": "no Setup / Role config menus",
+    "role": "Org level",
+    "notAdminHint": "No Setup menu — CRM access comes from team role",
     "roles": {
       "owner": "Owner",
       "admin": "Admin",
-      "sales": "Sales",
-      "readonly": "Read only"
+      "employee": "Employee"
     }
   },
   "dashboard": {
@@ -358,6 +418,15 @@
       "title": "System Users",
       "subtitle": "Manage users — full name, email, username, password, role, status",
       "description": "Manage system users, roles, and CRM access",
+      "accountSection": "Account details",
+      "avatar": "Profile photo",
+      "avatarHint": "Upload JPG, PNG or WebP up to 5 MB — logo icon is used when no photo is set",
+      "avatarUpload": "Upload photo",
+      "avatarChange": "Change photo",
+      "avatarRemove": "Remove photo",
+      "avatarTooLarge": "File exceeds 5 MB",
+      "avatarInvalidType": "Only JPG, PNG, WebP or GIF images are supported",
+      "accessSection": "Roles & access",
       "fullName": "Full name",
       "name": "Name",
       "email": "Email",
@@ -373,31 +442,61 @@
       "editTitle": "Edit user",
       "create": "Add user",
       "createTitle": "Add user",
+      "createSubtitle": "Create a new account — platform level for security, team role for CRM menus",
       "createFirst": "Add first user",
+      "backToList": "Back to user list",
+      "orgRoleSection": "Team role",
       "empty": "No users in this organization yet",
       "cannotDeactivateSelf": "You cannot deactivate your own account",
       "cannotEditOwner": "Admins cannot edit owner accounts",
-      "orgRole": "Org role",
-      "addOrgRole": "Add org role",
-      "orgRoleHint": "Pick an existing role or press + to create one — configure permissions under Setup → Roles",
-      "noOrgRole": "— None —",
-      "systemRoleHint": "System role — security level (owner, admin, sales, readonly)",
+      "orgRole": "Team role",
+      "addOrgRole": "Add team role",
+      "orgRoleHint": "Tap chips to select one or more team roles (Manager, Sales, CS, Engineer or custom)",
+      "noOrgRolesAvailable": "No team roles yet — create them under Roles setup",
+      "orgRoleRequired": "Select at least one team role",
+      "platformRole": "Org level",
+      "platformRoleHint": "Security and Setup — owner, admin, employee · CRM menus from team role",
+      "employeeOrgRoleHint": "Employees need a team role (Manager, Sales, CS…) to access CRM menus",
+      "filters": {
+        "searchBy": "Search by",
+        "search": "Search name, email or username...",
+        "viewAll": "View all",
+        "byName": "Name",
+        "byEmail": "Email",
+        "byUsername": "Username",
+        "noResults": "No users match your search",
+        "roleTabs": "Filter by org level",
+        "displayCount": "Showing {count} items"
+      },
       "features": [
         "User list per org",
-        "Assign roles (owner, admin, sales, readonly)",
-        "Enable / disable accounts",
-        "Invite new users"
+        "Assign org level (owner, admin, employee)",
+        "Assign team role for CRM menus",
+        "Enable / disable accounts"
       ]
     },
     "roles": {
       "nav": "Roles",
       "title": "Role configuration",
       "pageTitle": "Role configuration",
-      "pageSubtitle": "Create organization roles to assign to system users — separate from system roles (owner, admin)",
-      "description": "Create and manage organization roles — permissions per CRM and Master Data module",
+      "pageSubtitle": "Team roles control CRM menus — org level: owner / admin / employee",
+      "description": "Manage team roles — permissions per CRM and Master Data menu (legacy Admin = platform admin)",
       "code": "Code",
-      "codeHint": "Lowercase a-z, digits, underscore — e.g. sales_lead, finance",
+      "codeHint": "Lowercase a–z, must start with a letter · digits and _ allowed · no spaces, uppercase, or hyphens (-) · 2–49 characters · e.g. sales_lead, finance",
+      "codeErrors": {
+        "required": "Role code is required",
+        "noSpaces": "No spaces — use _ between words, e.g. sales_lead",
+        "noUppercase": "No uppercase letters — use lowercase only, e.g. finance",
+        "noHyphen": "Hyphens (-) are not allowed — use _ instead, e.g. sales_lead",
+        "invalidChars": "Only lowercase letters a–z, digits, and _ are allowed",
+        "mustStartLetter": "Must start with a letter a–z (not a digit or _)",
+        "tooShort": "Code is too short — at least {min} characters",
+        "tooLong": "Code is too long — at most {max} characters",
+        "reserved": "This code is reserved for a system role — use another code such as finance or sales_lead",
+        "duplicate": "This role code already exists in your organization — choose another"
+      },
       "label": "Role name",
+      "labelRequired": "Role name is required",
       "descriptionLabel": "Description",
       "status": "Status",
       "active": "Active",
@@ -416,6 +515,11 @@
       "cannotDeleteAssigned": "Cannot delete — users are assigned to this role",
       "cannotDeleteSystem": "System roles cannot be deleted",
       "cannotDeactivateSystem": "System roles cannot be deactivated",
+      "card": {
+        "noDescription": "No description yet",
+        "edit": "Edit",
+        "configure": "Configure role"
+      },
       "manage": {
         "open": "Manage",
         "back": "Back to roles",
@@ -423,8 +527,14 @@
         "details": "Role details",
         "modules": "Total modules",
         "saved": "Role saved",
+        "systemBadge": "System role",
+        "codeReadonly": "Code is set at creation and cannot be changed",
+        "dangerZone": "Delete role",
+        "deleteHint": "Delete roles with no assigned users — this cannot be undone",
         "assignUsers": "Assign users",
         "search": "Search roles...",
+        "viewTable": "Table view",
+        "viewGrid": "Card view",
         "emptyHint": "Create your first role to assign permissions to your team",
         "noResults": "No roles match your search",
         "stats": {
@@ -436,12 +546,14 @@
       "permissions": {
         "manage": "Permissions",
         "title": "Permissions",
+        "pagesTitle": "Accessible pages",
+        "pagesHint": "Initial setup — choose which menus/pages this role can see (saved to DB; sidebar/API enforcement not wired yet)",
         "back": "Back to roles",
         "module": "Module / menu",
         "count": "Permissions",
         "granted": "{count} permissions granted",
         "saved": "Permissions saved",
-        "hint": "Applies to users with this org role — system roles (owner/admin) still take precedence",
+        "hint": "CRM access for employees with this team role — owner/admin get full CRM and Setup without a team role",
         "enableAllView": "Enable all view",
         "disableAllView": "Disable all view",
         "actions": {
@@ -453,11 +565,11 @@
         }
       },
       "features": [
-        "Custom roles for your org (e.g. sales lead, finance)",
-        "Read/write permissions per menu and module",
-        "Separate from system roles (owner, admin)",
-        "Assign roles to users from System Users",
-        "Clone from default role templates"
+        "Default system roles: Manager, Sales, CS, Engineer (created automatically when the org is set up)",
+        "Add custom team roles (e.g. finance, sales_lead)",
+        "Permissions tied to real menus in the app",
+        "Separate from platform level (owner, admin) — no duplicate menu config",
+        "Assign team roles from System Users"
       ]
     },
     "dataManagement": {
@@ -513,18 +625,58 @@
     "activeSessions": {
       "nav": "Active sessions",
       "title": "Active Sessions",
+      "subtitle": "Monitor user sessions and device information",
       "description": "View active logins and where users signed in from",
+      "empty": "No login sessions recorded yet — sessions appear after users sign in",
+      "activeCount": "{count} Active",
+      "never": "Never",
+      "ipUnknown": "N/A",
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "stillActive": "—",
+      "endedApprox": "{when} (approx.)",
+      "columns": {
+        "user": "User",
+        "device": "Device",
+        "browser": "Browser",
+        "ip": "IP Address",
+        "loggedIn": "Logged in",
+        "lastActivity": "Last activity",
+        "ended": "Ended",
+        "status": "Status"
+      },
+      "devices": {
+        "desktop": "Desktop",
+        "mobile": "Mobile",
+        "tablet": "Tablet",
+        "unknown": "Unknown"
+      },
+      "browsers": {
+        "chrome": "Chrome",
+        "firefox": "Firefox",
+        "safari": "Safari",
+        "edge": "Edge",
+        "opera": "Opera",
+        "unknown": "Unknown"
+      },
       "features": [
-        "List of active sessions",
-        "IP, device, browser",
-        "Last login time",
-        "Force logout other sessions"
+        "List of login sessions",
+        "Logged in, last activity, ended (logout or approx. when browser closed)",
+        "Active vs inactive status"
       ]
     },
     "userApprovals": {
       "nav": "User approvals",
       "title": "User Approvals",
+      "subtitle": "Webapp signups stay pending until you activate them and assign a team role",
       "description": "Approve new registrations before CRM access",
+      "empty": "No users pending approval",
+      "pendingBadge": "Pending",
+      "approve": "Approve",
+      "approveTitle": "Approve user",
+      "approveHint": "Activate {name} and assign a team role to grant CRM access",
+      "approveConfirm": "Approve and assign role",
+      "orgRoleRequired": "Select at least one team role",
       "features": [
         "Pending queue from registration",
         "Approve / reject with reason",
@@ -535,12 +687,183 @@
     "settings": {
       "nav": "Settings",
       "title": "Settings",
+      "subtitle": "Manage your account and organization preferences",
       "description": "Org settings, notifications, email, and sign-in methods",
+      "tabs": {
+        "companyInfo": {
+          "label": "Company Info",
+          "soon": "Company info tab is available"
+        },
+        "notifications": {
+          "label": "Notifications",
+          "soon": "Notification preferences — coming soon"
+        },
+        "email": {
+          "label": "Email Service",
+          "soon": "SMTP / email setup — coming soon"
+        },
+        "authProviders": {
+          "label": "Auth Providers",
+          "soon": "Google, Microsoft 365, Azure AD — coming soon"
+        }
+      },
+      "companyInfo": {
+        "listHint": "Manage multiple company profiles — e.g. head office and branches.",
+        "add": "Add company",
+        "addFirst": "Add first company",
+        "empty": "No company profiles yet. Add one for head office or a branch.",
+        "createTitle": "New company profile",
+        "editTitle": "Edit company profile",
+        "deleteTitle": "Delete company profile",
+        "deleteConfirm": "Delete profile “{name}”? This cannot be undone.",
+        "defaultBadge": "Default",
+        "firstDefaultHint": "The first profile is set as default automatically.",
+        "profileName": "Profile Name",
+        "profileNamePlaceholder": "e.g. Head Office",
+        "profileNameRequired": "Profile name is required",
+        "nameEn": "Company Name (EN)",
+        "nameEnRequired": "Company name (EN) is required",
+        "nameTh": "Company Name (TH)",
+        "taxId": "Tax ID",
+        "taxBranch": "Tax Branch",
+        "phone": "Phone",
+        "email": "Email",
+        "website": "Website",
+        "logo": "Company Logo",
+        "uploadLogo": "Upload Logo",
+        "logoHint": "PNG, JPG, WebP or SVG — max 2 MB. Raster images are optimized to WebP automatically.",
+        "addressEn": "Address (EN)",
+        "addressTh": "Address (TH)",
+        "isDefault": "Set as default",
+        "viewTable": "Table view",
+        "viewGrid": "Card view",
+        "card": {
+          "noAddress": "No address yet"
+        },
+        "columns": {
+          "profile": "Profile",
+          "company": "Company",
+          "taxId": "Tax ID",
+          "branch": "Branch",
+          "address": "Address",
+          "default": "Default"
+        }
+      },
+      "notifications": {
+        "preferencesTitle": "Notification Preferences",
+        "sendEmailTitle": "Send Notification Email",
+        "sendEmailHint": "Send your current notifications via email right now (uses Email Service settings).",
+        "sendEmailAction": "Send Notification Email Now",
+        "sendEmailNotConfigured": "Configure Email Service first — SMTP is not set up yet.",
+        "sendEmailSoon": "Sending notification email will be available after Email Service is implemented.",
+        "sendEmailSuccess": "Notification email sent.",
+        "items": {
+          "emailNotifications": {
+            "title": "Email Notifications",
+            "description": "Receive updates via email"
+          },
+          "pushNotifications": {
+            "title": "Push Notifications",
+            "description": "Browser push notifications"
+          },
+          "taskReminders": {
+            "title": "Task Reminders",
+            "description": "Get reminded about upcoming tasks"
+          },
+          "paymentAlerts": {
+            "title": "Payment Alerts",
+            "description": "Alert when payments are received or overdue"
+          },
+          "leadAssignments": {
+            "title": "Lead Assignments",
+            "description": "Notify when new leads are assigned"
+          },
+          "weeklyReport": {
+            "title": "Weekly Report",
+            "description": "Receive weekly performance summary"
+          }
+        }
+      },
+      "email": {
+        "formTitle": "Email Service (SMTP) Settings",
+        "formSubtitle": "Configure SMTP to send notification emails from the system.",
+        "enabled": "Enable Email Service",
+        "enabledHint": "Toggle system email sending",
+        "host": "SMTP Host",
+        "port": "Port",
+        "username": "Username (Email)",
+        "password": "Password",
+        "passwordKeep": "Leave blank to keep current password",
+        "fromName": "From Name",
+        "fromEmail": "From Email",
+        "useSslTls": "SSL/TLS",
+        "useSslTlsHint": "Enable for port 465 (SSL), disable for port 587 (STARTTLS)",
+        "testRecipient": "Test recipient email (optional)",
+        "testRecipientPlaceholder": "Enter email to send a test message",
+        "testConnection": "Test Connection",
+        "testSoon": "Settings look valid — actual SMTP test send will be available in a later update.",
+        "testNotConfigured": "Save SMTP settings and enable Email Service first.",
+        "testSuccess": "Test email sent successfully.",
+        "errors": {
+          "host": "SMTP host is required",
+          "port": "Enter a valid port (1–65535)",
+          "username": "Username is required",
+          "password": "Password is required",
+          "fromName": "From name is required",
+          "fromEmail": "From email is required"
+        }
+      },
+      "authProviders": {
+        "title": "Authentication Providers",
+        "subtitle": "Enable/disable and configure sign-in providers. Supports multi-tenant and multi-domain.",
+        "configure": "Configure",
+        "tipsTitle": "Tips",
+        "tips": {
+          "microsoftAzure": "Microsoft 365 and Azure AD: Create an App Registration in Azure Portal and set Redirect URI",
+          "google": "Google: Create an OAuth Client in Google Cloud Console",
+          "tenantCommon": "Tenant ID \"common\" allows users from any organization (multi-tenant)",
+          "allowedDomains": "Allowed Domains restricts sign-in to specific email domains, e.g. company.com",
+          "envVars": "OAuth requires env vars (MS_CLIENT_ID, MS_CLIENT_SECRET, etc.) or configure here"
+        },
+        "fields": {
+          "clientId": "Client ID",
+          "clientSecret": "Client Secret",
+          "clientSecretKeep": "Leave blank to keep current secret",
+          "tenantId": "Tenant ID",
+          "tenantIdPlaceholder": "common",
+          "tenantIdHint": "Use \"common\" for multi-tenant Microsoft sign-in",
+          "allowedDomains": "Allowed Domains",
+          "allowedDomainsPlaceholder": "company.com, subsidiary.com"
+        },
+        "errors": {
+          "clientId": "Client ID is required",
+          "clientSecret": "Client secret is required"
+        },
+        "providers": {
+          "microsoft365": {
+            "name": "Microsoft 365",
+            "configureTitle": "Configure Microsoft 365"
+          },
+          "google": {
+            "name": "Google",
+            "configureTitle": "Configure Google"
+          },
+          "azureAd": {
+            "name": "Azure AD",
+            "configureTitle": "Configure Azure AD"
+          },
+          "usernamePassword": {
+            "name": "Username & Password",
+            "configureTitle": "Username & Password",
+            "configureBody": "Built-in email and password sign-in via Supabase Auth. No extra OAuth configuration is required."
+          }
+        }
+      },
       "features": [
-        "Company profile (name, logo, timezone, currency)",
+        "Company profiles — head office and branches",
         "Toggle notifications by category",
         "Email service — SMTP setup",
-        "Auth providers — Microsoft 365, Google, Azure AD, username & password"
+        "Auth providers — Microsoft 365, Google, Azure AD"
       ]
     }
   }

@@ -1,0 +1,38 @@
+---
+description: เริ่ม npm run dev ทันทีทุกครั้งที่เปิด session ใหม่ — ค้างไว้ดู error
+alwaysApply: true
+---
+
+# Dev server — เริ่มทุก session ใหม่
+
+เมื่อเริ่ม conversation ใหม่ในโปรเจกต์นี้ **ให้รัน dev server ทันที** (ไม่ต้องรอ user สั่ง) เพื่อดู error/warn ตลอด session
+
+## ลำดับทำงาน
+
+1. **เช็ค `terminals/`** — มี `npm run dev` / `nuxt dev` รันอยู่และ healthy อยู่แล้วหรือไม่
+2. **ถ้ายังไม่รัน** (หรือ process ตาย / port 3000 ว่าง) → รัน dev ทันที
+3. **ถ้ารันอยู่แล้วและ output สะอาด** → ไม่ต้องรันซ้ำ (กัน port conflict)
+4. **อ่าน terminal output** ตลอด — ห้ามปล่อย ERROR/WARN ค้าง (ดู rule `terminal-no-warn-error`)
+
+## คำสั่ง (รัน background)
+
+```bash
+export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" && nvm use 22.16.0 2>/dev/null
+cd frontend && npm run dev
+```
+
+- รันจาก repo root → `frontend/`
+- ใช้ `block_until_ms: 0` ให้ process ค้างไว้ตลอด session
+- `package.json` ใช้ `TMPDIR=/tmp nuxt dev` อยู่แล้ว — อย่าลบ
+
+## สัญญาณว่า dev พร้อม
+
+```text
+➜ Local:    http://localhost:3000/
+✔ Vite client built
+```
+
+## หลังแก้โค้ด frontend
+
+- กลับมาอ่าน terminal หลัง HMR / rebuild
+- พบ ERROR หรือ WARN → แก้ root cause ก่อนจบงาน

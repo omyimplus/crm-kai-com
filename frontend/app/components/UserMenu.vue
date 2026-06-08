@@ -5,21 +5,12 @@ const { t } = useI18n()
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 const { profile } = useProfile()
+const { endSession } = useLoginSession()
 
 const displayName = computed(() => profile.value?.full_name || t('common.user'))
 const userEmail = computed(() => user.value?.email ?? '')
 
-const initials = computed(() => {
-  const name = displayName.value.trim()
-  if (!name) {
-    return '?'
-  }
-  const parts = name.split(/\s+/).filter(Boolean)
-  if (parts.length >= 2) {
-    return `${parts[0]![0]}${parts[1]![0]}`.toUpperCase()
-  }
-  return name.slice(0, 2).toUpperCase()
-})
+const { resolveAvatarUrl } = useUserAvatar()
 
 const roleLabel = computed(() => {
   const role = profile.value?.role
@@ -34,6 +25,7 @@ const isAdmin = computed(() =>
 )
 
 async function logout() {
+  await endSession()
   await supabase.auth.signOut()
   await navigateTo('/login')
 }
@@ -44,9 +36,7 @@ const items = computed<DropdownMenuItem[][]>(() => [
       type: 'label',
       label: displayName.value,
       description: userEmail.value,
-      avatar: profile.value?.avatar_url
-        ? { src: profile.value.avatar_url, alt: displayName.value }
-        : { text: initials.value, alt: displayName.value }
+      avatar: { src: resolveAvatarUrl(profile.value?.avatar_url), alt: displayName.value }
     }
   ],
   ...(roleLabel.value
@@ -81,12 +71,10 @@ const items = computed<DropdownMenuItem[][]>(() => [
       class="gap-1.5 rounded-full py-1 pl-1 pr-2"
       :aria-label="displayName"
     >
-      <UAvatar
-        :src="profile?.avatar_url ?? undefined"
+      <AppUserAvatar
+        :src="profile?.avatar_url"
         :alt="displayName"
-        :text="initials"
         size="sm"
-        class="ring-2 ring-green-500/20"
       />
       <span class="hidden max-w-[8rem] truncate text-sm font-medium sm:inline">
         {{ displayName }}

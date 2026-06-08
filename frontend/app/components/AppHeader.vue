@@ -1,6 +1,6 @@
 <template>
   <header
-    class="sticky top-0 z-10 flex h-14 shrink-0 items-center justify-between gap-4 border-b border-gray-200 bg-white/90 px-4 backdrop-blur dark:border-gray-800 dark:bg-gray-900/90 lg:px-6"
+    class="z-10 flex h-14 shrink-0 items-center justify-between gap-4 border-b border-gray-200 bg-white px-4 dark:border-gray-800 dark:bg-gray-900 lg:px-6"
   >
     <NuxtLink
       to="/app"

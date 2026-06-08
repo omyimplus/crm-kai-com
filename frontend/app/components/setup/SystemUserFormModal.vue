@@ -1,5 +1,14 @@
 <script setup lang="ts">
-import type { OrgRole, OrgRoleCreatedPayload, OrgUser, ProfileRole } from '~/types/crm'
+import type { OrgRole, OrgUser, ProfileRole } from '~/types/crm'
+import {
+  appFormErrorClass,
+  appFormFieldClass,
+  appFormHintClass,
+  appFormSwitchBoxClass,
+  appInputUi,
+  appSelectMenuUi
+} from '~/config/appFormUi'
+import { validateOptionalPasswordPair, validatePasswordPair } from '~/utils/password'
 
 const open = defineModel<boolean>('open', { required: true })
 
@@ -9,14 +18,22 @@ const props = defineProps<{
   orgRoleOptions: OrgRole[]
 }>()
 
-const emit = defineEmits<{
-  saved: []
-  openOrgRoleForm: []
-}>()
+const emit = defineEmits<{ saved: [] }>()
 
 const { t } = useI18n()
 const { create, update } = useSystemUsers()
-const { profile } = useProfile()
+const { profile, fetchProfile } = useProfile()
+const { uploadAvatar, removeStoredAvatar } = useUserAvatar()
+const {
+  previewUrl: avatarPreviewUrl,
+  changed: avatarChanged,
+  file: avatarFile,
+  removed: avatarRemoved,
+  savedUrl: avatarSavedUrl,
+  select: onAvatarSelect,
+  remove: onAvatarRemove,
+  reset: resetAvatarState
+} = useImageUploadState()
 
 const saving = ref(false)
 const errorMsg = ref('')
@@ -25,25 +42,10 @@ const fullName = ref('')
 const email = ref('')
 const username = ref('')
 const password = ref('')
-const role = ref<ProfileRole>('sales')
-const orgRoleId = ref<string | null>(null)
+const confirmPassword = ref('')
+const role = ref<ProfileRole>('employee')
+const orgRoleIds = ref<string[]>([])
 const isActive = ref(true)
-const pendingOrgRoles = ref<OrgRole[]>([])
-
-const mergedOrgRoleOptions = computed(() => {
-  const byId = new Map<string, OrgRole>()
-  for (const role of props.orgRoleOptions) byId.set(role.id, role)
-  for (const role of pendingOrgRoles.value) byId.set(role.id, role)
-  return [...byId.values()]
-})
-
-const orgRoleSelectItems = computed(() => [
-  { label: t('setup.systemUsers.noOrgRole'), value: null as string | null },
-  ...mergedOrgRoleOptions.value.map(r => ({
-    label: r.label,
-    value: r.id as string | null
-  }))
-])
 
 const isCreate = computed(() => !props.user)
 
@@ -60,84 +62,122 @@ const modalTitle = computed(() =>
   isCreate.value ? t('setup.systemUsers.createTitle') : t('setup.systemUsers.editTitle')
 )
 
-function applyCreatedOrgRole(created: OrgRoleCreatedPayload) {
-  pendingOrgRoles.value = [
-    ...pendingOrgRoles.value.filter(r => r.id !== created.id),
-    {
-      id: created.id,
-      org_id: profile.value?.org_id ?? '',
-      code: created.code,
-      label: created.label,
-      description: null,
-      is_active: true,
-      is_system: false,
-      permissions: {},
-      user_count: 0,
-      created_at: '',
-      updated_at: ''
-    }
-  ]
-  orgRoleId.value = created.id
-}
-
-defineExpose({ applyCreatedOrgRole })
+const modalDescription = computed(() =>
+  isCreate.value ? t('setup.systemUsers.createSubtitle') : undefined
+)
 
 function resetForm() {
-  pendingOrgRoles.value = []
   if (isCreate.value) {
     fullName.value = ''
     email.value = ''
     username.value = ''
     password.value = ''
-    role.value = props.roleOptions[0] ?? 'sales'
-    orgRoleId.value = null
+    confirmPassword.value = ''
+    role.value = props.roleOptions.includes('employee') ? 'employee' : (props.roleOptions[0] ?? 'employee')
+    orgRoleIds.value = []
     isActive.value = true
+    resetAvatarState(null)
   } else if (props.user) {
     fullName.value = props.user.full_name ?? ''
     email.value = props.user.email ?? ''
     username.value = props.user.username ?? ''
     password.value = ''
+    confirmPassword.value = ''
     role.value = props.user.role
-    orgRoleId.value = props.user.org_role_id ?? null
+    orgRoleIds.value = [...(props.user.org_role_ids ?? [])]
     isActive.value = props.user.is_active
+    resetAvatarState(props.user.avatar_url)
   }
   errorMsg.value = ''
+}
+
+async function applyAvatarChanges(userId: string) {
+  if (!avatarChanged.value) return
+
+  if (avatarRemoved.value && !avatarFile.value) {
+    await removeStoredAvatar(userId, avatarSavedUrl.value)
+    await update(userId, {
+      avatar_url: null,
+      set_avatar: true,
+      skip_org_roles: true
+    })
+    return
+  }
+
+  if (avatarFile.value) {
+    const url = await uploadAvatar(userId, avatarFile.value)
+    await update(userId, {
+      avatar_url: url,
+      set_avatar: true,
+      skip_org_roles: true
+    })
+  }
 }
 
 watch(open, (isOpen) => {
   if (isOpen) resetForm()
 })
 
+function mapPasswordError(err: ReturnType<typeof validatePasswordPair>): string | null {
+  if (!err) return null
+  if (err === 'mismatch') return t('auth.passwordMismatch')
+  if (err === 'tooShort') return t('auth.passwordTooShort', { min: 6 })
+  return t('setup.systemUsers.passwordRequired')
+}
+
+function passwordErrorMessage(optional: boolean): string | null {
+  const err = optional
+    ? validateOptionalPasswordPair(password.value, confirmPassword.value)
+    : validatePasswordPair(password.value, confirmPassword.value)
+  return mapPasswordError(err)
+}
+
 async function save() {
   if (isAdminEditingOwner.value) return
+
+  if (role.value === 'employee' && orgRoleIds.value.length === 0) {
+    errorMsg.value = t('setup.systemUsers.orgRoleRequired')
+    return
+  }
 
   saving.value = true
   errorMsg.value = ''
   try {
     if (isCreate.value) {
-      if (!password.value.trim()) {
-        errorMsg.value = t('setup.systemUsers.passwordRequired')
+      const passwordError = passwordErrorMessage(false)
+      if (passwordError) {
+        errorMsg.value = passwordError
         return
       }
-      await create({
+      const userId = await create({
         full_name: fullName.value.trim(),
         email: email.value.trim(),
         username: username.value.trim(),
         password: password.value,
         role: role.value,
-        org_role_id: orgRoleId.value,
+        org_role_ids: orgRoleIds.value,
         is_active: isActive.value
       })
+      await applyAvatarChanges(userId)
     } else if (props.user) {
+      const passwordError = passwordErrorMessage(true)
+      if (passwordError) {
+        errorMsg.value = passwordError
+        return
+      }
       await update(props.user.id, {
         full_name: fullName.value.trim() || null,
         email: email.value.trim() || null,
         username: username.value.trim() || null,
         password: password.value.trim() || null,
         role: role.value,
-        org_role_id: orgRoleId.value,
+        org_role_ids: orgRoleIds.value,
         is_active: isActive.value
       })
+      await applyAvatarChanges(props.user.id)
+      if (isSelf.value && avatarChanged.value) {
+        await fetchProfile()
+      }
     }
     open.value = false
     emit('saved')
@@ -150,161 +190,183 @@ async function save() {
 </script>
 
 <template>
-  <UModal v-model:open="open">
-    <template #content>
-      <UCard>
-        <template #header>
-          <h2 class="font-semibold font-heading">
-            {{ modalTitle }}
-          </h2>
-        </template>
+  <AppDialog
+    v-model:open="open"
+    :title="modalTitle"
+    :description="modalDescription"
+    size="2xl"
+  >
+    <form
+      id="system-user-form"
+      class="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8"
+      @submit.prevent="save"
+    >
+      <div class="space-y-5">
+        <h3 class="text-sm font-semibold font-heading text-gray-900 dark:text-gray-100">
+          {{ t('setup.systemUsers.accountSection') }}
+        </h3>
 
-        <form
-          class="space-y-4"
-          @submit.prevent="save"
+        <UFormField
+          :class="appFormFieldClass"
+          :label="t('setup.systemUsers.fullName')"
+          required
         >
-          <UFormField
-            :label="t('setup.systemUsers.fullName')"
-            required
-          >
-            <UInput
-              v-model="fullName"
-              :disabled="isAdminEditingOwner"
-            />
-          </UFormField>
-
-          <UFormField
-            :label="t('setup.systemUsers.email')"
-            required
-          >
-            <UInput
-              v-model="email"
-              type="email"
-              autocomplete="off"
-              :disabled="isAdminEditingOwner"
-            />
-          </UFormField>
-
-          <UFormField
-            :label="t('setup.systemUsers.username')"
-            required
-          >
-            <UInput
-              v-model="username"
-              autocomplete="off"
-              :disabled="isAdminEditingOwner"
-            />
-          </UFormField>
-
-          <UFormField
-            :label="t('setup.systemUsers.password')"
-            :required="isCreate"
-          >
-            <UInput
-              v-model="password"
-              type="password"
-              autocomplete="new-password"
-              :placeholder="isCreate ? '' : t('setup.systemUsers.passwordPlaceholder')"
-              :disabled="isAdminEditingOwner"
-            />
-            <p
-              v-if="!isCreate"
-              class="mt-1 text-xs text-gray-500"
-            >
-              {{ t('setup.systemUsers.passwordHint') }}
-            </p>
-          </UFormField>
-
-          <UFormField :label="t('profile.role')">
-            <USelectMenu
-              v-model="role"
-              :items="roleOptions.map(r => ({
-                label: t(`profile.roles.${r}`),
-                value: r
-              }))"
-              value-key="value"
-              :disabled="isAdminEditingOwner || roleOptions.length === 0"
-            />
-            <p class="mt-1 text-xs text-gray-500">
-              {{ t('setup.systemUsers.systemRoleHint') }}
-            </p>
-          </UFormField>
-
-          <UFormField :label="t('setup.systemUsers.orgRole')">
-            <div class="flex items-start gap-2">
-              <USelectMenu
-                v-model="orgRoleId"
-                class="min-w-0 flex-1"
-                :items="orgRoleSelectItems"
-                value-key="value"
-                :disabled="isAdminEditingOwner"
-              />
-              <UButton
-                type="button"
-                variant="outline"
-                color="neutral"
-                icon="i-lucide-plus"
-                :disabled="isAdminEditingOwner"
-                @click="emit('openOrgRoleForm')"
-              >
-                {{ t('setup.systemUsers.addOrgRole') }}
-              </UButton>
-            </div>
-            <p class="mt-1 text-xs text-gray-500">
-              {{ t('setup.systemUsers.orgRoleHint') }}
-            </p>
-          </UFormField>
-
-          <UFormField :label="t('setup.systemUsers.status')">
-            <div class="flex items-center gap-3">
-              <USwitch
-                v-model="isActive"
-                :disabled="isSelf || isAdminEditingOwner"
-              />
-              <span class="text-sm text-gray-600 dark:text-gray-400">
-                {{ isActive ? t('setup.systemUsers.active') : t('setup.systemUsers.inactive') }}
-              </span>
-            </div>
-            <p
-              v-if="isSelf"
-              class="mt-1 text-xs text-gray-500"
-            >
-              {{ t('setup.systemUsers.cannotDeactivateSelf') }}
-            </p>
-          </UFormField>
-
-          <UAlert
-            v-if="isAdminEditingOwner"
-            color="warning"
-            variant="subtle"
-            :title="t('setup.systemUsers.cannotEditOwner')"
+          <UInput
+            v-model="fullName"
+            class="w-full"
+            size="lg"
+            :ui="appInputUi"
+            :disabled="isAdminEditingOwner"
           />
+        </UFormField>
 
-          <p
-            v-if="errorMsg"
-            class="text-sm text-red-500"
-          >
-            {{ errorMsg }}
+        <UFormField
+          :class="appFormFieldClass"
+          :label="t('setup.systemUsers.email')"
+          required
+        >
+          <UInput
+            v-model="email"
+            class="w-full"
+            type="email"
+            autocomplete="off"
+            size="lg"
+            :ui="appInputUi"
+            :disabled="isAdminEditingOwner"
+          />
+        </UFormField>
+
+        <UFormField
+          :class="appFormFieldClass"
+          :label="t('setup.systemUsers.username')"
+          required
+        >
+          <UInput
+            v-model="username"
+            class="w-full"
+            autocomplete="off"
+            size="lg"
+            :ui="appInputUi"
+            :disabled="isAdminEditingOwner"
+          />
+        </UFormField>
+
+        <AppPasswordFieldGroup
+          v-model:password="password"
+          v-model:confirm-password="confirmPassword"
+          :optional="!isCreate"
+          :disabled="isAdminEditingOwner"
+          :hint="!isCreate ? t('setup.systemUsers.passwordHint') : undefined"
+          :password-placeholder="isCreate ? undefined : t('setup.systemUsers.passwordPlaceholder')"
+        />
+      </div>
+
+      <div class="space-y-5">
+        <AppAvatarUpload
+          :preview-url="avatarPreviewUrl"
+          :display-name="fullName"
+          :disabled="isAdminEditingOwner"
+          @select="onAvatarSelect"
+          @remove="onAvatarRemove"
+        />
+
+        <h3 class="text-sm font-semibold font-heading text-gray-900 dark:text-gray-100">
+          {{ t('setup.systemUsers.accessSection') }}
+        </h3>
+
+        <UFormField
+          :class="appFormFieldClass"
+          :label="t('setup.systemUsers.platformRole')"
+        >
+          <USelectMenu
+            v-model="role"
+            class="w-full"
+            size="lg"
+            :ui="appSelectMenuUi"
+            :items="roleOptions.map(r => ({
+              label: t(`profile.roles.${r}`),
+              value: r
+            }))"
+            value-key="value"
+            :disabled="isAdminEditingOwner || roleOptions.length === 0"
+          />
+          <p :class="appFormHintClass">
+            {{ t('setup.systemUsers.platformRoleHint') }}
           </p>
+        </UFormField>
 
-          <div class="flex justify-end gap-2">
-            <UButton
-              variant="outline"
-              color="neutral"
-              @click="open = false"
-            >
-              {{ t('common.cancel') }}
-            </UButton>
-            <UButton
-              type="submit"
-              :loading="saving"
-              :disabled="isAdminEditingOwner"
-            >
-              {{ isCreate ? t('common.create') : t('common.save') }}
-            </UButton>
+        <UFormField
+          :class="appFormFieldClass"
+          :label="t('setup.systemUsers.orgRole')"
+        >
+          <AppOrgRoleChipSelect
+            v-model="orgRoleIds"
+            :options="orgRoleOptions"
+            :disabled="isAdminEditingOwner"
+          />
+          <p :class="appFormHintClass">
+            {{ t('setup.systemUsers.orgRoleHint') }}
+          </p>
+          <p
+            v-if="role === 'employee'"
+            class="mt-1 text-xs text-amber-700 dark:text-amber-300"
+          >
+            {{ t('setup.systemUsers.employeeOrgRoleHint') }}
+          </p>
+        </UFormField>
+
+        <UFormField
+          :class="appFormFieldClass"
+          :label="t('setup.systemUsers.status')"
+        >
+          <div :class="appFormSwitchBoxClass">
+            <USwitch
+              v-model="isActive"
+              :disabled="isSelf || isAdminEditingOwner"
+            />
+            <span class="text-sm text-gray-600 dark:text-gray-400">
+              {{ isActive ? t('setup.systemUsers.active') : t('setup.systemUsers.inactive') }}
+            </span>
           </div>
-        </form>
-      </UCard>
+          <p
+            v-if="isSelf"
+            :class="appFormHintClass"
+          >
+            {{ t('setup.systemUsers.cannotDeactivateSelf') }}
+          </p>
+        </UFormField>
+      </div>
+
+      <div class="space-y-4 lg:col-span-2">
+        <UAlert
+          v-if="isAdminEditingOwner"
+          color="warning"
+          variant="subtle"
+          :title="t('setup.systemUsers.cannotEditOwner')"
+        />
+
+        <p
+          v-if="errorMsg"
+          :class="appFormErrorClass"
+        >
+          {{ errorMsg }}
+        </p>
+      </div>
+    </form>
+
+    <template #footer>
+      <AppDialogFooter @cancel="open = false">
+        <UButton
+          class="w-full sm:w-auto"
+          type="submit"
+          form="system-user-form"
+          size="lg"
+          :loading="saving"
+          :disabled="isAdminEditingOwner"
+        >
+          {{ isCreate ? t('common.create') : t('common.save') }}
+        </UButton>
+      </AppDialogFooter>
     </template>
-  </UModal>
+  </AppDialog>
 </template>

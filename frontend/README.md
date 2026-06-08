@@ -20,6 +20,8 @@ pnpm dev
 
 Open http://localhost:3000 → Sign up → use CRM
 
+**ทดสอบ login:** [docs/11-dev-setup/TEST-ACCOUNTS.md](../docs/11-dev-setup/TEST-ACCOUNTS.md) — username `tester1` หรือ email `browser-test-owner@crm-kai.test` / `testpass123`
+
 ## Routes
 
 - `/login`, `/signup` — auth (signup joins demo org)
@@ -29,6 +31,7 @@ Open http://localhost:3000 → Sign up → use CRM
 ## Docs
 
 - [../docs/00-overview/ONBOARDING.md](../docs/00-overview/ONBOARDING.md)
+- [../docs/05-frontend/SHARED-COMPONENTS.md](../docs/05-frontend/SHARED-COMPONENTS.md) — **component ใช้ร่วม (ตาราง, pagination, dialog)**
 - [../docs/05-frontend/BRAND-ASSETS.md](../docs/05-frontend/BRAND-ASSETS.md) — logo
 - [CHANGELOG.md](./CHANGELOG.md)
 

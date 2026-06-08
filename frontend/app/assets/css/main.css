@@ -50,9 +50,65 @@ h6,
   line-height: 1.35;
 }
 
-/* ภาษาไทย — CRM layer: ทั้งหัวข้อและเนื้อหาใช้ Sarabun (D-010) */
-html[lang="th"] .crm-app {
+/* CRM (/app) — base 15px ลดจาก 16px; rem ทั้งหมดใน CRM ลดตาม (รวม dialog ที่ teleport) */
+html:has(.crm-app) {
+  font-size: 15px;
+}
+
+html:has(.crm-app),
+html:has(.crm-app) body {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* CRM — scrollbar เล็ก สีเขียวอ่อน (sidebar + main) */
+.crm-app {
+  --crm-scrollbar-size: 6px;
+  --crm-scrollbar-thumb: var(--color-green-200);
+  --crm-scrollbar-thumb-hover: var(--color-green-300);
+}
+
+.dark .crm-app {
+  --crm-scrollbar-thumb: color-mix(in srgb, var(--color-green-600) 55%, transparent);
+  --crm-scrollbar-thumb-hover: color-mix(in srgb, var(--color-green-500) 70%, transparent);
+}
+
+.crm-app * {
+  scrollbar-width: thin;
+  scrollbar-color: var(--crm-scrollbar-thumb) transparent;
+}
+
+.crm-app *::-webkit-scrollbar {
+  width: var(--crm-scrollbar-size);
+  height: var(--crm-scrollbar-size);
+}
+
+.crm-app *::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.crm-app *::-webkit-scrollbar-thumb {
+  background-color: var(--crm-scrollbar-thumb);
+  border-radius: 9999px;
+}
+
+.crm-app *::-webkit-scrollbar-thumb:hover {
+  background-color: var(--crm-scrollbar-thumb-hover);
+}
+
+/* ภาษาไทย — CRM + dialog (teleport นอก .crm-app) ใช้ Sarabun (D-010) */
+html[lang="th"] .crm-app,
+html[lang="th"] .crm-dialog {
   --font-sans: "Sarabun", "Noto Sans Thai", sans-serif;
   --font-heading: "Sarabun", "Noto Sans Thai", sans-serif;
   font-family: var(--font-sans);
+}
+
+/* AppDataTable — หัวตารางมนซ้าย ขวา บน */
+.app-data-table thead tr:first-child th:first-child {
+  border-top-left-radius: 0.5rem;
+}
+
+.app-data-table thead tr:first-child th:last-child {
+  border-top-right-radius: 0.5rem;
 }

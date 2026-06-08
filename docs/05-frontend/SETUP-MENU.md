@@ -1,6 +1,6 @@
 # Setup Menu — System Administration (Scaffold)
 
-> **สถานะ:** System Users พร้อมใช้งาน — หน้าอื่นยัง Coming soon  
+> **สถานะ:** System Users, Roles, User Activity, Active Sessions, User Approvals, Settings (Company Info) พร้อมใช้งาน — Data Management ยัง Coming soon  
 > **Phase:** 2+ (บางส่วนอาจเริ่ม late Phase 1)  
 > **Config แหล่งเดียว:** `frontend/app/config/setupMenu.ts`
 
@@ -16,9 +16,9 @@
 | 2 | **Roles (กำหนด Role)** | `/app/setup/roles` | ✅ |
 | 3 | Data Management | `/app/setup/data-management` | ⏳ Coming soon |
 | 4 | User Activity | `/app/setup/user-activity` | ✅ (อ่าน `data_change_logs`) |
-| 5 | Active Sessions | `/app/setup/active-sessions` | ⏳ Coming soon |
-| 6 | User Approvals | `/app/setup/user-approvals` | ⏳ Coming soon |
-| 7 | Settings | `/app/setup/settings` | ⏳ Coming soon |
+| 5 | Active Sessions | `/app/setup/active-sessions` | ✅ Phase 1 |
+| 6 | User Approvals | `/app/setup/user-approvals` | ✅ |
+| 7 | Settings | `/app/setup/settings` | ✅ Company Info tab (แท็บอื่นเร็ว ๆ นี้) |
 
 **แผน implement:** ไล่ทีละหน้า — แทนที่ `SetupComingSoon` ด้วยหน้าจริงเมื่อพร้อม
 
@@ -108,7 +108,7 @@
 | IP, device, browser, เวลา login ล่าสุด |
 | บังคับ logout session อื่น |
 
-**แหล่งข้อมูล:** Supabase Auth sessions / custom session log (ออกแบบ Phase 2+)
+**แหล่งข้อมูล:** ตาราง `user_login_sessions` + RPC — บันทึกตอน login จาก frontend (device/browser/IP)
 
 ---
 
@@ -138,21 +138,24 @@
 
 ### 6.2 Notifications
 
-- เปิด-ปิดการแจ้งเตือนแต่ละประเภท (deal assigned, approval, import done ฯลฯ)
+- ✅ เปิด-ปิดการแจ้งเตือน 6 ประเภท (email, push, task, payment, lead, weekly report) — บันทึก `settings.notifications`
+- ปุ่มส่งอีเมลแจ้งเตือน — รอแท็บ Email Service
 
 ### 6.3 Email service
 
-- ตั้งค่า SMTP (host, port, user, password, from address)  
-- ใช้ส่ง transactional email แทน Supabase default (production)
+- ✅ ฟอร์ม SMTP — `settings.email` (host, port, user, password, from, SSL/TLS)
+- ทดสอบการเชื่อมต่อ / ส่งจริง — Phase 1 บันทึก+validate; ส่ง SMTP ภายหลัง
 
 ### 6.4 Auth providers
+
+- ✅ UI toggle + configure — `settings.authProviders` (OAuth ยังไม่เชื่อม login จริง Phase 1)
 
 | Provider | สถานะแผน |
 |----------|-----------|
 | Username & password | ✅ มีอยู่ (Supabase Email) |
-| Google | ⏳ OAuth |
-| Microsoft 365 | ⏳ OAuth |
-| Azure AD | ⏳ OIDC / SAML |
+| Google | ⏳ OAuth login |
+| Microsoft 365 | ⏳ OAuth login |
+| Azure AD | ⏳ OIDC / SAML login |
 
 ---
 

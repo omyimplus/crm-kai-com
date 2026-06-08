@@ -28,6 +28,8 @@ const deleteOpen = ref(false)
 const errorMsg = ref('')
 const savedMsg = ref('')
 
+const inputUi = { base: 'w-full rounded-xl' }
+
 async function load() {
   loading.value = true
   errorMsg.value = ''
@@ -60,12 +62,18 @@ const canDelete = computed(() =>
 async function save() {
   if (!role.value) return
 
+  const trimmedLabel = label.value.trim()
+  if (!trimmedLabel) {
+    errorMsg.value = t('setup.roles.labelRequired')
+    return
+  }
+
   saving.value = true
   errorMsg.value = ''
   savedMsg.value = ''
   try {
     await update(role.value.id, {
-      label: label.value.trim(),
+      label: trimmedLabel,
       description: description.value.trim() || null,
       is_active: isActive.value,
       permissions: permissions.value
@@ -105,7 +113,7 @@ async function onDeleted() {
 
     <template v-else-if="role">
       <div class="mb-6 flex flex-wrap items-start justify-between gap-4">
-        <div>
+        <div class="min-w-0 flex-1">
           <div class="flex flex-wrap items-center gap-2">
             <h1 class="text-2xl font-bold font-heading">
               {{ role.label }}
@@ -116,6 +124,13 @@ async function onDeleted() {
               class="font-mono text-xs"
             >
               {{ role.code }}
+            </UBadge>
+            <UBadge
+              v-if="role.is_system"
+              color="info"
+              variant="subtle"
+            >
+              {{ t('setup.roles.manage.systemBadge') }}
             </UBadge>
             <UBadge
               :color="role.is_active ? 'success' : 'neutral'"
@@ -129,7 +144,7 @@ async function onDeleted() {
           </p>
         </div>
 
-        <div class="flex flex-wrap gap-2">
+        <div class="flex w-full flex-wrap gap-2 sm:w-auto">
           <UButton
             variant="outline"
             color="neutral"
@@ -141,6 +156,7 @@ async function onDeleted() {
           <UButton
             :loading="saving"
             icon="i-lucide-save"
+            size="lg"
             @click="save"
           >
             {{ t('common.save') }}
@@ -148,8 +164,24 @@ async function onDeleted() {
         </div>
       </div>
 
+      <UAlert
+        v-if="savedMsg"
+        class="mb-4"
+        color="success"
+        variant="subtle"
+        :title="savedMsg"
+      />
+
+      <UAlert
+        v-if="errorMsg"
+        class="mb-4"
+        color="error"
+        variant="subtle"
+        :title="errorMsg"
+      />
+
       <div class="mb-6 grid gap-4 sm:grid-cols-3">
-        <UCard>
+        <UCard class="rounded-2xl">
           <p class="text-xs font-medium uppercase tracking-wide text-gray-500">
             {{ t('setup.roles.permissions.count') }}
           </p>
@@ -157,7 +189,7 @@ async function onDeleted() {
             {{ grantedCount }}
           </p>
         </UCard>
-        <UCard>
+        <UCard class="rounded-2xl">
           <p class="text-xs font-medium uppercase tracking-wide text-gray-500">
             {{ t('setup.roles.userCount') }}
           </p>
@@ -165,7 +197,7 @@ async function onDeleted() {
             {{ role.user_count }}
           </p>
         </UCard>
-        <UCard>
+        <UCard class="rounded-2xl">
           <p class="text-xs font-medium uppercase tracking-wide text-gray-500">
             {{ t('setup.roles.manage.modules') }}
           </p>
@@ -175,7 +207,7 @@ async function onDeleted() {
         </UCard>
       </div>
 
-      <UCard class="mb-6">
+      <UCard class="mb-6 rounded-2xl">
         <template #header>
           <h2 class="font-semibold font-heading">
             {{ t('setup.roles.manage.details') }}
@@ -183,42 +215,55 @@ async function onDeleted() {
         </template>
 
         <form
-          class="grid gap-4 md:grid-cols-2"
+          class="space-y-5"
           @submit.prevent="save"
         >
           <UFormField
+            class="w-full"
             :label="t('setup.roles.label')"
             required
-            class="md:col-span-1"
           >
-            <UInput v-model="label" />
+            <UInput
+              v-model="label"
+              class="w-full"
+              size="lg"
+              :ui="inputUi"
+            />
           </UFormField>
 
           <UFormField
+            class="w-full"
             :label="t('setup.roles.code')"
-            class="md:col-span-1"
           >
             <UInput
               :model-value="role.code"
+              class="w-full"
+              size="lg"
               disabled
+              :ui="inputUi"
             />
+            <p class="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
+              {{ t('setup.roles.manage.codeReadonly') }}
+            </p>
           </UFormField>
 
           <UFormField
+            class="w-full"
             :label="t('setup.roles.descriptionLabel')"
-            class="md:col-span-2"
           >
             <UTextarea
               v-model="description"
-              :rows="2"
+              class="w-full"
+              :rows="3"
+              :ui="inputUi"
             />
           </UFormField>
 
           <UFormField
+            class="w-full"
             :label="t('setup.roles.status')"
-            class="md:col-span-2"
           >
-            <div class="flex items-center gap-3">
+            <div class="flex w-full items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 dark:border-gray-700 dark:bg-gray-800/50">
               <USwitch
                 v-model="isActive"
                 :disabled="role.is_system"
@@ -227,15 +272,21 @@ async function onDeleted() {
                 {{ isActive ? t('setup.roles.active') : t('setup.roles.inactive') }}
               </span>
             </div>
+            <p
+              v-if="role.is_system"
+              class="mt-1.5 text-xs text-gray-500"
+            >
+              {{ t('setup.roles.cannotDeactivateSystem') }}
+            </p>
           </UFormField>
         </form>
       </UCard>
 
-      <UCard>
+      <UCard class="mb-6 rounded-2xl">
         <template #header>
           <div class="flex flex-wrap items-center justify-between gap-2">
             <h2 class="font-semibold font-heading">
-              {{ t('setup.roles.permissions.title') }}
+              {{ t('setup.roles.permissions.pagesTitle') }}
             </h2>
             <p class="text-sm text-gray-500">
               {{ t('setup.roles.permissions.granted', { count: grantedCount }) }}
@@ -243,43 +294,74 @@ async function onDeleted() {
           </div>
         </template>
 
-        <OrgRolePermissionsEditor v-model:permissions="permissions" />
+        <SetupOrgRolePagesEditor v-model:permissions="permissions" />
       </UCard>
 
-      <p
-        v-if="savedMsg"
-        class="mt-4 text-sm text-green-600"
+      <UCard
+        v-if="canDelete"
+        class="rounded-2xl border-red-200 dark:border-red-900/40"
       >
-        {{ savedMsg }}
-      </p>
-      <p
-        v-if="errorMsg"
-        class="mt-4 text-sm text-red-500"
-      >
-        {{ errorMsg }}
-      </p>
+        <template #header>
+          <h2 class="font-semibold font-heading text-red-600 dark:text-red-400">
+            {{ t('setup.roles.manage.dangerZone') }}
+          </h2>
+        </template>
 
-      <div class="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-gray-200 pt-6 dark:border-gray-800">
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+          {{ t('setup.roles.manage.deleteHint') }}
+        </p>
+
         <UButton
+          class="mt-4"
           color="error"
           variant="outline"
           icon="i-lucide-trash-2"
-          :disabled="!canDelete"
           @click="deleteOpen = true"
         >
           {{ t('setup.roles.delete') }}
         </UButton>
+      </UCard>
 
-        <UButton
-          :loading="saving"
-          icon="i-lucide-save"
-          @click="save"
-        >
-          {{ t('common.save') }}
-        </UButton>
+      <UAlert
+        v-else-if="role.is_system"
+        class="rounded-2xl"
+        color="info"
+        variant="subtle"
+        :title="t('setup.roles.cannotDeleteSystem')"
+      />
+
+      <UAlert
+        v-else-if="role.user_count > 0"
+        class="rounded-2xl"
+        color="warning"
+        variant="subtle"
+        :title="t('setup.roles.cannotDeleteAssigned')"
+      />
+
+      <div class="sticky bottom-0 z-10 -mx-4 mt-6 border-t border-gray-200 bg-white/95 px-4 py-4 backdrop-blur dark:border-gray-800 dark:bg-gray-900/95 sm:-mx-6 sm:px-6">
+        <div class="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+          <UButton
+            class="w-full sm:w-auto"
+            variant="outline"
+            color="neutral"
+            size="lg"
+            to="/app/setup/roles"
+          >
+            {{ t('common.cancel') }}
+          </UButton>
+          <UButton
+            class="w-full sm:w-auto"
+            :loading="saving"
+            icon="i-lucide-save"
+            size="lg"
+            @click="save"
+          >
+            {{ t('common.save') }}
+          </UButton>
+        </div>
       </div>
 
-      <OrgRoleDeleteModal
+      <SetupOrgRoleDeleteModal
         v-model:open="deleteOpen"
         :role="role"
         @deleted="onDeleted"

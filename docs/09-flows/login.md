@@ -28,6 +28,15 @@ Nuxt → Tenant Supabase: CRM (RLS)
 
 → [phase1-only.md](./phase1-only.md)
 
+### บัญชีทดสอบ
+
+→ [TEST-ACCOUNTS.md](../11-dev-setup/TEST-ACCOUNTS.md)
+
+| Login ด้วย | ค่า | Password |
+|------------|-----|----------|
+| Username | `tester1` | `testpass123` |
+| Email | `browser-test-owner@crm-kai.test` | `testpass123` |
+
 ---
 
 ## เอกสารที่เกี่ยวข้อง

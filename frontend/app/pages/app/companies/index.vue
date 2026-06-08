@@ -20,6 +20,16 @@ async function refresh() {
 
 await refresh()
 
+const {
+  page,
+  pagedItems,
+  totalItems: paginationTotal,
+  totalPages,
+  rangeStart,
+  rangeEnd,
+  pageSize
+} = usePagination(companies)
+
 async function onDelete(id: string) {
   if (!confirm(t('companies.confirmDelete'))) return
   await remove(id)
@@ -62,55 +72,56 @@ async function onDelete(id: string) {
 
     <div
       v-else
-      class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-800"
+      class="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800"
     >
-      <table class="w-full text-sm">
-        <thead class="bg-gray-50 dark:bg-gray-900">
-          <tr>
-            <th class="text-left p-3 font-medium">
-              {{ t('companies.name') }}
-            </th>
-            <th class="text-left p-3 font-medium">
-              {{ t('companies.industry') }}
-            </th>
-            <th class="text-left p-3 font-medium">
-              {{ t('companies.phone') }}
-            </th>
-            <th class="p-3" />
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="c in companies"
-            :key="c.id"
-            class="border-t border-gray-200 dark:border-gray-800"
+      <AppDataTable embedded>
+      <template #head>
+        <tr>
+          <AppDataTableTh>{{ t('companies.name') }}</AppDataTableTh>
+          <AppDataTableTh>{{ t('companies.industry') }}</AppDataTableTh>
+          <AppDataTableTh>{{ t('companies.phone') }}</AppDataTableTh>
+          <AppDataTableTh />
+        </tr>
+      </template>
+
+      <AppDataTableRow
+        v-for="c in pagedItems"
+        :key="c.id"
+      >
+        <AppDataTableTd>
+          <NuxtLink
+            :to="`/app/companies/${c.id}`"
+            class="font-medium hover:underline"
           >
-            <td class="p-3">
-              <NuxtLink
-                :to="`/app/companies/${c.id}`"
-                class="font-medium hover:underline"
-              >
-                {{ c.name }}
-              </NuxtLink>
-            </td>
-            <td class="p-3 text-gray-600">
-              {{ c.industry || t('common.empty') }}
-            </td>
-            <td class="p-3 text-gray-600">
-              {{ c.phone || t('common.empty') }}
-            </td>
-            <td class="p-3 text-right">
-              <UButton
-                size="xs"
-                color="error"
-                variant="ghost"
-                icon="i-lucide-trash-2"
-                @click="onDelete(c.id)"
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            {{ c.name }}
+          </NuxtLink>
+        </AppDataTableTd>
+        <AppDataTableTd muted>
+          {{ c.industry || t('common.empty') }}
+        </AppDataTableTd>
+        <AppDataTableTd muted>
+          {{ c.phone || t('common.empty') }}
+        </AppDataTableTd>
+        <AppDataTableTd align="right">
+          <AppIconButton
+            icon="i-lucide-trash-2"
+            color="error"
+            :aria-label="t('common.delete')"
+            @click="onDelete(c.id)"
+          />
+        </AppDataTableTd>
+      </AppDataTableRow>
+      </AppDataTable>
+
+      <AppPagination
+        v-model:page="page"
+        embedded
+        :total-items="paginationTotal"
+        :total-pages="totalPages"
+        :range-start="rangeStart"
+        :range-end="rangeEnd"
+        :page-size="pageSize"
+      />
     </div>
   </div>
 </template>

@@ -71,6 +71,12 @@ NUXT_PUBLIC_SUPABASE_KEY=sb_publishable_xxxx
 
 ---
 
+## บัญชีทดสอบ
+
+→ [TEST-ACCOUNTS.md](./TEST-ACCOUNTS.md) — `tester1` / `testpass123` (Browser Tester, owner)
+
+---
+
 ## รัน Frontend (หลัง scaffold)
 
 ```bash

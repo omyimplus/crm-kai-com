@@ -1,0 +1,71 @@
+---
+description: Nuxt frontend — ชื่อ component, nested routes, dialog ที่เคยพัง
+alwaysApply: true
+---
+
+# Nuxt Frontend — Known Pitfalls
+
+## 1. ชื่อ component ใน template (auto-import)
+
+ไฟล์ใน `components/setup/FooBar.vue` → ใช้ใน template เป็น **`SetupFooBar`** (prefix ชื่อโฟลเดอร์)
+
+| ❌ ผิด | ✅ ถูก |
+|--------|--------|
+| `<OrgRoleFormModal>` | `<SetupOrgRoleFormModal>` |
+| `<SystemUserFormModal>` | `<SetupSystemUserFormModal>` |
+| `<OrgRoleDeleteModal>` | `<SetupOrgRoleDeleteModal>` |
+
+**อาการ:** กดปุ่มแล้ว dialog ไม่ขึ้น, ไม่มี error ชัดใน UI
+
+## 2. Nested routes — ห้ามมีทั้ง `foo.vue` และ `foo/bar.vue`
+
+| ❌ ผิด | ✅ ถูก |
+|--------|--------|
+| `pages/.../system-users.vue` + `pages/.../system-users/new.vue` | `system-users/index.vue` + `system-users/new.vue` |
+| `pages/.../roles.vue` + `pages/.../roles/[id].vue` | `roles/index.vue` + `roles/[id].vue` |
+
+**อาการ:** URL `/system-users/new` แสดงหน้ารายการแทนหน้า new — `/setup/roles/:id` แสดงรายการแทนหน้าตั้งค่าบทบาท
+
+## 3. Modal ซ้อน modal
+
+Dialog สร้างบทบาท / entity อื่น — **hoist ไป page level** ไม่ใส่ใน modal แม่
+
+```vue
+<!-- page.vue -->
+<SetupSystemUserFormModal @open-org-role-form="orgRoleFormOpen = true" />
+<SetupOrgRoleFormModal v-model:open="orgRoleFormOpen" />
+```
+
+## 4. Supabase env (@nuxtjs/supabase v1)
+
+Module อ่าน `SUPABASE_URL` / `SUPABASE_KEY` — map ใน `nuxt.config.ts`:
+
+```ts
+supabase: {
+  url: process.env.NUXT_PUBLIC_SUPABASE_URL,
+  key: process.env.NUXT_PUBLIC_SUPABASE_KEY ?? process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY
+}
+```
+
+**อาการ:** WARN Missing supabase url/anon key ตอน dev
+
+## 5. เมนู sidebar — เอา badge 「เร็ว ๆ นี้」 ออกเมื่อหน้าพร้อม
+
+หน้าที่ implement เสร็จ (ไม่ใช่ `*ComingSoon.vue` แล้ว) **ต้อง** ตั้ง `ready: true` ใน config เมนู — มิฉะนั้น sidebar ยังแสดง badge เร็ว ๆ นี้
+
+| Config | ไฟล์ |
+|--------|------|
+| Setup | `config/setupMenu.ts` |
+| Master Data | `config/masterDataMenu.ts` |
+
+```ts
+{ key: 'activeSessions', to: '/app/setup/active-sessions', ..., ready: true },
+```
+
+อัปเดตสถานะใน `docs/05-frontend/SETUP-MENU.md` (หรือ README โฟลเดอร์ที่เกี่ยวข้อง) ด้วย
+
+**อาการ:** หน้าใช้งานได้แล้วแต่เมนูยังมี badge สี warning
+
+## หลังแก้ UI/route
+
+เช็ค terminal — ห้ามปล่อย WARN/ERROR (ดู rule `terminal-no-warn-error.mdc`)

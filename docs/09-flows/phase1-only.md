@@ -23,13 +23,16 @@
 ## Login → CRM
 
 ```
-User → /login
-Nuxt → Supabase Auth: signInWithPassword
+User → /login (กรอก email หรือ username + password)
+Nuxt → ถ้าไม่มี @ → RPC resolve_login_email(username) → email
+Nuxt → Supabase Auth: signInWithPassword(email, password)
 Nuxt → SELECT profiles WHERE id = auth.uid()
       → ได้ org_id, role
 Nuxt → redirect /app
 CRM queries → Supabase client + RLS (org_id)
 ```
+
+**บัญชีทดสอบ:** [TEST-ACCOUNTS.md](../11-dev-setup/TEST-ACCOUNTS.md) — `tester1` / `testpass123`
 
 ---
 

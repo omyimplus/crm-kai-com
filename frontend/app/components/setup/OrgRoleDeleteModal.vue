@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { OrgRole } from '~/types/crm'
+import { appFormErrorClass } from '~/config/appFormUi'
 
 const open = defineModel<boolean>('open', { required: true })
 
@@ -43,60 +44,52 @@ async function confirmDelete() {
 </script>
 
 <template>
-  <UModal v-model:open="open">
-    <template #content>
-      <UCard>
-        <template #header>
-          <h2 class="font-semibold font-heading">
-            {{ t('setup.roles.deleteTitle') }}
-          </h2>
-        </template>
+  <AppDialog
+    v-model:open="open"
+    :title="t('setup.roles.deleteTitle')"
+    size="sm"
+  >
+    <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+      {{ t('setup.roles.deleteConfirm', { name: role?.label ?? '' }) }}
+    </p>
 
-        <p class="text-sm text-gray-600 dark:text-gray-400">
-          {{ t('setup.roles.deleteConfirm', { name: role?.label ?? '' }) }}
-        </p>
+    <UAlert
+      v-if="role && role.user_count > 0"
+      class="mt-4"
+      color="warning"
+      variant="subtle"
+      :title="t('setup.roles.cannotDeleteAssigned')"
+    />
 
-        <UAlert
-          v-if="role && role.user_count > 0"
-          class="mt-4"
-          color="warning"
-          variant="subtle"
-          :title="t('setup.roles.cannotDeleteAssigned')"
-        />
+    <UAlert
+      v-if="role?.is_system"
+      class="mt-4"
+      color="warning"
+      variant="subtle"
+      :title="t('setup.roles.cannotDeleteSystem')"
+    />
 
-        <UAlert
-          v-if="role?.is_system"
-          class="mt-4"
-          color="warning"
-          variant="subtle"
-          :title="t('setup.roles.cannotDeleteSystem')"
-        />
+    <p
+      v-if="errorMsg"
+      class="mt-4"
+      :class="appFormErrorClass"
+    >
+      {{ errorMsg }}
+    </p>
 
-        <p
-          v-if="errorMsg"
-          class="mt-4 text-sm text-red-500"
+    <template #footer>
+      <AppDialogFooter @cancel="open = false">
+        <UButton
+          class="w-full sm:w-auto"
+          color="error"
+          size="lg"
+          :loading="deleting"
+          :disabled="!canDelete"
+          @click="confirmDelete"
         >
-          {{ errorMsg }}
-        </p>
-
-        <div class="mt-6 flex justify-end gap-2">
-          <UButton
-            variant="outline"
-            color="neutral"
-            @click="open = false"
-          >
-            {{ t('common.cancel') }}
-          </UButton>
-          <UButton
-            color="error"
-            :loading="deleting"
-            :disabled="!canDelete"
-            @click="confirmDelete"
-          >
-            {{ t('common.delete') }}
-          </UButton>
-        </div>
-      </UCard>
+          {{ t('common.delete') }}
+        </UButton>
+      </AppDialogFooter>
     </template>
-  </UModal>
+  </AppDialog>
 </template>

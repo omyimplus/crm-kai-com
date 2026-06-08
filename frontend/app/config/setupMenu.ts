@@ -20,7 +20,7 @@ export const setupMenuItems: SetupMenuItem[] = [
   { key: 'roles', to: '/app/setup/roles', icon: 'i-lucide-shield-check', ready: true },
   { key: 'dataManagement', to: '/app/setup/data-management', icon: 'i-lucide-file-spreadsheet' },
   { key: 'userActivity', to: '/app/setup/user-activity', icon: 'i-lucide-activity', ready: true },
-  { key: 'activeSessions', to: '/app/setup/active-sessions', icon: 'i-lucide-monitor-smartphone' },
-  { key: 'userApprovals', to: '/app/setup/user-approvals', icon: 'i-lucide-user-check' },
-  { key: 'settings', to: '/app/setup/settings', icon: 'i-lucide-settings' }
+  { key: 'activeSessions', to: '/app/setup/active-sessions', icon: 'i-lucide-monitor-smartphone', ready: true },
+  { key: 'userApprovals', to: '/app/setup/user-approvals', icon: 'i-lucide-user-check', ready: true },
+  { key: 'settings', to: '/app/setup/settings', icon: 'i-lucide-settings', ready: true }
 ]

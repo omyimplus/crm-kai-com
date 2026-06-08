@@ -11,7 +11,7 @@ Authentication & Authorization
 | รายการ | สถานะ |
 |--------|--------|
 | Phase | 1 |
-| Implement แล้ว | ❌ ยังไม่มี code |
+| Implement แล้ว | ✅ login email + username (RPC) |
 | โหมด | Supabase Auth + profiles.org_id |
 | Multi-org | ❌ Phase 1: 1 user = 1 org |
 
@@ -21,8 +21,20 @@ Authentication & Authorization
 
 - Login และ CRM อยู่ **Supabase project เดียว**
 - `profiles.org_id` เชื่อม user กับ org — **ไม่มี** `organization_members`
-- `profiles.role` — owner | admin | sales | readonly
+- `profiles.role` — owner | admin | employee
+- `profiles.username` — unique ต่อ org; ใช้ login แทน email ได้ (ผ่าน `resolve_login_email`)
 - ดู [permissions.md](../06-crm-schema/permissions.md) สำหรับ role × table
+
+### Login (หน้า `/login`)
+
+| วิธี | ตัวอย่าง | หมายเหตุ |
+|------|---------|----------|
+| Email | `browser-test-owner@crm-kai.test` | Supabase Auth โดยตรง |
+| Username | `tester1` | RPC แปลงเป็น email ก่อน sign in |
+
+**บัญชีทดสอบ:** [TEST-ACCOUNTS.md](../11-dev-setup/TEST-ACCOUNTS.md)
+
+**Migration:** `20260608120017_resolve_login_email.sql`
 
 ---
 

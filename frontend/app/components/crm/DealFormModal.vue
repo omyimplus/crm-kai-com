@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import type { PipelineStage } from '~/types/crm'
+import {
+  appFormErrorClass,
+  appFormFieldClass,
+  appInputUi,
+  appSelectMenuUi
+} from '~/config/appFormUi'
 
 const open = defineModel<boolean>('open', { required: true })
 
@@ -77,85 +83,122 @@ async function save() {
 </script>
 
 <template>
-  <UModal v-model:open="open">
-    <template #content>
-      <UCard>
-        <template #header>
-          <h2 class="font-semibold">
-            {{ t('deals.new') }}
-          </h2>
-        </template>
-        <form
-          class="space-y-4"
-          @submit.prevent="save"
+  <AppDialog
+    v-model:open="open"
+    :title="t('deals.new')"
+    size="md"
+  >
+    <form
+      id="deal-form"
+      class="space-y-5"
+      @submit.prevent="save"
+    >
+      <UFormField
+        :class="appFormFieldClass"
+        :label="t('deals.dealTitle')"
+        required
+      >
+        <UInput
+          v-model="form.title"
+          class="w-full"
+          size="lg"
+          :ui="appInputUi"
+        />
+      </UFormField>
+
+      <UFormField
+        :class="appFormFieldClass"
+        :label="t('deals.stage')"
+      >
+        <USelectMenu
+          v-model="form.stage_id"
+          class="w-full"
+          size="lg"
+          :ui="appSelectMenuUi"
+          :items="stages.map(s => ({ label: s.name, value: s.id }))"
+          value-key="value"
+        />
+      </UFormField>
+
+      <UFormField
+        :class="appFormFieldClass"
+        :label="t('deals.amount')"
+      >
+        <UInput
+          v-model.number="form.amount"
+          class="w-full"
+          type="number"
+          min="0"
+          size="lg"
+          :ui="appInputUi"
+        />
+      </UFormField>
+
+      <UFormField
+        :class="appFormFieldClass"
+        :label="t('deals.company')"
+      >
+        <USelectMenu
+          v-model="form.company_id"
+          class="w-full"
+          size="lg"
+          :ui="appSelectMenuUi"
+          :items="companies"
+          value-key="value"
+          :placeholder="t('common.optional')"
+          searchable
+        />
+      </UFormField>
+
+      <UFormField
+        :class="appFormFieldClass"
+        :label="t('deals.contact')"
+      >
+        <USelectMenu
+          v-model="form.contact_id"
+          class="w-full"
+          size="lg"
+          :ui="appSelectMenuUi"
+          :items="contacts"
+          value-key="value"
+          :placeholder="t('common.optional')"
+          searchable
+        />
+      </UFormField>
+
+      <UFormField
+        :class="appFormFieldClass"
+        :label="t('deals.expectedClose')"
+      >
+        <UInput
+          v-model="form.expected_close_date"
+          class="w-full"
+          type="date"
+          size="lg"
+          :ui="appInputUi"
+        />
+      </UFormField>
+
+      <p
+        v-if="errorMsg"
+        :class="appFormErrorClass"
+      >
+        {{ errorMsg }}
+      </p>
+    </form>
+
+    <template #footer>
+      <AppDialogFooter @cancel="open = false">
+        <UButton
+          class="w-full sm:w-auto"
+          type="submit"
+          form="deal-form"
+          size="lg"
+          :loading="loading"
         >
-          <UFormField
-            :label="t('deals.dealTitle')"
-            required
-          >
-            <UInput v-model="form.title" />
-          </UFormField>
-          <UFormField :label="t('deals.stage')">
-            <USelectMenu
-              v-model="form.stage_id"
-              :items="stages.map(s => ({ label: s.name, value: s.id }))"
-              value-key="value"
-            />
-          </UFormField>
-          <UFormField :label="t('deals.amount')">
-            <UInput
-              v-model.number="form.amount"
-              type="number"
-              min="0"
-            />
-          </UFormField>
-          <UFormField :label="t('deals.company')">
-            <USelectMenu
-              v-model="form.company_id"
-              :items="companies"
-              value-key="value"
-              :placeholder="t('common.optional')"
-              searchable
-            />
-          </UFormField>
-          <UFormField :label="t('deals.contact')">
-            <USelectMenu
-              v-model="form.contact_id"
-              :items="contacts"
-              value-key="value"
-              :placeholder="t('common.optional')"
-              searchable
-            />
-          </UFormField>
-          <UFormField :label="t('deals.expectedClose')">
-            <UInput
-              v-model="form.expected_close_date"
-              type="date"
-            />
-          </UFormField>
-          <p
-            v-if="errorMsg"
-            class="text-sm text-red-500"
-          >
-            {{ errorMsg }}
-          </p>
-          <div class="flex justify-end gap-2">
-            <UButton
-              variant="outline"
-              color="neutral"
-              @click="open = false"
-            >
-              {{ t('common.cancel') }}
-            </UButton>
-            <UButton
-              type="submit"
-              :loading="loading"
-            >
-              {{ t('common.create') }}
-            </UButton>
-          </div>
-        </form>
-      </UCard>
+          {{ t('common.create') }}
+        </UButton>
+      </AppDialogFooter>
     </template>
-  </UModal>
+  </AppDialog>
 </template>

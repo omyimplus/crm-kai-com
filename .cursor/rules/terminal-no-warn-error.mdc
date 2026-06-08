@@ -1,0 +1,47 @@
+---
+description: หลังทำ flow ใด ๆ ต้องเช็ค terminal — ห้ามปล่อย error/warn ค้าง
+alwaysApply: true
+---
+
+# Terminal — zero error / warn
+
+ทุกครั้งที่ทำ flow ใด ๆ (dev server, build, test, migration, script, deploy) **ต้องเช็ค terminal output ก่อนจบงาน**
+
+## บังคับ
+
+1. **อ่าน terminal** ที่เกี่ยวข้องหลังรันคำสั่ง — อย่าสรุปว่าเสร็จถ้ายังไม่ได้อ่าน output
+2. **ห้ามปล่อย error หรือ warn ค้าง** — แก้ให้หมดก่อนบอก user ว่าเสร็จ
+3. **Restart / re-run** หลังแก้ แล้วยืนยัน output สะอาดอีกครั้ง
+
+## ขอบเขตที่ต้องเช็ค
+
+| แหล่ง | ตัวอย่างที่ห้ามปล่อย |
+|-------|---------------------|
+| `npm run dev` / `nuxt dev` | `WARN`, `ERROR`, missing env, module warnings |
+| `npm run build` | build errors, chunk warnings ที่แก้ได้ |
+| `supabase` CLI | migration failed, RLS/policy errors |
+| test / lint | failing tests, eslint errors |
+
+## ลำดับเมื่อพบ warn/error
+
+1. ระบุสาเหตุ (ไฟล์ / config / env)
+2. แก้ root cause — อย่า suppress โดยไม่จำเป็น
+3. รันคำสั่งเดิมซ้ำ → ยืนยันไม่มี `ERROR` / `WARN` (info/log ปกติได้)
+
+## ตัวอย่าง (โปรเจกต์นี้)
+
+```text
+# ❌ ห้ามจบงานแบบนี้
+[@nuxt/supabase] WARN Missing supabase url
+[@nuxtjs/i18n] WARN bundle.optimizeTranslationDirective...
+
+# ✅ แก้ config/env แล้ว restart — output สะอาด
+➜ Local: http://localhost:3000/
+✔ Vite client built
+```
+
+## ก่อนรายงาน user
+
+- [ ] อ่าน terminal output ล่าสุดแล้ว
+- [ ] ไม่มี error
+- [ ] ไม่มี warn (ยกเว้น user ยอมรับเป็น known issue ชัดเจน)

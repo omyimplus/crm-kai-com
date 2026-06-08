@@ -1,5 +1,5 @@
--- Demo org + default pipeline
--- Fixed UUID for reference in docs
+-- Demo org + default pipeline + legacy org roles (Manager, Sales, CS, Engineer)
+-- Admin chip from old UI = platform admin — not org_role
 
 INSERT INTO public.organizations (id, name, slug, settings)
 VALUES (
@@ -28,4 +28,6 @@ BEGIN
       (v_org_id, v_pipeline_id, 'Won', 4, 100, true, false, '#22c55e'),
       (v_org_id, v_pipeline_id, 'Lost', 5, 0, false, true, '#ef4444');
   END IF;
+
+  PERFORM public.seed_org_role_templates(v_org_id);
 END $$;

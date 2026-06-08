@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import { validatePasswordPair } from '~/utils/password'
+
 definePageMeta({ middleware: 'guest', layout: false })
 
 const { t } = useI18n()
 const supabase = useSupabaseClient()
+const { recordLogin } = useLoginSession()
 const route = useRoute()
+
 const email = ref('')
 const password = ref('')
+const confirmPassword = ref('')
 const fullName = ref('')
 const loading = ref(false)
 const errorMsg = ref('')
@@ -17,12 +22,28 @@ const pageTitle = computed(() =>
   isComplete.value ? t('auth.completeProfileTitle') : t('auth.signupTitle')
 )
 
+function passwordErrorMessage(): string | null {
+  const err = validatePasswordPair(password.value, confirmPassword.value)
+  if (!err) return null
+  if (err === 'mismatch') return t('auth.passwordMismatch')
+  if (err === 'tooShort') {
+    return t('auth.passwordTooShort', { min: 6 })
+  }
+  return t('auth.passwordRequired')
+}
+
 async function signup() {
   loading.value = true
   errorMsg.value = ''
   successMsg.value = ''
 
   if (!isComplete.value) {
+    const passwordError = passwordErrorMessage()
+    if (passwordError) {
+      loading.value = false
+      errorMsg.value = passwordError
+      return
+    }
     const { data, error } = await supabase.auth.signUp({
       email: email.value,
       password: password.value
@@ -77,7 +98,9 @@ async function signup() {
   if (rpcError) {
     loading.value = false
     if (rpcError.message.includes('Profile already exists')) {
-      await navigateTo('/app', { replace: true })
+      const { fetchProfile } = useProfile()
+      const existing = await fetchProfile()
+      await navigateTo(existing?.is_active ? '/app' : '/app/pending', { replace: true })
       return
     }
     errorMsg.value = rpcError.message
@@ -85,7 +108,12 @@ async function signup() {
   }
 
   loading.value = false
-  await navigateTo('/app', { replace: true })
+  const { fetchProfile } = useProfile()
+  const created = await fetchProfile()
+  if (created?.is_active) {
+    await recordLogin()
+  }
+  await navigateTo(created?.is_active ? '/app' : '/app/pending', { replace: true })
 }
 </script>
 
@@ -111,20 +139,11 @@ async function signup() {
           :placeholder="t('auth.emailPlaceholder')"
         />
       </UFormField>
-      <UFormField
+      <AppPasswordFieldGroup
         v-if="!isComplete"
-        :label="t('auth.password')"
-      >
-        <UInput
-          v-model="password"
-          type="password"
-          required
-          minlength="6"
-          size="lg"
-          icon="i-lucide-lock"
-          :placeholder="t('auth.passwordPlaceholder')"
-        />
-      </UFormField>
+        v-model:password="password"
+        v-model:confirm-password="confirmPassword"
+      />
       <UFormField :label="t('auth.fullName')">
         <UInput
           v-model="fullName"

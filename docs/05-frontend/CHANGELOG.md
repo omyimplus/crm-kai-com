@@ -6,6 +6,21 @@
 
 ## ประวัติ
 
+### 2026-06-08 — IMAGE-UPLOAD.md + shared image upload stack
+
+- **ทำอะไร:** เอกสารและชุดกลาง `useImageUpload` / `AppImageUpload` — avatar + company logo
+- **ไฟล์ที่กระทบ:** `IMAGE-UPLOAD.md`, `SHARED-COMPONENTS.md`, `README.md`
+
+### 2026-06-08 — AppDataTable header rounded corners
+
+- **ทำอะไร:** หัวตารางมนซ้าย–ขวา–บน ผ่าน `.app-data-table` ใน `main.css`
+- **ไฟล์ที่กระทบ:** `AppDataTable.vue`, `frontend/app/assets/css/main.css`, `SHARED-COMPONENTS.md`
+
+### 2026-06-08 — add SHARED-COMPONENTS.md
+
+- **ทำอะไร:** เอกสาร component ใช้ร่วม — AppDataTable, AppPagination, AppDialog, form UI class, avatar
+- **ไฟล์ที่กระทบ:** `SHARED-COMPONENTS.md`, `README.md`
+
 ### 2026-06-08 — add Master Data → Roles menu (กำหนด Role)
 
 - **ทำอะไร:** เมนูกำหนด role ใน Master Data (นอก Setup) + route `/app/master-data/roles` + เอกสาร

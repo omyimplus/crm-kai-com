@@ -16,6 +16,10 @@
 | `20260608120006_org_roles.sql` | `org_roles` + wire system users |
 | `20260608120007_org_role_permissions.sql` | normalize permissions + delete role |
 | `20260608120008_list_data_change_logs.sql` | `list_data_change_logs` — User Activity UI |
+| `20260608120017_resolve_login_email.sql` | username → email ก่อน login |
+| `20260608120018_fix_auth_users_admin_create.sql` | แก้ auth.users NULL tokens + admin_create_org_user |
+
+**บัญชีทดสอบ:** [docs/11-dev-setup/TEST-ACCOUNTS.md](../docs/11-dev-setup/TEST-ACCOUNTS.md)
 
 ## Local
 
