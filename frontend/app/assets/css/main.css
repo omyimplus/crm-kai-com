@@ -1,0 +1,58 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  /* Phase 1 interim — Noto Sans Thai ทั้งระบบ (th + en) จนกว่า user จะสั่ง font อื่น */
+  --font-sans: "Noto Sans Thai", sans-serif;
+  --font-heading: "Noto Sans Thai", sans-serif;
+
+  /* Brand primary: #5fb76a — Nuxt UI maps primary → green */
+  /* Sidebar section headers (light mode only) */
+  --color-menu-section: #2e9e3c;
+  --color-menu-section-hover: #268a33;
+  --color-green-50: #f3faf4;
+  --color-green-100: #e3f5e6;
+  --color-green-200: #c8ebcf;
+  --color-green-300: #9dd9a8;
+  --color-green-400: #72c87f;
+  --color-green-500: #5fb76a;
+  --color-green-600: #4d9e58;
+  --color-green-700: #3f8249;
+  --color-green-800: #34693c;
+  --color-green-900: #2b5632;
+  --color-green-950: #17301c;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.55;
+  @apply text-gray-900 dark:text-gray-100;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* ภาษาไทย — CRM layer: ทั้งหัวข้อและเนื้อหาใช้ Sarabun (D-010) */
+html[lang="th"] .crm-app {
+  --font-sans: "Sarabun", "Noto Sans Thai", sans-serif;
+  --font-heading: "Sarabun", "Noto Sans Thai", sans-serif;
+  font-family: var(--font-sans);
+}

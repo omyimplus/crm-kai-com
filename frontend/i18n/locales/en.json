@@ -1,0 +1,546 @@
+{
+  "common": {
+    "appName": "CRM Kai",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "create": "Create",
+    "delete": "Delete",
+    "back": "Back",
+    "optional": "Optional",
+    "empty": "—",
+    "saveFailed": "Save failed",
+    "loadFailed": "Failed to load",
+    "deleteFailed": "Delete failed",
+    "user": "User",
+    "language": "Language",
+    "switchLanguage": "Switch to {language}",
+    "theme": "Toggle light/dark mode",
+    "comingSoonBadge": "Soon",
+    "version": "Version {version}"
+  },
+  "auth": {
+    "loginTitle": "Sign in",
+    "loginSubtitle": "Welcome back — access your CRM",
+    "signupTitle": "Sign up",
+    "completeProfileTitle": "Complete profile",
+    "signupSubtitle": "Join demo org (Phase 1)",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full name",
+    "emailPlaceholder": "name{'@'}company.com",
+    "passwordPlaceholder": "••••••••",
+    "fullNamePlaceholder": "Display name",
+    "brandHeadline": "Manage customers and deals with ease",
+    "brandDescription": "Sales CRM — contacts, companies, and pipeline in one place",
+    "brandFeature1": "Real-time Kanban deal tracking",
+    "brandFeature2": "Full contact and company management",
+    "brandFeature3": "Built for multi-tenant growth",
+    "login": "Login",
+    "logout": "Logout",
+    "signup": "Sign up",
+    "createAccount": "Create account",
+    "saveProfile": "Save profile",
+    "noAccount": "No account?",
+    "backToLogin": "Back to login",
+    "confirmEmailHint": "Account created — confirm your email, then sign in to complete your profile",
+    "loginRequiredForProfile": "Please sign in before saving your profile",
+    "emailAlreadyRegistered": "This email is already registered — try signing in instead"
+  },
+  "nav": {
+    "crm": "Main menu",
+    "crmSubtitle": "CRM workspace",
+    "dashboard": "Dashboard",
+    "contacts": "Contacts",
+    "companies": "Companies",
+    "deals": "Deals"
+  },
+  "appMenu": {
+    "section": "Menu",
+    "comingSoon": "Coming soon",
+    "plannedFeatures": "Planned features",
+    "dashboard": {
+      "nav": "Dashboard",
+      "title": "Dashboard",
+      "description": "Sales overview, open work, and key team KPIs",
+      "features": [
+        "Sales and pipeline summary",
+        "Tasks due today",
+        "KPI charts and metrics",
+        "Recent team activity"
+      ]
+    },
+    "tasks": {
+      "nav": "Tasks",
+      "title": "Tasks",
+      "description": "Manage, assign, and track daily work",
+      "features": [
+        "Personal and team task lists",
+        "Assignees and due dates",
+        "Link to leads, opportunities, and customers",
+        "Overdue reminders"
+      ]
+    },
+    "lead": {
+      "nav": "Lead",
+      "title": "Lead",
+      "description": "Capture and qualify prospects before converting to opportunities",
+      "features": [
+        "Leads from multiple sources",
+        "Lead scoring and status",
+        "Assign to sales teams",
+        "Convert to opportunity"
+      ]
+    },
+    "opportunity": {
+      "nav": "Opportunity",
+      "title": "Opportunity",
+      "description": "Track deals with value and stage through the sales cycle",
+      "features": [
+        "Opportunities by stage",
+        "Value and probability",
+        "Link customers and contacts",
+        "Activity and notes history"
+      ]
+    },
+    "quotations": {
+      "nav": "Quotations",
+      "title": "Quotations",
+      "description": "Create quotes, track status, and convert to sales orders",
+      "features": [
+        "Quotes from products and services",
+        "Versions and status (draft/sent/accepted)",
+        "Send PDF or customer link",
+        "Convert to sales order"
+      ]
+    },
+    "pipeline": {
+      "nav": "Pipeline",
+      "title": "Pipeline",
+      "description": "Kanban view of opportunities by stage",
+      "features": [
+        "Drag-and-drop stage changes",
+        "Filter by team and period",
+        "Column value totals",
+        "Per-org stage configuration"
+      ]
+    },
+    "salesOrder": {
+      "nav": "Sales order",
+      "title": "Sales order",
+      "description": "Confirm customer orders and prepare delivery or billing",
+      "features": [
+        "Create from accepted quotations",
+        "Line items and terms",
+        "Delivery and payment status",
+        "Link to projects and contracts"
+      ]
+    },
+    "invoices": {
+      "nav": "Invoices",
+      "title": "Invoices",
+      "description": "Issue invoices, track payments, and monitor receivables",
+      "features": [
+        "Create from sales orders or contracts",
+        "Payment due dates",
+        "Record payments received",
+        "Accounts receivable reports"
+      ]
+    },
+    "reports": {
+      "nav": "Reports",
+      "title": "Reports",
+      "description": "Sales, team performance, and analytics reports",
+      "features": [
+        "Sales by period and team",
+        "Lead and opportunity conversion",
+        "Quotation and invoice reports",
+        "Export to Excel/PDF"
+      ]
+    },
+    "projects": {
+      "nav": "Projects",
+      "title": "Projects",
+      "description": "Manage post-sale projects — work, team, and timeline",
+      "features": [
+        "Create from sales orders",
+        "Subtasks and milestones",
+        "Team and resources",
+        "Status and progress"
+      ]
+    },
+    "contractAgreements": {
+      "nav": "Contract agreements",
+      "title": "Contract agreements",
+      "description": "Store contracts, terms, and renewal cycles",
+      "features": [
+        "Contracts and attachments",
+        "Start, end, and renewal dates",
+        "Link customers and projects",
+        "Expiry reminders"
+      ]
+    },
+    "service": {
+      "nav": "Service",
+      "title": "Service",
+      "description": "After-sales service, support tickets, and SLA",
+      "features": [
+        "Open and track service tickets",
+        "SLA and priority",
+        "Link contracts and projects",
+        "Customer service history"
+      ]
+    }
+  },
+  "profile": {
+    "role": "Role",
+    "notAdminHint": "no Setup / Role config menus",
+    "roles": {
+      "owner": "Owner",
+      "admin": "Admin",
+      "sales": "Sales",
+      "readonly": "Read only"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Hello, {name}",
+    "totalDeals": "Total deals",
+    "openDeals": "Open deals",
+    "wonDeals": "Won deals",
+    "pipelineValue": "Pipeline value",
+    "dealsPipeline": "Deals pipeline"
+  },
+  "contacts": {
+    "title": "Contacts",
+    "new": "New contact",
+    "edit": "Edit contact",
+    "empty": "No contacts yet.",
+    "addFirst": "Add first contact",
+    "confirmDelete": "Delete this contact?",
+    "name": "Name",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "jobTitle": "Job title",
+    "company": "Company",
+    "selectCompany": "Select company"
+  },
+  "companies": {
+    "title": "Companies",
+    "new": "New company",
+    "edit": "Edit company",
+    "empty": "No companies yet.",
+    "addFirst": "Add first company",
+    "confirmDelete": "Delete this company?",
+    "name": "Name",
+    "industry": "Industry",
+    "website": "Website",
+    "phone": "Phone",
+    "address": "Address"
+  },
+  "deals": {
+    "title": "Deals pipeline",
+    "new": "New deal",
+    "edit": "Edit deal",
+    "detail": "Deal detail",
+    "confirmDelete": "Delete this deal?",
+    "dealTitle": "Title",
+    "stage": "Stage",
+    "amount": "Amount (THB)",
+    "company": "Company",
+    "contact": "Contact",
+    "expectedClose": "Expected close",
+    "status": {
+      "open": "open",
+      "won": "won",
+      "lost": "lost"
+    }
+  },
+  "masterData": {
+    "section": "Master data",
+    "overview": "Overview",
+    "comingSoon": "Coming soon",
+    "plannedFeatures": "Planned features",
+    "backToHub": "Back to master data",
+    "hubTitle": "Master data",
+    "hubSubtitle": "Organizational reference data — shared across CRM and configurable per module",
+    "customer": {
+      "nav": "Customer",
+      "title": "Customer",
+      "description": "Reference customer records for CRM operations",
+      "features": ["Customer code and name", "Customer groups", "Credit terms", "Link to deals and quotes"]
+    },
+    "contact": {
+      "nav": "Contact",
+      "title": "Contact",
+      "description": "Reference contact records, separate from live CRM contacts",
+      "features": ["Name, title, channels", "Link to customers", "Buying role"]
+    },
+    "salesTarget": {
+      "nav": "Sales target",
+      "title": "Sales target",
+      "description": "Set sales targets by employee, team, or period",
+      "features": ["Monthly/quarterly/yearly targets", "By team and product", "Actual vs target tracking"]
+    },
+    "products": {
+      "nav": "Products",
+      "title": "Products",
+      "description": "Products and services catalog",
+      "features": ["SKU, price, unit", "Product categories", "Active / inactive"]
+    },
+    "category": {
+      "nav": "Category",
+      "title": "Category",
+      "description": "Categories for products, customers, or deals",
+      "features": ["Hierarchical categories", "Multi-module use", "Color and icon"]
+    },
+    "leadSource": {
+      "nav": "Lead source",
+      "title": "Lead source",
+      "description": "Sources of leads and opportunities",
+      "features": ["Website, referral, events, etc.", "Conversion analytics", "Custom per org"]
+    },
+    "unit": {
+      "nav": "Unit",
+      "title": "Unit",
+      "description": "Units of measure for products and services",
+      "features": ["Piece, box, hour, etc.", "Unit conversion", "Use in quotes and deals"]
+    },
+    "employee": {
+      "nav": "Employee",
+      "title": "Employee",
+      "description": "Sales staff and related personnel",
+      "features": ["Employee code, team, role", "Link to system users", "Assign customers/deals"]
+    },
+    "salesTeam": {
+      "nav": "Sales team",
+      "title": "Sales team",
+      "description": "Group sales employees into teams",
+      "features": ["Team lead and members", "Team-level targets", "Territory assignment"]
+    },
+    "roles": {
+      "nav": "Roles",
+      "title": "Role configuration",
+      "pageTitle": "Role configuration",
+      "pageSubtitle": "Create organization roles to assign to system users — separate from system roles (owner, admin)",
+      "description": "Create and manage organization roles (beyond system admin roles) — permissions per module",
+      "code": "Code",
+      "codeHint": "Lowercase a-z, digits, underscore — e.g. sales_lead, finance",
+      "label": "Role name",
+      "descriptionLabel": "Description",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "userCount": "Users",
+      "create": "Add role",
+      "createTitle": "Add role",
+      "createFirst": "Add first role",
+      "edit": "Edit role",
+      "editTitle": "Edit role",
+      "empty": "No roles in this organization yet",
+      "createPermissionsHint": "After create you will configure permissions — all modules start disabled",
+      "delete": "Delete role",
+      "deleteTitle": "Delete role",
+      "deleteConfirm": "Delete role \"{name}\" and all of its permissions?",
+      "cannotDeleteAssigned": "Cannot delete — users are assigned to this role",
+      "cannotDeleteSystem": "System roles cannot be deleted",
+      "cannotDeactivateSystem": "System roles cannot be deactivated",
+      "manage": {
+        "open": "Manage",
+        "back": "Back to roles",
+        "subtitle": "Edit role details and configure menu/module permissions",
+        "details": "Role details",
+        "modules": "Total modules",
+        "saved": "Role saved",
+        "assignUsers": "Assign users",
+        "search": "Search roles...",
+        "emptyHint": "Create your first role to assign permissions to your team",
+        "noResults": "No roles match your search",
+        "stats": {
+          "total": "Total roles",
+          "active": "Active",
+          "assigned": "Assigned users"
+        }
+      },
+      "permissions": {
+        "manage": "Permissions",
+        "title": "Permissions",
+        "back": "Back to roles",
+        "module": "Module / menu",
+        "count": "Permissions",
+        "granted": "{count} permissions granted",
+        "saved": "Permissions saved",
+        "hint": "Applies to users with this org role — system roles (owner/admin) still take precedence",
+        "enableAllView": "Enable all view",
+        "disableAllView": "Disable all view",
+        "actions": {
+          "view": "View",
+          "create": "Create",
+          "edit": "Edit",
+          "delete": "Delete",
+          "export": "Export"
+        }
+      },
+      "features": [
+        "Custom roles for your org (e.g. sales lead, finance)",
+        "Read/write permissions per menu and module",
+        "Separate from system roles (owner, admin) in Setup",
+        "Assign roles to users from System Users",
+        "Clone from default role templates"
+      ]
+    },
+    "moduleStatuses": {
+      "nav": "Module statuses",
+      "title": "Module statuses",
+      "description": "Define statuses per module and main menu — flexible per organization",
+      "features": [
+        "Statuses per module (deals, customers, quotes, etc.)",
+        "Order, color, and defaults",
+        "Enable/disable per org policy",
+        "Support different workflows per org"
+      ]
+    },
+    "jobCode": {
+      "nav": "Job code",
+      "title": "Job code",
+      "description": "Auto numbering format — prefix, date segment, and running number",
+      "features": [
+        "Configurable letter prefix (default) per module",
+        "Date segment: year, month, day (format configurable)",
+        "Running number 0001, 00001 — length and reset rules",
+        "Example: JOB-20260608-0001",
+        "Separate sequences per module (deals, quotes, customers, etc.)"
+      ]
+    }
+  },
+  "setup": {
+    "section": "System setup",
+    "overview": "Overview",
+    "comingSoon": "Coming soon",
+    "comingSoonBadge": "Soon",
+    "plannedFeatures": "Planned features",
+    "backToSetup": "Back to system setup",
+    "hubTitle": "System setup",
+    "hubSubtitle": "Manage users, data, security, and org settings — rolling out page by page",
+    "systemUsers": {
+      "nav": "System users",
+      "title": "System Users",
+      "subtitle": "Manage users — full name, email, username, password, role, status",
+      "description": "Manage system users, roles, and CRM access",
+      "fullName": "Full name",
+      "name": "Name",
+      "email": "Email",
+      "username": "Username",
+      "password": "Password",
+      "passwordHint": "Leave blank to keep the current password",
+      "passwordPlaceholder": "Leave blank = no change",
+      "passwordRequired": "Password is required",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "edit": "Edit user",
+      "editTitle": "Edit user",
+      "create": "Add user",
+      "createTitle": "Add user",
+      "createFirst": "Add first user",
+      "empty": "No users in this organization yet",
+      "cannotDeactivateSelf": "You cannot deactivate your own account",
+      "cannotEditOwner": "Admins cannot edit owner accounts",
+      "orgRole": "Org role",
+      "orgRoleHint": "Job function role — configure under Master Data → Roles",
+      "noOrgRole": "— None —",
+      "systemRoleHint": "System role — security level (owner, admin, sales, readonly)",
+      "features": [
+        "User list per org",
+        "Assign roles (owner, admin, sales, readonly)",
+        "Enable / disable accounts",
+        "Invite new users"
+      ]
+    },
+    "dataManagement": {
+      "nav": "Data management",
+      "title": "Data Management",
+      "description": "Import CRM data from spreadsheets into the database",
+      "features": [
+        "Upload .xlsx, .xls, .csv files",
+        "Choose entity type (contacts, companies, deals)",
+        "Validate data before import",
+        "Import history log"
+      ]
+    },
+    "userActivity": {
+      "nav": "User activity",
+      "title": "User Activity",
+      "subtitle": "Audit trail for every data change — from data_change_logs (Iron Rule §13)",
+      "description": "Track user actions across the system",
+      "empty": "No activity logs yet",
+      "noSummary": "No summary",
+      "details": "Details",
+      "before": "Before",
+      "after": "After",
+      "by": "By {name}",
+      "filters": {
+        "table": "Table",
+        "action": "Action",
+        "allTables": "All tables",
+        "allActions": "All actions"
+      },
+      "actions": {
+        "create": "Create",
+        "update": "Update",
+        "delete": "Delete"
+      },
+      "entityTypes": {
+        "profiles": "System users",
+        "org_roles": "Org roles",
+        "contacts": "Contacts",
+        "companies": "Companies",
+        "deals": "Deals",
+        "activities": "Activities",
+        "pipelines": "Pipelines",
+        "pipeline_stages": "Pipeline stages"
+      },
+      "features": [
+        "Create / update / delete audit trail",
+        "Filter by user and date range",
+        "Activity detail view",
+        "Export reports"
+      ]
+    },
+    "activeSessions": {
+      "nav": "Active sessions",
+      "title": "Active Sessions",
+      "description": "View active logins and where users signed in from",
+      "features": [
+        "List of active sessions",
+        "IP, device, browser",
+        "Last login time",
+        "Force logout other sessions"
+      ]
+    },
+    "userApprovals": {
+      "nav": "User approvals",
+      "title": "User Approvals",
+      "description": "Approve new registrations before CRM access",
+      "features": [
+        "Pending queue from registration",
+        "Approve / reject with reason",
+        "Notify applicant when approved",
+        "Toggle approval-required mode"
+      ]
+    },
+    "settings": {
+      "nav": "Settings",
+      "title": "Settings",
+      "description": "Org settings, notifications, email, and sign-in methods",
+      "features": [
+        "Company profile (name, logo, timezone, currency)",
+        "Toggle notifications by category",
+        "Email service — SMTP setup",
+        "Auth providers — Microsoft 365, Google, Azure AD, username & password"
+      ]
+    }
+  }
+}

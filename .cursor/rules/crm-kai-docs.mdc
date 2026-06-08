@@ -1,0 +1,38 @@
+---
+description: CRM Kai — read ONBOARDING + PROJECT-STATUS first. Phase 1 only unless stated.
+alwaysApply: true
+---
+
+# CRM Kai — Agent Rules
+
+**Start:** `docs/00-overview/ONBOARDING.md` → `PROJECT-STATUS.md` → `IRON-RULES.md`
+
+## Must read before implement
+
+| Task | File |
+|------|------|
+| Any work | `PROJECT-STATUS.md` (code vs docs) |
+| Don't guess decisions | `DECISIONS.md` |
+| SQL / migrations | `06-crm-schema/tables.md` + `06-crm-schema/DATA-CHANGE-LOG.md` + `02-database/PHASE-MATRIX.md` |
+| Phase 1 scope | `07-phases/PHASE-1-CHECKLIST.md` |
+| UI strings / i18n | `12-i18n/README.md` — **th + en always**, no hardcoded UI text |
+| Typography / fonts | `12-i18n/TYPOGRAPHY.md` — **Noto Sans Thai default ทั้งระบบ** until user orders other fonts |
+| Logo / brand | `05-frontend/BRAND-ASSETS.md` — `public/images/logo/*.webp` |
+| Glossary | `GLOSSARY.md` |
+
+## Current phase: 1
+
+- Single Supabase + org_id on CRM tables
+- No Node API, no landing/register, no multi-tenant
+- 1 user = 1 org (no organization_members)
+- UI: Nuxt UI · Auth: Supabase · i18n: th + en (D-009)
+
+## After every change
+
+CHANGELOG in affected folder(s); DB → DB-CHANGELOG + DB-SCHEMA; data changes → `data_change_logs` (IRON-RULES §13)
+
+## Phase 3+ docs
+
+Marked ⚪ in READMEs — do NOT implement until phase changes
+
+**org** = SaaS tenant | **company** = CRM customer
