@@ -60,16 +60,70 @@
 | id | uuid | NO | gen_random_uuid() | PK |
 | org_id | uuid | NO | | FK → organizations |
 | name | text | NO | | |
-| industry | text | YES | | |
+| customer_type | text | NO | `'company'` | `company` \| `individual` — [CUSTOMER-MASTER-FIELDS §0](./CUSTOMER-MASTER-FIELDS.md#0-general-customer_type-email-mobile-notes) |
+| email | text | YES | | |
+| mobile | text | YES | | |
+| notes | text | YES | | |
+| industry | text | YES | | slug — [§2 Industry](./CUSTOMER-MASTER-FIELDS.md#2-industry-industry) |
+| industry_segment | text | YES | `'sme'` | slug — [§1](./CUSTOMER-MASTER-FIELDS.md#1-industry-segment-industry_segment) |
+| sales_grade | text | YES | | slug — [§3](./CUSTOMER-MASTER-FIELDS.md#3-sales-classification--grade-sales_grade) |
 | website | text | YES | | |
 | phone | text | YES | | |
-| address | text | YES | | |
-| owner_id | uuid | YES | | FK → profiles(id) |
-| status | text | NO | `'active'` | active \| inactive |
+| address | text | YES | | Bill To |
+| owner_id | uuid | YES | | FK → profiles — [§5 Customer Owner](./CUSTOMER-MASTER-FIELDS.md#5-customer-owner-owner_id) |
+| status | text | NO | `'active'` | lifecycle — [§4](./CUSTOMER-MASTER-FIELDS.md#4-status-status) |
+| tax_id | text | YES | | [§6 Tax & Payment](./CUSTOMER-MASTER-FIELDS.md#6-tax--payment-section) |
+| tax_branch | text | YES | | |
+| tax_vat | text | YES | | WHT rate slug — `none` \| `wht_*` · [§6.5](./CUSTOMER-MASTER-FIELDS.md#65-withholding-tax--wht-tax_vat) |
+| vat_currency | text | NO | `'THB'` | `THB` \| `USD` |
+| payment_code | text | YES | | `transfer` \| `credit` \| `cash` \| `cheque` |
+| credit_term_days | integer | NO | `30` | |
+| credit_limit | numeric(18,2) | NO | `0` | |
+| credit_balance | numeric(18,2) | NO | `0` | readonly UI — AR Phase 2+ |
 | created_by | uuid | YES | | FK → profiles(id) |
 | created_at | timestamptz | NO | now() | |
 | updated_at | timestamptz | NO | now() | |
 | deleted_at | timestamptz | YES | | soft delete |
+
+---
+
+## company_ship_addresses
+
+ที่อยู่จัดส่ง (Ship To) — หลายรายการต่อ company
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| company_id | uuid | NO | | FK → companies ON DELETE CASCADE |
+| label | text | YES | | ชื่อสาขา/คลัง |
+| address | text | NO | | |
+| is_default | boolean | NO | `false` | 1 รายการต่อ company — RPC `get_company_default_ship_address` |
+| sort_order | integer | NO | `0` | ลำดับใน UI |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+
+→ [CUSTOMER-MASTER-FIELDS §7](./CUSTOMER-MASTER-FIELDS.md#7-address-ship-to-company_ship_addresses)
+
+---
+
+## company_bill_addresses
+
+ที่อยู่ออกใบแจ้งหนี้ (Bill To) — หลายรายการต่อ company
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| company_id | uuid | NO | | FK → companies ON DELETE CASCADE |
+| label | text | YES | | ชื่อสาขา/ป้าย |
+| address | text | NO | | |
+| is_default | boolean | NO | `false` | 1 รายการต่อ company — RPC `get_company_default_bill_address` |
+| sort_order | integer | NO | `0` | ลำดับใน UI |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+
+→ `companies.address` = snapshot ของ default bill (backward compat) · [§8](./CUSTOMER-MASTER-FIELDS.md#8-address-bill-to-company_bill_addresses)
 
 ---
 
@@ -79,12 +133,17 @@
 |--------|------|------|---------|----------|
 | id | uuid | NO | gen_random_uuid() | PK |
 | org_id | uuid | NO | | FK → organizations |
-| company_id | uuid | YES | | FK → companies (nullable) |
+| company_id | uuid | YES | | FK → companies (Customer) · [§relation](./CONTACT-MASTER-FIELDS.md#customer-relation-company_id) |
 | first_name | text | NO | | |
 | last_name | text | YES | | |
 | email | text | YES | | |
 | phone | text | YES | | |
 | job_title | text | YES | | |
+| mobile | text | YES | | |
+| department | text | YES | | |
+| contact_role | text | YES | `'other'` | slug · [CONTACT-MASTER-FIELDS.md](./CONTACT-MASTER-FIELDS.md) |
+| is_main_contact | boolean | NO | `false` | Main Contact |
+| notes | text | YES | | |
 | owner_id | uuid | YES | | FK → profiles |
 | source | text | YES | | web, referral, import |
 | created_by | uuid | YES | | FK → profiles |

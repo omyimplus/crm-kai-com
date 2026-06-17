@@ -11,8 +11,8 @@
 
 | # | เมนู | Route | สถานะ |
 |---|------|-------|--------|
-| 1 | Customer | `/app/master-data/customer` | ⏳ |
-| 2 | Contact | `/app/master-data/contact` | ⏳ |
+| 1 | Customer | `/app/customer` | ✅ |
+| 2 | Contact | `/app/contact` | ✅ |
 | 3 | Sales target | `/app/master-data/sales-target` | ⏳ |
 | 4 | Products | `/app/master-data/products` | ⏳ |
 | 5 | Category | `/app/master-data/category` | ⏳ |

@@ -6,6 +6,7 @@
     "cancel": "ยกเลิก",
     "create": "สร้าง",
     "edit": "แก้ไข",
+    "view": "ดู",
     "delete": "ลบ",
     "back": "กลับ",
     "optional": "ไม่บังคับ",
@@ -330,13 +331,232 @@
       "nav": "ลูกค้า",
       "title": "ลูกค้า",
       "description": "จัดการข้อมูลลูกค้าอ้างอิง (Customer) สำหรับใช้ใน CRM",
-      "features": ["รหัส/ชื่อลูกค้า", "กลุ่มลูกค้า", "เงื่อนไขเครดิต", "เชื่อมกับดีลและใบเสนอราคา"]
+      "features": ["รหัส/ชื่อลูกค้า", "กลุ่มลูกค้า", "เงื่อนไขเครดิต", "เชื่อมกับดีลและใบเสนอราคา"],
+      "listTitle": "ลูกค้า",
+      "listSubtitle": "จัดการข้อมูลลูกค้าอ้างอิงขององค์กร",
+      "newTitle": "เพิ่มลูกค้า",
+      "newSubtitle": "กรอกรายละเอียดเพื่อเพิ่มลูกค้าใหม่",
+      "editTitle": "แก้ไขลูกค้า",
+      "editSubtitle": "อัปเดตข้อมูลลูกค้า",
+      "viewTitle": "รายละเอียดลูกค้า",
+      "viewSubtitle": "ดูข้อมูลลูกค้า",
+      "view": "ดูลูกค้า",
+      "deleteTitle": "นำลูกค้าออกจากระบบ",
+      "deleteConfirm": "นำ “{name}” ออกจากรายการลูกค้า?",
+      "deleteSoftHint": "ข้อมูลยังอยู่ในฐานข้อมูล (soft delete) และบันทึกใน activity log — กู้คืนได้จากฐานข้อมูลภายหลังหากต้องการ",
+      "create": "เพิ่มลูกค้า",
+      "createFirst": "เพิ่มลูกค้ารายแรก",
+      "empty": "ยังไม่มีลูกค้า",
+      "actions": "การดำเนินการ",
+      "creditBalanceHint": "ยอดเครดิตคงเหลืออ่านอย่างเดียว — จะคำนวณจากใบแจ้งหนี้ในเฟสถัดไป",
+      "filters": {
+        "searchBy": "ค้นหาตาม",
+        "viewAll": "ดูทั้งหมด",
+        "byName": "ชื่อบริษัท",
+        "byPhone": "โทรศัพท์",
+        "byIndustry": "อุตสาหกรรม",
+        "search": "ค้นหา…",
+        "statusTabs": "กรองตามสถานะ",
+        "displayCount": "แสดง {count} รายการ",
+        "noResults": "ไม่พบรายการที่ตรงกับการค้นหา"
+      },
+      "sections": {
+        "general": "ข้อมูลทั่วไป",
+        "tax": "ภาษีและการชำระเงิน",
+        "billTo": "ที่อยู่ออกใบแจ้งหนี้",
+        "shipTo": "ที่อยู่จัดส่ง"
+      },
+      "fields": {
+        "customerType": "ประเภทลูกค้า",
+        "email": "อีเมล",
+        "industrySegment": "กลุ่มอุตสาหกรรม",
+        "companyName": "ชื่อบริษัท",
+        "phone": "โทรศัพท์",
+        "industry": "อุตสาหกรรม",
+        "owner": "ผู้ดูแลลูกค้า",
+        "ownerPlaceholder": "เลือกพนักงานผู้ดูแล…",
+        "mobile": "มือถือ",
+        "salesGrade": "ระดับการขาย (เกรด)",
+        "salesGradePlaceholder": "เลือกเกรด…",
+        "status": "สถานะ",
+        "website": "เว็บไซต์",
+        "websitePlaceholder": "https://…",
+        "notes": "หมายเหตุ",
+        "notesPlaceholder": "หมายเหตุเพิ่มเติม…",
+        "taxId": "เลขประจำตัวผู้เสียภาษี",
+        "taxIdPlaceholder": "0000000000000",
+        "vatCurrency": "กลุ่ม VAT (สกุลเงิน)",
+        "vatCurrencyPlaceholder": "THB / USD",
+        "creditTermDays": "เครดิต (วัน)",
+        "taxBranch": "สาขาภาษี",
+        "taxBranchPlaceholder": "สำนักงานใหญ่ / สาขา",
+        "paymentCode": "รหัสการชำระเงิน",
+        "creditLimit": "วงเงินเครดิต",
+        "taxVat": "ภาษีหัก ณ ที่จ่าย",
+        "taxVatPlaceholder": "เลือกอัตราหัก ณ ที่จ่าย…",
+        "whtRate": "ภาษีหัก ณ ที่จ่าย",
+        "whtRatePlaceholder": "เลือกอัตราหัก ณ ที่จ่าย…",
+        "creditBalance": "ยอดเครดิตคงเหลือ",
+        "addressBillTo": "ที่อยู่ออกใบแจ้งหนี้",
+        "addressBillToPlaceholder": "ที่อยู่สำหรับออกใบกำกับภาษี"
+      },
+      "bill": {
+        "add": "เพิ่มที่อยู่ออกใบแจ้งหนี้",
+        "empty": "ยังไม่มีที่อยู่ออกใบแจ้งหนี้",
+        "label": "ชื่อที่อยู่",
+        "address": "ที่อยู่ออกใบแจ้งหนี้",
+        "default": "ค่าเริ่มต้น",
+        "setDefault": "ตั้งเป็นที่อยู่ออกใบแจ้งหนี้หลัก",
+        "useAsDefault": "ใช้เป็นที่อยู่ออกใบแจ้งหนี้หลัก (default)"
+      },
+      "ship": {
+        "add": "เพิ่มที่อยู่",
+        "empty": "ยังไม่มีที่อยู่จัดส่ง",
+        "label": "ชื่อที่อยู่",
+        "address": "ที่อยู่",
+        "default": "ค่าเริ่มต้น",
+        "setDefault": "ตั้งเป็นที่อยู่จัดส่งหลัก",
+        "useAsDefault": "ใช้เป็นที่อยู่จัดส่งหลัก (default)"
+      },
+      "options": {
+        "notSpecified": "— ไม่ระบุ —",
+        "customerType": {
+          "company": "นิติบุคคล",
+          "individual": "บุคคลธรรมดา"
+        },
+        "industrySegment": {
+          "enterprise": "Enterprise",
+          "sme": "SME",
+          "startup": "สตาร์ทอัพ",
+          "individual": "รายบุคคล"
+        },
+        "industry": {
+          "agriculture": "เกษตรกรรม",
+          "construction": "ก่อสร้าง",
+          "education": "การศึกษา",
+          "finance": "การเงิน",
+          "healthcare": "สุขภาพ",
+          "hospitality": "โรงแรมและบริการ",
+          "manufacturing": "การผลิต",
+          "retail": "ค้าปลีก",
+          "technology": "เทคโนโลยี",
+          "transportation": "ขนส่ง"
+        },
+        "salesGrade": {
+          "vip": "VIP — ลูกค้าสำคัญมาก",
+          "a": "A — ซื้อสูง",
+          "b": "B — ลูกค้าปกติ",
+          "c": "C — ซื้อต่ำ",
+          "prospect": "Prospect — ลูกค้าเป้าหมาย"
+        },
+        "status": {
+          "active": "ใช้งาน",
+          "inactive": "ไม่ใช้งาน",
+          "prospect": "เป้าหมาย",
+          "churned": "หลุด",
+          "pending": "รอดำเนินการ"
+        },
+        "paymentCode": {
+          "transfer": "โอนเงิน",
+          "credit": "เครดิต",
+          "cash": "เงินสด",
+          "cheque": "เช็ค"
+        },
+        "taxVat": {
+          "none": "ไม่หัก",
+          "wht_3": "3%",
+          "wht_5": "5%",
+          "wht_0_5": "0.5%",
+          "wht_0_75": "0.75%",
+          "wht_1": "1%",
+          "wht_1_5": "1.5%",
+          "wht_2": "2%",
+          "wht_10": "10%",
+          "wht_15": "15%"
+        },
+        "whtRate": {
+          "none": "ไม่หัก",
+          "wht_3": "3%",
+          "wht_5": "5%",
+          "wht_0_5": "0.5%",
+          "wht_0_75": "0.75%",
+          "wht_1": "1%",
+          "wht_1_5": "1.5%",
+          "wht_2": "2%",
+          "wht_10": "10%",
+          "wht_15": "15%"
+        }
+      },
+      "validation": {
+        "nameRequired": "กรุณากรอกชื่อบริษัท",
+        "emailRequired": "กรุณากรอกอีเมล",
+        "phoneRequired": "กรุณากรอกโทรศัพท์"
+      }
     },
     "contact": {
       "nav": "ผู้ติดต่อ",
       "title": "ผู้ติดต่อ",
-      "description": "ข้อมูลผู้ติดต่ออ้างอิง แยกจากรายการ CRM ปัจจุบัน",
-      "features": ["ชื่อ ตำแหน่ง ช่องทางติดต่อ", "ผูกกับลูกค้า", "บทบาทในการตัดสินใจซื้อ"]
+      "description": "บุคคลติดต่อที่ผูกกับลูกค้า",
+      "features": ["ชื่อและช่องทางติดต่อ", "ผูกกับลูกค้า (บังคับ)", "บทบาทและผู้ติดต่อหลัก"],
+      "listTitle": "ผู้ติดต่อ",
+      "listSubtitle": "จัดการผู้ติดต่อที่ผูกกับลูกค้า",
+      "newTitle": "เพิ่มผู้ติดต่อ",
+      "newSubtitle": "กรอกรายละเอียดเพื่อเพิ่มผู้ติดต่อใหม่",
+      "editTitle": "แก้ไขผู้ติดต่อ",
+      "editSubtitle": "อัปเดตข้อมูลผู้ติดต่อ",
+      "viewSubtitle": "ข้อมูลผู้ติดต่อ",
+      "view": "ดูผู้ติดต่อ",
+      "deleteTitle": "นำผู้ติดต่อออกจากระบบ",
+      "deleteConfirm": "นำ “{name}” ออกจากรายการผู้ติดต่อ?",
+      "deleteSoftHint": "ข้อมูลยังอยู่ในฐานข้อมูล (soft delete) และบันทึกใน activity log",
+      "create": "เพิ่มผู้ติดต่อ",
+      "createFirst": "เพิ่มผู้ติดต่อรายแรก",
+      "empty": "ยังไม่มีผู้ติดต่อ",
+      "actions": "การดำเนินการ",
+      "filters": {
+        "byCustomer": "ลูกค้า (บริษัท)",
+        "allCustomers": "ลูกค้าทั้งหมด",
+        "customerPlaceholder": "ค้นหาบริษัท…",
+        "viewAll": "ดูทั้งหมด",
+        "search": "ค้นหาชื่อ อีเมล หรือโทรศัพท์…",
+        "displayCount": "แสดง {count} รายการ",
+        "noResults": "ไม่พบรายการที่ตรงกับการค้นหา"
+      },
+      "sections": {
+        "contactInfo": "ข้อมูลติดต่อ",
+        "workDetails": "ข้อมูลการทำงาน"
+      },
+      "fields": {
+        "name": "ชื่อ",
+        "firstName": "ชื่อ",
+        "lastName": "นามสกุล",
+        "email": "อีเมล",
+        "phone": "โทรศัพท์",
+        "mobile": "มือถือ",
+        "customer": "ลูกค้า",
+        "customerPlaceholder": "เลือกลูกค้า…",
+        "jobTitle": "ตำแหน่ง",
+        "department": "แผนก",
+        "role": "บทบาท",
+        "mainContact": "ผู้ติดต่อหลัก",
+        "notes": "หมายเหตุ",
+        "notesPlaceholder": "หมายเหตุเพิ่มเติม…"
+      },
+      "options": {
+        "role": {
+          "decision_maker": "ผู้ตัดสินใจ",
+          "influencer": "ผู้ให้คำแนะนำ",
+          "user": "ผู้ใช้งาน",
+          "gatekeeper": "ผู้ประสาน",
+          "other": "อื่น ๆ"
+        }
+      },
+      "validation": {
+        "firstNameRequired": "กรุณากรอกชื่อ",
+        "emailRequired": "กรุณากรอกอีเมล",
+        "phoneRequired": "กรุณากรอกโทรศัพท์",
+        "customerRequired": "กรุณาเลือกลูกค้า"
+      }
     },
     "salesTarget": {
       "nav": "เป้ายอดขาย",

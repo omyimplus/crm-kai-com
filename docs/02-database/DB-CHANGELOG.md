@@ -18,6 +18,63 @@
 
 ## ประวัติ
 
+## ประวัติ
+
+### 2026-06-17 — companies create/update RPC + data_change_logs
+
+- **ประเภท:** migration — `create_company`, `update_company`
+- **Migration file:** `supabase/migrations/20260608120040_companies_crud_rpc.sql`
+
+### 2026-06-16 — Contact CRUD RPC + data_change_logs
+
+- **ประเภท:** migration — `create_contact`, `update_contact`, `soft_delete_contact`, `contact_log_snapshot`
+- **Migration file:** `supabase/migrations/20260608120039_contacts_crud_rpc.sql`
+
+### 2026-06-16 — Contact master + customer relation
+
+- **ประเภท:** migration + UI — `contacts` fields · `/app/contact` · FK `company_id` → customer
+- **Migration file:** `supabase/migrations/20260608120038_contacts_master_fields.sql`
+- **Spec:** `docs/06-crm-schema/CONTACT-MASTER-FIELDS.md`
+
+### 2026-06-16 — companies.tax_vat = WHT rate slugs
+
+- **ประเภท:** migration — แทน VAT dropdown ด้วยอัตราหัก ณ ที่จ่าย
+- **Migration file:** `supabase/migrations/20260608120037_companies_tax_vat_wht_rates.sql`
+
+### 2026-06-16 — company_bill_addresses (Bill To หลายที่อยู่ + default)
+
+- **ประเภท:** migration + UI — ตาราง `company_bill_addresses` · component ร่วมกับ Ship To
+- **Migration file:** `supabase/migrations/20260608120035_company_bill_addresses.sql`
+
+### 2026-06-16 — companies individual type rules
+
+- **ประเภท:** migration — CHECK บุคคลธรรมดา → `industry_segment = individual`, `industry IS NULL`
+- **Migration file:** `supabase/migrations/20260608120034_companies_individual_type_rules.sql`
+
+### 2026-06-16 — company_ship_addresses.is_default
+
+- **ประเภท:** migration — default ship-to ต่อ company + RPC สำหรับโมดูลอื่น
+- **Migration file:** `supabase/migrations/20260608120033_company_ship_addresses_is_default.sql`
+
+### 2026-06-16 — companies soft delete RPC + audit log
+
+- **ประเภท:** migration — `soft_delete_company`, `company_log_snapshot` → `data_change_logs`
+- **Migration file:** `supabase/migrations/20260608120032_companies_soft_delete_rpc.sql`
+- **Frontend:** หน้าดูลูกค้า + modal ลบ (soft delete)
+
+### 2026-06-16 — companies customer master + ship addresses
+
+- **ประเภท:** migration — คอลัมน์ General/Tax/Grade/Segment + CHECK industry + ตาราง `company_ship_addresses` + RLS
+- **Migration file:** `supabase/migrations/20260608120031_companies_customer_master_fields.sql`
+- **Docs:** `CUSTOMER-MASTER-FIELDS.md` · `tables.md`
+- **Frontend:** `formToCompanyPayload` / `syncShipAddresses` บันทึกครบ (ยกเว้น `credit_balance`)
+
+### 2026-06-16 — companies.status: 5 lifecycle values
+
+- **ประเภท:** migration — ขยาย CHECK `active|inactive` → + `prospect`, `churned`, `pending`
+- **Migration file:** `supabase/migrations/20260608120030_companies_customer_status.sql`
+- **Docs:** `CUSTOMER-MASTER-FIELDS.md` §4
+
 ### 2026-06-08 — org auth providers RPC
 
 - **ประเภท:** migration — `get/update_org_auth_providers` → `organizations.settings.authProviders`

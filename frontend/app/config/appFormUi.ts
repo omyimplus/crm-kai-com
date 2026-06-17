@@ -33,6 +33,12 @@ export const appTableBadgeClass
 export const appTableRoleTabBaseClass
   = 'inline-block rounded-lg border px-3 py-1.5 font-semibold transition-colors'
 
+/** Sidebar — ใช้ scale เดียวกับเนื้อหา (appTableTextClass) */
+export const appSidebarNavTextClass = appTableTextClass
+
+export const appSidebarSectionTextClass
+  = 'text-xs font-semibold font-heading uppercase tracking-wider'
+
 export const appTableRoleTabActiveClass
   = 'border-menu-section bg-menu-section text-white shadow-sm dark:border-primary dark:bg-primary'
 

@@ -20,8 +20,8 @@ export interface MasterDataMenuItem {
 }
 
 export const masterDataMenuItems: MasterDataMenuItem[] = [
-  { key: 'customer', to: '/app/master-data/customer', icon: 'i-lucide-building' },
-  { key: 'contact', to: '/app/master-data/contact', icon: 'i-lucide-contact' },
+  { key: 'customer', to: '/app/customer', icon: 'i-lucide-building', ready: true },
+  { key: 'contact', to: '/app/contact', icon: 'i-lucide-contact', ready: true },
   { key: 'salesTarget', to: '/app/master-data/sales-target', icon: 'i-lucide-target' },
   { key: 'products', to: '/app/master-data/products', icon: 'i-lucide-package' },
   { key: 'category', to: '/app/master-data/category', icon: 'i-lucide-tags' },

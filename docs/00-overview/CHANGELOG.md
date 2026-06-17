@@ -8,6 +8,12 @@
 
 ## ประวัติ
 
+### 2026-06-16 — PROJECT-STATUS sync (Master Data Customer + Contact)
+
+- **ทำอะไร:** อัปเดต ADR typography — Headline SemiBold · Body Regular
+- **ไฟล์ที่กระทบ:** `DECISIONS.md`
+- **Phase:** 1
+
 ### 2026-06-08 — add D-011 Node 22 LTS
 
 - **ทำอะไร:** ADR Node version ทั้งระบบ + api scaffold

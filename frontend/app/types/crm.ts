@@ -148,13 +148,51 @@ export interface Company {
   id: string
   org_id: string
   name: string
+  customer_type: string
+  email: string | null
+  mobile: string | null
+  notes: string | null
   industry: string | null
+  industry_segment: string | null
+  sales_grade: string | null
   website: string | null
   phone: string | null
   address: string | null
   owner_id: string | null
   status: string
+  tax_id: string | null
+  tax_branch: string | null
+  tax_vat: string | null
+  vat_currency: string
+  payment_code: string | null
+  credit_term_days: number
+  credit_limit: number
+  credit_balance: number
   created_at: string
+}
+
+export interface CompanyBillAddress {
+  id: string
+  org_id: string
+  company_id: string
+  label: string | null
+  address: string
+  is_default: boolean
+  sort_order: number
+  created_at: string
+  updated_at: string
+}
+
+export interface CompanyShipAddress {
+  id: string
+  org_id: string
+  company_id: string
+  label: string | null
+  address: string
+  is_default: boolean
+  sort_order: number
+  created_at: string
+  updated_at: string
 }
 
 export interface Contact {
@@ -165,7 +203,12 @@ export interface Contact {
   last_name: string | null
   email: string | null
   phone: string | null
+  mobile: string | null
   job_title: string | null
+  department: string | null
+  contact_role: string | null
+  is_main_contact: boolean
+  notes: string | null
   owner_id: string | null
   created_at: string
   companies?: { name: string } | null

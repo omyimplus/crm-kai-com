@@ -45,11 +45,16 @@ async function save() {
   try {
     const payload = {
       first_name: form.first_name,
-      last_name: form.last_name || null,
-      email: form.email || null,
-      phone: form.phone || null,
-      job_title: form.job_title || null,
-      company_id: form.company_id
+      last_name: form.last_name,
+      email: form.email,
+      phone: form.phone,
+      mobile: '',
+      company_id: form.company_id,
+      job_title: form.job_title,
+      department: '',
+      contact_role: 'other' as const,
+      is_main_contact: false,
+      notes: ''
     }
     if (isEdit.value && contactId.value) {
       await update(contactId.value, payload)

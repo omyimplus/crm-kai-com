@@ -2,9 +2,9 @@
 @import "@nuxt/ui";
 
 @theme static {
-  /* Phase 1 interim — Noto Sans Thai ทั้งระบบ (th + en) จนกว่า user จะสั่ง font อื่น */
-  --font-sans: "Noto Sans Thai", sans-serif;
-  --font-heading: "Noto Sans Thai", sans-serif;
+  /* IBM Plex Sans Thai — Body 400 · Headline 600 (D-010) */
+  --font-sans: "IBM Plex Sans Thai", sans-serif;
+  --font-heading: "IBM Plex Sans Thai", sans-serif;
 
   /* Brand primary: #5fb76a — Nuxt UI maps primary → green */
   /* Sidebar section headers (light mode only) */
@@ -66,6 +66,25 @@ html:has(.crm-app) body {
   --crm-scrollbar-size: 6px;
   --crm-scrollbar-thumb: var(--color-green-200);
   --crm-scrollbar-thumb-hover: var(--color-green-300);
+  font-family: var(--font-sans);
+}
+
+/* Sidebar/header — บังคับ IBM Plex (button ไม่ inherit จาก body ในบาง browser) */
+.crm-app aside,
+.crm-app aside button,
+.crm-app aside a,
+.crm-app aside nav a,
+.crm-app header {
+  font-family: var(--font-sans);
+}
+
+/* Sidebar nav — โหลด IBM Plex แค่ 400/600; ห้ามใช้ 500 (font-medium) จะ fallback เป็นฟอนต์ระบบ */
+.crm-app aside nav a {
+  font-weight: 400;
+}
+
+.crm-app aside nav a.font-semibold {
+  font-weight: 600;
 }
 
 .dark .crm-app {
@@ -96,11 +115,8 @@ html:has(.crm-app) body {
   background-color: var(--crm-scrollbar-thumb-hover);
 }
 
-/* ภาษาไทย — CRM + dialog (teleport นอก .crm-app) ใช้ Sarabun (D-010) */
-html[lang="th"] .crm-app,
-html[lang="th"] .crm-dialog {
-  --font-sans: "Sarabun", "Noto Sans Thai", sans-serif;
-  --font-heading: "Sarabun", "Noto Sans Thai", sans-serif;
+/* Dialog (teleport นอก .crm-app) — inherit ฟอนต์ระบบ */
+.crm-dialog {
   font-family: var(--font-sans);
 }
 

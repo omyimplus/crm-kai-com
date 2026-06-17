@@ -12,8 +12,9 @@
 |--------|-----|
 | Phase | 1 |
 | โหมด | Single Supabase + org_id |
-| อัปเดตล่าสุด | 2026-06-08 |
-| Migration ล่าสุด | `20260608120008_list_data_change_logs.sql` |
+| อัปเดตล่าสุด | 2026-06-17 |
+| Migration ล่าสุด | `20260608120040_companies_crud_rpc.sql` |
+| จำนวน migrations | 41 files |
 
 ---
 
@@ -23,8 +24,10 @@
 |-------|-----|----------|
 | organizations | ✅ | tenant SaaS |
 | profiles | ✅ | FK auth.users |
-| companies | ✅ | soft delete |
-| contacts | ✅ | soft delete |
+| companies | ✅ | customer master · soft delete |
+| company_bill_addresses | ✅ | Bill To 1:N |
+| company_ship_addresses | ✅ | Ship To 1:N |
+| contacts | ✅ | contact master · soft delete |
 | pipelines | ✅ | |
 | pipeline_stages | ✅ | seed 6 stages |
 | deals | ✅ | stage trigger → history |
@@ -32,31 +35,28 @@
 | deal_stage_history | ✅ | auto insert |
 | data_change_logs | ✅ | audit ทุก data change (§13) |
 | org_roles | ✅ | custom org roles |
+| org_role_templates | ✅ | seed templates |
+| user_login_sessions | ✅ | |
+| org_* settings | ✅ | email, auth, notification, company profiles |
 
 ---
 
-## Functions
+## Functions (CRM audit)
 
-| ชื่อ | สถานะ |
-|------|--------|
-| `current_org_id()` | ✅ |
-| `current_user_role()` | ✅ |
-| `is_readonly()` | ✅ |
-| `is_admin_or_owner()` | ✅ |
-| `signup_profile(text)` | ✅ |
-| `set_updated_at()` | ✅ |
-| `log_deal_stage_change()` | ✅ |
-| `write_data_change_log(...)` | ✅ |
-| `list_org_users()` | ✅ |
-| `admin_create_org_user(...)` | ✅ |
-| `admin_update_org_user(...)` | ✅ |
-| `list_org_roles()` | ✅ |
-| `create_org_role(...)` | ✅ |
-| `update_org_role(...)` | ✅ |
-| `get_org_role(uuid)` | ✅ |
-| `delete_org_role(uuid)` | ✅ |
-| `normalize_org_role_permissions(jsonb)` | ✅ |
-| `list_data_change_logs(...)` | ✅ |
+| ชื่อ | หมายเหตุ |
+|------|----------|
+| `write_data_change_log(...)` | audit core |
+| `company_log_snapshot(uuid)` | |
+| `create_company(jsonb)` | + log |
+| `update_company(uuid, jsonb)` | + log |
+| `soft_delete_company(uuid)` | + log |
+| `contact_log_snapshot(uuid)` | |
+| `create_contact(jsonb)` | + log |
+| `update_contact(uuid, jsonb)` | + log |
+| `soft_delete_contact(uuid)` | + log |
+| `list_data_change_logs(...)` | User Activity UI |
+
+→ รายการ functions อื่น (auth, roles, users) ดู [DB-README.md](../../supabase/DB-README.md)
 
 ---
 
@@ -74,3 +74,5 @@
 
 - [phase1-single-db.md](./phase1-single-db.md)
 - [PHASE-MATRIX.md](./PHASE-MATRIX.md)
+- [CUSTOMER-MASTER-FIELDS.md](../06-crm-schema/CUSTOMER-MASTER-FIELDS.md)
+- [CONTACT-MASTER-FIELDS.md](../06-crm-schema/CONTACT-MASTER-FIELDS.md)

@@ -21,6 +21,7 @@ Schema ข้อมูล CRM — **source of truth อยู่ที่ [table
 | ไฟล์ | อ่านเมื่อ |
 |------|-----------|
 | **[tables.md](./tables.md)** | 🔴 column definitions — implement migration |
+| **[CUSTOMER-MASTER-FIELDS.md](./CUSTOMER-MASTER-FIELDS.md)** | ฟอร์มลูกค้า — slug Industry Segment / Industry สำหรับ SQL |
 | **[DATA-CHANGE-LOG.md](./DATA-CHANGE-LOG.md)** | 🔴 บันทึกทุก create/update/delete (กฎ §13) |
 | **[ORG-ROLE-PERMISSIONS.md](./ORG-ROLE-PERMISSIONS.md)** | สิทธิ์ต่อเมนูใน `org_roles.permissions` |
 | [permissions.md](./permissions.md) | role × table + RLS |

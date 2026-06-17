@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { appSidebarSectionTextClass } from '~/config/appFormUi'
+
 defineProps<{
   label: string
   icon: string
@@ -19,7 +21,8 @@ defineEmits<{
     :is="collapsible ? 'button' : 'div'"
     :type="collapsible ? 'button' : undefined"
     :class="[
-      'flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-[13px] font-semibold uppercase tracking-wider text-white transition-colors',
+      'flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left font-sans text-white transition-colors',
+      appSidebarSectionTextClass,
       'bg-menu-section hover:bg-menu-section-hover dark:bg-primary dark:hover:bg-green-600',
       hasContentBelow ? 'mb-3' : 'mb-0',
       active && collapsible && 'ring-2 ring-menu-section/30 ring-offset-1 ring-offset-white dark:ring-green-700/30 dark:ring-offset-gray-900'

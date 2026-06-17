@@ -85,7 +85,7 @@ const isSetupSectionActive = computed(() => route.path.startsWith('/app/setup'))
 </script>
 
 <template>
-  <aside class="flex h-full w-72 shrink-0 flex-col overflow-hidden border-r border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
+  <aside class="flex h-full w-72 shrink-0 flex-col overflow-hidden border-r border-gray-200 bg-white font-sans dark:border-gray-800 dark:bg-gray-900">
     <div class="shrink-0 border-b border-gray-200 px-5 py-5 dark:border-gray-800">
       <NuxtLink
         to="/app"

@@ -10,10 +10,10 @@
 | รายการ | ค่า |
 |--------|-----|
 | **Phase ปัจจุบัน** | **1** — CRM Core |
-| **Code status** | ✅ Phase 1 scaffold เสร็จ — รอ Supabase local/cloud |
-| **Stack** | Nuxt 4 + Nuxt UI + Supabase + API scaffold (Hono) |
-| **Node** | **22 LTS** (>= 22.12.0) — `.nvmrc` |
-| **อัปเดตล่าสุด** | 2026-06-08 |
+| **Code status** | ✅ Master Data Customer + Contact พร้อม · legacy CRM routes ยังอยู่ |
+| **Stack** | Nuxt 4 + Nuxt UI + Supabase |
+| **Node** | **22 LTS** (>= 22.16.0) — `.nvmrc` |
+| **อัปเดตล่าสุด** | 2026-06-16 |
 
 ---
 
@@ -21,38 +21,55 @@
 
 | ส่วน | Docs | Code | หมายเหตุ |
 |------|------|------|----------|
-| Frontend (Nuxt) | ✅ | ✅ | `frontend/` — build ผ่าน |
-| Supabase migrations | ✅ | ✅ | `supabase/migrations/` — รัน `supabase db reset` |
-| Auth login/logout | ✅ | ✅ | `/login` |
-| Signup → demo org | ✅ | ✅ | `/signup` (Phase 1 dev only) |
-| Dashboard | ✅ | ✅ | `/app` |
-| Contacts CRUD | ✅ | ✅ | `/app/contacts` |
-| Companies CRUD | ✅ | ✅ | `/app/companies` |
-| Deals + Kanban | ✅ | ✅ | `/app/deals` drag stage |
-| Node API | ✅ design | ✅ scaffold | `api/` — health only, logic Phase 3+ |
-| Landing / SaaS register | ✅ design | ❌ | Phase 4+ |
+| Frontend (Nuxt) | ✅ | ✅ | `frontend/` |
+| Supabase migrations | ✅ | ✅ | 40 files · ล่าสุด `20260608120039_*` |
+| Auth login/logout/signup | ✅ | ✅ | pending user flow |
+| Setup (roles, users, activity) | ✅ | ✅ | `/app/setup/**` |
+| **Master Data — Customer** | ✅ | ✅ | `/app/customer` · spec `CUSTOMER-MASTER-FIELDS.md` |
+| **Master Data — Contact** | ✅ | ✅ | `/app/contact` · FK `company_id` · RPC + logs |
+| Master Data อื่น ๆ | ✅ design | ⏳ | Coming soon badge |
+| Legacy Contacts/Companies/Deals | ✅ | ✅ | `/app/contacts` · `/app/companies` · `/app/deals` |
+| Node API | ✅ design | ✅ scaffold | Phase 3+ |
+
+---
+
+## Migration ที่ต้อง apply (remote / local)
+
+ชุด Customer + Contact (2026-06-16) — รันตามลำดับ:
+
+`20260608120030` … `20260608120039` (ดู [DB-README.md](../../supabase/DB-README.md))
+
+---
+
+## Data change logs (§13)
+
+| โมดูล | create | update | soft delete |
+|--------|--------|--------|-------------|
+| Contact | ✅ RPC | ✅ RPC | ✅ RPC |
+| Customer (companies) | ✅ RPC | ✅ RPC | ✅ RPC |
+| System users / roles | ✅ RPC | ✅ RPC | ✅ RPC |
+
+→ [DATA-CHANGE-LOG.md](../06-crm-schema/DATA-CHANGE-LOG.md)
 
 ---
 
 ## รัน local
 
 ```bash
-# Terminal 1 — Supabase (ต้องติดตั้ง CLI + Docker)
-supabase start && supabase db reset
+supabase start && supabase db reset   # หรือ db push บน cloud
 
-# Terminal 2 — Frontend
 cd frontend && cp .env.example .env
-# ใส่ URL + anon key จาก supabase status
-npm install && npm run dev
+npm install && npm run dev            # http://localhost:3000
 ```
 
-→ รายละเอียด [11-dev-setup/README.md](../11-dev-setup/README.md)
+→ [11-dev-setup/README.md](../11-dev-setup/README.md)
 
 ---
 
 ## Phase 1 checklist
 
-→ [PHASE-1-CHECKLIST.md](../07-phases/PHASE-1-CHECKLIST.md)
+→ [PHASE-1-CHECKLIST.md](../07-phases/PHASE-1-CHECKLIST.md)  
+**ค้าง:** manual QA 2 users ใน org เดียว · apply migrations บน Supabase ที่ใช้จริง
 
 ---
 
@@ -60,4 +77,6 @@ npm install && npm run dev
 
 - [ONBOARDING.md](./ONBOARDING.md)
 - [DECISIONS.md](./DECISIONS.md)
+- [CUSTOMER-MASTER-FIELDS.md](../06-crm-schema/CUSTOMER-MASTER-FIELDS.md)
+- [CONTACT-MASTER-FIELDS.md](../06-crm-schema/CONTACT-MASTER-FIELDS.md)
 - [../02-database/DB-SCHEMA.md](../02-database/DB-SCHEMA.md)

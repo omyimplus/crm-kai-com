@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { appSidebarNavTextClass } from '~/config/appFormUi'
+
 defineProps<{
   to: string
   icon: string
@@ -11,11 +13,12 @@ defineProps<{
 <template>
   <NuxtLink
     :to="to"
-    class="group flex items-center gap-3 rounded-lg px-2.5 py-2 text-[0.9375rem] font-medium transition-colors"
+    class="group flex items-center gap-3 rounded-lg px-2.5 py-2 font-sans transition-colors"
     :class="[
+      appSidebarNavTextClass,
       active
         ? 'bg-menu-section/10 font-semibold text-menu-section dark:bg-primary/15 dark:text-green-400'
-        : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800/80'
+        : 'font-normal text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800/80'
     ]"
   >
     <span
@@ -37,7 +40,7 @@ defineProps<{
       color="neutral"
       variant="subtle"
       size="xs"
-      class="shrink-0 opacity-70"
+      class="shrink-0 font-sans font-normal opacity-70"
     >
       {{ badge }}
     </UBadge>

@@ -6,6 +6,7 @@
     "cancel": "Cancel",
     "create": "Create",
     "edit": "Edit",
+    "view": "View",
     "delete": "Delete",
     "back": "Back",
     "optional": "Optional",
@@ -330,13 +331,232 @@
       "nav": "Customer",
       "title": "Customer",
       "description": "Reference customer records for CRM operations",
-      "features": ["Customer code and name", "Customer groups", "Credit terms", "Link to deals and quotes"]
+      "features": ["Customer code and name", "Customer groups", "Credit terms", "Link to deals and quotes"],
+      "listTitle": "Customers",
+      "listSubtitle": "Manage organizational customer reference data",
+      "newTitle": "New Customer",
+      "newSubtitle": "Fill in the details to add a new customer",
+      "editTitle": "Edit Customer",
+      "editSubtitle": "Update customer details",
+      "viewTitle": "Customer details",
+      "viewSubtitle": "View customer information",
+      "view": "View customer",
+      "deleteTitle": "Remove customer",
+      "deleteConfirm": "Remove “{name}” from the customer list?",
+      "deleteSoftHint": "Data is kept in the database (soft delete) and recorded in the activity log. You can restore it later from the database if needed.",
+      "create": "Add Customer",
+      "createFirst": "Add first customer",
+      "empty": "No customers yet",
+      "actions": "Actions",
+      "creditBalanceHint": "Credit balance is read-only and will be calculated from invoices in a later phase",
+      "filters": {
+        "searchBy": "Search by",
+        "viewAll": "View all",
+        "byName": "Company name",
+        "byPhone": "Phone",
+        "byIndustry": "Industry",
+        "search": "Search…",
+        "statusTabs": "Filter by status",
+        "displayCount": "Showing {count} items",
+        "noResults": "No matching records"
+      },
+      "sections": {
+        "general": "General Information",
+        "tax": "Tax & Payment",
+        "billTo": "Address Bill To",
+        "shipTo": "Address Ship To"
+      },
+      "fields": {
+        "customerType": "Customer Type",
+        "email": "Email",
+        "industrySegment": "Industry Segment",
+        "companyName": "Company Name",
+        "phone": "Phone",
+        "industry": "Industry",
+        "owner": "Customer Owner",
+        "ownerPlaceholder": "Select owner…",
+        "mobile": "Mobile",
+        "salesGrade": "Sales Classification (Grade)",
+        "salesGradePlaceholder": "Select grade…",
+        "status": "Status",
+        "website": "Website",
+        "websitePlaceholder": "https://…",
+        "notes": "Notes",
+        "notesPlaceholder": "Additional notes…",
+        "taxId": "Tax ID",
+        "taxIdPlaceholder": "0000000000000",
+        "vatCurrency": "VAT Group (Currency)",
+        "vatCurrencyPlaceholder": "THB / USD",
+        "creditTermDays": "Credit Term (Days)",
+        "taxBranch": "Tax Branch",
+        "taxBranchPlaceholder": "Head Office / Branch",
+        "paymentCode": "Payment Code",
+        "creditLimit": "Credit Limit",
+        "taxVat": "Withholding tax (WHT)",
+        "taxVatPlaceholder": "Select WHT rate…",
+        "whtRate": "Withholding tax (WHT)",
+        "whtRatePlaceholder": "Select WHT rate…",
+        "creditBalance": "Credit Balance",
+        "addressBillTo": "Billing address",
+        "addressBillToPlaceholder": "Billing address for tax invoice"
+      },
+      "bill": {
+        "add": "Add billing address",
+        "empty": "No billing addresses added yet.",
+        "label": "Label",
+        "address": "Billing address",
+        "default": "Default",
+        "setDefault": "Set as default billing address",
+        "useAsDefault": "Use as default billing address"
+      },
+      "ship": {
+        "add": "Add Address",
+        "empty": "No shipping addresses added yet.",
+        "label": "Label",
+        "address": "Address",
+        "default": "Default",
+        "setDefault": "Set as default shipping address",
+        "useAsDefault": "Use as default shipping address"
+      },
+      "options": {
+        "notSpecified": "— Not specified —",
+        "customerType": {
+          "company": "Company",
+          "individual": "Individual"
+        },
+        "industrySegment": {
+          "enterprise": "Enterprise",
+          "sme": "SME",
+          "startup": "Startup",
+          "individual": "Individual"
+        },
+        "industry": {
+          "agriculture": "Agriculture",
+          "construction": "Construction",
+          "education": "Education",
+          "finance": "Finance",
+          "healthcare": "Healthcare",
+          "hospitality": "Hospitality",
+          "manufacturing": "Manufacturing",
+          "retail": "Retail",
+          "technology": "Technology",
+          "transportation": "Transportation"
+        },
+        "salesGrade": {
+          "vip": "VIP — Very Important Customer",
+          "a": "A — High Purchase",
+          "b": "B — Regular Customer",
+          "c": "C — Low Purchase",
+          "prospect": "Prospect — Target Customer"
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive",
+          "prospect": "Prospect",
+          "churned": "Churned",
+          "pending": "Pending"
+        },
+        "paymentCode": {
+          "transfer": "Transfer",
+          "credit": "Credit",
+          "cash": "Cash",
+          "cheque": "Cheque"
+        },
+        "taxVat": {
+          "none": "No withholding",
+          "wht_3": "3%",
+          "wht_5": "5%",
+          "wht_0_5": "0.5%",
+          "wht_0_75": "0.75%",
+          "wht_1": "1%",
+          "wht_1_5": "1.5%",
+          "wht_2": "2%",
+          "wht_10": "10%",
+          "wht_15": "15%"
+        },
+        "whtRate": {
+          "none": "No withholding",
+          "wht_3": "3%",
+          "wht_5": "5%",
+          "wht_0_5": "0.5%",
+          "wht_0_75": "0.75%",
+          "wht_1": "1%",
+          "wht_1_5": "1.5%",
+          "wht_2": "2%",
+          "wht_10": "10%",
+          "wht_15": "15%"
+        }
+      },
+      "validation": {
+        "nameRequired": "Company name is required",
+        "emailRequired": "Email is required",
+        "phoneRequired": "Phone is required"
+      }
     },
     "contact": {
       "nav": "Contact",
       "title": "Contact",
-      "description": "Reference contact records, separate from live CRM contacts",
-      "features": ["Name, title, channels", "Link to customers", "Buying role"]
+      "description": "Contact persons linked to customers",
+      "features": ["Name and channels", "Link to customer (required)", "Role and main contact flag"],
+      "listTitle": "Contacts",
+      "listSubtitle": "Manage contact persons linked to customers",
+      "newTitle": "New Contact",
+      "newSubtitle": "Fill in the details to add a new contact",
+      "editTitle": "Edit Contact",
+      "editSubtitle": "Update contact details",
+      "viewSubtitle": "Contact information",
+      "view": "View contact",
+      "deleteTitle": "Remove contact",
+      "deleteConfirm": "Remove “{name}” from the contact list?",
+      "deleteSoftHint": "Data is kept in the database (soft delete) and recorded in the activity log.",
+      "create": "Add Contact",
+      "createFirst": "Add first contact",
+      "empty": "No contacts yet",
+      "actions": "Actions",
+      "filters": {
+        "byCustomer": "Customer (company)",
+        "allCustomers": "All customers",
+        "customerPlaceholder": "Search customer…",
+        "viewAll": "View all",
+        "search": "Search name, email, or phone…",
+        "displayCount": "Showing {count} items",
+        "noResults": "No matching records"
+      },
+      "sections": {
+        "contactInfo": "Contact Info",
+        "workDetails": "Work Details"
+      },
+      "fields": {
+        "name": "Name",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "phone": "Phone",
+        "mobile": "Mobile",
+        "customer": "Customer",
+        "customerPlaceholder": "Select customer…",
+        "jobTitle": "Job Title",
+        "department": "Department",
+        "role": "Role",
+        "mainContact": "Main Contact",
+        "notes": "Notes",
+        "notesPlaceholder": "Additional notes…"
+      },
+      "options": {
+        "role": {
+          "decision_maker": "Decision maker",
+          "influencer": "Influencer",
+          "user": "User",
+          "gatekeeper": "Gatekeeper",
+          "other": "Other"
+        }
+      },
+      "validation": {
+        "firstNameRequired": "First name is required",
+        "emailRequired": "Email is required",
+        "phoneRequired": "Phone is required",
+        "customerRequired": "Please select a customer"
+      }
     },
     "salesTarget": {
       "nav": "Sales target",

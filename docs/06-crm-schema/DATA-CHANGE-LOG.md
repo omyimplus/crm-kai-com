@@ -86,6 +86,12 @@ PERFORM public.write_data_change_log(
 | สร้าง org role | create | `org_roles` | `create_org_role` |
 | แก้ org role / สิทธิ์ | update | `org_roles` | `update_org_role` |
 | ลบ org role | delete | `org_roles` | `delete_org_role` |
+| สร้างลูกค้า | create | `companies` | `create_company` |
+| แก้ลูกค้า | update | `companies` | `update_company` |
+| นำลูกค้าออก (soft delete) | delete | `companies` | `soft_delete_company` |
+| สร้างผู้ติดต่อ | create | `contacts` | `create_contact` |
+| แก้ผู้ติดต่อ | update | `contacts` | `update_contact` |
+| นำผู้ติดต่อออก (soft delete) | delete | `contacts` | `soft_delete_contact` |
 
 **ดู log:** Setup → กิจกรรมผู้ใช้ (`/app/setup/user-activity`) — RPC `list_data_change_logs`
 
@@ -95,7 +101,7 @@ PERFORM public.write_data_change_log(
 
 | ตาราง | วิธีที่วางแผน |
 |--------|--------------|
-| contacts, companies, deals | RPC หรือ trigger เมื่อ implement CRUD จริง |
+| deals | RPC หรือ trigger เมื่อ implement CRUD จริง |
 | activities, pipelines | เช่นเดียวกัน |
 
 ---

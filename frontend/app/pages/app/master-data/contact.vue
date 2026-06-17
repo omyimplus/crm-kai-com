@@ -1,9 +1,8 @@
 <script setup lang="ts">
 definePageMeta({ middleware: 'auth', layout: 'app' })
-const { ensureProfile } = useProfile()
-await ensureProfile()
+await navigateTo('/app/contact', { replace: true })
 </script>
 
 <template>
-  <MasterDataComingSoon menu-key="contact" />
+  <div />
 </template>

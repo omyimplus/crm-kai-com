@@ -6,6 +6,169 @@
 
 ## ประวัติ
 
+### 2026-06-17 — Customer CRUD RPC + Contact delete UI + DB-SCHEMA sync
+
+- **ทำอะไร:** `create_company` / `update_company` + logs · ปุ่มลบ contact · sync DB-SCHEMA
+- **Migration:** `20260608120040_companies_crud_rpc.sql`
+- **Phase:** 1
+
+### 2026-06-16 — Contact data_change_logs (RPC)
+
+- **ทำอะไร:** `create_contact` / `update_contact` / `soft_delete_contact` → `data_change_logs` · `useContacts` เรียก RPC
+- **Migration:** `20260608120039_contacts_crud_rpc.sql`
+- **Phase:** 1
+
+### 2026-06-16 — Contact list filter by customer (autocomplete)
+
+- **ทำอะไร:** หน้ารายการผู้ติดต่อ — USelectMenu searchable กรองตามบริษัท/ลูกค้า
+- **ไฟล์ที่กระทบ:** `pages/app/contact/index.vue`, i18n
+- **Phase:** 1
+
+### 2026-06-16 — Contact master UI + customer FK
+
+- **ทำอะไร:** `/app/contact` list/new/view/edit · `company_id` required · migration `20260608120038_*`
+- **Spec:** `docs/06-crm-schema/CONTACT-MASTER-FIELDS.md`
+- **Phase:** 1
+
+### 2026-06-16 — Sidebar inactive nav font (weight 400)
+
+- **ทำอะไร:** เมนูไม่ active ใช้ `font-normal` (400) แทน `font-medium` (500) — IBM Plex โหลดแค่ 400/600
+- **ไฟล์ที่กระทบ:** `AppSidebarNavItem.vue`, `main.css`
+- **Phase:** 1
+
+### 2026-06-16 — Tax section layout (WHT + credit ติดกัน)
+
+- **ทำอะไร:** ย้าย WHT ไปคอล. 3 แถว 2 · วงเงินเครดิต + เครดิตคงเหลือ อยู่แถวล่างติดกัน
+- **ไฟล์ที่กระทบ:** `MasterDataCustomerForm.vue`, `CUSTOMER-MASTER-FIELDS.md`
+- **Phase:** 1
+
+### 2026-06-16 — tax_vat → อัตราหัก ณ ที่จ่าย (WHT)
+
+- **ทำอะไร:** เปลี่ยน dropdown จาก VAT 7%/0% เป็น WHT · slug `none`, `wht_3`, `wht_5`, `wht_0_5`, `wht_0_75`, `wht_1`, `wht_1_5`, `wht_2`, `wht_10`, `wht_15`
+- **Migration:** `20260608120037_companies_tax_vat_wht_rates.sql`
+- **Phase:** 1
+
+### 2026-06-16 — Sidebar font ตรง content (IBM Plex Sans Thai)
+
+- **ทำอะไร:** บังคับ `--font-sans` บน sidebar/header · แก้ `<button>` ไม่ inherit · ขนาดตัวอักษร nav ใช้ `appSidebarNavTextClass`
+- **ไฟล์ที่กระทบ:** `main.css`, `AppSidebar*.vue`, `AppHeader.vue`, `appFormUi.ts`
+- **Phase:** 1
+
+### 2026-06-16 — Tax VAT dropdown
+
+- **ทำอะไร:** `tax_vat` เป็น USelectMenu · slug `vat_7` / `vat_0` / `exempt` / `no_vat`
+- **ไฟล์ที่กระทบ:** `masterCustomer.ts`, `MasterDataCustomerForm.vue`, `i18n`, migration `20260608120036_*`
+- **Phase:** 1
+
+### 2026-06-16 — Bill To: หลายที่อยู่ + default
+
+- **ทำอะไร:** `company_bill_addresses` · UI เหมือน Ship To · `MasterDataCustomerAddressList`
+- **ไฟล์ที่กระทบ:** migration `20260608120035_*`, `useCompanies.ts`, `MasterDataCustomerForm.vue`
+- **Phase:** 1
+
+### 2026-06-16 — Customer list: คอลัมน์ประเภท/โทร/email/เกรด/กลุ่มอุตสาหกรรม
+
+- **ทำอะไร:** ขยายตารางหน้ารายการลูกค้า
+- **ไฟล์ที่กระทบ:** `pages/app/customer/index.vue`
+- **Phase:** 1
+
+### 2026-06-16 — Individual customer: ล็อก segment + industry
+
+- **ทำอะไร:** ประเภทบุคคลธรรมดา → กลุ่มอุตสาหกรรม = รายบุคคล · อุตสาหกรรม = ไม่ระบุ · CHECK ใน DB
+- **ไฟล์ที่กระทบ:** `masterCustomer.ts`, `MasterDataCustomerForm.vue`, migration `20260608120034_*`
+- **Phase:** 1
+
+### 2026-06-16 — Ship To default address
+
+- **ทำอะไร:** `is_default` ต่อ company · UI badge/ดาว/checkbox · RPC สำหรับโมดูลอื่น
+- **ไฟล์ที่กระทบ:** migration `20260608120033_*`, `MasterDataCustomerForm.vue`, `useCompanies.ts`
+- **Phase:** 1
+
+### 2026-06-16 — Customer view + soft delete + log
+
+- **ทำอะไร:** ดูรายละเอียด (คลิกชื่อ/ปุ่มตา) · ลบ soft delete ผ่าน RPC + `data_change_logs`
+- **ไฟล์ที่กระทบ:** `MasterDataCustomerViewPage.vue`, routes `[id]/`, migration `20260608120032_*`
+- **Phase:** 1
+
+### 2026-06-16 — Customer master: migration + บันทึกครบฟิลด์
+
+- **ทำอะไร:** รองรับคอลัมน์ companies ใหม่ + ship addresses · ลบ layout-only hint
+- **ไฟล์ที่กระทบ:** `masterCustomer.ts`, `useCompanies.ts`, `MasterDataCustomerPage.vue`, `crm.ts`, `i18n`
+- **Phase:** 1 · ต้องรัน migration `20260608120031_*` ก่อน
+
+### 2026-06-16 — Customer website: auto https://
+
+- **ทำอะไร:** `normalizeWebsiteUrl` — blur + ตอนบันทึก เติม `https://` ถ้าผู้ใช้ไม่ใส่ scheme
+- **ไฟล์ที่กระทบ:** `utils/websiteUrl.ts`, `masterCustomer.ts`, `MasterDataCustomerForm.vue`
+- **Phase:** 1
+
+### 2026-06-16 — Customer Tax & Payment section ตาม mockup
+
+- **ทำอะไร:** grid 3 คอล · Payment Code ลำดับ transfer/credit/cash/cheque · VAT dropdown · credit ชิดขวา
+- **ไฟล์ที่กระทบ:** `MasterDataCustomerForm.vue`, `masterCustomer.ts`, `i18n`, `CUSTOMER-MASTER-FIELDS.md` §6
+- **Phase:** 1
+
+### 2026-06-16 — Customer Owner: dropdown + spec §5
+
+- **ทำอะไร:** เลือกพนักงานจาก profiles (active ใน org) · บันทึก `owner_id` · จด MD รอ confirm rules
+- **ไฟล์ที่กระทบ:** `MasterDataCustomerForm.vue`, `CUSTOMER-MASTER-FIELDS.md`, `i18n/en.json`
+- **Phase:** 1
+
+### 2026-06-16 — Customer Status dropdown (5 lifecycle values)
+
+- **ทำอะไร:** active · inactive · prospect · churned · pending · USelectMenu · tabs/badge หน้ารายการ · migration DB
+- **ไฟล์ที่กระทบ:** `masterCustomer.ts`, `MasterDataCustomerForm.vue`, `customer/index.vue`, `i18n`, migration `20260608120030_*`
+- **Phase:** 1
+
+### 2026-06-16 — Customer Sales Grade dropdown ตาม mockup
+
+- **ทำอะไร:** vip · A · B · C · Prospect (รูปแบบ Code — Description) · ลบเกรด D
+- **ไฟล์ที่กระทบ:** `masterCustomer.ts`, `MasterDataCustomerForm.vue`, `i18n/locales/*`, `CUSTOMER-MASTER-FIELDS.md`
+- **Phase:** 1
+
+### 2026-06-16 — Customer Industry dropdown + spec MD
+
+- **ทำอะไร:** เปลี่ยน Industry จาก text input เป็น USelectMenu 10 ตัวเลือก + slug ลง `companies.industry`
+- **ไฟล์ที่กระทบ:** `masterCustomer.ts`, `MasterDataCustomerForm.vue`, `i18n/locales/*`, `customer/index.vue`
+- **Docs:** `docs/06-crm-schema/CUSTOMER-MASTER-FIELDS.md`
+- **Phase:** 1
+
+### 2026-06-16 — Customer Industry Segment options ตาม mockup
+
+- **ทำอะไร:** เปลี่ยนเป็น Enterprise · SME · Startup · Individual (ลำดับตาม dropdown)
+- **ไฟล์ที่กระทบ:** `config/masterCustomer.ts`, `i18n/locales/*`, `MasterDataCustomerForm.vue`
+- **Phase:** 1
+
+### 2026-06-16 — Customer form: แปล th ครบ + placeholder i18n
+
+- **ทำอะไร:** ฟอร์มเพิ่ม/แก้ไขลูกค้า — sections, fields, options ภาษาไทย · ลบ hardcode placeholder
+- **ไฟล์ที่กระทบ:** `i18n/locales/*`, `MasterDataCustomerForm.vue`
+- **Phase:** 1
+
+### 2026-06-16 — Customer list UI แบบ system-users (หน้า new/edit แยก)
+
+- **ทำอะไร:** filter card + status tabs + ตาราง/pagination เหมือนผู้ใช้ในระบบ · เพิ่ม/แก้ไขเปิดหน้า `/new` และ `/:id` (ไม่ใช่ modal)
+- **ไฟล์ที่กระทบ:** `pages/app/customer/*`, `MasterDataCustomerPage.vue`
+- **Phase:** 1
+
+### 2026-06-16 — Customer route `/app/customer` + filter UI แบบ users
+
+- **ทำอะไร:** ย้ายออกจาก `/app/master-data/customer` · filter card + status tabs + ตารางเหมือน system-users
+- **ไฟล์ที่กระทบ:** `pages/app/customer/*`, `masterDataMenu.ts`, `MasterDataCustomerPage.vue`, `i18n/locales/*`
+- **Phase:** 1
+
+### 2026-06-16 — IBM Plex Sans Thai ทั้งระบบ
+
+- **ทำอะไร:** `--font-sans` / `--font-heading` = IBM Plex Sans Thai · Google Fonts 400 + 600
+- **ไฟล์ที่กระทบ:** `main.css`, `app.vue`
+- **Phase:** 1
+
+### 2026-06-16 — Master Data Customer: layout ฟอร์มครบ
+
+- **ทำอะไร:** หน้ารายการ + new/edit ฟอร์ม 4 section (General / Tax / Bill To / Ship To) อ้างอิง layout system-users · บันทึกเฉพาะคอลัมน์ `companies` ที่มีอยู่
+- **ไฟล์ที่กระทบ:** `master-data/customer/*`, `MasterDataCustomerForm.vue`, `AppFormSection.vue`, `masterCustomer.ts`, `i18n/locales/*`
+- **Phase:** 1
+
 ### 2026-06-08 — Settings: ตารางข้อมูลบริษัทแสดงโลโก้
 
 - **ทำอะไร:** คอลัมน์โลโก้ในมุมมองตาราง — แสดงรูปที่อัปโหลด (fallback ไอคอน building)
