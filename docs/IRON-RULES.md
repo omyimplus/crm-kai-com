@@ -181,7 +181,7 @@
 | เพิ่ม key แค่ภาษาเดียว | แก้ **ทั้ง** `frontend/i18n/locales/th.json` และ `en.json` |
 | หน้าใหม่ไม่มีสลับภาษา | ใส่ `LocaleSwitcher` (auth) หรือใช้ layout `app` (CRM) |
 | hardcode `Intl` locale | ใช้ `useFormat()` สำหรับเงิน/ตัวเลข |
-| hardcode `font-family` / ใช้ฟอนต์นอกกำหนด | [TYPOGRAPHY.md](./12-i18n/TYPOGRAPHY.md) — **Noto Sans Thai default** จนกว่า user สั่ง |
+| hardcode `font-family` / ใช้ฟอนต์นอกกำหนด | [TYPOGRAPHY.md](./12-i18n/TYPOGRAPHY.md) — **IBM Plex Sans Thai** ตาม D-010 |
 
 **อ่านรายละเอียด:** [12-i18n/README.md](./12-i18n/README.md) · **Typography:** [12-i18n/TYPOGRAPHY.md](./12-i18n/TYPOGRAPHY.md) · **ADR:** [D-009](./00-overview/DECISIONS.md), [D-010](./00-overview/DECISIONS.md)
 

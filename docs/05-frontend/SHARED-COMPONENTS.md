@@ -88,7 +88,188 @@ const {
 
 **`embedded`** บน `AppDataTable` + `AppPagination` = แชร์ border กับ wrapper ด้านนอก (ไม่ซ้อนกรอบ)
 
-### Class ตาราง (`config/appFormUi.ts`)
+---
+
+## List page แบบ «ผู้ใช้ในระบบ» (reference layout)
+
+> **Reference:** `frontend/app/pages/app/setup/system-users/index.vue`  
+> ใช้เป็นแม่แบบทุกหน้ารายการที่มี **filter + tab กรอง + ตาราง + modal สร้าง/แก้**
+
+### โครงหน้า (4 สถานะ)
+
+```
+┌─ Page header (title + subtitle + ปุ่มสร้าง) ─────────────┐
+├─ [loading]  UCard + common.loading                        │
+├─ [empty]    UCard + empty + ปุ่ม createFirst              │
+└─ [has data]                                               │
+    ├─ UCard filter bar (searchBy + search + reset)         │
+    └─ bordered block                                       │
+        ├─ role/status tabs (appTableRoleTab*)              │
+        ├─ displayCount                                     │
+        ├─ [no match] empty filter + reset                  │
+        └─ AppDataTable embedded + AppPagination embedded   │
+                                                             │
+    SetupXxxFormModal (page level — ไม่ซ้อนใน dialog อื่น)  │
+```
+
+| สถานะ | เงื่อนไข | UI |
+|--------|----------|-----|
+| Loading | `loading === true` | `UCard` + `common.loading` |
+| Empty DB | `!loading && !items.length` | `UCard` + ข้อความว่าง + ปุ่ม `createFirst` |
+| Has data | `items.length > 0` | filter + table block |
+| Filter ไม่ตรง | `filtered.length === 0` | ข้อความ `filters.noResults` + ปุ่ม `viewAll` |
+
+### 1) Page header
+
+```vue
+<div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+  <div>
+    <h1 class="text-2xl font-bold font-heading">{{ t('...title') }}</h1>
+    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ t('...subtitle') }}</p>
+  </div>
+  <UButton icon="i-lucide-..." @click="openCreate">{{ t('...create') }}</UButton>
+</div>
+```
+
+- หัวข้อใช้ **`font-heading`** (IBM Plex SemiBold)
+- ปุ่มสร้างเปิด **modal** (`formOpen = true`) — ไม่ไป route `/new` (ยกเว้น entity ใหญ่เช่น customer ที่แยกหน้าได้)
+
+### 2) Filter bar (`UCard class="mb-4"`)
+
+```vue
+<UCard class="mb-4">
+  <div class="flex flex-wrap items-end gap-3">
+    <UFormField :label="t('...filters.searchBy')" class="min-w-44">
+      <USelectMenu v-model="searchField" :items="searchFieldOptions" value-key="value" class="w-full" />
+    </UFormField>
+    <UInput v-model="search" class="min-w-0 flex-1" icon="i-lucide-search" :placeholder="t('...filters.search')" />
+    <UButton v-if="hasActiveFilters" variant="soft" color="neutral" icon="i-lucide-rotate-ccw" @click="clearFilters">
+      {{ t('...filters.viewAll') }}
+    </UButton>
+  </div>
+</UCard>
+```
+
+**State มาตรฐาน:**
+
+| ref | หน้าที่ |
+|-----|---------|
+| `search` | ข้อความค้นหา |
+| `searchField` | `'all'` \| field เฉพาะ |
+| `roleTab` / `statusTab` | tab กรอง (`'all'` + ค่าอื่น) |
+| `hasActiveFilters` | computed — มี filter ค้างอยู่ |
+| `clearFilters()` | รีเซ็ตทุก filter + `resetPage()` |
+
+**Filter logic:** `computed filteredItems` — กรอง tab ก่อน แล้วค่อย search ตาม `searchField`
+
+**Pagination:** `usePagination(filteredItems)` — เปลี่ยน filter → `resetPage()` (หรือพึ่ง auto-reset ของ composable)
+
+### 3) Tab กรองเหนือตาราง
+
+```vue
+<div
+  class="flex flex-wrap gap-2 border-b border-gray-200 bg-gray-50/90 px-3 py-2.5 dark:border-gray-800 dark:bg-gray-900/60"
+  role="tablist"
+  :aria-label="t('...filters.roleTabs')"
+>
+  <button
+    v-for="tab in roleTabs"
+    :key="tab.value"
+    type="button"
+    role="tab"
+    :aria-selected="roleTab === tab.value"
+    :class="[
+      appTableRoleTabBaseClass,
+      appTableTextClass,
+      roleTab === tab.value ? appTableRoleTabActiveClass : appTableRoleTabInactiveClass
+    ]"
+    @click="roleTab = tab.value"
+  >
+    {{ tab.label }}
+  </button>
+</div>
+```
+
+- ใช้ **`<button>` ธรรมดา** + class จาก `appFormUi` — ไม่ใช้ `UTabs`
+- tab แรกมักเป็น `viewAll` (value `'all'`)
+
+### 4) แถบนับจำนวน
+
+```vue
+<p
+  class="border-b border-gray-200 px-3 py-2 text-gray-600 dark:border-gray-800 dark:text-gray-400"
+  :class="appTableTextClass"
+>
+  {{ t('...filters.displayCount', { count: paginationTotal }) }}
+</p>
+```
+
+### 5) ตาราง + action column
+
+| คอลัมน์ | component / class |
+|---------|-------------------|
+| ข้อความหลัก | `AppDataTableTd` + `font-medium` (หรือ avatar + ชื่อ) |
+| ข้อมูลรอง | `AppDataTableTd muted` |
+| สถานะ / role | `UBadge variant="subtle"` + `appTableBadgeClass` |
+| role องค์กร | `appPlatformRoleBadgeClass[role]` (เฉพาะ user) |
+| แก้ไข | `AppIconButton icon="i-lucide-pencil"` + `@click="openEdit(row)"` |
+| ลบ (ถ้ามี) | `AppIconButton color="error"` + `@click` + confirm |
+
+- **แก้ไขเปิด modal** — ไม่ใช้ `:to` ไปหน้าแยก (ยกเว้น design กำหนด)
+- คอลัมน์ action สุดท้าย: `<AppDataTableTh />` ว่าง + `align="right"`
+
+### 6) Modal สร้าง/แก้ (page level)
+
+```vue
+<!-- ท้าย template ของ page — นอก table block -->
+<SetupSystemUserFormModal
+  v-model:open="formOpen"
+  :user="editingUser"
+  @saved="onSaved"
+/>
+```
+
+| state | หน้าที่ |
+|-------|---------|
+| `formOpen` | `v-model:open` ของ modal |
+| `editingUser` | `null` = สร้าง · object = แก้ |
+| `openCreate()` | `editingUser = null; formOpen = true` |
+| `openEdit(row)` | `editingUser = row; formOpen = true` |
+| `onSaved()` | `refresh()` รายการ |
+
+**ใน modal (`SystemUserFormModal`):**
+
+- `AppDialog` size `2xl` + `AppDialogFooter`
+- form `id="xxx-form"` grid `lg:grid-cols-2`
+- section หัวข้อ: `<h3 class="text-sm font-semibold font-heading">`
+- fields: `UFormField` + `:class="appFormFieldClass"` + `UInput size="lg" :ui="appInputUi"`
+- error: `appFormErrorClass`
+- save: `UButton type="submit" form="xxx-form"` ใน `#footer` ของ `AppDialogFooter`
+
+### i18n keys (filters)
+
+ใส่ใต้ namespace หน้านั้น เช่น `setup.systemUsers.filters.*`:
+
+| Key | ตัวอย่าง |
+|-----|----------|
+| `filters.searchBy` | ค้นหาตาม |
+| `filters.viewAll` | ดูทั้งหมด |
+| `filters.byName` / `byEmail` / … | ตัวเลือก dropdown |
+| `filters.search` | placeholder ช่องค้นหา |
+| `filters.roleTabs` / `statusTabs` | aria-label แถบ tab |
+| `filters.displayCount` | แสดง {count} รายการ |
+| `filters.noResults` | ไม่พบรายการ |
+
+### หน้าที่ใช้แล้ว
+
+| หน้า | หมายเหตุ |
+|------|----------|
+| `/app/setup/system-users` | **แม่แบบหลัก** — modal create/edit |
+| `/app/customer` | filter + status tabs · ฟอร์มแยกหน้า `/new` |
+| `/app/setup/user-approvals` | ตารางอย่างเดียว |
+| `/app/setup/roles` | table + grid |
+| `/app/contacts` | ตารางพื้นฐาน |
+| `/app/companies` | ตารางพื้นฐาน |
 
 | Export | ใช้เมื่อ |
 |--------|----------|
@@ -110,17 +291,7 @@ const {
 </UBadge>
 ```
 
-### หน้าที่ใช้แล้ว
-
-| หน้า | หมายเหตุ |
-|------|----------|
-| `/app/setup/system-users` | + tabs กรอง role, ข้อความ `displayCount` |
-| `/app/setup/user-approvals` | |
-| `/app/setup/roles` | table + grid ใช้ `pagedItems` |
-| `/app/contacts` | |
-| `/app/companies` | |
-
-### i18n pagination
+### Class ตาราง (`config/appFormUi.ts`)
 
 | Key | ตัวอย่าง (th) |
 |-----|----------------|
@@ -218,7 +389,33 @@ const {
 
 ---
 
-## Checklist หน้า list ใหม่
+## Charts
+
+→ รายละเอียดเต็ม: **[CHARTS.md](./CHARTS.md)**
+
+| Component | หน้าที่ |
+|-----------|---------|
+| `AppLineChart` | กราฟเส้นมาตรฐาน (nuxt-charts / vue-chrts) |
+| `config/appChart.ts` | สี + padding + helpers |
+
+---
+
+## Checklist หน้า list ใหม่ (แบบ system-users)
+
+- [ ] Page header: `font-heading` title + subtitle + ปุ่มสร้าง
+- [ ] 4 สถานะ: loading / empty / has data / filter no results
+- [ ] Filter: `UFormField` + `USelectMenu` + `UInput` search + ปุ่ม `viewAll` เมื่อ `hasActiveFilters`
+- [ ] Tab กรอง: `appTableRoleTab*` บน `<button role="tab">`
+- [ ] แถบ `displayCount` ก่อนตาราง
+- [ ] `usePagination(filteredItems)` + `resetPage()` ใน `clearFilters`
+- [ ] wrapper `border` + `AppDataTable embedded` + `AppPagination embedded`
+- [ ] chip: `appTableBadgeClass` (+ `appPlatformRoleBadgeClass` ถ้าเป็น role)
+- [ ] action: `AppIconButton` — edit เปิด modal หรือ route ตาม design
+- [ ] modal form อยู่ **page level** (hoist — ไม่ซ้อน modal)
+- [ ] i18n `filters.*` th + en
+- [ ] อัปเดต CHANGELOG โฟลเดอร์ที่แก้
+
+## Checklist หน้า list พื้นฐาน (ไม่มี filter tabs)
 
 - [ ] โหลดข้อมูล → `ref` / `computed` สำหรับ filter
 - [ ] `usePagination(items)` — แสดง `pagedItems` ไม่ใช่ array เต็ม
@@ -236,4 +433,4 @@ const {
 - [12-i18n](../12-i18n/README.md) — ภาษา
 - [frontend/CHANGELOG.md](../../frontend/CHANGELOG.md) — ประวัติ code
 
-*อัปเดต: 2026-06-08*
+*อัปเดต: 2026-06-16*

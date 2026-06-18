@@ -28,6 +28,8 @@
 | company_bill_addresses | ✅ | Bill To 1:N |
 | company_ship_addresses | ✅ | Ship To 1:N |
 | contacts | ✅ | contact master · soft delete |
+| products | ✅ | product master · soft delete |
+| categories | ✅ | product categories · hierarchy · soft delete |
 | pipelines | ✅ | |
 | pipeline_stages | ✅ | seed 6 stages |
 | deals | ✅ | stage trigger → history |

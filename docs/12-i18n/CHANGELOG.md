@@ -6,6 +6,24 @@
 
 ## ประวัติ
 
+### 2026-06-16 — Customer Status i18n (5 lifecycle)
+
+- **ทำอะไร:** `masterData.customer.options.status` — active … pending (th + en)
+- **ไฟล์ที่กระทบ:** `i18n/locales/{th,en}.json`
+- **Phase:** 1
+
+### 2026-06-16 — Customer form i18n ภาษาไทยครบ
+
+- **ทำอะไร:** แปล `masterData.customer.*` ใน `th.json` (sections, fields, ship, options) · placeholder ผ่าน i18n
+- **ไฟล์ที่กระทบ:** `i18n/locales/th.json`, `i18n/locales/en.json`, `MasterDataCustomerForm.vue`
+- **Phase:** 1
+
+### 2026-06-16 — IBM Plex Sans Thai ทั้งระบบ
+
+- **ทำอะไร:** Headline SemiBold (600) · Body Regular (400) — แทน Noto/Sarabun
+- **ไฟล์ที่กระทบ:** `TYPOGRAPHY.md`, `app.vue`, `main.css`, D-010
+- **Phase:** 1
+
 ### 2026-06-08 — default Noto Sans Thai ทั้งระบบ (interim)
 
 - **ทำอะไร:** อัปเดต TYPOGRAPHY + README — Noto default, Taviraj/Prompt รอสั่ง user

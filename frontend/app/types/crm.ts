@@ -169,6 +169,7 @@ export interface Company {
   credit_limit: number
   credit_balance: number
   created_at: string
+  deleted_at?: string | null
 }
 
 export interface CompanyBillAddress {
@@ -211,7 +212,236 @@ export interface Contact {
   notes: string | null
   owner_id: string | null
   created_at: string
-  companies?: { name: string } | null
+  deleted_at?: string | null
+  companies?: { name: string, deleted_at?: string | null } | null
+}
+
+export type CategoryStatus = 'active' | 'inactive'
+
+export interface Category {
+  id: string
+  org_id: string
+  module_key: string
+  category_code: string
+  name: string
+  description: string | null
+  parent_id: string | null
+  sort_order: number
+  color: string | null
+  status: CategoryStatus
+  notes: string | null
+  image_url: string | null
+  created_at: string
+  updated_at: string
+  deleted_at?: string | null
+  parent?: {
+    id: string
+    category_code: string
+    name: string
+    deleted_at?: string | null
+  } | null
+}
+
+export type UnitStatus = 'active' | 'inactive'
+
+export interface Unit {
+  id: string
+  org_id: string
+  unit_code: string
+  name: string
+  description: string | null
+  sort_order: number
+  status: UnitStatus
+  notes: string | null
+  created_at: string
+  updated_at: string
+  deleted_at?: string | null
+}
+
+export type LeadSourceStatus = 'active' | 'inactive'
+
+export interface LeadSource {
+  id: string
+  org_id: string
+  source_code: string
+  name: string
+  description: string | null
+  sort_order: number
+  status: LeadSourceStatus
+  notes: string | null
+  created_at: string
+  updated_at: string
+  deleted_at?: string | null
+}
+
+export type PartnerStatus = 'active' | 'inactive'
+
+export type PartnerType =
+  | 'distributor'
+  | 'reseller'
+  | 'agent'
+  | 'vendor'
+  | 'strategic'
+  | 'other'
+
+export type PartnerTier =
+  | 'platinum'
+  | 'gold'
+  | 'silver'
+  | 'bronze'
+  | 'standard'
+
+export interface Partner {
+  id: string
+  org_id: string
+  partner_code: string
+  name: string
+  partner_type: PartnerType
+  tier: PartnerTier
+  partner_since: string | null
+  status: PartnerStatus
+  contact_person: string
+  email: string
+  phone: string
+  website: string | null
+  commission_rate: number
+  description?: string | null
+  sort_order?: number
+  notes?: string | null
+  created_at: string
+  updated_at: string
+  deleted_at?: string | null
+}
+
+export type SalesTeamStatus = 'active' | 'inactive'
+
+export interface SalesTeamProfileSummary {
+  id: string
+  full_name: string | null
+  username?: string | null
+  avatar_url?: string | null
+}
+
+export interface SalesTeamMember {
+  profile_id: string
+  profiles?: SalesTeamProfileSummary | null
+}
+
+export interface SalesTeam {
+  id: string
+  org_id: string
+  team_code: string
+  name: string
+  description: string | null
+  team_lead_id: string | null
+  team_lead?: SalesTeamProfileSummary | null
+  sales_team_members?: SalesTeamMember[]
+  sort_order: number
+  status: SalesTeamStatus
+  notes: string | null
+  created_at: string
+  updated_at: string
+  deleted_at?: string | null
+}
+
+export type ModuleStatusRecordStatus = 'active' | 'inactive'
+
+export interface ModuleStatus {
+  id: string
+  org_id: string
+  module_key: string
+  status_code: string
+  name: string
+  description: string | null
+  color: string | null
+  sort_order: number
+  is_default: boolean
+  status: ModuleStatusRecordStatus
+  notes: string | null
+  created_at: string
+  updated_at: string
+  deleted_at?: string | null
+}
+
+export type JobCodeRecordStatus = 'active' | 'inactive'
+
+export interface JobCodeSequence {
+  id: string
+  org_id: string
+  module_key: string
+  prefix: string
+  date_enabled: boolean
+  date_include_year: boolean
+  date_include_month: boolean
+  date_include_day: boolean
+  date_part_order: string[]
+  date_style: string
+  segment_order: string[]
+  separator_enabled: boolean
+  segment_separator: string
+  pad_length: number
+  start_number: number
+  last_number: number
+  reset_rule: string
+  status: JobCodeRecordStatus
+  notes: string | null
+  created_at: string
+  updated_at: string
+  deleted_at?: string | null
+}
+
+export type ProductStatus = 'active' | 'inactive'
+
+export interface Product {
+  id: string
+  org_id: string
+  product_code: string
+  name: string
+  description: string | null
+  category_id: string | null
+  unit_id: string | null
+  list_price: number
+  cost_price: number | null
+  currency: string
+  barcode: string | null
+  status: ProductStatus
+  is_sellable: boolean
+  notes: string | null
+  image_url: string | null
+  created_at: string
+  updated_at: string
+  deleted_at?: string | null
+}
+
+export interface ProductGalleryImage {
+  id: string
+  org_id: string
+  product_id: string
+  image_url: string
+  sort_order: number
+  created_at: string
+  updated_at: string
+}
+
+export type SalesTargetPeriodType = 'month' | 'quarter' | 'year'
+
+export interface SalesTarget {
+  id: string
+  org_id: string
+  profile_id: string
+  period_type: SalesTargetPeriodType
+  period_year: number
+  period_month: number | null
+  period_quarter: number | null
+  target_amount: number
+  current_amount: number
+  currency: string
+  notes: string | null
+  created_at: string
+  updated_at: string
+  deleted_at?: string | null
+  profiles?: { full_name: string | null, username: string | null } | null
+  achievement_pct?: number
 }
 
 export interface PipelineStage {

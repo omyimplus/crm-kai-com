@@ -8,7 +8,7 @@
 
 ```
 crm-kai-com/
-├── .nvmrc                    # Node 22 — ทั้งระบบ
+├── .nvmrc                    # Node 24 — ทั้งระบบ
 ├── frontend/                 # Nuxt 4 + Tailwind
 │   ├── pages/
 │   │   ├── login.vue

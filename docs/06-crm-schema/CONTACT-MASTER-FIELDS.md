@@ -18,7 +18,7 @@
 | `job_title` | text NULL | ✅ | |
 | `department` | text NULL | ✅ | |
 | `contact_role` | text NULL | ✅ | slug · default `other` |
-| `is_main_contact` | boolean | ✅ | Main Contact checkbox |
+| `is_main_contact` | boolean | ✅ | Main Contact checkbox — **1 คนต่อลูกค้า** |
 | `notes` | text NULL | ✅ | textarea |
 
 → รายละเอียดตาราง: [tables.md](./tables.md#contacts)
@@ -60,6 +60,19 @@
 | `other` | Other | อื่น ๆ |
 
 **i18n:** `masterData.contact.options.role.{slug}`
+
+---
+
+## Main contact (`is_main_contact`)
+
+- **กฎ:** ลูกค้า 1 รายมีผู้ติดต่อหลักได้ **ไม่เกิน 1 คน** (active, `deleted_at IS NULL`)
+- **DB:** partial unique index `contacts_one_main_per_company_idx` บน `company_id`
+- **RPC:** `create_contact` / `update_contact` — ถ้าตั้ง `is_main_contact = true` → `ensure_single_main_contact()` ยกเลิกคนเดิมของลูกค้านั้นก่อนบันทึก
+- **Restore:** `restore_company` / `restore_contact` — dedupe หลังกู้คืน
+- **Migration:** `20260608120045_contacts_single_main_contact.sql`
+- **UI hint:** `masterData.contact.fields.mainContactHint` (th + en)
+
+คนสำคัญหลายคน → ใช้ `contact_role` (ผู้ตัดสินใจ · ผู้ประสาน) แทน checkbox หลัก
 
 ---
 
@@ -111,4 +124,23 @@
 
 - **UI:** ปุ่มลบบนหน้ารายการ + หน้ารายละเอียด · `MasterDataContactDeleteModal`
 - **RPC:** `soft_delete_contact` → `data_change_logs`
+
+---
+
+## ความสัมพันธ์กับลูกค้า (company)
+
+- **Required:** `company_id` ต้องชี้ลูกค้าที่ยัง active (`deleted_at IS NULL`)
+- **ลบลูกค้า:** `soft_delete_company` cascade soft delete ผู้ติดต่อที่ผูกอยู่ทั้งหมด — ไม่ให้ contact active ค้าง FK กับลูกค้าที่ลบแล้ว
+- **Trigger:** `contacts_block_deleted_company_trg` — กัน create/update contact ให้ผูกลูกค้าที่ soft delete แล้ว
+- **รายการ/ดูรายละเอียด:** `useContacts` filter `companies!inner` + `companies.deleted_at IS NULL`
+- **Migration:** `20260608120041_soft_delete_company_cascade_contacts.sql`
+
+---
+
+## กู้คืน (restore)
+
+- **UI:** แท็บ **ใช้งาน / ถูกลบ** — owner + admin เท่านั้น (`useArchiveTabs`)
+- **กู้ลูกค้า:** `restore_company` → cascade กู้ผู้ติดต่อที่ถูกลบพร้อมลูกค้า
+- **กู้ผู้ติดต่อเดี่ยว:** `restore_contact` — ได้เมื่อลูกค้ายัง active · ถ้าลูกค้าถูกลบ → กู้จากแท็บถูกลบที่หน้าลูกค้า
+- **Migration:** `20260608120043_restore_master_data.sql`
 

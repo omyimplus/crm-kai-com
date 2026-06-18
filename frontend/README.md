@@ -26,7 +26,8 @@ Open http://localhost:3000 → Sign up → use CRM
 
 - `/login`, `/signup` — auth (signup joins demo org)
 - `/app` — dashboard
-- `/app/contacts`, `/app/companies`, `/app/deals`
+- `/app/contacts`, `/app/companies`, `/app/deals` — legacy CRM (Phase 1)
+- **Master Data (11 menus):** `/app/customer`, `/app/contact`, `/app/sales-target`, `/app/product`, `/app/category`, `/app/unit`, `/app/lead-source`, `/app/partner`, `/app/sales-team`, `/app/module-status`, `/app/job-code` — ดู [MASTER-DATA-MENU.md](../docs/05-frontend/MASTER-DATA-MENU.md)
 
 ## Docs
 

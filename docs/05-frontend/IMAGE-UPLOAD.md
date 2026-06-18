@@ -24,6 +24,8 @@
 |----|--------|-----------|----------|--------|
 | `avatar` | `avatars` | 5 MB | JPG, PNG, WebP, GIF | WebP max 512px |
 | `companyLogo` | `org-images` | 2 MB | JPG, PNG, WebP, SVG | WebP max 800px (SVG คงเดิม) |
+| `categoryImage` | `org-images` | 2 MB | JPG, PNG, WebP, GIF | WebP max 640px |
+| `productImage` | `org-images` | 2 MB | JPG, PNG, WebP, GIF | WebP max 800px |
 
 เพิ่ม preset ใหม่ → แก้ `imageUpload.ts` + migration bucket/policy (ถ้าต้องการ bucket ใหม่) + i18n `common.imageUpload.errors.*`
 
@@ -73,6 +75,9 @@ const {
 |------------|--------|--------------|
 | `useUserAvatar()` | `avatar` | `{org_id}/{user_id}.ext` |
 | `useOrgCompanyLogo()` | `companyLogo` | `{org_id}/company-profiles/{profile_id}.ext` |
+| `useCategoryImage()` | `categoryImage` | `{org_id}/categories/{category_id}.ext` |
+| `useProductImage()` | `productImage` | `{org_id}/products/{product_id}.ext` |
+| `useProductGallery()` | `productImage` | `{org_id}/products/{product_id}/gallery/{image_id}.webp` |
 
 **เพิ่ม use case ใหม่:** สร้าง composable บาง ๆ ที่กำหนด path + เรียก `useImageUpload` — อย่า duplicate resize/validate
 

@@ -12,6 +12,7 @@ export const DATA_CHANGE_ENTITY_TYPES = [
   'org_roles',
   'contacts',
   'companies',
+  'sales_targets',
   'deals',
   'activities',
   'pipelines',

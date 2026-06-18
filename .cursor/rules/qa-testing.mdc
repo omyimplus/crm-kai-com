@@ -1,0 +1,23 @@
+---
+description: QA / tester — อ่าน QA-GUIDE ก่อนทดสอบ ทำตามชั้น 0–7
+alwaysApply: true
+---
+
+# QA / Tester
+
+เมื่อ user สั่ง **ทดสอบ · QA · หาบัค · เขียนรายงาน tester · retest** — **อ่านก่อนทำ:**
+
+1. **`docs/11-dev-setup/QA-GUIDE.md`** — ชั้น 0–7 (Environment → Audit → **Bypass**)
+2. **`docs/11-dev-setup/TEST-ACCOUNTS.md`** — login · migration
+3. Checklist โมดูล (ถ้าเกี่ยว): **`docs/11-dev-setup/QA-CUSTOMER-CONTACT.md`**
+
+## บังคับ
+
+- ทดสอบ **ชั้น 0 → 7** ตามลำดับ — ชั้นล่าง fail อย่ารีบทดสอบชั้นบน · **ชั้น 7** (ยิงทะลุ) หลังชั้น 2
+- บันทึกผลทีละชั้น (PASS/FAIL) ตามรูปแบบใน QA-GUIDE
+- บัคใหม่ระบุ **ชั้น** + Expected/Actual
+- หลังแก้โค้ด/ migration — retest จากชั้นที่ fail
+
+## ไม่ใช่งาน tester
+
+Implement feature / migration / UI — ใช้ `crm-kai-docs.mdc` ตามปกติ ไม่ต้องรัน checklist QA เต็มชุด

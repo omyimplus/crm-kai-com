@@ -14,7 +14,7 @@ Nuxt 3 + Tailwind + Nuxt UI — landing + CRM ใน project เดียว
 | UI library | **Nuxt UI** ([DECISIONS D-006](../00-overview/DECISIONS.md)) |
 | ต่อ DB | Supabase ตรง (anon + RLS) |
 | i18n | **ไทย + English** — [12-i18n](../12-i18n/README.md) ([D-009](../00-overview/DECISIONS.md)) |
-| Typography | **Noto Sans Thai (default ทั้งระบบ)** — [TYPOGRAPHY.md](../12-i18n/TYPOGRAPHY.md) ([D-010](../00-overview/DECISIONS.md)) |
+| Typography | **IBM Plex Sans Thai** — [TYPOGRAPHY.md](../12-i18n/TYPOGRAPHY.md) ([D-010](../00-overview/DECISIONS.md)) |
 | Logo | [BRAND-ASSETS.md](./BRAND-ASSETS.md) — `public/images/logo/` |
 
 ---
@@ -97,6 +97,7 @@ frontend/
 ## App menu (sidebar หลัก)
 
 - [APP-MENU.md](./APP-MENU.md) — 12 หน้า CRM (Coming soon scaffold)
+- [TASKS-MODULE.md](./TASKS-MODULE.md) — Phase 2 โมดูลแรก (design spec)
 
 ## Master data + Setup (sidebar)
 

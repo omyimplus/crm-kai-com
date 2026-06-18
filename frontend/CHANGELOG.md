@@ -6,6 +6,219 @@
 
 ## ประวัติ
 
+### 2026-06-08 — แก้ build: import path supabaseRealtimeTransport
+
+- **ทำอะไร:** `app/plugins/supabase.server.ts` → `../../build/supabaseRealtimeTransport` (SSR build ผ่าน)
+- **ไฟล์ที่กระทบ:** `supabase.server.ts`
+
+### 2026-06-08 — แก้ WARN duplicated `normalizeSelectValue` imports
+
+- **ทำอะไร:** รวม helper ไป `utils/normalizeSelectValue.ts` · ลบ export ซ้ำจาก master utils 6 ไฟล์
+- **ไฟล์ที่กระทบ:** `normalizeSelectValue.ts`, `masterCategory.ts`, `masterUnit.ts`, …, form components
+
+### 2026-06-08 — Master Data menu Phase 1 complete
+
+- **ทำอะไร:** ครบ 11 เมนู · ไม่มี Coming soon badge · sidebar เปิดข้อมูลหลักค่าเริ่มต้น · legacy `/app/master-data/*` redirect
+- **ไฟล์ที่กระทบ:** `masterDataMenu.ts`, `AppSidebar.vue`, `pages/app/master-data/*`, docs
+
+### 2026-06-08 — Job code master (`/app/job-code`)
+
+- **Route:** `/app/job-code` · แท็บโมดูลซ้าย + ฟอร์มขวา (query `?module=`)
+- **Migration:** `20260608120067_job_code_sequences.sql`
+- **Frontend:** `useJobCodes()` · `MasterDataJobCode*` · preview สด
+
+### 2026-06-08 — Module status code validation (UPPER_SNAKE_CASE)
+
+- **ทำอะไร:** `status_code` บังคับตัวใหญ่ · พิมพ์เล็กแปลงอัตโนมัติ · validate ตาม org role pattern (กลับด้าน) · migration `20260608120066`
+- **ไฟล์ที่กระทบ:** `utils/moduleStatusCode.ts`, `MasterDataModuleStatusForm.vue`, i18n th/en
+
+### 2026-06-08 — Module statuses master (`/app/module-status`)
+
+- **Route:** `/app/module-status` · แท็บโมดูลซ้าย + รายการขวา (query `?module=`) · เพิ่มสถานะ `/module/:moduleKey/new` (ล็อกโมดูล)
+- **Migration:** `20260608120065_module_statuses.sql`
+- **Frontend:** `useModuleStatuses()` · `loadSelectOptions()` · `MasterDataModuleStatus*`
+
+### 2026-06-08 — Sales team master (`/app/sales-team`)
+
+- **Route:** `/app/sales-team` · CRUD + archive tabs · สมาชิกหลายคนจากผู้ใช้งานในระบบ
+- **Migration:** `20260608120064_sales_teams.sql`
+- **Frontend:** `useSalesTeams()` · `MasterDataSalesTeam*` · `AppProfileChipSelect`
+
+### 2026-06-08 — ยกเลิก Employee position + Employee master menu
+
+- **เหตุผล:** ใช้ **Setup → ผู้ใช้งานในระบบ** (`/app/setup/system-users`) แทน
+- **Migration:** `20260608120063_drop_employee_position_master.sql` — drop table/RPC · ลบ permission `master.employeePosition` / `master.employee`
+- **Frontend:** ลบ route `/app/employee-position` · menu · i18n · components
+
+### 2026-06-08 — Employee position master (`/app/employee-position`) (ยกเลิกแล้ว)
+
+- **Route:** `/app/employee-position` · CRUD + archive tabs · redirect จาก `/app/master-data/employee-position`
+- **Migration:** `20260608120061_employee_positions.sql` · `20260608120062_employee_position_permissions.sql`
+- **สถานะ:** superseded โดย migration 63
+
+### 2026-06-08 — Partner form aligned with legacy CRM
+
+- **Migration:** `20260608120060_partners_legacy_fields.sql`
+- **UI:** Partner Info + Contact Details (type, tier, partner since, contact, commission)
+- **List:** ชื่อบริษัท · ประเภท · ระดับ · สถานะ
+
+### 2026-06-08 — Partner master (`/app/partner`)
+
+- **Route:** `/app/partner` · CRUD + archive tabs · redirect จาก `/app/master-data/partner`
+- **Migration:** `20260608120058_partners.sql` · `20260608120059_partner_permissions.sql`
+- **Frontend:** `usePartners()` · `MasterDataPartner*` · sidebar + i18n th/en
+- **Docs:** `PARTNER-MASTER-FIELDS.md`
+
+### 2026-06-08 — Lead source master (`/app/lead-source`)
+
+- **Route:** `/app/lead-source` · CRUD + archive tabs · redirect จาก `/app/master-data/lead-source`
+- **Migration:** `20260608120056_lead_sources.sql` (+ `57` ถ้ารัน variant เก่า)
+- **Frontend:** `useLeadSources()` · `MasterDataLeadSource*` · **องค์กรกำหนดเอง** (ไม่มี seed ค่าเริ่มต้น) · ใช้กับ Lead ในอนาคต
+- **i18n:** `masterData.leadSource.*` (th + en)
+
+### 2026-06-08 — Product gallery layout: below notes, wide box
+
+- **UI:** ย้าย `AppProductGalleryUpload` ใต้หมายเหตุ (full width) · drop zone แนวนอน · thumbnails แถวเลื่อน
+
+### 2026-06-08 — Product gallery images (multi-upload + drag reorder)
+
+- **Route:** edit/view product sidebar · `AppProductGalleryUpload`
+- **Migration:** `20260608120055_product_gallery_images.sql` · table `product_gallery_images` + RPC
+- **Storage:** `org-images/{org_id}/products/{id}/gallery/{image_id}.webp` · max 20 images
+- **Composable:** `useProductGallery()` · ลบ gallery เมื่อ soft delete สินค้า
+
+### 2026-06-08 — Product form: inline create category / unit dialogs
+
+- **UI:** ปุ่ม `+` ข้าง dropdown หมวด/หน่วยในหน้า new/edit สินค้า
+- **Dialog:** `MasterDataCategoryFormModal` · `MasterDataUnitFormModal` (hoist ที่ page level)
+- **หลังสร้าง:** refresh options และเลือกรายการใหม่ให้อัตโนมัติ
+
+### 2026-06-08 — Unit master + products.unit_id FK
+
+- **Route:** `/app/unit` · CRUD + archive tabs · redirect จาก `/app/master-data/unit`
+- **Migration:** `20260608120053_units.sql` · `20260608120054_products_unit_id.sql`
+- **Frontend:** `useUnits()` · `MasterDataUnit*` · สินค้าเลือกหน่วยจาก USelectMenu
+- **Docs:** `UNIT-MASTER-FIELDS.md` · `PRODUCT-MASTER-FIELDS.md`
+
+### 2026-06-08 — Product main image upload
+
+- **รูปหลัก:** `AppProductImageUpload` + `useProductImage()` · preset `productImage` (WebP max 800px)
+- **Storage:** `org-images/{org_id}/products/{id}.webp` · ลบไฟล์เมื่อ soft delete
+- **Migration:** `20260608120052_product_image.sql` · column `products.image_url`
+
+### 2026-06-08 — Products link to categories (category_id FK)
+
+- **ประเภท:** migration `20260608120051_products_category_id.sql`
+- **ทำอะไร:** `category_id` FK · ลบคอลัมน์ `category` text · migrate ข้อมูลเดิม · block ลบหมวดถ้ามีสินค้า
+- **Frontend:** USelectMenu หมวด · แสดงรูป/ลิงก์หมวดใน list/view
+
+### 2026-06-08 — Category main image upload
+
+- **รูปหลัก:** `AppCategoryImageUpload` + `useCategoryImage()` · preset `categoryImage` (WebP max 640px)
+- **Storage:** `org-images/{org_id}/categories/{id}.webp` · ลบไฟล์เมื่อ soft delete
+- **Migration:** `20260608120050_category_image.sql` · column `categories.image_url`
+
+### 2026-06-08 — fix category save error [object Object]
+
+- **สาเหตุ:** Supabase PostgrestError ไม่ใช่ `Error` · `String(error)` → `[object Object]`
+- **แก้:** `getSupabaseErrorMessage` ใน `categorySaveErrorMessage` · ลบ embed FK ใน `useCategories` (self-ref PGRST)
+
+### 2026-06-08 — Master Data Category UI
+
+- **Route:** `/app/category` · hierarchy + color · archive tabs
+- **Migration:** `20260608120049_categories.sql`
+- **Docs:** `CATEGORY-MASTER-FIELDS.md`
+
+### 2026-06-08 — Master Data Products (CRUD)
+
+- **Route:** `/app/product` · redirect จาก `/app/master-data/products`
+- **Migration:** `20260608120048_products.sql`
+- **Components:** `MasterDataProduct*` · `useProducts` · `masterProduct.ts`
+
+### 2026-06-17 — Charts: nuxt-charts + AppLineChart
+
+- **Lib:** `nuxt-charts` (vue-chrts) · docs `docs/05-frontend/CHARTS.md`
+- **Component:** `AppLineChart` + `config/appChart.ts` · เป้ายอดขายใช้แทน SVG จำลอง
+
+### 2026-06-17 — กราฟเส้นความคืบหน้า (จำลองวันปิดดีล)
+
+- **ทำอะไร:** SVG line chart ในหน้าดูเป้า · จำลองยอดสะสมตาม `current_amount` · จุดวันปิดดีล + รายการด้านล่าง
+
+### 2026-06-17 — fix หน้า sales-target detail/edit ไม่มี app layout
+
+- **สาเหตุ:** `[id]/index.vue` และ `[id]/edit.vue` ไม่มี `definePageMeta({ layout: 'app' })` — ไม่แสดง sidebar/header
+- **แก้:** เพิ่ม page meta + `ensureProfile` · sidebar เปิด section ข้อมูลหลักเมื่ออยู่ customer/contact/sales-target
+
+### 2026-06-17 — หน้าดูเป้ายอดขาย: layout มาตรฐาน master-data
+
+- **ทำอะไร:** `MasterDataSalesTargetForm` readonly + `AppFormSection` 2 คอลัมน์ · sidebar sticky แบบ customer/contact
+
+### 2026-06-17 — รอบเป้า: ข้อความอ่านง่ายขึ้น
+
+- **ทำอะไร:** หัวคอลัมน์ «รอบเป้า» · แสดง «พฤศจิกายน 2028» / «ไตรมาสที่ 4 ปี 2028» / «เป้าประจำปี …» แทน `11/2028`
+
+### 2026-06-17 — ตารางเป้ายอดขาย: icon actions ตาม master-data
+
+- **ทำอะไร:** eye / pencil / trash / restore แบบ customer·contact · `aria-label` · restore สี primary
+
+### 2026-06-17 — ตารางเป้ายอดขาย: progress bar + header
+
+- **ทำอะไร:** คอลัมน์ความคืบหน้าแสดง `UProgress` · ไม่มีหัวคอลัมน์การดำเนินการ · label `progress` แทน `achievement`
+
+### 2026-06-17 — fix บันทึกเป้ายอดขาย (PGRST201)
+
+- **สาเหตุ:** `select('*, profiles(...)')` ambiguous — FK สองเส้น (`profile_id`, `created_by`)
+- **แก้:** `profiles!sales_targets_profile_id_fkey` ใน `useSalesTargets` · ข้อความ duplicate period · icon ฟอร์ม
+
+### 2026-06-17 — sales_targets current_amount (manual)
+
+- **ทำอะไร:** คอลัมน์ `current_amount` · RPC create/update · UI เป้าหมาย + ยอดปัจจุบัน (ยังไม่ผูกดีล)
+- **Migration:** `20260608120047_sales_targets_current_amount.sql`
+
+### 2026-06-17 — เป้ายอดขาย (Sales targets)
+
+- **ทำอะไร:** Master data เป้ารายคน × เดือน/ไตรมาส/ปี · ผลจริงจากดีล Won · archive tabs
+- **Route:** `/app/sales-target` · migration `20260608120046_sales_targets.sql`
+- **Spec:** `docs/06-crm-schema/SALES-TARGET-MASTER-FIELDS.md`
+
+### 2026-06-17 — กิจกรรมผู้ใช้: รายละเอียดอ่านง่าย
+
+- **ทำอะไร:** แทน JSON ดิบด้วยตารางฟิลด์/ก่อน-หลัง · i18n ชื่อฟิลด์ · ปุ่มแสดง JSON ดิบ
+- **ไฟล์:** `SetupDataChangeLogDetails.vue` · `utils/dataChangeLogDisplay.ts` · `user-activity.vue`
+
+### 2026-06-17 — ผู้ติดต่อหลัก 1 คนต่อลูกค้า
+
+- **ทำอะไร:** hint ใต้ checkbox · RPC ยกเลิกคนเดิมอัตโนมัติ (migration 45)
+- **i18n:** `mainContactHint` th + en
+
+### 2026-06-17 — แท็บ ถูกลบ owner/admin เท่านั้น
+
+- **ทำอะไร:** `canViewDeletedRecords` · `AppArchiveTabs` + `useArchiveTabs` · RLS + restore RPC จำกัด admin/owner
+- **Migration:** `20260608120044_deleted_records_admin_only.sql`
+
+### 2026-06-17 — หน้าดูลูกค้า: panel ผู้ติดต่อ + modal เพิ่มทันที
+
+- **ทำอะไร:** panel รายชื่อผู้ติดต่อ · `MasterDataContactFormModal` ลูกค้าถูก lock ไม่ต้อง select
+- **ไฟล์:** `MasterDataCustomerViewPage.vue` · `MasterDataContactFormModal.vue` · `MasterDataContactForm.vue`
+
+### 2026-06-17 — Tab ถูกลบ + กู้คืน (restore)
+
+- **ทำอะไร:** แท็บ Active/Deleted บน list ลูกค้าและผู้ติดต่อ · `restore_company` cascade กู้ผู้ติดต่อ · modal กู้คืน
+- **Migration:** `20260608120043_restore_master_data.sql`
+- **UI:** `/app/customer` · `/app/contact`
+
+### 2026-06-17 — Fix soft_delete ต้องมี contact_log_snapshot
+
+- **สาเหตุ:** migration 41 เรียก `contact_log_snapshot` แต่ migration 39 ยังไม่รันบน DB → ลบลูกค้าที่มีผู้ติดต่อผูกอยู่ error
+- **Migration:** `20260608120042_fix_soft_delete_contact_snapshot.sql`
+- **UI:** แสดงข้อความ error จาก Supabase ใน modal ลบลูกค้า
+
+### 2026-06-17 — ลบลูกค้า cascade ผู้ติดต่อ
+
+- **ทำอะไร:** `soft_delete_company` soft delete contacts ที่ผูก `company_id` · trigger กัน contact ชี้ลูกค้าที่ลบแล้ว
+- **Migration:** `20260608120041_soft_delete_company_cascade_contacts.sql`
+- **Phase:** 1
+
 ### 2026-06-17 — Customer CRUD RPC + Contact delete UI + DB-SCHEMA sync
 
 - **ทำอะไร:** `create_company` / `update_company` + logs · ปุ่มลบ contact · sync DB-SCHEMA
@@ -177,8 +390,8 @@
 
 ### 2026-06-08 — Supabase Realtime: WebSocket บน Node < 22
 
-- **ทำอะไร:** ติดตั้ง `ws` + ส่ง `clientOptions.realtime.transport` ใน `nuxt.config` — แก้ warning "Node.js 20 detected without native WebSocket"
-- **ไฟล์ที่กระทบ:** `build/supabaseRealtimeTransport.ts`, `nuxt.config.ts`, `package.json`
+- **ทำอะไร:** ติดตั้ง `ws` + แทนที่ `@nuxtjs/supabase` server plugin ด้วย `app/plugins/supabase.server.ts` ส่ง `realtime.transport` ตรง (ห้ามใส่ function ใน `runtimeConfig.public`)
+- **ไฟล์ที่กระทบ:** `build/supabaseRealtimeTransport.ts`, `app/plugins/supabase.server.ts`, `nuxt.config.ts`, `package.json`
 - **Phase:** 1
 
 ### 2026-06-08 — Sidebar version จาก git commit

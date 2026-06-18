@@ -6,5 +6,14 @@ export function useFormat() {
     return new Intl.NumberFormat(intlLocale, { style: 'currency', currency }).format(amount)
   }
 
-  return { formatCurrency }
+  function formatDateTime(value: string | null | undefined) {
+    if (!value) return '—'
+    const intlLocale = locale.value === 'th' ? 'th-TH' : 'en-US'
+    return new Intl.DateTimeFormat(intlLocale, {
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    }).format(new Date(value))
+  }
+
+  return { formatCurrency, formatDateTime }
 }

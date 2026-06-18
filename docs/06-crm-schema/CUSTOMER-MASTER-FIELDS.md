@@ -399,5 +399,27 @@ ALTER TABLE companies
 - [x] i18n th + en ครบทุก slug
 - [x] อัปเดต [tables.md](./tables.md) + [DB-CHANGELOG.md](../02-database/DB-CHANGELOG.md)
 - [x] บันทึก `data_change_logs` ตาม IRON-RULES §13 — create/update/delete ผ่าน RPC (`create_company`, `update_company`, `soft_delete_company`)
+- [x] ลบลูกค้า (soft delete) → cascade soft delete ผู้ติดต่อที่ผูก `company_id` (`20260608120041`)
 
 → [DATA-CHANGE-LOG.md](./DATA-CHANGE-LOG.md) · [CHANGELOG.md](./CHANGELOG.md)
+
+---
+
+## ลบลูกค้า (soft delete)
+
+- **RPC:** `soft_delete_company`
+- **Cascade:** ผู้ติดต่อที่ `company_id` ชี้ลูกค้านี้และยัง active → soft delete ก่อนลบลูกค้า · log แยกต่อ contact (`metadata.cascade = true`, `source = soft_delete_company`)
+- **Trigger:** `contacts_block_deleted_company_trg` — กัน INSERT/UPDATE contact ให้ชี้ลูกค้าที่ `deleted_at IS NOT NULL`
+- **Migration:** `20260608120041_soft_delete_company_cascade_contacts.sql`
+- **UI:** `MasterDataCustomerDeleteModal` แจ้งว่าผู้ติดต่อที่ผูกอยู่จะถูกนำออกจากรายการด้วย
+
+---
+
+## กู้คืน (restore)
+
+- **UI:** แท็บ **ใช้งาน / ถูกลบ** บนหน้ารายการ · ปุ่มกู้คืนบนแท็บถูกลบ — **owner + admin เท่านั้น** (`useArchiveTabs` · migration 44)
+- **RPC ลูกค้า:** `restore_company` — กู้ลูกค้า + ผู้ติดต่อที่ cascade soft delete พร้อมกัน (อ้าง `data_change_logs.metadata.cascade`)
+- **RPC ผู้ติดต่อ:** `restore_contact` — กู้ทีละคน (ลูกค้าต้อง active · ถ้าลูกค้าถูกลบ → กู้ลูกค้าก่อน)
+- **Migration:** `20260608120043_restore_master_data.sql`
+- **Log:** action `update` · `metadata.restore = true`
+

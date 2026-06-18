@@ -1,12 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { APP_SEMVER } from './app/config/appVersion'
-import { getSupabaseRealtimeTransport } from './build/supabaseRealtimeTransport'
 import { getGitBuildInfo } from './scripts/gitBuildInfo.mjs'
 
 const gitBuildInfo = getGitBuildInfo()
 
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxtjs/supabase', '@nuxtjs/i18n'],
+  modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxtjs/supabase', '@nuxtjs/i18n', 'nuxt-charts'],
 
   i18n: {
     defaultLocale: 'th',
@@ -44,12 +43,8 @@ export default defineNuxtConfig({
     url: process.env.NUXT_PUBLIC_SUPABASE_URL,
     key: process.env.NUXT_PUBLIC_SUPABASE_KEY
       ?? process.env.NUXT_PUBLIC_SUPABASE_ANON_KEY,
-    redirect: false,
-    clientOptions: {
-      realtime: {
-        transport: getSupabaseRealtimeTransport()
-      }
-    }
+    redirect: false
+    // Realtime `transport: ws` on SSR — see `app/plugins/supabase.server.ts` (not runtimeConfig.public)
   },
 
   runtimeConfig: {
@@ -91,6 +86,11 @@ export default defineNuxtConfig({
   },
 
   hooks: {
+    'app:resolve'(app) {
+      app.plugins = app.plugins.filter(
+        plugin => !String(plugin.src).includes('@nuxtjs/supabase/dist/runtime/plugins/supabase.server')
+      )
+    },
     'vite:extendConfig'(config) {
       config.build ??= {}
       config.build.sourcemap = false

@@ -11,7 +11,7 @@ Node.js API — **ไม่ proxy CRM**
 |--------|--------|
 | Phase | 1 |
 | `api/` folder | ✅ **scaffold** (Hono + `/health`) |
-| Node version | **>= 22.12.0** — [NODE-VERSION.md](../11-dev-setup/NODE-VERSION.md) |
+| Node version | **>= 24.11.0** — [NODE-VERSION.md](../11-dev-setup/NODE-VERSION.md) |
 | Implement endpoints | Phase 3+ |
 
 ---

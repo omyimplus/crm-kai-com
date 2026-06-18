@@ -1,6 +1,6 @@
 /** Presets สำหรับอัปโหลดรูปทั้งระบบ — ดู docs/05-frontend/IMAGE-UPLOAD.md */
 
-export type ImageUploadPresetId = 'avatar' | 'companyLogo'
+export type ImageUploadPresetId = 'avatar' | 'companyLogo' | 'categoryImage' | 'productImage'
 
 export interface ImageResizeCandidate {
   maxDim: number
@@ -50,6 +50,36 @@ export const IMAGE_UPLOAD_PRESETS: Record<ImageUploadPresetId, ImageUploadPreset
       { maxDim: 320, quality: 0.68 }
     ],
     keepSvg: true
+  },
+  categoryImage: {
+    id: 'categoryImage',
+    bucket: 'org-images',
+    maxBytes: 2 * 1024 * 1024,
+    accept: 'image/jpeg,image/png,image/webp,image/gif',
+    mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+    resizeFormat: 'webp',
+    resizeCandidates: [
+      { maxDim: 640, quality: 0.85 },
+      { maxDim: 480, quality: 0.8 },
+      { maxDim: 320, quality: 0.72 },
+      { maxDim: 240, quality: 0.65 }
+    ],
+    keepSvg: false
+  },
+  productImage: {
+    id: 'productImage',
+    bucket: 'org-images',
+    maxBytes: 2 * 1024 * 1024,
+    accept: 'image/jpeg,image/png,image/webp,image/gif',
+    mimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+    resizeFormat: 'webp',
+    resizeCandidates: [
+      { maxDim: 800, quality: 0.85 },
+      { maxDim: 640, quality: 0.8 },
+      { maxDim: 480, quality: 0.72 },
+      { maxDim: 320, quality: 0.65 }
+    ],
+    keepSvg: false
   }
 }
 

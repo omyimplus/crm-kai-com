@@ -20,7 +20,7 @@
 | Frontend | Nuxt 3, Tailwind CSS, TypeScript, Pinia, **Nuxt UI** |
 | Validation | VeeValidate + Zod |
 | Database & Auth | Supabase (Postgres + Auth + RLS + Migrations) |
-| Backend API | **Scaffold** `api/` — Hono, Node 22 — logic Phase 3+ |
+| Backend API | **Scaffold** `api/` — Hono, Node 24 — logic Phase 3+ |
 | Deploy Frontend | Vercel หรือ Cloudflare Pages (ยังไม่ตัดสิน) |
 | Local Dev | Supabase CLI — [11-dev-setup](../11-dev-setup/) |
 
@@ -28,7 +28,7 @@
 
 | ชั้น | เทคโนโลยี |
 |------|-----------|
-| Backend API | Node.js **22 LTS** + Hono/Fastify + TypeScript |
+| Backend API | Node.js **24 LTS** + Hono/Fastify + TypeScript |
 | Queue | BullMQ + Redis หรือ Inngest |
 | Email | Resend / Postmark |
 | Payment | Stripe / Omise |

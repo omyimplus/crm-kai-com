@@ -43,9 +43,19 @@
 ทุกตาราง CRM:
 
 ```sql
--- อ่าน: อยู่ org เดียวกัน + ไม่ถูก soft delete
-USING (org_id = current_org_id() AND deleted_at IS NULL)
+-- อ่าน: org เดียวกัน + (active หรือ owner/admin)
+USING (
+  org_id = current_org_id()
+  AND (
+    deleted_at IS NULL
+    OR is_admin_or_owner()
+  )
+)
+```
 
+**แท็บ ใช้งาน / ถูกลบ (UI):** owner + admin เท่านั้น — `useArchiveTabs()` + `<AppArchiveTabs>` · `restore_*` RPC ต้อง `is_admin_or_owner()`
+
+```sql
 -- เขียน: org เดียวกัน
 WITH CHECK (org_id = current_org_id())
 ```

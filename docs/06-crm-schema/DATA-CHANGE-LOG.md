@@ -88,10 +88,27 @@ PERFORM public.write_data_change_log(
 | ลบ org role | delete | `org_roles` | `delete_org_role` |
 | สร้างลูกค้า | create | `companies` | `create_company` |
 | แก้ลูกค้า | update | `companies` | `update_company` |
-| นำลูกค้าออก (soft delete) | delete | `companies` | `soft_delete_company` |
+| นำลูกค้าออก (soft delete) | delete | `companies` | `soft_delete_company` — cascade soft delete contacts ที่ผูกอยู่ (log ต่อ contact, `metadata.cascade`) |
+| กู้คืนลูกค้า | update | `companies` | `restore_company` — cascade restore contacts จาก log |
+| กู้คืนผู้ติดต่อ | update | `contacts` | `restore_contact` |
 | สร้างผู้ติดต่อ | create | `contacts` | `create_contact` |
 | แก้ผู้ติดต่อ | update | `contacts` | `update_contact` |
 | นำผู้ติดต่อออก (soft delete) | delete | `contacts` | `soft_delete_contact` |
+| สร้างเป้ายอดขาย | create | `sales_targets` | `create_sales_target` |
+| แก้เป้ายอดขาย | update | `sales_targets` | `update_sales_target` |
+| นำเป้าออก (soft delete) | delete | `sales_targets` | `soft_delete_sales_target` |
+| กู้คืนเป้ายอดขาย | update | `sales_targets` | `restore_sales_target` |
+| สร้างทีมขาย | create | `sales_teams` | `create_sales_team` |
+| แก้ทีมขาย | update | `sales_teams` | `update_sales_team` |
+| นำทีมขายออก (soft delete) | delete | `sales_teams` | `soft_delete_sales_team` |
+| กู้คืนทีมขาย | update | `sales_teams` | `restore_sales_team` |
+| สร้างสถานะโมดูล | create | `module_statuses` | `create_module_status` |
+| แก้สถานะโมดูล | update | `module_statuses` | `update_module_status` |
+| นำสถานะโมดูลออก (soft delete) | delete | `module_statuses` | `soft_delete_module_status` |
+| กู้คืนสถานะโมดูล | update | `module_statuses` | `restore_module_status` |
+| สร้างรหัสงานโมดูล | create | `job_code_sequences` | `create_job_code_sequence` |
+| แก้รหัสงานโมดูล | update | `job_code_sequences` | `update_job_code_sequence` |
+| นำรหัสงานโมดูลออก (soft delete) | delete | `job_code_sequences` | `soft_delete_job_code_sequence` |
 
 **ดู log:** Setup → กิจกรรมผู้ใช้ (`/app/setup/user-activity`) — RPC `list_data_change_logs`
 

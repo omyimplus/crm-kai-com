@@ -14,6 +14,8 @@
     "saveFailed": "Save failed",
     "loadFailed": "Failed to load",
     "deleteFailed": "Delete failed",
+    "restore": "Restore",
+    "restoreFailed": "Restore failed",
     "user": "User",
     "language": "Language",
     "switchLanguage": "Switch to {language}",
@@ -34,11 +36,15 @@
       "errors": {
         "tooLarge": {
           "avatar": "File exceeds 5 MB",
-          "companyLogo": "File exceeds 2 MB"
+          "companyLogo": "File exceeds 2 MB",
+          "categoryImage": "File exceeds 2 MB",
+          "productImage": "File exceeds 2 MB"
         },
         "invalidType": {
           "avatar": "Only JPG, PNG, WebP or GIF images are supported",
-          "companyLogo": "Only JPG, PNG, WebP or SVG images are supported"
+          "companyLogo": "Only JPG, PNG, WebP or SVG images are supported",
+          "categoryImage": "Only JPG, PNG, WebP or GIF images are supported",
+          "productImage": "Only JPG, PNG, WebP or GIF images are supported"
         }
       }
     }
@@ -343,12 +349,24 @@
       "view": "View customer",
       "deleteTitle": "Remove customer",
       "deleteConfirm": "Remove “{name}” from the customer list?",
-      "deleteSoftHint": "Data is kept in the database (soft delete) and recorded in the activity log. You can restore it later from the database if needed.",
+      "deleteSoftHint": "Data is kept in the database (soft delete) and recorded in the activity log. Restore from the Deleted tab when needed.",
+      "deleteContactsHint": "Linked contacts will also be removed from the list (soft delete).",
+      "restoreTitle": "Restore customer",
+      "restoreConfirm": "Restore “{name}” to the customer list?",
+      "restoreContactsHint": "Contacts that were removed with this customer will also be restored.",
       "create": "Add Customer",
       "createFirst": "Add first customer",
       "empty": "No customers yet",
       "actions": "Actions",
       "creditBalanceHint": "Credit balance is read-only and will be calculated from invoices in a later phase",
+      "contactsPanel": {
+        "title": "Contacts",
+        "subtitle": "People linked to this customer",
+        "add": "Add contact",
+        "empty": "No contacts linked to this customer yet.",
+        "addModalTitle": "Add contact",
+        "addModalSubtitle": "New contact for “{name}”. Customer is set automatically."
+      },
       "filters": {
         "searchBy": "Search by",
         "viewAll": "View all",
@@ -357,6 +375,11 @@
         "byIndustry": "Industry",
         "search": "Search…",
         "statusTabs": "Filter by status",
+        "archiveTabs": "Record visibility",
+        "activeRecords": "Active",
+        "deletedRecords": "Deleted",
+        "deletedAt": "Deleted at",
+        "emptyDeleted": "No deleted customers",
         "displayCount": "Showing {count} items",
         "noResults": "No matching records"
       },
@@ -509,6 +532,9 @@
       "deleteTitle": "Remove contact",
       "deleteConfirm": "Remove “{name}” from the contact list?",
       "deleteSoftHint": "Data is kept in the database (soft delete) and recorded in the activity log.",
+      "restoreTitle": "Restore contact",
+      "restoreConfirm": "Restore “{name}” to the contact list?",
+      "restoreCustomerDeletedHint": "This contact was removed with its customer. Restore the customer from the Deleted tab first.",
       "create": "Add Contact",
       "createFirst": "Add first contact",
       "empty": "No contacts yet",
@@ -518,6 +544,12 @@
         "allCustomers": "All customers",
         "customerPlaceholder": "Search customer…",
         "viewAll": "View all",
+        "archiveTabs": "Record visibility",
+        "activeRecords": "Active",
+        "deletedRecords": "Deleted",
+        "deletedAt": "Deleted at",
+        "emptyDeleted": "No deleted contacts",
+        "customerDeletedBadge": "Customer deleted",
         "search": "Search name, email, or phone…",
         "displayCount": "Showing {count} items",
         "noResults": "No matching records"
@@ -539,6 +571,7 @@
         "department": "Department",
         "role": "Role",
         "mainContact": "Main Contact",
+        "mainContactHint": "One main contact per customer. Saving replaces the previous main contact automatically.",
         "notes": "Notes",
         "notesPlaceholder": "Additional notes…"
       },
@@ -559,69 +592,782 @@
       }
     },
     "salesTarget": {
-      "nav": "Sales target",
-      "title": "Sales target",
-      "description": "Set sales targets by employee, team, or period",
-      "features": ["Monthly/quarterly/yearly targets", "By team and product", "Actual vs target tracking"]
+      "nav": "Sales targets",
+      "title": "Sales targets",
+      "description": "Set sales targets by person and period; track actuals from won deals",
+      "listTitle": "Sales targets",
+      "listSubtitle": "Monthly, quarterly, and annual targets per salesperson",
+      "newTitle": "New sales target",
+      "editTitle": "Edit sales target",
+      "view": "View sales target",
+      "viewSubtitle": "View sales target details",
+      "formSubtitle": "Enter target and current amount manually — sales sync coming later",
+      "create": "Add target",
+      "createFirst": "Add first target",
+      "empty": "No sales targets yet",
+      "actions": "Actions",
+      "deleteTitle": "Remove sales target",
+      "deleteConfirm": "Remove target for {name}?",
+      "deleteSoftHint": "The record moves to the Deleted tab. You can restore it later.",
+      "restoreTitle": "Restore sales target",
+      "restoreConfirm": "Restore target for {name}?",
+      "currentHint": "Current amount is entered manually for now — will sync from sales later",
+      "sections": {
+        "main": "Target details",
+        "progress": "Progress"
+      },
+      "fields": {
+        "assignee": "Assignee",
+        "period": "Target period",
+        "periodType": "Period type",
+        "periodYear": "Year",
+        "periodMonth": "Month",
+        "periodQuarter": "Quarter",
+        "targetAmount": "Target",
+        "currentAmount": "Current amount",
+        "progress": "Progress",
+        "currency": "Currency",
+        "notes": "Notes"
+      },
+      "progressChart": {
+        "title": "Cumulative trend (simulated)",
+        "simulatedHint": "Simulated deal close dates — real Won deals in a later phase",
+        "empty": "No closed amount yet — enter current amount to preview the chart",
+        "legendCumulative": "Cumulative",
+        "legendTarget": "Target",
+        "legendDealClose": "Deal closed",
+        "dealTooltip": "Deal closed {amount} · {date}"
+      },
+      "period": {
+        "monthLabel": "{month} {year}",
+        "quarterLabel": "{quarter} {year}",
+        "yearLabel": "Full year {year}"
+      },
+      "options": {
+        "periodType": {
+          "month": "Monthly",
+          "quarter": "Quarterly",
+          "year": "Yearly"
+        },
+        "months": {
+          "1": "January",
+          "2": "February",
+          "3": "March",
+          "4": "April",
+          "5": "May",
+          "6": "June",
+          "7": "July",
+          "8": "August",
+          "9": "September",
+          "10": "October",
+          "11": "November",
+          "12": "December"
+        },
+        "quarters": {
+          "1": "Quarter 1",
+          "2": "Quarter 2",
+          "3": "Quarter 3",
+          "4": "Quarter 4"
+        }
+      },
+      "filters": {
+        "year": "Year",
+        "periodType": "Period type",
+        "search": "Search assignee or target period…",
+        "allYears": "All years",
+        "allPeriodTypes": "All types",
+        "activeRecords": "Active",
+        "deletedRecords": "Deleted",
+        "emptyDeleted": "No deleted targets",
+        "archiveTabs": "Active and deleted targets"
+      },
+      "validation": {
+        "assigneeRequired": "Select an assignee",
+        "yearRequired": "Enter a valid year",
+        "monthRequired": "Select a month",
+        "quarterRequired": "Select a quarter",
+        "amountRequired": "Enter target amount",
+        "amountInvalid": "Target amount must be 0 or greater",
+        "currentAmountInvalid": "Current amount must be 0 or greater",
+        "duplicatePeriod": "A target for this assignee and period already exists"
+      },
+      "features": ["Monthly/quarterly/yearly targets", "Per salesperson", "Actual vs target from won deals"]
     },
     "products": {
       "nav": "Products",
       "title": "Products",
       "description": "Products and services catalog",
-      "features": ["SKU, price, unit", "Product categories", "Active / inactive"]
+      "features": ["SKU, price, unit", "Product categories", "Active / inactive"],
+      "listTitle": "Products",
+      "listSubtitle": "Manage products and services",
+      "newTitle": "New product",
+      "newSubtitle": "Enter details for a new product",
+      "editTitle": "Edit product",
+      "editSubtitle": "Update product information",
+      "viewSubtitle": "Product details",
+      "view": "View product",
+      "deleteTitle": "Remove product",
+      "deleteConfirm": "Remove “{name}” from the product list?",
+      "deleteSoftHint": "Data is kept (soft delete) and logged in activity.",
+      "restoreTitle": "Restore product",
+      "restoreConfirm": "Restore “{name}” to the product list?",
+      "create": "Add product",
+      "createFirst": "Add first product",
+      "empty": "No products yet",
+      "actions": "Actions",
+      "filters": {
+        "byStatus": "Status",
+        "allStatuses": "All statuses",
+        "viewAll": "View all",
+        "archiveTabs": "List view",
+        "activeRecords": "Active",
+        "deletedRecords": "Deleted",
+        "deletedAt": "Deleted at",
+        "emptyDeleted": "No deleted products",
+        "search": "Search code, name, category, unit, or barcode…",
+        "displayCount": "Showing {count} items",
+        "noResults": "No items match your filters"
+      },
+      "sections": {
+        "basicInfo": "Product info",
+        "pricing": "Pricing & status"
+      },
+      "fields": {
+        "code": "Product code",
+        "name": "Product name",
+        "description": "Description",
+        "category": "Category",
+        "noCategory": "None",
+        "categoryPlaceholder": "Select category…",
+        "unit": "Unit",
+        "noUnit": "None",
+        "unitPlaceholder": "Select unit…",
+        "createCategoryButton": "Add category",
+        "createUnitButton": "Add unit",
+        "listPrice": "List price",
+        "costPrice": "Cost",
+        "currency": "Currency",
+        "barcode": "Barcode",
+        "status": "Status",
+        "isSellable": "Available for sale",
+        "image": "Main image",
+        "imageHint": "JPG, PNG, WebP or GIF — converted to WebP and resized (max 800px)",
+        "gallery": "Additional images",
+        "galleryHint": "Separate from the main image — drag to reorder",
+        "notes": "Notes",
+        "notesPlaceholder": "Additional notes…"
+      },
+      "options": {
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        }
+      },
+      "validation": {
+        "codeRequired": "Product code is required",
+        "nameRequired": "Product name is required",
+        "listPriceInvalid": "List price must be 0 or greater",
+        "costPriceInvalid": "Cost must be 0 or greater",
+        "duplicateCode": "This product code already exists",
+        "categoryNotFound": "Selected category not found or was deleted",
+        "unitNotFound": "Selected unit not found or was deleted"
+      },
+      "gallery": {
+        "upload": "Choose images",
+        "dropHint": "Drag and drop images here",
+        "dragToReorder": "Drag",
+        "imageAlt": "Product gallery image",
+        "count": "{count} / {max} images",
+        "uploading": "Uploading images…",
+        "uploadingProgress": "Uploading {current} of {total}…",
+        "saveProductFirst": "Save the product first to add gallery images",
+        "validation": {
+          "limitReached": "Maximum {max} gallery images allowed",
+          "productNotFound": "Product not found or was deleted"
+        }
+      }
     },
     "category": {
       "nav": "Category",
       "title": "Category",
-      "description": "Categories for products, customers, or deals",
-      "features": ["Hierarchical categories", "Multi-module use", "Color and icon"]
+      "description": "Product categories — used when assigning products",
+      "features": ["Hierarchical categories", "Multi-module use", "Color and icon"],
+      "listTitle": "Product categories",
+      "listSubtitle": "Manage categories for products and services",
+      "newTitle": "New category",
+      "newSubtitle": "Create a new product category",
+      "editTitle": "Edit category",
+      "editSubtitle": "Update category information",
+      "viewSubtitle": "Category details",
+      "view": "View category",
+      "deleteTitle": "Remove category",
+      "deleteConfirm": "Remove “{name}” from the category list?",
+      "deleteSoftHint": "Cannot delete if child categories exist — soft delete with activity log",
+      "restoreTitle": "Restore category",
+      "restoreConfirm": "Restore “{name}” to the category list?",
+      "restoreParentDeletedHint": "Parent category is deleted — restore the parent from the Deleted tab first",
+      "create": "Add category",
+      "createFirst": "Add first category",
+      "empty": "No categories yet",
+      "actions": "Actions",
+      "filters": {
+        "byStatus": "Status",
+        "allStatuses": "All statuses",
+        "viewAll": "View all",
+        "archiveTabs": "List view",
+        "activeRecords": "Active",
+        "deletedRecords": "Deleted",
+        "deletedAt": "Deleted at",
+        "emptyDeleted": "No deleted categories",
+        "parentDeletedBadge": "Parent deleted",
+        "search": "Search code, name, or parent…",
+        "displayCount": "Showing {count} items",
+        "noResults": "No items match your filters"
+      },
+      "sections": {
+        "basicInfo": "Category info",
+        "hierarchy": "Hierarchy"
+      },
+      "fields": {
+        "code": "Category code",
+        "name": "Category name",
+        "description": "Description",
+        "parent": "Parent category",
+        "noParent": "None (top level)",
+        "parentPlaceholder": "Select parent…",
+        "sortOrder": "Sort order",
+        "color": "Color",
+        "colorHint": "Hex format e.g. #3b82f6",
+        "colorPlaceholder": "#3b82f6",
+        "status": "Status",
+        "image": "Main image",
+        "imageHint": "JPG, PNG, WebP or GIF — converted to WebP and resized (max 640px)",
+        "notes": "Notes",
+        "notesPlaceholder": "Additional notes…"
+      },
+      "options": {
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        }
+      },
+      "validation": {
+        "codeRequired": "Category code is required",
+        "nameRequired": "Category name is required",
+        "sortOrderInvalid": "Sort order must be 0 or greater",
+        "colorInvalid": "Color must be hex format e.g. #3b82f6",
+        "duplicateCode": "This category code already exists",
+        "hasChildren": "Child categories exist — remove or reassign them first",
+        "hasProducts": "Products use this category — reassign or remove them first",
+        "parentDeleted": "Parent category is deleted — restore parent first",
+        "circularParent": "Cannot choose a parent that creates a circular hierarchy"
+      }
     },
     "leadSource": {
       "nav": "Lead source",
       "title": "Lead source",
       "description": "Sources of leads and opportunities",
-      "features": ["Website, referral, events, etc.", "Conversion analytics", "Custom per org"]
+      "features": ["Org-defined list", "Used when creating leads", "Sort order and status"],
+      "listTitle": "Lead sources",
+      "listSubtitle": "Define lead sources for your organization — used when recording leads",
+      "newTitle": "New lead source",
+      "newSubtitle": "Create a new lead source",
+      "editTitle": "Edit lead source",
+      "editSubtitle": "Update lead source information",
+      "viewSubtitle": "Lead source details",
+      "view": "View lead source",
+      "deleteTitle": "Remove lead source",
+      "deleteConfirm": "Remove “{name}” from the lead source list?",
+      "deleteSoftHint": "Soft delete with activity log — can restore from Deleted tab",
+      "restoreTitle": "Restore lead source",
+      "restoreConfirm": "Restore “{name}” to the lead source list?",
+      "create": "Add lead source",
+      "createFirst": "Add first lead source",
+      "empty": "No lead sources yet — add your own for use with leads",
+      "actions": "Actions",
+      "filters": {
+        "byStatus": "Status",
+        "allStatuses": "All statuses",
+        "viewAll": "View all",
+        "archiveTabs": "List view",
+        "activeRecords": "Active",
+        "deletedRecords": "Deleted",
+        "deletedAt": "Deleted at",
+        "emptyDeleted": "No deleted lead sources",
+        "search": "Search code or name…",
+        "displayCount": "Showing {count} items",
+        "noResults": "No items match your filters"
+      },
+      "sections": {
+        "basicInfo": "Lead source info",
+        "settings": "Settings"
+      },
+      "fields": {
+        "code": "Source code",
+        "name": "Source name",
+        "description": "Description",
+        "sortOrder": "Sort order",
+        "status": "Status",
+        "notes": "Notes",
+        "notesPlaceholder": "Additional notes…"
+      },
+      "options": {
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        }
+      },
+      "validation": {
+        "codeRequired": "Source code is required",
+        "nameRequired": "Source name is required",
+        "sortOrderInvalid": "Sort order must be 0 or greater",
+        "duplicateCode": "This source code already exists"
+      }
+    },
+    "partner": {
+      "nav": "Partner",
+      "title": "Partner",
+      "description": "Business partners, resellers, and channel partners",
+      "features": ["Type and tier", "Contact and commission", "Link to leads and deals"],
+      "listTitle": "Partners",
+      "listSubtitle": "Manage business partners for your organization",
+      "newTitle": "New partner",
+      "newSubtitle": "Create a new partner",
+      "editTitle": "Edit partner",
+      "editSubtitle": "Update partner information",
+      "viewSubtitle": "Partner details",
+      "view": "View partner",
+      "deleteTitle": "Remove partner",
+      "deleteConfirm": "Remove “{name}” from the partner list?",
+      "deleteSoftHint": "Soft delete with activity log — can restore from Deleted tab",
+      "restoreTitle": "Restore partner",
+      "restoreConfirm": "Restore “{name}” to the partner list?",
+      "create": "Add partner",
+      "createFirst": "Add first partner",
+      "empty": "No partners yet",
+      "actions": "Actions",
+      "filters": {
+        "byStatus": "Status",
+        "allStatuses": "All statuses",
+        "viewAll": "View all",
+        "archiveTabs": "List view",
+        "activeRecords": "Active",
+        "deletedRecords": "Deleted",
+        "deletedAt": "Deleted at",
+        "emptyDeleted": "No deleted partners",
+        "search": "Search code, company, contact or email…",
+        "displayCount": "Showing {count} items",
+        "noResults": "No items match your filters"
+      },
+      "sections": {
+        "partnerInfo": "Partner info",
+        "contactDetails": "Contact details"
+      },
+      "fields": {
+        "code": "Partner code",
+        "codePlaceholder": "e.g. PTN-001",
+        "companyName": "Company name",
+        "name": "Company name",
+        "type": "Type",
+        "tier": "Tier",
+        "partnerSince": "Partner since",
+        "status": "Status",
+        "contactPerson": "Contact person",
+        "email": "Email",
+        "phone": "Phone",
+        "website": "Website",
+        "websitePlaceholder": "https://",
+        "commissionRate": "Commission rate (%)"
+      },
+      "options": {
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        },
+        "type": {
+          "distributor": "Distributor",
+          "reseller": "Reseller",
+          "agent": "Agent",
+          "vendor": "Vendor",
+          "strategic": "Strategic partner",
+          "other": "Other"
+        },
+        "tier": {
+          "platinum": "Platinum",
+          "gold": "Gold",
+          "silver": "Silver",
+          "bronze": "Bronze",
+          "standard": "Standard"
+        }
+      },
+      "validation": {
+        "codeRequired": "Partner code is required",
+        "companyNameRequired": "Company name is required",
+        "contactPersonRequired": "Contact person is required",
+        "emailRequired": "Email is required",
+        "phoneRequired": "Phone is required",
+        "commissionRateInvalid": "Commission rate must be between 0 and 100",
+        "duplicateCode": "This partner code already exists",
+        "typeInvalid": "Invalid partner type",
+        "tierInvalid": "Invalid partner tier"
+      }
     },
     "unit": {
       "nav": "Unit",
       "title": "Unit",
       "description": "Units of measure for products and services",
-      "features": ["Piece, box, hour, etc.", "Unit conversion", "Use in quotes and deals"]
-    },
-    "employee": {
-      "nav": "Employee",
-      "title": "Employee",
-      "description": "Sales staff and related personnel",
-      "features": ["Employee code, team, role", "Link to system users", "Assign customers/deals"]
+      "features": ["Piece, box, hour, etc.", "Sort order and status", "Use in products and quotes"],
+      "listTitle": "Units of measure",
+      "listSubtitle": "Manage units used when defining products",
+      "newTitle": "New unit",
+      "newSubtitle": "Create a new unit of measure",
+      "editTitle": "Edit unit",
+      "editSubtitle": "Update unit information",
+      "viewSubtitle": "Unit details",
+      "view": "View unit",
+      "deleteTitle": "Remove unit",
+      "deleteConfirm": "Remove “{name}” from the unit list?",
+      "deleteSoftHint": "Cannot delete if products use this unit — soft delete with activity log",
+      "restoreTitle": "Restore unit",
+      "restoreConfirm": "Restore “{name}” to the unit list?",
+      "create": "Add unit",
+      "createFirst": "Add first unit",
+      "empty": "No units yet",
+      "actions": "Actions",
+      "filters": {
+        "byStatus": "Status",
+        "allStatuses": "All statuses",
+        "viewAll": "View all",
+        "archiveTabs": "List view",
+        "activeRecords": "Active",
+        "deletedRecords": "Deleted",
+        "deletedAt": "Deleted at",
+        "emptyDeleted": "No deleted units",
+        "search": "Search code or name…",
+        "displayCount": "Showing {count} items",
+        "noResults": "No items match your filters"
+      },
+      "sections": {
+        "basicInfo": "Unit info",
+        "settings": "Settings"
+      },
+      "fields": {
+        "code": "Unit code",
+        "name": "Unit name",
+        "description": "Description",
+        "sortOrder": "Sort order",
+        "status": "Status",
+        "notes": "Notes",
+        "notesPlaceholder": "Additional notes…"
+      },
+      "options": {
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        }
+      },
+      "validation": {
+        "codeRequired": "Unit code is required",
+        "nameRequired": "Unit name is required",
+        "sortOrderInvalid": "Sort order must be 0 or greater",
+        "duplicateCode": "This unit code already exists",
+        "hasProducts": "Products use this unit — reassign or remove them first"
+      }
     },
     "salesTeam": {
       "nav": "Sales team",
       "title": "Sales team",
-      "description": "Group sales employees into teams",
-      "features": ["Team lead and members", "Team-level targets", "Territory assignment"]
+      "description": "Group system users into sales teams",
+      "features": ["Team lead and members", "Multiple members per team", "Used for assignments and reporting"],
+      "listTitle": "Sales teams",
+      "listSubtitle": "Organize system users into teams — members come from Setup → System users",
+      "newTitle": "New sales team",
+      "newSubtitle": "Create a team and add members from your organization",
+      "editTitle": "Edit sales team",
+      "editSubtitle": "Update team information and members",
+      "viewSubtitle": "Sales team details",
+      "view": "View sales team",
+      "deleteTitle": "Remove sales team",
+      "deleteConfirm": "Remove “{name}” from the sales team list?",
+      "deleteSoftHint": "Soft delete with activity log — can restore from Deleted tab",
+      "restoreTitle": "Restore sales team",
+      "restoreConfirm": "Restore “{name}” to the sales team list?",
+      "create": "Add sales team",
+      "createFirst": "Add first sales team",
+      "empty": "No sales teams yet — create a team and add members from system users",
+      "noProfilesAvailable": "No active system users in this organization — add users in Setup first",
+      "actions": "Actions",
+      "filters": {
+        "byStatus": "Status",
+        "allStatuses": "All statuses",
+        "viewAll": "View all",
+        "archiveTabs": "List view",
+        "activeRecords": "Active",
+        "deletedRecords": "Deleted",
+        "deletedAt": "Deleted at",
+        "emptyDeleted": "No deleted sales teams",
+        "search": "Search code or name…",
+        "displayCount": "Showing {count} items",
+        "noResults": "No items match your filters"
+      },
+      "sections": {
+        "basicInfo": "Team info",
+        "members": "Members",
+        "settings": "Settings"
+      },
+      "fields": {
+        "code": "Team code",
+        "codePlaceholder": "e.g. TEAM-001",
+        "name": "Team name",
+        "description": "Description",
+        "teamLead": "Team lead",
+        "teamLeadNone": "No team lead",
+        "teamLeadHint": "Optional — choose from selected members",
+        "teamLeadAfterMembers": "Add at least one member first, then choose a team lead",
+        "members": "Team members",
+        "membersHint": "Search and add from the list — selected members appear as chips below",
+        "addMemberPlaceholder": "Search and add a member…",
+        "noMembersSelected": "No members selected yet",
+        "removeMember": "Remove {name} from team",
+        "memberCount": "Members",
+        "sortOrder": "Sort order",
+        "status": "Status",
+        "notes": "Notes",
+        "notesPlaceholder": "Additional notes…"
+      },
+      "options": {
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        }
+      },
+      "validation": {
+        "codeRequired": "Team code is required",
+        "nameRequired": "Team name is required",
+        "membersRequired": "Select at least one team member",
+        "sortOrderInvalid": "Sort order must be 0 or greater",
+        "duplicateCode": "This team code already exists",
+        "invalidMember": "One or more selected users are invalid or inactive"
+      }
     },
     "moduleStatuses": {
       "nav": "Module statuses",
       "title": "Module statuses",
-      "description": "Define statuses per module and main menu — flexible per organization",
+      "description": "Define selectable statuses per module for your organization",
       "features": [
-        "Statuses per module (deals, customers, quotes, etc.)",
-        "Order, color, and defaults",
-        "Enable/disable per org policy",
-        "Support different workflows per org"
-      ]
+        "Statuses per module (leads, customers, quotes, etc.)",
+        "Order, color, and default value",
+        "Enable or disable each status",
+        "Ready for use in CRM modules"
+      ],
+      "listTitle": "Module statuses",
+      "listSubtitle": "Define status options per module — use them when building workflows in each menu",
+      "newTitle": "New module status",
+      "newSubtitle": "Create a status option for a module",
+      "editTitle": "Edit module status",
+      "editSubtitle": "Update module status details",
+      "viewSubtitle": "Module status details",
+      "view": "View module status",
+      "deleteTitle": "Remove module status",
+      "deleteConfirm": "Remove “{name}” from the module status list?",
+      "deleteSoftHint": "Soft delete with activity log — can restore from Deleted tab",
+      "restoreTitle": "Restore module status",
+      "restoreConfirm": "Restore “{name}” to the module status list?",
+      "create": "Add module status",
+      "createFirst": "Add first module status",
+      "empty": "No module statuses yet — add status options for each module you use",
+      "hubTitle": "Module statuses",
+      "hubSubtitle": "Select a module on the left and manage its status options on the right",
+      "moduleNavTitle": "Modules",
+      "hubStatusCount": "{count} statuses",
+      "hubCardHint": "Manage statuses for this module",
+      "backToModules": "All modules",
+      "moduleListSubtitle": "Status options for this module — used when creating or changing records",
+      "createForModule": "Add status",
+      "createFirstForModule": "Add first status",
+      "moduleEmpty": "No statuses for this module yet",
+      "newTitleForModule": "New status — {module}",
+      "actions": "Actions",
+      "filters": {
+        "byModule": "Module",
+        "allModules": "All modules",
+        "byRecordStatus": "Availability",
+        "allRecordStatuses": "All",
+        "viewAll": "View all",
+        "archiveTabs": "List view",
+        "activeRecords": "Active",
+        "deletedRecords": "Deleted",
+        "deletedAt": "Deleted at",
+        "emptyDeleted": "No deleted module statuses",
+        "search": "Search code, name, or module…",
+        "searchInModule": "Search code or name…",
+        "displayCount": "Showing {count} items",
+        "noResults": "No items match your filters"
+      },
+      "sections": {
+        "basicInfo": "Status info",
+        "settings": "Settings"
+      },
+      "fields": {
+        "module": "Module",
+        "code": "Status code",
+        "codePlaceholder": "e.g. NEW, WON, IN_TRANSIT",
+        "codeHint": "Uppercase A–Z, must start with a letter · digits and _ allowed · no spaces or hyphens · 2–49 characters · auto-uppercased as you type",
+        "moduleLockedHint": "Module is set from the page you came from",
+        "name": "Status name",
+        "nameHint": "Display name — your org can type Thai, English, or both in one field",
+        "description": "Description",
+        "color": "Color",
+        "colorHint": "Optional hex color for badges — e.g. #22c55e",
+        "colorPlaceholder": "#22c55e",
+        "sortOrder": "Sort order",
+        "isDefault": "Default status",
+        "isDefaultHint": "One default per module — used when creating new records",
+        "isDefaultLabel": "Set as default for this module",
+        "defaultBadge": "Default",
+        "recordStatus": "Availability",
+        "notes": "Notes",
+        "notesPlaceholder": "Additional notes…"
+      },
+      "options": {
+        "module": {
+          "customer": "Customer",
+          "contact": "Contact",
+          "lead": "Lead",
+          "opportunity": "Opportunity",
+          "pipeline": "Pipeline",
+          "quotations": "Quotations",
+          "salesOrder": "Sales order",
+          "invoices": "Invoices",
+          "projects": "Projects",
+          "contractAgreements": "Contract agreements",
+          "service": "Service"
+        },
+        "recordStatus": {
+          "active": "Active",
+          "inactive": "Inactive"
+        }
+      },
+      "validation": {
+        "moduleRequired": "Module is required",
+        "codeRequired": "Status code is required",
+        "codeNoSpaces": "Status code cannot contain spaces",
+        "codeInvalidChars": "Use uppercase letters, digits, and underscores only",
+        "codeMustStartLetter": "Status code must start with a letter (A–Z)",
+        "codeTooShort": "Status code must be at least {min} characters",
+        "codeTooLong": "Status code must be at most {max} characters",
+        "nameRequired": "Status name is required",
+        "sortOrderInvalid": "Sort order must be 0 or greater",
+        "colorInvalid": "Color must be a valid hex code (e.g. #22c55e)",
+        "duplicateCode": "This status code already exists for the selected module"
+      }
     },
     "jobCode": {
       "nav": "Job code",
       "title": "Job code",
       "description": "Auto numbering format — prefix, date segment, and running number",
       "features": [
-        "Configurable letter prefix (default) per module",
-        "Date segment: year, month, day (format configurable)",
-        "Running number 0001, 00001 — length and reset rules",
-        "Example: JOB-20260608-0001",
-        "Separate sequences per module (deals, quotes, customers, etc.)"
-      ]
+        "Configurable letter prefix per module",
+        "Date segment: year, month, day — toggle and reorder",
+        "Running number with pad length and reset rules",
+        "Example: JOB-20260608-0001"
+      ],
+      "hubTitle": "Job code",
+      "hubSubtitle": "Select a module on the left and configure its document number format on the right",
+      "moduleNavTitle": "Modules",
+      "hubConfigured": "Configured",
+      "hubNotConfigured": "Not configured yet",
+      "hubCardHint": "Prefix · date parts · running number",
+      "backToModules": "All modules",
+      "moduleTitle": "Job code — {module}",
+      "moduleSubtitle": "Define prefix, date segment order, and starting number for this module",
+      "previewLabel": "Preview",
+      "previewHint": "Sample using today’s date and the start number",
+      "create": "Save configuration",
+      "actions": "Actions",
+      "orderMoveUp": "Move up",
+      "orderMoveDown": "Move down",
+      "sections": {
+        "basicInfo": "Prefix",
+        "dateSegment": "Date segment",
+        "numberSegment": "Running number",
+        "layout": "Segment order",
+        "settings": "Settings"
+      },
+      "fields": {
+        "module": "Module",
+        "prefix": "Letter prefix",
+        "prefixPlaceholder": "e.g. JOB, QT, LEAD",
+        "prefixHint": "Uppercase A–Z and digits · 1–10 characters · auto-uppercased as you type",
+        "dateEnabled": "Include date segment",
+        "includeYear": "Year",
+        "includeMonth": "Month",
+        "includeDay": "Day",
+        "dateStyle": "Date format",
+        "datePartOrder": "Date part order",
+        "padLength": "Number length (digits)",
+        "startNumber": "Start number",
+        "resetRule": "Reset counter",
+        "resetRuleHint": "When to reset running number back to start number",
+        "segmentSeparator": "Separator between segments",
+        "segmentSeparatorHint": "Allowed: - _ . / :",
+        "separatorEnabled": "Use separator between segments",
+        "segmentOrder": "Segment order",
+        "recordStatus": "Availability",
+        "notes": "Notes",
+        "notesPlaceholder": "Additional notes…"
+      },
+      "options": {
+        "module": {
+          "task": "Task",
+          "customer": "Customer",
+          "contact": "Contact",
+          "lead": "Lead",
+          "opportunity": "Opportunity",
+          "pipeline": "Pipeline",
+          "quotations": "Quotation",
+          "salesOrder": "Sales order",
+          "invoices": "Invoice",
+          "projects": "Project",
+          "contractAgreements": "Contract",
+          "service": "Service"
+        },
+        "datePart": {
+          "year": "Year",
+          "month": "Month",
+          "day": "Day"
+        },
+        "segment": {
+          "prefix": "Prefix",
+          "date": "Date",
+          "number": "Number"
+        },
+        "dateStyle": {
+          "compact": "Compact (20260608)",
+          "dash": "Dash (2026-06-08)",
+          "iso": "ISO (2026-06-08)"
+        },
+        "resetRule": {
+          "never": "Never reset",
+          "daily": "Reset daily",
+          "monthly": "Reset monthly",
+          "yearly": "Reset yearly"
+        },
+        "recordStatus": {
+          "active": "Active",
+          "inactive": "Inactive"
+        }
+      },
+      "validation": {
+        "moduleRequired": "Module is required",
+        "prefixRequired": "Prefix is required",
+        "prefixInvalid": "Use uppercase letters and digits · 1–10 characters · must start with a letter",
+        "datePartRequired": "Select at least one date part (year, month, or day)",
+        "padLengthInvalid": "Number length must be between 1 and 10",
+        "startNumberInvalid": "Start number must be 1 or greater",
+        "separatorInvalid": "Choose an allowed separator character",
+        "alreadyConfigured": "This module already has a job code configuration"
+      }
     }
   },
   "setup": {
@@ -813,6 +1559,10 @@
       "details": "Details",
       "before": "Before",
       "after": "After",
+      "fieldColumn": "Field",
+      "noFieldChanges": "No field-level changes recorded",
+      "showRaw": "Show raw JSON",
+      "hideRaw": "Hide raw JSON",
       "by": "By {name}",
       "filters": {
         "table": "Table",
@@ -829,11 +1579,73 @@
         "profiles": "System users",
         "org_roles": "Org roles",
         "contacts": "Contacts",
-        "companies": "Companies",
+        "companies": "Customers",
+        "sales_targets": "Sales targets",
         "deals": "Deals",
         "activities": "Activities",
         "pipelines": "Pipelines",
         "pipeline_stages": "Pipeline stages"
+      },
+      "fieldValues": {
+        "yes": "Yes",
+        "no": "No",
+        "empty": "—"
+      },
+      "metadata": {
+        "cascade": "Cascade",
+        "restore": "Restored",
+        "softDelete": "Soft deleted",
+        "passwordChanged": "Password changed"
+      },
+      "fields": {
+        "full_name": "Full name",
+        "username": "Username",
+        "email": "Email",
+        "role": "Org level",
+        "org_role_labels": "Team roles",
+        "is_active": "Active",
+        "password_changed": "Password changed",
+        "code": "Code",
+        "label": "Label",
+        "description": "Description",
+        "permissions": "Permissions",
+        "is_system": "System role",
+        "name": "Name",
+        "customer_type": "Customer type",
+        "mobile": "Mobile",
+        "phone": "Phone",
+        "industry": "Industry",
+        "industry_segment": "Industry segment",
+        "sales_grade": "Sales grade",
+        "website": "Website",
+        "address": "Address",
+        "owner_id": "Customer owner",
+        "status": "Status",
+        "tax_id": "Tax ID",
+        "tax_branch": "Tax branch",
+        "tax_vat": "VAT",
+        "vat_currency": "VAT currency",
+        "payment_code": "Payment code",
+        "credit_term_days": "Credit term (days)",
+        "credit_limit": "Credit limit",
+        "credit_balance": "Credit balance",
+        "notes": "Notes",
+        "first_name": "First name",
+        "last_name": "Last name",
+        "company_id": "Customer",
+        "job_title": "Job title",
+        "department": "Department",
+        "contact_role": "Role",
+        "is_main_contact": "Main contact",
+        "deleted_at": "Deleted at",
+        "profile_id": "Assignee",
+        "period_type": "Period type",
+        "period_year": "Year",
+        "period_month": "Month",
+        "period_quarter": "Quarter",
+        "target_amount": "Target amount",
+        "current_amount": "Current amount",
+        "currency": "Currency"
       },
       "features": [
         "Create / update / delete audit trail",

@@ -22,13 +22,16 @@ Roadmap — **Phase ปัจจุบัน: 1** (เริ่ม CRM ก่อ
 
 ## Phase 2 — CRM Production-ready
 
-**เป้าหมาย:** ทีมขายใช้จริง
+**เป้าหมาย:** ทีมขายใช้จริง + **CRM Menu** (เริ่มที่ Tasks)
 
+- **CRM Menu** — implement ทีละโมดูล เริ่ม [Tasks](../05-frontend/TASKS-MODULE.md)
 - Roles, activities, search/filter
 - Owner assignment, org settings
 - CSV import (optional), UX polish
 
 **ห้าม:** auto provision, Control API แยก
+
+**Tasks v1 (โมดูลแรก):** ดู [TASKS-MODULE.md](../05-frontend/TASKS-MODULE.md)
 
 ---
 

@@ -14,6 +14,8 @@
     "saveFailed": "บันทึกไม่สำเร็จ",
     "loadFailed": "โหลดข้อมูลไม่สำเร็จ",
     "deleteFailed": "ลบไม่สำเร็จ",
+    "restore": "กู้คืน",
+    "restoreFailed": "กู้คืนไม่สำเร็จ",
     "user": "ผู้ใช้",
     "language": "ภาษา",
     "switchLanguage": "เปลี่ยนเป็น {language}",
@@ -34,11 +36,15 @@
       "errors": {
         "tooLarge": {
           "avatar": "ไฟล์ใหญ่เกิน 5 MB",
-          "companyLogo": "ไฟล์ใหญ่เกิน 2 MB"
+          "companyLogo": "ไฟล์ใหญ่เกิน 2 MB",
+          "categoryImage": "ไฟล์ใหญ่เกิน 2 MB",
+          "productImage": "ไฟล์ใหญ่เกิน 2 MB"
         },
         "invalidType": {
           "avatar": "รองรับเฉพาะ JPG, PNG, WebP หรือ GIF",
-          "companyLogo": "รองรับเฉพาะ JPG, PNG, WebP หรือ SVG"
+          "companyLogo": "รองรับเฉพาะ JPG, PNG, WebP หรือ SVG",
+          "categoryImage": "รองรับเฉพาะ JPG, PNG, WebP หรือ GIF",
+          "productImage": "รองรับเฉพาะ JPG, PNG, WebP หรือ GIF"
         }
       }
     }
@@ -343,12 +349,24 @@
       "view": "ดูลูกค้า",
       "deleteTitle": "นำลูกค้าออกจากระบบ",
       "deleteConfirm": "นำ “{name}” ออกจากรายการลูกค้า?",
-      "deleteSoftHint": "ข้อมูลยังอยู่ในฐานข้อมูล (soft delete) และบันทึกใน activity log — กู้คืนได้จากฐานข้อมูลภายหลังหากต้องการ",
+      "deleteSoftHint": "ข้อมูลยังอยู่ในฐานข้อมูล (soft delete) และบันทึกใน activity log — กู้คืนได้จากแท็บ \"ถูกลบ\"",
+      "deleteContactsHint": "ผู้ติดต่อที่ผูกกับลูกค้ารายนี้จะถูกนำออกจากรายการด้วย (soft delete)",
+      "restoreTitle": "กู้คืนลูกค้า",
+      "restoreConfirm": "กู้คืน “{name}” กลับเข้ารายการลูกค้า?",
+      "restoreContactsHint": "ผู้ติดต่อที่ถูกลบพร้อมลูกค้ารายนี้จะถูกกู้คืนด้วย",
       "create": "เพิ่มลูกค้า",
       "createFirst": "เพิ่มลูกค้ารายแรก",
       "empty": "ยังไม่มีลูกค้า",
       "actions": "การดำเนินการ",
       "creditBalanceHint": "ยอดเครดิตคงเหลืออ่านอย่างเดียว — จะคำนวณจากใบแจ้งหนี้ในเฟสถัดไป",
+      "contactsPanel": {
+        "title": "ผู้ติดต่อ",
+        "subtitle": "บุคคลที่ผูกกับลูกค้ารายนี้",
+        "add": "เพิ่มผู้ติดต่อ",
+        "empty": "ยังไม่มีผู้ติดต่อที่ผูกกับลูกค้ารายนี้",
+        "addModalTitle": "เพิ่มผู้ติดต่อ",
+        "addModalSubtitle": "เพิ่มผู้ติดต่อให้ “{name}” — ลูกค้าถูกกำหนดให้อัตโนมัติ"
+      },
       "filters": {
         "searchBy": "ค้นหาตาม",
         "viewAll": "ดูทั้งหมด",
@@ -357,6 +375,11 @@
         "byIndustry": "อุตสาหกรรม",
         "search": "ค้นหา…",
         "statusTabs": "กรองตามสถานะ",
+        "archiveTabs": "มุมมองรายการ",
+        "activeRecords": "ใช้งาน",
+        "deletedRecords": "ถูกลบ",
+        "deletedAt": "วันที่ลบ",
+        "emptyDeleted": "ไม่มีลูกค้าที่ถูกลบ",
         "displayCount": "แสดง {count} รายการ",
         "noResults": "ไม่พบรายการที่ตรงกับการค้นหา"
       },
@@ -509,6 +532,9 @@
       "deleteTitle": "นำผู้ติดต่อออกจากระบบ",
       "deleteConfirm": "นำ “{name}” ออกจากรายการผู้ติดต่อ?",
       "deleteSoftHint": "ข้อมูลยังอยู่ในฐานข้อมูล (soft delete) และบันทึกใน activity log",
+      "restoreTitle": "กู้คืนผู้ติดต่อ",
+      "restoreConfirm": "กู้คืน “{name}” กลับเข้ารายการผู้ติดต่อ?",
+      "restoreCustomerDeletedHint": "ผู้ติดต่อรายนี้ถูกลบพร้อมลูกค้า — กู้คืนลูกค้าก่อนจากแท็บ \"ถูกลบ\" ที่หน้ารายการลูกค้า",
       "create": "เพิ่มผู้ติดต่อ",
       "createFirst": "เพิ่มผู้ติดต่อรายแรก",
       "empty": "ยังไม่มีผู้ติดต่อ",
@@ -518,6 +544,12 @@
         "allCustomers": "ลูกค้าทั้งหมด",
         "customerPlaceholder": "ค้นหาบริษัท…",
         "viewAll": "ดูทั้งหมด",
+        "archiveTabs": "มุมมองรายการ",
+        "activeRecords": "ใช้งาน",
+        "deletedRecords": "ถูกลบ",
+        "deletedAt": "วันที่ลบ",
+        "emptyDeleted": "ไม่มีผู้ติดต่อที่ถูกลบ",
+        "customerDeletedBadge": "ลูกค้าถูกลบ",
         "search": "ค้นหาชื่อ อีเมล หรือโทรศัพท์…",
         "displayCount": "แสดง {count} รายการ",
         "noResults": "ไม่พบรายการที่ตรงกับการค้นหา"
@@ -539,6 +571,7 @@
         "department": "แผนก",
         "role": "บทบาท",
         "mainContact": "ผู้ติดต่อหลัก",
+        "mainContactHint": "ผู้ติดต่อหลักได้เพียง 1 คนต่อลูกค้า — บันทึกแล้วจะยกเลิกคนเดิมอัตโนมัติ",
         "notes": "หมายเหตุ",
         "notesPlaceholder": "หมายเหตุเพิ่มเติม…"
       },
@@ -561,67 +594,780 @@
     "salesTarget": {
       "nav": "เป้ายอดขาย",
       "title": "เป้ายอดขาย",
-      "description": "กำหนดเป้าหมายยอดขายตามพนักงาน ทีม หรือช่วงเวลา",
-      "features": ["เป้ารายเดือน/ไตรมาส/ปี", "แยกตามทีมและสินค้า", "ติดตามผลจริงเทียบเป้า"]
+      "description": "กำหนดเป้าตามคนและช่วงเวลา · ผลจริงจากดีล Won",
+      "listTitle": "เป้ายอดขาย",
+      "listSubtitle": "เป้ารายเดือน / ไตรมาส / ปี ต่อพนักงานขาย",
+      "newTitle": "สร้างเป้ายอดขาย",
+      "editTitle": "แก้ไขเป้ายอดขาย",
+      "view": "ดูเป้ายอดขาย",
+      "viewSubtitle": "ดูรายละเอียดเป้ายอดขาย",
+      "formSubtitle": "กรอกเป้าหมายและยอดปัจจุบันด้วยมือ — จะผูกยอดขายภายหลัง",
+      "create": "เพิ่มเป้า",
+      "createFirst": "เพิ่มเป้าแรก",
+      "empty": "ยังไม่มีเป้ายอดขาย",
+      "actions": "การดำเนินการ",
+      "deleteTitle": "นำเป้าออก",
+      "deleteConfirm": "นำเป้าของ {name} ออก?",
+      "deleteSoftHint": "รายการจะไปแท็บ ถูกลบ — กู้คืนได้ภายหลัง",
+      "restoreTitle": "กู้คืนเป้ายอดขาย",
+      "restoreConfirm": "กู้คืนเป้าของ {name}?",
+      "currentHint": "ยอดปัจจุบันกรอกด้วยมือก่อน — จะดึงจากยอดขายอัตโนมัติใน Phase ถัดไป",
+      "sections": {
+        "main": "รายละเอียดเป้า",
+        "progress": "ความคืบหน้า"
+      },
+      "fields": {
+        "assignee": "ผู้รับเป้า",
+        "period": "รอบเป้า",
+        "periodType": "ประเภทรอบเป้า",
+        "periodYear": "ปี",
+        "periodMonth": "เดือน",
+        "periodQuarter": "ไตรมาส",
+        "targetAmount": "เป้าหมาย",
+        "currentAmount": "ยอดปัจจุบัน",
+        "progress": "ความคืบหน้า",
+        "currency": "สกุลเงิน",
+        "notes": "หมายเหตุ"
+      },
+      "progressChart": {
+        "title": "แนวโน้มยอดสะสม (จำลอง)",
+        "simulatedHint": "จำลองวันปิดดีล — จะผูกดีล Won จริงใน Phase ถัดไป",
+        "empty": "ยังไม่มียอดปิดดีล — กรอกยอดปัจจุบันเพื่อดูกราฟจำลอง",
+        "legendCumulative": "ยอดสะสม",
+        "legendTarget": "เป้าหมาย",
+        "legendDealClose": "วันปิดดีล",
+        "dealTooltip": "ปิดดีล {amount} · {date}"
+      },
+      "period": {
+        "monthLabel": "{month} {year}",
+        "quarterLabel": "{quarter} ปี {year}",
+        "yearLabel": "เป้าประจำปี {year}"
+      },
+      "options": {
+        "periodType": {
+          "month": "รายเดือน",
+          "quarter": "รายไตรมาส",
+          "year": "รายปี"
+        },
+        "months": {
+          "1": "มกราคม",
+          "2": "กุมภาพันธ์",
+          "3": "มีนาคม",
+          "4": "เมษายน",
+          "5": "พฤษภาคม",
+          "6": "มิถุนายน",
+          "7": "กรกฎาคม",
+          "8": "สิงหาคม",
+          "9": "กันยายน",
+          "10": "ตุลาคม",
+          "11": "พฤศจิกายน",
+          "12": "ธันวาคม"
+        },
+        "quarters": {
+          "1": "ไตรมาสที่ 1",
+          "2": "ไตรมาสที่ 2",
+          "3": "ไตรมาสที่ 3",
+          "4": "ไตรมาสที่ 4"
+        }
+      },
+      "filters": {
+        "year": "ปี",
+        "periodType": "ประเภทรอบเป้า",
+        "search": "ค้นหาผู้รับเป้าหรือรอบเป้า…",
+        "allYears": "ทุกปี",
+        "allPeriodTypes": "ทุกประเภท",
+        "activeRecords": "ใช้งาน",
+        "deletedRecords": "ถูกลบ",
+        "emptyDeleted": "ไม่มีเป้าที่ถูกลบ",
+        "archiveTabs": "เป้าใช้งานและถูกลบ"
+      },
+      "validation": {
+        "assigneeRequired": "กรุณาเลือกผู้รับเป้า",
+        "yearRequired": "กรุณาระบุปีที่ถูกต้อง",
+        "monthRequired": "กรุณาเลือกเดือน",
+        "quarterRequired": "กรุณาเลือกไตรมาส",
+        "amountRequired": "กรุณากรอกเป้ายอด",
+        "amountInvalid": "เป้ายอดต้องไม่ต่ำกว่า 0",
+        "currentAmountInvalid": "ยอดปัจจุบันต้องไม่ต่ำกว่า 0",
+        "duplicatePeriod": "มีเป้ารอบนี้สำหรับผู้รับเป้าคนนี้อยู่แล้ว"
+      },
+      "features": ["เป้ารายเดือน/ไตรมาส/ปี", "ต่อพนักงานขาย", "เทียบผลจริงจากดีล Won"]
     },
     "products": {
       "nav": "สินค้า",
       "title": "สินค้า",
       "description": "รายการสินค้าและบริการที่ขาย",
-      "features": ["รหัสสินค้า ราคา หน่วย", "หมวดหมู่สินค้า", "เปิด/ปิดการขาย"]
+      "features": ["รหัสสินค้า ราคา หน่วย", "หมวดหมู่สินค้า", "เปิด/ปิดการขาย"],
+      "listTitle": "สินค้า",
+      "listSubtitle": "จัดการรายการสินค้าและบริการ",
+      "newTitle": "เพิ่มสินค้า",
+      "newSubtitle": "กรอกรายละเอียดสินค้าใหม่",
+      "editTitle": "แก้ไขสินค้า",
+      "editSubtitle": "อัปเดตข้อมูลสินค้า",
+      "viewSubtitle": "รายละเอียดสินค้า",
+      "view": "ดูสินค้า",
+      "deleteTitle": "นำสินค้าออกจากระบบ",
+      "deleteConfirm": "นำ “{name}” ออกจากรายการสินค้า?",
+      "deleteSoftHint": "ข้อมูลยังอยู่ในฐานข้อมูล (soft delete) และบันทึกใน activity log",
+      "restoreTitle": "กู้คืนสินค้า",
+      "restoreConfirm": "กู้คืน “{name}” กลับเข้ารายการสินค้า?",
+      "create": "เพิ่มสินค้า",
+      "createFirst": "เพิ่มสินค้ารายแรก",
+      "empty": "ยังไม่มีสินค้า",
+      "actions": "การดำเนินการ",
+      "filters": {
+        "byStatus": "สถานะ",
+        "allStatuses": "ทุกสถานะ",
+        "viewAll": "ดูทั้งหมด",
+        "archiveTabs": "มุมมองรายการ",
+        "activeRecords": "ใช้งาน",
+        "deletedRecords": "ถูกลบ",
+        "deletedAt": "วันที่ลบ",
+        "emptyDeleted": "ไม่มีสินค้าที่ถูกลบ",
+        "search": "ค้นหารหัส ชื่อ หมวด หน่วย หรือบาร์โค้ด…",
+        "displayCount": "แสดง {count} รายการ",
+        "noResults": "ไม่พบรายการที่ตรงกับการค้นหา"
+      },
+      "sections": {
+        "basicInfo": "ข้อมูลสินค้า",
+        "pricing": "ราคาและสถานะ"
+      },
+      "fields": {
+        "code": "รหัสสินค้า",
+        "name": "ชื่อสินค้า",
+        "description": "รายละเอียด",
+        "category": "หมวดหมู่",
+        "noCategory": "ไม่ระบุ",
+        "categoryPlaceholder": "เลือกหมวดหมู่…",
+        "unit": "หน่วย",
+        "noUnit": "ไม่ระบุ",
+        "unitPlaceholder": "เลือกหน่วย…",
+        "createCategoryButton": "เพิ่มหมวดหมู่",
+        "createUnitButton": "เพิ่มหน่วย",
+        "listPrice": "ราคาขาย",
+        "costPrice": "ต้นทุน",
+        "currency": "สกุลเงิน",
+        "barcode": "บาร์โค้ด",
+        "status": "สถานะ",
+        "isSellable": "เปิดการขาย",
+        "image": "รูปหลัก",
+        "imageHint": "JPG, PNG, WebP หรือ GIF — แปลงเป็น WebP และย่อขนาด (สูงสุด 800px)",
+        "gallery": "รูปเพิ่มเติม",
+        "galleryHint": "แยกจากรูปหลัก — ลากเพื่อจัดลำดับ",
+        "notes": "หมายเหตุ",
+        "notesPlaceholder": "หมายเหตุเพิ่มเติม…"
+      },
+      "options": {
+        "status": {
+          "active": "ใช้งาน",
+          "inactive": "ไม่ใช้งาน"
+        }
+      },
+      "validation": {
+        "codeRequired": "กรุณากรอกรหัสสินค้า",
+        "nameRequired": "กรุณากรอกชื่อสินค้า",
+        "listPriceInvalid": "ราคาขายต้องไม่ต่ำกว่า 0",
+        "costPriceInvalid": "ต้นทุนต้องไม่ต่ำกว่า 0",
+        "duplicateCode": "มีรหัสสินค้านี้อยู่แล้ว",
+        "categoryNotFound": "ไม่พบหมวดหมู่ที่เลือก หรือถูกลบแล้ว",
+        "unitNotFound": "ไม่พบหน่วยที่เลือก หรือถูกลบแล้ว"
+      },
+      "gallery": {
+        "upload": "เลือกรูป",
+        "dropHint": "ลากและวางรูปที่นี่",
+        "dragToReorder": "ลาก",
+        "imageAlt": "รูปเพิ่มเติมของสินค้า",
+        "count": "{count} / {max} รูป",
+        "uploading": "กำลังอัปโหลดรูป…",
+        "uploadingProgress": "กำลังอัปโหลด {current} จาก {total}…",
+        "saveProductFirst": "บันทึกสินค้าก่อนจึงจะเพิ่มรูปเพิ่มเติมได้",
+        "validation": {
+          "limitReached": "เพิ่มรูปได้สูงสุด {max} รูป",
+          "productNotFound": "ไม่พบสินค้า หรือถูกลบแล้ว"
+        }
+      }
     },
     "category": {
       "nav": "หมวดหมู่",
       "title": "หมวดหมู่",
-      "description": "หมวดหมู่สินค้า ลูกค้า หรือดีล",
-      "features": ["โครงสร้างหมวดหมู่แบบลำดับชั้น", "ใช้กับหลายโมดูล", "กำหนดสี/ไอคอน"]
+      "description": "หมวดหมู่สินค้า — ใช้กำหนดในสินค้า",
+      "features": ["โครงสร้างหมวดหมู่แบบลำดับชั้น", "ใช้กับหลายโมดูล", "กำหนดสี/ไอคอน"],
+      "listTitle": "หมวดหมู่สินค้า",
+      "listSubtitle": "จัดการหมวดหมู่สำหรับสินค้าและบริการ",
+      "newTitle": "เพิ่มหมวดหมู่",
+      "newSubtitle": "สร้างหมวดหมู่สินค้าใหม่",
+      "editTitle": "แก้ไขหมวดหมู่",
+      "editSubtitle": "อัปเดตข้อมูลหมวดหมู่",
+      "viewSubtitle": "รายละเอียดหมวดหมู่",
+      "view": "ดูหมวดหมู่",
+      "deleteTitle": "นำหมวดหมู่ออกจากระบบ",
+      "deleteConfirm": "นำ “{name}” ออกจากรายการหมวดหมู่?",
+      "deleteSoftHint": "ห้ามลบถ้ามีหมวดย่อย — ข้อมูล soft delete และบันทึกใน activity log",
+      "restoreTitle": "กู้คืนหมวดหมู่",
+      "restoreConfirm": "กู้คืน “{name}” กลับเข้ารายการหมวดหมู่?",
+      "restoreParentDeletedHint": "หมวดแม่ถูกลบ — กู้คืนหมวดแม่ก่อนจากแท็บ \"ถูกลบ\"",
+      "create": "เพิ่มหมวดหมู่",
+      "createFirst": "เพิ่มหมวดหมู่แรก",
+      "empty": "ยังไม่มีหมวดหมู่",
+      "actions": "การดำเนินการ",
+      "filters": {
+        "byStatus": "สถานะ",
+        "allStatuses": "ทุกสถานะ",
+        "viewAll": "ดูทั้งหมด",
+        "archiveTabs": "มุมมองรายการ",
+        "activeRecords": "ใช้งาน",
+        "deletedRecords": "ถูกลบ",
+        "deletedAt": "วันที่ลบ",
+        "emptyDeleted": "ไม่มีหมวดหมู่ที่ถูกลบ",
+        "parentDeletedBadge": "หมวดแม่ถูกลบ",
+        "search": "ค้นหารหัส ชื่อ หรือหมวดแม่…",
+        "displayCount": "แสดง {count} รายการ",
+        "noResults": "ไม่พบรายการที่ตรงกับการค้นหา"
+      },
+      "sections": {
+        "basicInfo": "ข้อมูลหมวดหมู่",
+        "hierarchy": "ลำดับชั้น"
+      },
+      "fields": {
+        "code": "รหัสหมวด",
+        "name": "ชื่อหมวด",
+        "description": "รายละเอียด",
+        "parent": "หมวดแม่",
+        "noParent": "ไม่มี (ระดับบนสุด)",
+        "parentPlaceholder": "เลือกหมวดแม่…",
+        "sortOrder": "ลำดับ",
+        "color": "สี",
+        "colorHint": "รูปแบบ hex เช่น #3b82f6",
+        "colorPlaceholder": "#3b82f6",
+        "status": "สถานะ",
+        "image": "รูปหลัก",
+        "imageHint": "JPG, PNG, WebP หรือ GIF — แปลงเป็น WebP และย่อขนาด (สูงสุด 640px)",
+        "notes": "หมายเหตุ",
+        "notesPlaceholder": "หมายเหตุเพิ่มเติม…"
+      },
+      "options": {
+        "status": {
+          "active": "ใช้งาน",
+          "inactive": "ไม่ใช้งาน"
+        }
+      },
+      "validation": {
+        "codeRequired": "กรุณากรอกรหัสหมวด",
+        "nameRequired": "กรุณากรอกชื่อหมวด",
+        "sortOrderInvalid": "ลำดับต้องไม่ต่ำกว่า 0",
+        "colorInvalid": "สีต้องเป็นรูปแบบ hex เช่น #3b82f6",
+        "duplicateCode": "มีรหัสหมวดนี้อยู่แล้ว",
+        "hasChildren": "มีหมวดย่อยอยู่ — ลบหรือย้ายหมวดย่อยก่อน",
+        "hasProducts": "มีสินค้าใช้หมวดนี้อยู่ — ย้ายหรือลบสินค้าก่อน",
+        "parentDeleted": "หมวดแม่ถูกลบ — กู้คืนหมวดแม่ก่อน",
+        "circularParent": "ไม่สามารถเลือกหมวดแม่ที่ทำให้วนซ้ำได้"
+      }
     },
     "leadSource": {
       "nav": "แหล่งที่มาลีด",
       "title": "แหล่งที่มาลีด",
       "description": "แหล่งที่มาของโอกาสขายและลูกค้าเป้าหมาย",
-      "features": ["เว็บไซต์ แนะนำ งานแสดงสินค้า ฯลฯ", "วิเคราะห์ conversion", "กำหนดเองตามองค์กร"]
+      "features": ["องค์กรกำหนดเอง", "ใช้ตอนบันทึกลีด", "ลำดับและสถานะ"],
+      "listTitle": "แหล่งที่มาลีด",
+      "listSubtitle": "กำหนดแหล่งที่มาขององค์กร — ใช้เลือกตอนบันทึกลีด",
+      "newTitle": "เพิ่มแหล่งที่มาลีด",
+      "newSubtitle": "สร้างแหล่งที่มาลีดใหม่",
+      "editTitle": "แก้ไขแหล่งที่มาลีด",
+      "editSubtitle": "อัปเดตข้อมูลแหล่งที่มาลีด",
+      "viewSubtitle": "รายละเอียดแหล่งที่มาลีด",
+      "view": "ดูแหล่งที่มาลีด",
+      "deleteTitle": "นำแหล่งที่มาลีดออกจากระบบ",
+      "deleteConfirm": "นำ “{name}” ออกจากรายการแหล่งที่มาลีด?",
+      "deleteSoftHint": "ข้อมูลยังอยู่ในระบบ (ลบชั่วคราว) และบันทึกในประวัติการเปลี่ยนแปลง — กู้คืนได้จากแท็บถูกลบ",
+      "restoreTitle": "กู้คืนแหล่งที่มาลีด",
+      "restoreConfirm": "กู้คืน “{name}” กลับเข้ารายการแหล่งที่มาลีด?",
+      "create": "เพิ่มแหล่งที่มาลีด",
+      "createFirst": "เพิ่มแหล่งแรก",
+      "empty": "ยังไม่มีแหล่งที่มาลีด — เพิ่มเองเพื่อใช้กับลีด",
+      "actions": "การดำเนินการ",
+      "filters": {
+        "byStatus": "สถานะ",
+        "allStatuses": "ทุกสถานะ",
+        "viewAll": "ดูทั้งหมด",
+        "archiveTabs": "มุมมองรายการ",
+        "activeRecords": "ใช้งาน",
+        "deletedRecords": "ถูกลบ",
+        "deletedAt": "วันที่ลบ",
+        "emptyDeleted": "ไม่มีแหล่งที่มาลีดที่ถูกลบ",
+        "search": "ค้นหารหัสหรือชื่อ…",
+        "displayCount": "แสดง {count} รายการ",
+        "noResults": "ไม่พบรายการที่ตรงกับการค้นหา"
+      },
+      "sections": {
+        "basicInfo": "ข้อมูลแหล่งที่มา",
+        "settings": "การตั้งค่า"
+      },
+      "fields": {
+        "code": "รหัสแหล่งที่มา",
+        "name": "ชื่อแหล่งที่มา",
+        "description": "รายละเอียด",
+        "sortOrder": "ลำดับ",
+        "status": "สถานะ",
+        "notes": "หมายเหตุ",
+        "notesPlaceholder": "หมายเหตุเพิ่มเติม…"
+      },
+      "options": {
+        "status": {
+          "active": "ใช้งาน",
+          "inactive": "ไม่ใช้งาน"
+        }
+      },
+      "validation": {
+        "codeRequired": "กรุณากรอกรหัสแหล่งที่มา",
+        "nameRequired": "กรุณากรอกชื่อแหล่งที่มา",
+        "sortOrderInvalid": "ลำดับต้องไม่ต่ำกว่า 0",
+        "duplicateCode": "มีรหัสแหล่งที่มานี้อยู่แล้ว"
+      }
+    },
+    "partner": {
+      "nav": "พาร์ตเนอร์",
+      "title": "พาร์ตเนอร์",
+      "description": "พันธมิตรทางธุรกิจ ตัวแทน และช่องทางคู่ค้า",
+      "features": ["ประเภทและระดับ", "ข้อมูลติดต่อและค่าคอม", "เชื่อมกับลีดและดีล"],
+      "listTitle": "พาร์ตเนอร์",
+      "listSubtitle": "จัดการพาร์ตเนอร์ขององค์กร",
+      "newTitle": "เพิ่มพาร์ตเนอร์",
+      "newSubtitle": "สร้างพาร์ตเนอร์ใหม่",
+      "editTitle": "แก้ไขพาร์ตเนอร์",
+      "editSubtitle": "อัปเดตข้อมูลพาร์ตเนอร์",
+      "viewSubtitle": "รายละเอียดพาร์ตเนอร์",
+      "view": "ดูพาร์ตเนอร์",
+      "deleteTitle": "นำพาร์ตเนอร์ออกจากระบบ",
+      "deleteConfirm": "นำ “{name}” ออกจากรายการพาร์ตเนอร์?",
+      "deleteSoftHint": "ข้อมูลยังอยู่ในระบบ (ลบชั่วคราว) และบันทึกในประวัติการเปลี่ยนแปลง — กู้คืนได้จากแท็บถูกลบ",
+      "restoreTitle": "กู้คืนพาร์ตเนอร์",
+      "restoreConfirm": "กู้คืน “{name}” กลับเข้ารายการพาร์ตเนอร์?",
+      "create": "เพิ่มพาร์ตเนอร์",
+      "createFirst": "เพิ่มพาร์ตเนอร์แรก",
+      "empty": "ยังไม่มีพาร์ตเนอร์",
+      "actions": "การดำเนินการ",
+      "filters": {
+        "byStatus": "สถานะ",
+        "allStatuses": "ทุกสถานะ",
+        "viewAll": "ดูทั้งหมด",
+        "archiveTabs": "มุมมองรายการ",
+        "activeRecords": "ใช้งาน",
+        "deletedRecords": "ถูกลบ",
+        "deletedAt": "วันที่ลบ",
+        "emptyDeleted": "ไม่มีพาร์ตเนอร์ที่ถูกลบ",
+        "search": "ค้นหารหัส บริษัท ผู้ติดต่อ หรืออีเมล…",
+        "displayCount": "แสดง {count} รายการ",
+        "noResults": "ไม่พบรายการที่ตรงกับการค้นหา"
+      },
+      "sections": {
+        "partnerInfo": "ข้อมูลพาร์ตเนอร์",
+        "contactDetails": "ข้อมูลติดต่อ"
+      },
+      "fields": {
+        "code": "รหัสพาร์ตเนอร์",
+        "codePlaceholder": "เช่น PTN-001",
+        "companyName": "ชื่อบริษัท",
+        "name": "ชื่อบริษัท",
+        "type": "ประเภท",
+        "tier": "ระดับ",
+        "partnerSince": "เป็นพาร์ตเนอร์ตั้งแต่",
+        "status": "สถานะ",
+        "contactPerson": "ผู้ติดต่อ",
+        "email": "อีเมล",
+        "phone": "โทรศัพท์",
+        "website": "เว็บไซต์",
+        "websitePlaceholder": "https://",
+        "commissionRate": "อัตราค่าคอม (%)"
+      },
+      "options": {
+        "status": {
+          "active": "ใช้งาน",
+          "inactive": "ไม่ใช้งาน"
+        },
+        "type": {
+          "distributor": "ผู้จัดจำหน่าย",
+          "reseller": "ตัวแทนจำหน่ายต่อ",
+          "agent": "ตัวแทน",
+          "vendor": "ซัพพลายเออร์",
+          "strategic": "พาร์ตเนอร์เชิงกลยุทธ์",
+          "other": "อื่น ๆ"
+        },
+        "tier": {
+          "platinum": "แพลทินัม",
+          "gold": "ทอง",
+          "silver": "เงิน",
+          "bronze": "บรอนซ์",
+          "standard": "มาตรฐาน"
+        }
+      },
+      "validation": {
+        "codeRequired": "กรุณากรอกรหัสพาร์ตเนอร์",
+        "companyNameRequired": "กรุณากรอกชื่อบริษัท",
+        "contactPersonRequired": "กรุณากรอกผู้ติดต่อ",
+        "emailRequired": "กรุณากรอกอีเมล",
+        "phoneRequired": "กรุณากรอกโทรศัพท์",
+        "commissionRateInvalid": "อัตราค่าคอมต้องอยู่ระหว่าง 0–100",
+        "duplicateCode": "มีรหัสพาร์ตเนอร์นี้อยู่แล้ว",
+        "typeInvalid": "ประเภทพาร์ตเนอร์ไม่ถูกต้อง",
+        "tierInvalid": "ระดับพาร์ตเนอร์ไม่ถูกต้อง"
+      }
     },
     "unit": {
       "nav": "หน่วย",
       "title": "หน่วย",
       "description": "หน่วยนับสินค้าและบริการ",
-      "features": ["ชิ้น กล่อง ชั่วโมง ฯลฯ", "อัตราแปลงหน่วย", "ใช้ในใบเสนอราคาและดีล"]
-    },
-    "employee": {
-      "nav": "พนักงาน",
-      "title": "พนักงาน",
-      "description": "ข้อมูลพนักงานขายและผู้เกี่ยวข้อง",
-      "features": ["รหัสพนักงาน ทีม ตำแหน่ง", "เชื่อมกับ user ในระบบ", "มอบหมายลูกค้า/ดีล"]
+      "features": ["ชิ้น กล่อง ชั่วโมง ฯลฯ", "ลำดับและสถานะ", "ใช้ในสินค้าและใบเสนอราคา"],
+      "listTitle": "หน่วยนับ",
+      "listSubtitle": "จัดการหน่วยที่ใช้กำหนดในสินค้า",
+      "newTitle": "เพิ่มหน่วย",
+      "newSubtitle": "สร้างหน่วยนับใหม่",
+      "editTitle": "แก้ไขหน่วย",
+      "editSubtitle": "อัปเดตข้อมูลหน่วย",
+      "viewSubtitle": "รายละเอียดหน่วย",
+      "view": "ดูหน่วย",
+      "deleteTitle": "นำหน่วยออกจากระบบ",
+      "deleteConfirm": "นำ “{name}” ออกจากรายการหน่วย?",
+      "deleteSoftHint": "ห้ามลบถ้ามีสินค้าใช้หน่วยนี้ — ข้อมูล soft delete และบันทึกใน activity log",
+      "restoreTitle": "กู้คืนหน่วย",
+      "restoreConfirm": "กู้คืน “{name}” กลับเข้ารายการหน่วย?",
+      "create": "เพิ่มหน่วย",
+      "createFirst": "เพิ่มหน่วยแรก",
+      "empty": "ยังไม่มีหน่วย",
+      "actions": "การดำเนินการ",
+      "filters": {
+        "byStatus": "สถานะ",
+        "allStatuses": "ทุกสถานะ",
+        "viewAll": "ดูทั้งหมด",
+        "archiveTabs": "มุมมองรายการ",
+        "activeRecords": "ใช้งาน",
+        "deletedRecords": "ถูกลบ",
+        "deletedAt": "วันที่ลบ",
+        "emptyDeleted": "ไม่มีหน่วยที่ถูกลบ",
+        "search": "ค้นหารหัสหรือชื่อ…",
+        "displayCount": "แสดง {count} รายการ",
+        "noResults": "ไม่พบรายการที่ตรงกับการค้นหา"
+      },
+      "sections": {
+        "basicInfo": "ข้อมูลหน่วย",
+        "settings": "การตั้งค่า"
+      },
+      "fields": {
+        "code": "รหัสหน่วย",
+        "name": "ชื่อหน่วย",
+        "description": "รายละเอียด",
+        "sortOrder": "ลำดับ",
+        "status": "สถานะ",
+        "notes": "หมายเหตุ",
+        "notesPlaceholder": "หมายเหตุเพิ่มเติม…"
+      },
+      "options": {
+        "status": {
+          "active": "ใช้งาน",
+          "inactive": "ไม่ใช้งาน"
+        }
+      },
+      "validation": {
+        "codeRequired": "กรุณากรอกรหัสหน่วย",
+        "nameRequired": "กรุณากรอกชื่อหน่วย",
+        "sortOrderInvalid": "ลำดับต้องไม่ต่ำกว่า 0",
+        "duplicateCode": "มีรหัสหน่วยนี้อยู่แล้ว",
+        "hasProducts": "มีสินค้าใช้หน่วยนี้อยู่ — ย้ายหรือลบสินค้าก่อน"
+      }
     },
     "salesTeam": {
       "nav": "ทีมขาย",
       "title": "ทีมขาย",
-      "description": "จัดกลุ่มพนักงานขายเป็นทีม",
-      "features": ["หัวหน้าทีม สมาชิก", "เป้ายอดขายระดับทีม", "มอบหมายพื้นที่/ลูกค้า"]
+      "description": "จัดกลุ่มผู้ใช้งานในระบบเป็นทีมขาย",
+      "features": ["หัวหน้าทีมและสมาชิก", "หลายคนต่อทีม", "ใช้มอบหมายงานและรายงาน"],
+      "listTitle": "ทีมขาย",
+      "listSubtitle": "จัดกลุ่มผู้ใช้งานในระบบเป็นทีม — สมาชิกมาจาก Setup → ผู้ใช้งานในระบบ",
+      "newTitle": "เพิ่มทีมขาย",
+      "newSubtitle": "สร้างทีมและเลือกสมาชิกจากองค์กร",
+      "editTitle": "แก้ไขทีมขาย",
+      "editSubtitle": "อัปเดตข้อมูลทีมและสมาชิก",
+      "viewSubtitle": "รายละเอียดทีมขาย",
+      "view": "ดูทีมขาย",
+      "deleteTitle": "นำทีมขายออกจากระบบ",
+      "deleteConfirm": "นำ “{name}” ออกจากรายการทีมขาย?",
+      "deleteSoftHint": "ข้อมูลยังอยู่ในระบบ (ลบชั่วคราว) และบันทึกในประวัติการเปลี่ยนแปลง — กู้คืนได้จากแท็บถูกลบ",
+      "restoreTitle": "กู้คืนทีมขาย",
+      "restoreConfirm": "กู้คืน “{name}” กลับเข้ารายการทีมขาย?",
+      "create": "เพิ่มทีมขาย",
+      "createFirst": "เพิ่มทีมแรก",
+      "empty": "ยังไม่มีทีมขาย — สร้างทีมและเลือกสมาชิกจากผู้ใช้งานในระบบ",
+      "noProfilesAvailable": "ยังไม่มีผู้ใช้งานที่ active ในองค์กร — เพิ่มผู้ใช้ใน Setup ก่อน",
+      "actions": "การดำเนินการ",
+      "filters": {
+        "byStatus": "สถานะ",
+        "allStatuses": "ทุกสถานะ",
+        "viewAll": "ดูทั้งหมด",
+        "archiveTabs": "มุมมองรายการ",
+        "activeRecords": "ใช้งาน",
+        "deletedRecords": "ถูกลบ",
+        "deletedAt": "วันที่ลบ",
+        "emptyDeleted": "ไม่มีทีมขายที่ถูกลบ",
+        "search": "ค้นหารหัสหรือชื่อ…",
+        "displayCount": "แสดง {count} รายการ",
+        "noResults": "ไม่พบรายการที่ตรงกับการค้นหา"
+      },
+      "sections": {
+        "basicInfo": "ข้อมูลทีม",
+        "members": "สมาชิก",
+        "settings": "การตั้งค่า"
+      },
+      "fields": {
+        "code": "รหัสทีม",
+        "codePlaceholder": "เช่น TEAM-001",
+        "name": "ชื่อทีม",
+        "description": "รายละเอียด",
+        "teamLead": "หัวหน้าทีม",
+        "teamLeadNone": "ไม่ระบุหัวหน้าทีม",
+        "teamLeadHint": "ไม่บังคับ — เลือกจากสมาชิกที่เลือกไว้",
+        "teamLeadAfterMembers": "เลือกสมาชิกอย่างน้อย 1 คนก่อน แล้วจึงเลือกหัวหน้าทีม",
+        "members": "สมาชิกทีม",
+        "membersHint": "ค้นหาและเพิ่มจากรายการ — สมาชิกที่เลือกจะแสดงเป็น chip ด้านล่าง",
+        "addMemberPlaceholder": "ค้นหาและเพิ่มสมาชิก…",
+        "noMembersSelected": "ยังไม่ได้เลือกสมาชิก",
+        "removeMember": "นำ {name} ออกจากทีม",
+        "memberCount": "สมาชิก",
+        "sortOrder": "ลำดับ",
+        "status": "สถานะ",
+        "notes": "หมายเหตุ",
+        "notesPlaceholder": "หมายเหตุเพิ่มเติม…"
+      },
+      "options": {
+        "status": {
+          "active": "ใช้งาน",
+          "inactive": "ไม่ใช้งาน"
+        }
+      },
+      "validation": {
+        "codeRequired": "กรุณากรอกรหัสทีม",
+        "nameRequired": "กรุณากรอกชื่อทีม",
+        "membersRequired": "กรุณาเลือกสมาชิกอย่างน้อย 1 คน",
+        "sortOrderInvalid": "ลำดับต้องไม่ต่ำกว่า 0",
+        "duplicateCode": "มีรหัสทีมนี้อยู่แล้ว",
+        "invalidMember": "ผู้ใช้ที่เลือกไม่ถูกต้องหรือไม่ active"
+      }
     },
     "moduleStatuses": {
       "nav": "สถานะตามโมดูล",
       "title": "สถานะตามโมดูล",
-      "description": "กำหนดสถานะในแต่ละโมดูลและเมนูหลัก — ยืดหยุ่นตามองค์กร",
+      "description": "กำหนดสถานะให้เลือกใช้ในแต่ละโมดูลขององค์กร",
       "features": [
-        "กำหนดสถานะต่อโมดูล (ดีล, ลูกค้า, ใบเสนอราคา ฯลฯ)",
+        "สถานะแยกตามโมดูล (ลีด ลูกค้า ใบเสนอราคา ฯลฯ)",
         "ลำดับ สี และค่าเริ่มต้น",
-        "เปิด/ปิดสถานะตามนโยบายองค์กร",
-        "รองรับ workflow ที่ต่างกันในแต่ละ org"
-      ]
+        "เปิด/ปิดแต่ละสถานะ",
+        "พร้อมใช้ในโมดูล CRM"
+      ],
+      "listTitle": "สถานะตามโมดูล",
+      "listSubtitle": "กำหนดตัวเลือกสถานะต่อโมดูล — ใช้เมื่อสร้างหรือเปลี่ยนสถานะในแต่ละเมนู",
+      "newTitle": "เพิ่มสถานะโมดูล",
+      "newSubtitle": "สร้างตัวเลือกสถานะสำหรับโมดูล",
+      "editTitle": "แก้ไขสถานะโมดูล",
+      "editSubtitle": "อัปเดตรายละเอียดสถานะ",
+      "viewSubtitle": "รายละเอียดสถานะโมดูล",
+      "view": "ดูสถานะโมดูล",
+      "deleteTitle": "นำสถานะออกจากระบบ",
+      "deleteConfirm": "นำ “{name}” ออกจากรายการสถานะ?",
+      "deleteSoftHint": "ข้อมูลยังอยู่ในระบบ (ลบชั่วคราว) และบันทึกในประวัติการเปลี่ยนแปลง — กู้คืนได้จากแท็บถูกลบ",
+      "restoreTitle": "กู้คืนสถานะโมดูล",
+      "restoreConfirm": "กู้คืน “{name}” กลับเข้ารายการสถานะ?",
+      "create": "เพิ่มสถานะ",
+      "createFirst": "เพิ่มสถานะแรก",
+      "empty": "ยังไม่มีสถานะ — เพิ่มตัวเลือกสถานะสำหรับโมดูลที่ใช้งาน",
+      "hubTitle": "สถานะตามโมดูล",
+      "hubSubtitle": "เลือกโมดูลทางซ้าย แล้วจัดการสถานะทางขวา — ไม่ต้องเปิดหน้าใหม่",
+      "moduleNavTitle": "โมดูล",
+      "hubStatusCount": "{count} สถานะ",
+      "hubCardHint": "จัดการสถานะของโมดูลนี้",
+      "backToModules": "ทุกโมดูล",
+      "moduleListSubtitle": "ตัวเลือกสถานะของโมดูลนี้ — ใช้เมื่อสร้างหรือเปลี่ยนสถานะในรายการ",
+      "createForModule": "เพิ่มสถานะ",
+      "createFirstForModule": "เพิ่มสถานะแรก",
+      "moduleEmpty": "ยังไม่มีสถานะสำหรับโมดูลนี้",
+      "newTitleForModule": "เพิ่มสถานะ — {module}",
+      "actions": "การดำเนินการ",
+      "filters": {
+        "byModule": "โมดูล",
+        "allModules": "ทุกโมดูล",
+        "byRecordStatus": "การใช้งาน",
+        "allRecordStatuses": "ทั้งหมด",
+        "viewAll": "ดูทั้งหมด",
+        "archiveTabs": "มุมมองรายการ",
+        "activeRecords": "ใช้งาน",
+        "deletedRecords": "ถูกลบ",
+        "deletedAt": "วันที่ลบ",
+        "emptyDeleted": "ไม่มีสถานะที่ถูกลบ",
+        "search": "ค้นหารหัส ชื่อ หรือโมดูล…",
+        "searchInModule": "ค้นหารหัสหรือชื่อ…",
+        "displayCount": "แสดง {count} รายการ",
+        "noResults": "ไม่พบรายการที่ตรงกับการค้นหา"
+      },
+      "sections": {
+        "basicInfo": "ข้อมูลสถานะ",
+        "settings": "การตั้งค่า"
+      },
+      "fields": {
+        "module": "โมดูล",
+        "code": "รหัสสถานะ",
+        "codePlaceholder": "เช่น NEW, WON, IN_TRANSIT",
+        "codeHint": "ตัวพิมพ์ใหญ่ A–Z ต้องขึ้นต้นด้วยตัวอักษร · ใช้ตัวเลขและ _ ได้ · ห้ามเว้นวรรคหรือขีด (-) · 2–49 ตัว · พิมพ์เล็กจะถูกแปลงเป็นตัวใหญ่อัตโนมัติ",
+        "moduleLockedHint": "โมดูลถูกกำหนดจากหน้าที่คุณเข้ามา",
+        "name": "ชื่อสถานะ",
+        "nameHint": "ชื่อที่แสดง — องค์กรพิมพ์ไทย อังกฤษ หรือทั้งสองในช่องเดียวได้",
+        "description": "รายละเอียด",
+        "color": "สี",
+        "colorHint": "รหัสสี hex สำหรับ badge (ไม่บังคับ) — เช่น #22c55e",
+        "colorPlaceholder": "#22c55e",
+        "sortOrder": "ลำดับ",
+        "isDefault": "สถานะเริ่มต้น",
+        "isDefaultHint": "มีได้หนึ่งค่าเริ่มต้นต่อโมดูล — ใช้เมื่อสร้างรายการใหม่",
+        "isDefaultLabel": "ตั้งเป็นค่าเริ่มต้นของโมดูลนี้",
+        "defaultBadge": "ค่าเริ่มต้น",
+        "recordStatus": "การใช้งาน",
+        "notes": "หมายเหตุ",
+        "notesPlaceholder": "หมายเหตุเพิ่มเติม…"
+      },
+      "options": {
+        "module": {
+          "customer": "ลูกค้า",
+          "contact": "ผู้ติดต่อ",
+          "lead": "ลีด (Lead)",
+          "opportunity": "โอกาสขาย (Opportunity)",
+          "pipeline": "แพ็ปไลน์ (Pipeline)",
+          "quotations": "ใบเสนอราคา (Quotations)",
+          "salesOrder": "คำสั่งขาย (Sales Order)",
+          "invoices": "ใบแจ้งหนี้ (Invoices)",
+          "projects": "โครงการ (Projects)",
+          "contractAgreements": "สัญญา (Contract Agreements)",
+          "service": "บริการ (Service)"
+        },
+        "recordStatus": {
+          "active": "ใช้งาน",
+          "inactive": "ไม่ใช้งาน"
+        }
+      },
+      "validation": {
+        "moduleRequired": "กรุณาเลือกโมดูล",
+        "codeRequired": "กรุณากรอกรหัสสถานะ",
+        "codeNoSpaces": "รหัสสถานะห้ามมีช่องว่าง",
+        "codeInvalidChars": "ใช้ได้เฉพาะตัวพิมพ์ใหญ่ ตัวเลข และ _",
+        "codeMustStartLetter": "รหัสสถานะต้องขึ้นต้นด้วยตัวอักษร (A–Z)",
+        "codeTooShort": "รหัสสถานะต้องมีอย่างน้อย {min} ตัวอักษร",
+        "codeTooLong": "รหัสสถานะต้องไม่เกิน {max} ตัวอักษร",
+        "nameRequired": "กรุณากรอกชื่อสถานะ",
+        "sortOrderInvalid": "ลำดับต้องไม่ต่ำกว่า 0",
+        "colorInvalid": "สีต้องเป็นรหัส hex ที่ถูกต้อง (เช่น #22c55e)",
+        "duplicateCode": "มีรหัสสถานะนี้ในโมดูลที่เลือกอยู่แล้ว"
+      }
     },
     "jobCode": {
       "nav": "รหัสงาน",
       "title": "รหัสงาน",
       "description": "กำหนดรูปแบบรหัสงาน/เลขที่เอกสารอัตโนมัติ — คำนำหน้า วันที่ และเลข running",
       "features": [
-        "คำนำหน้าตัวอักษร (default) กำหนดได้ต่อโมดูล",
-        "ส่วนวันที่: ปี เดือน วัน (รูปแบบกำหนดได้)",
-        "เลข running 0001, 00001 — ความยาวและรีเซ็ตกำหนดได้",
-        "ตัวอย่าง: JOB-20260608-0001",
-        "แยกลำดับต่อโมดูล (ดีล, ใบเสนอราคา, ลูกค้า ฯลฯ)"
-      ]
+        "คำนำหน้าตัวอักษรต่อโมดูล",
+        "ส่วนวันที่: ปี เดือน วัน — เลือกใช้และสลับลำดับได้",
+        "เลข running · ความยาวและกฎรีเซ็ต",
+        "ตัวอย่าง: JOB-20260608-0001"
+      ],
+      "hubTitle": "รหัสงาน",
+      "hubSubtitle": "เลือกโมดูลทางซ้าย แล้วตั้งค่ารูปแบบเลขที่เอกสารทางขวา — ไม่ต้องเปิดหน้าใหม่",
+      "moduleNavTitle": "โมดูล",
+      "hubConfigured": "ตั้งค่าแล้ว",
+      "hubNotConfigured": "ยังไม่ได้ตั้งค่า",
+      "hubCardHint": "คำนำหน้า · วันที่ · เลข running",
+      "backToModules": "ทุกโมดูล",
+      "moduleTitle": "รหัสงาน — {module}",
+      "moduleSubtitle": "กำหนดคำนำหน้า ลำดับส่วนวันที่ และเลขเริ่มต้นของโมดูลนี้",
+      "previewLabel": "ตัวอย่าง",
+      "previewHint": "ใช้วันที่วันนี้และเลขเริ่มต้นเป็นตัวอย่าง",
+      "create": "บันทึกการตั้งค่า",
+      "actions": "การดำเนินการ",
+      "orderMoveUp": "เลื่อนขึ้น",
+      "orderMoveDown": "เลื่อนลง",
+      "sections": {
+        "basicInfo": "คำนำหน้า",
+        "dateSegment": "ส่วนวันที่",
+        "numberSegment": "เลข running",
+        "layout": "ลำดับส่วน",
+        "settings": "การตั้งค่า"
+      },
+      "fields": {
+        "module": "โมดูล",
+        "prefix": "คำนำหน้าตัวอักษร",
+        "prefixPlaceholder": "เช่น JOB, QT, LEAD",
+        "prefixHint": "ตัวพิมพ์ใหญ่ A–Z และตัวเลข · 1–10 ตัว · พิมพ์เล็กจะแปลงเป็นตัวใหญ่อัตโนมัติ",
+        "dateEnabled": "ใส่ส่วนวันที่",
+        "includeYear": "ปี",
+        "includeMonth": "เดือน",
+        "includeDay": "วัน",
+        "dateStyle": "รูปแบบวันที่",
+        "datePartOrder": "ลำดับส่วนวันที่",
+        "padLength": "ความยาวตัวเลข (หลัก)",
+        "startNumber": "เลขเริ่มต้น",
+        "resetRule": "รีเซ็ตตัวนับ",
+        "resetRuleHint": "เมื่อไหร่ให้รีเซ็ตเลข running กลับไปที่เลขเริ่มต้น",
+        "segmentSeparator": "ตัวคั่นระหว่างส่วน",
+        "segmentSeparatorHint": "ใช้ได้: - _ . / :",
+        "separatorEnabled": "ใส่ตัวคั่นระหว่างส่วน",
+        "segmentOrder": "ลำดับส่วน (คำนำหน้า / วันที่ / เลข)",
+        "recordStatus": "การใช้งาน",
+        "notes": "หมายเหตุ",
+        "notesPlaceholder": "หมายเหตุเพิ่มเติม…"
+      },
+      "options": {
+        "module": {
+          "task": "งาน (Task)",
+          "customer": "ลูกค้า",
+          "contact": "ผู้ติดต่อ",
+          "lead": "ลีด (Lead)",
+          "opportunity": "โอกาสขาย (Opportunity)",
+          "pipeline": "แพ็ปไลน์ (Pipeline)",
+          "quotations": "ใบเสนอราคา",
+          "salesOrder": "คำสั่งขาย",
+          "invoices": "ใบแจ้งหนี้",
+          "projects": "โครงการ",
+          "contractAgreements": "สัญญา",
+          "service": "บริการ"
+        },
+        "datePart": {
+          "year": "ปี",
+          "month": "เดือน",
+          "day": "วัน"
+        },
+        "segment": {
+          "prefix": "คำนำหน้า",
+          "date": "วันที่",
+          "number": "เลข running"
+        },
+        "dateStyle": {
+          "compact": "Compact (20260608)",
+          "dash": "ขีด (2026-06-08)",
+          "iso": "ISO (2026-06-08)"
+        },
+        "resetRule": {
+          "never": "ไม่รีเซ็ต",
+          "daily": "รีเซ็ตรายวัน",
+          "monthly": "รีเซ็ตรายเดือน",
+          "yearly": "รีเซ็ตรายปี"
+        },
+        "recordStatus": {
+          "active": "ใช้งาน",
+          "inactive": "ไม่ใช้งาน"
+        }
+      },
+      "validation": {
+        "moduleRequired": "กรุณาเลือกโมดูล",
+        "prefixRequired": "กรุณากรอกคำนำหน้า",
+        "prefixInvalid": "ใช้ตัวพิมพ์ใหญ่และตัวเลข · 1–10 ตัว · ต้องขึ้นต้นด้วยตัวอักษร",
+        "datePartRequired": "เลือกอย่างน้อยหนึ่งส่วนวันที่ (ปี เดือน หรือ วัน)",
+        "padLengthInvalid": "ความยาวตัวเลขต้องอยู่ระหว่าง 1–10",
+        "startNumberInvalid": "เลขเริ่มต้นต้องไม่น้อยกว่า 1",
+        "separatorInvalid": "เลือกตัวคั่นที่อนุญาตเท่านั้น",
+        "alreadyConfigured": "โมดูลนี้มีการตั้งค่ารหัสงานอยู่แล้ว"
+      }
     }
   },
   "setup": {
@@ -813,6 +1559,10 @@
       "details": "รายละเอียด",
       "before": "ก่อนเปลี่ยน",
       "after": "หลังเปลี่ยน",
+      "fieldColumn": "ฟิลด์",
+      "noFieldChanges": "ไม่มีรายการฟิลด์ที่เปลี่ยน",
+      "showRaw": "แสดง JSON ดิบ",
+      "hideRaw": "ซ่อน JSON ดิบ",
       "by": "โดย {name}",
       "filters": {
         "table": "ตาราง",
@@ -829,11 +1579,73 @@
         "profiles": "ผู้ใช้ในระบบ",
         "org_roles": "บทบาทองค์กร",
         "contacts": "ผู้ติดต่อ",
-        "companies": "บริษัท",
+        "companies": "ลูกค้า",
+        "sales_targets": "เป้ายอดขาย",
         "deals": "ดีล",
         "activities": "กิจกรรม",
         "pipelines": "Pipeline",
         "pipeline_stages": "ขั้น Pipeline"
+      },
+      "fieldValues": {
+        "yes": "ใช่",
+        "no": "ไม่",
+        "empty": "—"
+      },
+      "metadata": {
+        "cascade": "ลบ/กู้ตาม cascade",
+        "restore": "กู้คืนแล้ว",
+        "softDelete": "Soft delete",
+        "passwordChanged": "เปลี่ยนรหัสผ่าน"
+      },
+      "fields": {
+        "full_name": "ชื่อ-นามสกุล",
+        "username": "ชื่อผู้ใช้",
+        "email": "อีเมล",
+        "role": "ระดับองค์กร",
+        "org_role_labels": "บทบาททีม",
+        "is_active": "ใช้งาน",
+        "password_changed": "เปลี่ยนรหัสผ่าน",
+        "code": "รหัส",
+        "label": "ชื่อ",
+        "description": "คำอธิบาย",
+        "permissions": "สิทธิ์",
+        "is_system": "บทบาทระบบ",
+        "name": "ชื่อ",
+        "customer_type": "ประเภทลูกค้า",
+        "mobile": "มือถือ",
+        "phone": "โทรศัพท์",
+        "industry": "อุตสาหกรรม",
+        "industry_segment": "กลุ่มอุตสาหกรรม",
+        "sales_grade": "เกรดการขาย",
+        "website": "เว็บไซต์",
+        "address": "ที่อยู่",
+        "owner_id": "เจ้าของลูกค้า",
+        "status": "สถานะ",
+        "tax_id": "เลขประจำตัวผู้เสียภาษี",
+        "tax_branch": "สาขา",
+        "tax_vat": "VAT",
+        "vat_currency": "สกุลเงิน VAT",
+        "payment_code": "รหัสชำระเงิน",
+        "credit_term_days": "เครดิต (วัน)",
+        "credit_limit": "วงเงินเครดิต",
+        "credit_balance": "ยอดเครดิตคงเหลือ",
+        "notes": "หมายเหตุ",
+        "first_name": "ชื่อ",
+        "last_name": "นามสกุล",
+        "company_id": "ลูกค้า",
+        "job_title": "ตำแหน่ง",
+        "department": "แผนก",
+        "contact_role": "บทบาท",
+        "is_main_contact": "ผู้ติดต่อหลัก",
+        "deleted_at": "วันที่ลบ",
+        "profile_id": "ผู้รับเป้า",
+        "period_type": "ประเภทช่วง",
+        "period_year": "ปี",
+        "period_month": "เดือน",
+        "period_quarter": "ไตรมาส",
+        "target_amount": "เป้ายอด",
+        "current_amount": "ยอดปัจจุบัน",
+        "currency": "สกุลเงิน"
       },
       "features": [
         "บันทึกการสร้าง/แก้ไข/ลบข้อมูล",

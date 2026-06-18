@@ -6,6 +6,56 @@
 
 ## ประวัติ
 
+### 2026-06-08 — Tasks module design spec (Phase 2)
+
+- **เอกสาร:** `TASKS-MODULE.md` — job code auto-running, lazy seed, ปฏิทินแยก view, Create Task modal (ระบบเก่า)
+- **ไฟล์ที่กระทบ:** `APP-MENU.md`, `07-phases/README.md`, `TASKS-MODULE.md`
+
+### 2026-06-08 — Master Data menu Phase 1 complete
+
+- **11 menus:** customer → job code · split-pane UX สำหรับ module-status + job-code
+- **Docs:** `PROJECT-STATUS.md`, `MASTER-DATA-MENU.md`, `frontend/README.md`
+
+### 2026-06-08 — Job code master UI
+
+- **Route:** `/app/job-code` · แท็บโมดูลซ้าย + ฟอร์มขวา (query `?module=`)
+- **Docs:** `MASTER-DATA-MENU.md` · `tables.md`
+
+### 2026-06-08 — Module statuses master UI
+
+- **Route:** `/app/module-status` · แท็บโมดูลซ้าย + รายการขวา (query `?module=`) · locked module on create
+- **Docs:** `MASTER-DATA-MENU.md` · `tables.md`
+
+### 2026-06-08 — Sales team master UI
+
+- **Route:** `/app/sales-team` · multi-member chip select from system users
+- **Docs:** `MASTER-DATA-MENU.md` · `tables.md`
+
+### 2026-06-08 — ยกเลิก Employee position + Employee master menu
+
+- **เหตุผล:** ใช้ Setup → ผู้ใช้งานในระบบ แทน master menu พนักงาน/ตำแหน่ง
+- **Docs:** `MASTER-DATA-MENU.md`
+
+### 2026-06-08 — Master Data Category UI
+
+- **Route:** `/app/category` · hierarchy · color · archive tabs
+- **Docs:** `CATEGORY-MASTER-FIELDS.md`
+
+### 2026-06-08 — Master Data Products UI
+
+- **Route:** `/app/product` · list/new/view/edit + archive tabs
+- **Docs:** `PRODUCT-MASTER-FIELDS.md` · `MASTER-DATA-MENU.md`
+
+### 2026-06-17 — Charts: nuxt-charts + AppLineChart
+
+- **ทำอะไร:** ติดตั้ง `nuxt-charts` · wrapper `AppLineChart` · เอกสาร `CHARTS.md` · เป้ายอดขายใช้ lib แทน SVG
+- **ไฟล์ที่กระทบ:** `nuxt.config.ts`, `AppLineChart.vue`, `config/appChart.ts`, `MasterDataSalesTargetProgressChart.vue`, `SHARED-COMPONENTS.md`
+
+### 2026-06-16 — SHARED-COMPONENTS: list layout แบบ system-users
+
+- **ทำอะไร:** จด reference layout filter + tabs + modal จาก `/app/setup/system-users`
+- **ไฟล์ที่กระทบ:** `SHARED-COMPONENTS.md`
+
 ### 2026-06-08 — IMAGE-UPLOAD.md + shared image upload stack
 
 - **ทำอะไร:** เอกสารและชุดกลาง `useImageUpload` / `AppImageUpload` — avatar + company logo

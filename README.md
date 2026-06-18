@@ -5,7 +5,7 @@ Multi-tenant SaaS CRM — **Phase 1 code ready**
 ## Quick start
 
 ```bash
-nvm use   # Node 22 — ดู .nvmrc
+nvm use   # Node 24 — ดู .nvmrc
 
 supabase start && supabase db reset
 
@@ -28,7 +28,7 @@ API scaffold (optional): `cd api && npm install && npm run dev` → http://local
 
 ```
 crm-kai-com/
-├── .nvmrc        # Node 22 — ทั้งระบบ
+├── .nvmrc        # Node 24 — ทั้งระบบ
 ├── frontend/     # Nuxt + CRM UI
 ├── api/          # Node API scaffold (Phase 3+)
 ├── supabase/     # migrations + seed

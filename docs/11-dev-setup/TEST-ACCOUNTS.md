@@ -20,6 +20,23 @@
 
 ---
 
+## บัญชี Employee (QA 2-user)
+
+สร้างโดย agent รอบ QA Master Data 2026-06-08 — org role **sales**
+
+| ฟิลด์ | ค่า |
+|-------|-----|
+| **ชื่อแสดง** | QA Smoke Employee |
+| **Username** | `qasmokeemp` |
+| **Email** | `qa-smoke-employee@crm-kai.test` |
+| **Password** | `testpass123` |
+| **Platform role** | employee |
+| **Org role** | sales |
+
+ใช้ทดสอบ: ไม่เห็น archive tabs · ไม่เข้า Setup · RLS block restore
+
+---
+
 ## วิธี Login
 
 **URL:** http://localhost:3000/login
@@ -160,6 +177,31 @@ SELECT COUNT(*) FROM public.list_org_roles();
 | **500** | ตาราง `profile_org_roles` ไม่มี → รัน migration 20 |
 | **401** | session หมดอายุ → login ใหม่ |
 | **403 / Forbidden** | user ไม่ใช่ owner/admin |
+
+---
+
+## แก้ error: ลบลูกค้าไม่สำเร็จ (`contact_log_snapshot does not exist`)
+
+เกิดเมื่อรัน migration **41** (cascade ลบผู้ติดต่อ) แล้ว แต่ยังไม่ได้รัน **39** (RPC ผู้ติดต่อ) — ลูกค้าที่มีผู้ติดต่อผูกอยู่จะลบไม่ได้
+
+**รันใน SQL Editor (ทั้งไฟล์):**
+
+`supabase/migrations/20260608120042_fix_soft_delete_contact_snapshot.sql`
+
+หรือรัน migration 39 ทั้งไฟล์ถ้ายังไม่เคยรัน:
+
+`supabase/migrations/20260608120039_contacts_crud_rpc.sql`
+
+**ตรวจหลังรัน:**
+
+```sql
+SELECT public.contact_log_snapshot('00000000-0000-0000-0000-000000000000'::uuid);
+-- คาดหวัง: NULL (ไม่ error)
+
+NOTIFY pgrst, 'reload schema';
+```
+
+หลังรัน SQL สำเร็จ — รัน checklist ใน [QA-CUSTOMER-CONTACT.md](../11-dev-setup/QA-CUSTOMER-CONTACT.md) ตาม [QA-GUIDE.md](../11-dev-setup/QA-GUIDE.md)
 
 ---
 

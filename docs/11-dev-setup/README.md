@@ -9,13 +9,13 @@
 
 | Tool | Version |
 |------|---------|
-| Node.js | **22 LTS** (>= 22.12.0) — [NODE-VERSION.md](./NODE-VERSION.md) · root [`.nvmrc`](../../.nvmrc) |
+| Node.js | **24 LTS** (>= 24.11.0) — [NODE-VERSION.md](./NODE-VERSION.md) · root [`.nvmrc`](../../.nvmrc) |
 | pnpm | 9+ (หรือ npm) |
 | Docker | สำหรับ Supabase local |
 | Supabase CLI | latest |
 
 ```bash
-# ที่ root — ใช้ Node 22
+# ที่ root — ใช้ Node 24
 nvm use
 node -v
 
@@ -28,7 +28,7 @@ npm install -g supabase
 
 ```
 crm-kai-com/
-├── .nvmrc          # Node 22
+├── .nvmrc          # Node 24
 ├── frontend/       # npm run dev → localhost:3000
 ├── api/            # npm run dev → localhost:4000 (scaffold)
 ├── supabase/       # supabase start
@@ -73,7 +73,10 @@ NUXT_PUBLIC_SUPABASE_KEY=sb_publishable_xxxx
 
 ## บัญชีทดสอบ
 
-→ [TEST-ACCOUNTS.md](./TEST-ACCOUNTS.md) — `tester1` / `testpass123` (Browser Tester, owner)
+→ [TEST-ACCOUNTS.md](./TEST-ACCOUNTS.md) — บัญชีทดสอบ  
+→ **[QA-GUIDE.md](./QA-GUIDE.md)** — คู่มือทดสอบ **ชั้น 0–7** (อ่านก่อน) · ชั้น 7 = ยิงทะลุ API นอกระบบ  
+→ [QA-CUSTOMER-CONTACT.md](./QA-CUSTOMER-CONTACT.md) — checklist ลูกค้า + ผู้ติดต่อ  
+→ **กู้คืน:** แท็บ ใช้งาน/ถูกลบ บน `/app/customer` และ `/app/contact` (migration 43–44)
 
 ---
 
@@ -89,10 +92,10 @@ pnpm dev
 
 Nuxt **4.4.7** บน macOS อาจ crash เพราะ path socket ใน `/var/folders/.../T/` ยาวเกิน limit — ดู [nuxt#35258](https://github.com/nuxt/nuxt/issues/35258)
 
-**แก้:** ใช้ Node 22 + script `dev` ใน `frontend/package.json` ตั้ง `TMPDIR=/tmp` แล้ว:
+**แก้:** ใช้ Node 24 + script `dev` ใน `frontend/package.json` ตั้ง `TMPDIR=/tmp` แล้ว:
 
 ```bash
-nvm use 22
+nvm use
 cd frontend && rm -rf .nuxt node_modules/.cache/nuxt && npm run dev
 ```
 

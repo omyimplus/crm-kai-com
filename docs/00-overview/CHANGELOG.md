@@ -8,6 +8,18 @@
 
 ## ประวัติ
 
+### 2026-06-08 — Master Data menu Phase 1 complete
+
+- **ทำอะไร:** ครบ 11 เมนูข้อมูลหลัก · sync PROJECT-STATUS · sidebar เปิดข้อมูลหลัก / ปิดเมนู CRM · redirect `/app/master-data/customer`
+- **ไฟล์ที่กระทบ:** `PROJECT-STATUS.md`, `MASTER-DATA-MENU.md`, `AppSidebar.vue`, `frontend/README.md`
+- **Phase:** 1
+
+### 2026-06-08 — update D-011 Node 24 LTS
+
+- **ทำอะไร:** อัปเกรด policy Node 22 → 24 LTS (>= 24.11.0)
+- **ไฟล์ที่กระทบ:** `DECISIONS.md`, `PROJECT-STATUS.md`
+- **Phase:** 1
+
 ### 2026-06-16 — PROJECT-STATUS sync (Master Data Customer + Contact)
 
 - **ทำอะไร:** อัปเดต ADR typography — Headline SemiBold · Body Regular

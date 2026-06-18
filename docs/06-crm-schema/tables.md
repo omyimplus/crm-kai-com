@@ -142,7 +142,7 @@
 | mobile | text | YES | | |
 | department | text | YES | | |
 | contact_role | text | YES | `'other'` | slug · [CONTACT-MASTER-FIELDS.md](./CONTACT-MASTER-FIELDS.md) |
-| is_main_contact | boolean | NO | `false` | Main Contact |
+| is_main_contact | boolean | NO | `false` | Main Contact — **unique 1 ต่อ `company_id`** (active) |
 | notes | text | YES | | |
 | owner_id | uuid | YES | | FK → profiles |
 | source | text | YES | | web, referral, import |
@@ -150,6 +150,287 @@
 | created_at | timestamptz | NO | now() | |
 | updated_at | timestamptz | NO | now() | |
 | deleted_at | timestamptz | YES | | |
+
+---
+
+## sales_targets
+
+เป้ายอดขายต่อพนักงาน × ช่วงเวลา — [SALES-TARGET-MASTER-FIELDS.md](./SALES-TARGET-MASTER-FIELDS.md)
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| profile_id | uuid | NO | | FK → profiles (ผู้รับเป้า) |
+| period_type | text | NO | | `month` \| `quarter` \| `year` |
+| period_year | integer | NO | | |
+| period_month | integer | YES | | 1–12 ถ้า month |
+| period_quarter | integer | YES | | 1–4 ถ้า quarter |
+| target_amount | numeric(15,2) | NO | 0 | เป้าหมาย |
+| current_amount | numeric(15,2) | NO | 0 | ยอดปัจจุบัน (manual) |
+| currency | text | NO | `'THB'` | |
+| notes | text | YES | | |
+| created_by | uuid | YES | | FK → profiles |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+| deleted_at | timestamptz | YES | | soft delete |
+
+**Unique (active):** `(org_id, profile_id, period_type, period_year, period_month, period_quarter)`  
+**% ทำได้:** UI จาก `current_amount / target_amount` · ผูกยอดขาย Phase ถัดไป
+
+---
+
+## products
+
+สินค้าและบริการ — [PRODUCT-MASTER-FIELDS.md](./PRODUCT-MASTER-FIELDS.md)
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| product_code | text | NO | | unique ต่อ org (active) |
+| name | text | NO | | |
+| description | text | YES | | |
+| category_id | uuid | YES | | FK → categories |
+| unit_id | uuid | YES | | FK → units |
+| list_price | numeric(15,2) | NO | 0 | ราคาขาย |
+| cost_price | numeric(15,2) | YES | | ต้นทุน |
+| currency | text | NO | `'THB'` | `THB` \| `USD` |
+| barcode | text | YES | | |
+| status | text | NO | `'active'` | `active` \| `inactive` |
+| is_sellable | boolean | NO | true | เปิดขาย |
+| notes | text | YES | | |
+| image_url | text | YES | | รูปหลัก · bucket `org-images` |
+| created_by | uuid | YES | | FK → profiles |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+| deleted_at | timestamptz | YES | | soft delete |
+
+**Unique (active):** `(org_id, lower(trim(product_code)))`
+
+---
+
+## units
+
+หน่วยนับ master — [UNIT-MASTER-FIELDS.md](./UNIT-MASTER-FIELDS.md)
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| unit_code | text | NO | | unique ต่อ org (active) |
+| name | text | NO | | |
+| description | text | YES | | |
+| sort_order | integer | NO | 0 | |
+| status | text | NO | `'active'` | `active` \| `inactive` |
+| notes | text | YES | | |
+| created_by | uuid | YES | | FK → profiles |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+| deleted_at | timestamptz | YES | | soft delete |
+
+**Unique (active):** `(org_id, lower(trim(unit_code)))`
+
+---
+
+## lead_sources
+
+แหล่งที่มาลีด master — [LEAD-SOURCE-MASTER-FIELDS.md](./LEAD-SOURCE-MASTER-FIELDS.md)
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| source_code | text | NO | | unique ต่อ org (active) |
+| name | text | NO | | ชื่อใน dropdown ลีด |
+| description | text | YES | | |
+| sort_order | integer | NO | 0 | |
+| status | text | NO | `'active'` | `active` \| `inactive` |
+| notes | text | YES | | |
+| created_by | uuid | YES | | FK → profiles |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+| deleted_at | timestamptz | YES | | soft delete |
+
+**Unique (active):** `(org_id, lower(trim(source_code)))`
+
+---
+
+## partners
+
+พาร์ตเนอร์ master — [PARTNER-MASTER-FIELDS.md](./PARTNER-MASTER-FIELDS.md)
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| partner_code | text | NO | | unique ต่อ org (active) |
+| name | text | NO | | ชื่อบริษัท |
+| partner_type | text | NO | `'distributor'` | distributor · reseller · agent · vendor · strategic · other |
+| tier | text | NO | `'silver'` | platinum · gold · silver · bronze · standard |
+| partner_since | date | YES | | |
+| status | text | NO | `'active'` | active · inactive |
+| contact_person | text | NO | `''` | |
+| email | text | NO | `''` | |
+| phone | text | NO | `''` | |
+| website | text | YES | | |
+| commission_rate | numeric(5,2) | NO | 0 | 0–100 |
+| description | text | YES | | legacy · ไม่ใช้ใน UI |
+| sort_order | integer | NO | 0 | legacy · ไม่ใช้ใน UI |
+| notes | text | YES | | legacy · ไม่ใช้ใน UI |
+| created_by | uuid | YES | | FK → profiles |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+| deleted_at | timestamptz | YES | | soft delete |
+
+**Unique (active):** `(org_id, lower(trim(partner_code)))`
+
+---
+
+## sales_teams
+
+ทีมขาย — สมาชิกมาจาก `profiles` (ผู้ใช้งานในระบบ) ผ่าน `sales_team_members`
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| team_code | text | NO | | unique ต่อ org (active) |
+| name | text | NO | | ชื่อทีม |
+| description | text | YES | | |
+| team_lead_id | uuid | YES | | FK → profiles |
+| sort_order | integer | NO | 0 | |
+| status | text | NO | `'active'` | `active` \| `inactive` |
+| notes | text | YES | | |
+| created_by | uuid | YES | | FK → profiles |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+| deleted_at | timestamptz | YES | | soft delete |
+
+**Unique (active):** `(org_id, lower(trim(team_code)))`
+
+---
+
+## sales_team_members
+
+สมาชิกทีมขาย (M:N กับ profiles)
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| sales_team_id | uuid | NO | | FK → sales_teams · PK |
+| profile_id | uuid | NO | | FK → profiles · PK |
+| created_at | timestamptz | NO | now() | |
+
+**Migration:** `20260608120064_sales_teams.sql`
+
+---
+
+## module_statuses
+
+สถานะที่ org กำหนดต่อโมดูล — ใช้เป็นตัวเลือกใน workflow CRM
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| module_key | text | NO | | customer, lead, pipeline, … |
+| status_code | text | NO | | `^[A-Z][A-Z0-9_]{1,48}$` · unique ต่อ org + module (active, case-insensitive) |
+| name | text | NO | | ชื่อแสดงผล |
+| description | text | YES | | |
+| color | text | YES | | hex สำหรับ badge |
+| sort_order | integer | NO | 0 | |
+| is_default | boolean | NO | false | หนึ่งค่าเริ่มต้นต่อ module |
+| status | text | NO | `'active'` | `active` \| `inactive` |
+| notes | text | YES | | |
+| created_by | uuid | YES | | FK → profiles |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+| deleted_at | timestamptz | YES | | soft delete |
+
+**Unique (active):** `(org_id, module_key, lower(trim(status_code)))`
+
+**Migration:** `20260608120065_module_statuses.sql`
+
+---
+
+## job_code_sequences
+
+รูปแบบเลขที่เอกสาร/รหัสงานต่อโมดูล — [MASTER-DATA-MENU.md](../05-frontend/MASTER-DATA-MENU.md) §12
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| module_key | text | NO | | task, lead, opportunity, … |
+| prefix | text | NO | | `^[A-Z][A-Z0-9]{0,9}$` |
+| date_enabled | boolean | NO | true | |
+| date_include_year | boolean | NO | true | |
+| date_include_month | boolean | NO | true | |
+| date_include_day | boolean | NO | true | |
+| date_part_order | text[] | NO | year,month,day | ลำดับส่วนวันที่ |
+| date_style | text | NO | compact | compact / dash / iso |
+| segment_order | text[] | NO | prefix,date,number | ลำดับส่วนรหัส |
+| segment_separator | text | NO | `-` | `-` `_` `.` `/` `:` · ใช้เมื่อ `separator_enabled` |
+| separator_enabled | boolean | NO | true | เปิด/ปิดตัวคั่นระหว่างส่วน |
+| pad_length | integer | NO | 4 | 1–10 |
+| start_number | integer | NO | 1 | |
+| last_number | integer | NO | 0 | ตัวนับปัจจุบัน |
+| reset_rule | text | NO | never | never / daily / monthly / yearly |
+| status | text | NO | active | active / inactive |
+| notes | text | YES | | |
+| created_by | uuid | YES | | FK → profiles |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+| deleted_at | timestamptz | YES | | soft delete |
+
+**Unique (active):** `(org_id, module_key)`
+
+**Migration:** `20260608120067_job_code_sequences.sql` · `20260608120068_job_code_separator_enabled.sql`
+
+---
+
+## product_gallery_images
+
+รูปเพิ่มเติมของสินค้า (แยกจาก `products.image_url`) — [PRODUCT-MASTER-FIELDS.md](./PRODUCT-MASTER-FIELDS.md)
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK · ใช้เป็นชื่อไฟล์ใน Storage |
+| org_id | uuid | NO | | FK → organizations |
+| product_id | uuid | NO | | FK → products |
+| image_url | text | NO | | รูปใน gallery |
+| sort_order | integer | NO | 0 | ลำดับแสดงผล |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+
+**Migration:** `20260608120055_product_gallery_images.sql`
+
+---
+
+## categories
+
+หมวดหมู่ master — [CATEGORY-MASTER-FIELDS.md](./CATEGORY-MASTER-FIELDS.md)
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| module_key | text | NO | `'product'` | Phase 1: product only |
+| category_code | text | NO | | unique ต่อ org+module |
+| name | text | NO | | |
+| description | text | YES | | |
+| parent_id | uuid | YES | | FK → categories |
+| sort_order | integer | NO | 0 | |
+| color | text | YES | | hex สำหรับ UI |
+| status | text | NO | `'active'` | `active` \| `inactive` |
+| notes | text | YES | | |
+| image_url | text | YES | | รูปหลัก · bucket `org-images` |
+| created_by | uuid | YES | | FK → profiles |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+| deleted_at | timestamptz | YES | | soft delete |
+
+**Unique (active):** `(org_id, module_key, lower(trim(category_code)))`
 
 ---
 

@@ -17,7 +17,7 @@ alwaysApply: true
 ## คำสั่ง (รัน background)
 
 ```bash
-export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" && nvm use 22.16.0 2>/dev/null
+export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" && nvm use 2>/dev/null
 cd frontend && npm run dev
 ```
 

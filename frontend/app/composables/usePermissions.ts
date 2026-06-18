@@ -91,6 +91,9 @@ export function usePermissions() {
 
   const canAccessSetup = computed(() => isAdmin.value)
 
+  /** แท็บ ใช้งาน/ถูกลบ + ดู/กู้คืน soft-deleted — owner และ admin เท่านั้น */
+  const canViewDeletedRecords = computed(() => isAdmin.value)
+
   async function reloadPermissions() {
     permissionsLoaded.value = false
     await loadPermissions()
@@ -103,6 +106,7 @@ export function usePermissions() {
     isAdmin,
     isPlatformMember,
     canAccessSetup,
+    canViewDeletedRecords,
     loadPermissions,
     reloadPermissions,
     ensurePermissions,

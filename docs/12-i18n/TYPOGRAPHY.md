@@ -4,27 +4,24 @@
 
 ---
 
-## สถานะปัจจุบัน (Phase 1 — interim)
+## สถานะปัจจุบัน (Phase 1)
 
 | รายการ | ค่า |
 |--------|-----|
-| **Login / signup** | **Noto Sans Thai** — ทุก locale |
-| **CRM (`th`)** | **Sarabun** — หัวข้อ + เนื้อหา + UI ทั้งหมด |
-| **CRM (`en`)** | **Noto Sans Thai** ทั้งหมด |
-| **ขนาดฐาน** | `html { font-size: 16px; }` — มาตรฐาน + antialiasing / contrast |
+| **Headline** (`h1`–`h6`, `.font-heading`) | **IBM Plex Sans Thai SemiBold** — weight `600` |
+| **Body** (UI, ตาราง, ปุ่ม, label, auth) | **IBM Plex Sans Thai Regular** — weight `400` |
+| **Locale** | th + en ใช้ฟอนต์เดียวกัน |
+| **ขนาดฐาน** | `html { font-size: 16px; }` — CRM `/app` ใช้ `15px` |
 | **เปลี่ยนเมื่อ** | user สั่งเท่านั้น |
-
-**แผนถัดไป:** EN CRM → Prompt
 
 ---
 
 ## สรุป
 
-| ประเภท | ฟอนต์ (CRM, locale=th) |
-|--------|------------------------|
-| หัวข้อ (`h1`–`h6`, `.font-heading`) | Sarabun |
-| เนื้อหา / label / ปุ่ม / ตาราง (`--font-sans`) | Sarabun |
-| login / signup | Noto Sans Thai |
+| ประเภท | ฟอนต์ | Weight |
+|--------|-------|--------|
+| หัวข้อ | IBM Plex Sans Thai | 600 (SemiBold) |
+| เนื้อหา / UI | IBM Plex Sans Thai | 400 (Regular) |
 
 ---
 
@@ -33,17 +30,17 @@
 | ห้าม | ต้อง |
 |-----|------|
 | hardcode `font-family` ใน component | inherit จาก `--font-sans` / `--font-heading` |
-| ใช้ Sarabun, Prompt, Inter โดยไม่สั่ง user | CRM ไทย: **Sarabun** ทั้งหมด ตาม D-010 |
+| ใช้ Noto, Sarabun, Prompt โดยไม่สั่ง user | **IBM Plex Sans Thai** ตาม D-010 |
 | เปลี่ยน font ใน code อย่างเดียว | อัปเดต MD นี้ + D-010 + CHANGELOG |
 | ลืม sync `html lang` | `app.vue` → `useHead({ htmlAttrs: { lang: locale } })` |
 
 ### หัวข้อ
 
-ใช้ **`h1`–`h6`** หรือ class **`.font-heading`**
+ใช้ **`h1`–`h6`** หรือ class **`.font-heading`** — weight 600 จาก `main.css`
 
 ### เนื้อหา
 
-ใช้ element ปกติ — Nuxt UI inherit `--font-sans` (Noto Sans Thai)
+ใช้ element ปกติ — Nuxt UI inherit `--font-sans` (Regular 400)
 
 ---
 
@@ -52,32 +49,33 @@
 ```
 frontend/
 ├── app/
-│   ├── app.vue              # Google Fonts — Noto Sans Thai + Sarabun
-│   └── assets/css/main.css  # .crm-app locale overrides
+│   ├── app.vue              # Google Fonts — IBM Plex Sans Thai 400, 600
+│   └── assets/css/main.css  # --font-sans / --font-heading
 ```
 
 ### Google Fonts
 
 ```
-Noto Sans Thai — 400, 500, 600, 700
-Sarabun — 400, 500, 600, 700 (CRM ภาษาไทย)
+IBM Plex Sans Thai — 400 (Regular), 600 (SemiBold)
+```
+
+URL ใน `app.vue`:
+
+```
+family=IBM+Plex+Sans+Thai:wght@400;600
 ```
 
 ### CSS (`main.css`)
 
 ```css
 @theme static {
-  --font-sans: "Noto Sans Thai", sans-serif;
-  --font-heading: "Noto Sans Thai", sans-serif;
+  --font-sans: "IBM Plex Sans Thai", sans-serif;
+  --font-heading: "IBM Plex Sans Thai", sans-serif;
 }
 
-html { font-size: 16px; }
-body { line-height: 1.55; -webkit-font-smoothing: antialiased; }
+body { font-weight: 400; }
 
-html[lang="th"] .crm-app {
-  --font-sans: "Sarabun", "Noto Sans Thai", sans-serif;
-  --font-heading: "Sarabun", "Noto Sans Thai", sans-serif;
-}
+.font-heading { font-weight: 600; }
 ```
 
 ---

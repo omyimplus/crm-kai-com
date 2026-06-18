@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Contact } from '~/types/crm'
 import type { CustomerCompanyAddressDraft } from '~/utils/masterCustomer'
 import {
   billAddressesFromLegacyAddress,
@@ -6,6 +7,8 @@ import {
   defaultMasterCustomerFormInput,
   mapCompanyAddressRows
 } from '~/utils/masterCustomer'
+import { contactDisplayName } from '~/utils/masterContact'
+import { appTableTextClass } from '~/config/appFormUi'
 
 const props = defineProps<{
   customerId: string
@@ -13,12 +16,16 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const { get, listBillAddresses, listShipAddresses } = useCompanies()
+const { listByCompany } = useContacts()
 
 const loading = ref(true)
+const contactsLoading = ref(false)
 const form = ref(defaultMasterCustomerFormInput())
 const billAddresses = ref<CustomerCompanyAddressDraft[]>([])
 const shipAddresses = ref<CustomerCompanyAddressDraft[]>([])
+const contacts = ref<Contact[]>([])
 const deleteOpen = ref(false)
+const contactFormOpen = ref(false)
 
 try {
   const row = await get(props.customerId)
@@ -38,8 +45,26 @@ try {
   loading.value = false
 }
 
+async function refreshContacts() {
+  contactsLoading.value = true
+  try {
+    contacts.value = await listByCompany(props.customerId)
+  } catch (e) {
+    console.error(e)
+    contacts.value = []
+  } finally {
+    contactsLoading.value = false
+  }
+}
+
+await refreshContacts()
+
 function onDeleted() {
   navigateTo('/app/customer')
+}
+
+function onContactCreated() {
+  refreshContacts()
 }
 </script>
 
@@ -82,6 +107,85 @@ function onDeleted() {
           v-model:ship-addresses="shipAddresses"
           readonly
         />
+
+        <UCard class="rounded-2xl">
+          <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 class="text-lg font-semibold font-heading">
+                {{ t('masterData.customer.contactsPanel.title') }}
+              </h2>
+              <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                {{ t('masterData.customer.contactsPanel.subtitle') }}
+              </p>
+            </div>
+            <UButton
+              icon="i-lucide-user-plus"
+              @click="contactFormOpen = true"
+            >
+              {{ t('masterData.customer.contactsPanel.add') }}
+            </UButton>
+          </div>
+
+          <p
+            v-if="contactsLoading"
+            class="text-sm text-gray-500"
+          >
+            {{ t('common.loading') }}
+          </p>
+
+          <p
+            v-else-if="!contacts.length"
+            class="text-sm text-gray-500"
+          >
+            {{ t('masterData.customer.contactsPanel.empty') }}
+          </p>
+
+          <ul
+            v-else
+            class="divide-y divide-gray-200 dark:divide-gray-800"
+          >
+            <li
+              v-for="contact in contacts"
+              :key="contact.id"
+              class="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0"
+            >
+              <div class="min-w-0">
+                <NuxtLink
+                  :to="`/app/contact/${contact.id}`"
+                  class="font-medium text-primary hover:underline"
+                >
+                  {{ contactDisplayName(contact) }}
+                </NuxtLink>
+                <p
+                  class="mt-0.5 truncate text-sm text-gray-500 dark:text-gray-400"
+                  :class="appTableTextClass"
+                >
+                  {{ contact.email || t('common.empty') }}
+                  <span
+                    v-if="contact.phone"
+                    class="mx-1"
+                  >·</span>
+                  {{ contact.phone }}
+                </p>
+              </div>
+              <div class="flex shrink-0 items-center gap-1">
+                <UBadge
+                  v-if="contact.is_main_contact"
+                  color="primary"
+                  variant="subtle"
+                  size="xs"
+                >
+                  {{ t('masterData.contact.fields.mainContact') }}
+                </UBadge>
+                <AppIconButton
+                  icon="i-lucide-eye"
+                  :aria-label="t('masterData.contact.view')"
+                  :to="`/app/contact/${contact.id}`"
+                />
+              </div>
+            </li>
+          </ul>
+        </UCard>
       </div>
 
       <aside class="mt-6 lg:sticky lg:top-6 lg:mt-0">
@@ -96,6 +200,14 @@ function onDeleted() {
             :to="`/app/customer/${customerId}/edit`"
           >
             {{ t('common.edit') }}
+          </UButton>
+          <UButton
+            block
+            class="mt-2"
+            icon="i-lucide-user-plus"
+            @click="contactFormOpen = true"
+          >
+            {{ t('masterData.customer.contactsPanel.add') }}
           </UButton>
           <UButton
             block
@@ -125,6 +237,13 @@ function onDeleted() {
       :customer-id="customerId"
       :customer-name="form.name"
       @deleted="onDeleted"
+    />
+
+    <MasterDataContactFormModal
+      v-model:open="contactFormOpen"
+      :customer-id="customerId"
+      :customer-name="form.name"
+      @created="onContactCreated"
     />
   </div>
 </template>

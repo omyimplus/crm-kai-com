@@ -12,6 +12,9 @@ const props = defineProps<{
   modelValue: MasterContactFormInput
   customerOptions: { label: string, value: string }[]
   readonly?: boolean
+  /** ลูกค้าถูกกำหนดจากบริบท (เช่น หน้าดูลูกค้า) — ไม่แสดง select */
+  fixedCustomerId?: string
+  fixedCustomerName?: string
 }>()
 
 const emit = defineEmits<{
@@ -30,6 +33,18 @@ const roleOptions = computed(() =>
     value,
     label: t(`masterData.contact.options.role.${value}`)
   }))
+)
+
+const hasFixedCustomer = computed(() => Boolean(props.fixedCustomerId))
+
+watch(
+  () => props.fixedCustomerId,
+  (customerId) => {
+    if (customerId && form.value.company_id !== customerId) {
+      form.value = { ...form.value, company_id: customerId }
+    }
+  },
+  { immediate: true }
 )
 </script>
 
@@ -123,7 +138,16 @@ const roleOptions = computed(() =>
           required
           :class="appFormFieldClass"
         >
+          <UInput
+            v-if="hasFixedCustomer"
+            :model-value="fixedCustomerName || fixedCustomerId"
+            size="lg"
+            disabled
+            :class="appFormFieldClass"
+            :ui="appInputUi"
+          />
           <USelectMenu
+            v-else
             v-model="form.company_id"
             :items="customerOptions"
             value-key="value"
@@ -183,6 +207,9 @@ const roleOptions = computed(() =>
             :label="t('masterData.contact.fields.mainContact')"
             :disabled="readonly"
           />
+          <p class="mt-1 text-xs text-muted">
+            {{ t('masterData.contact.fields.mainContactHint') }}
+          </p>
         </UFormField>
 
         <UFormField

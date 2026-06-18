@@ -7,17 +7,36 @@ const { t } = useI18n()
 const route = useRoute()
 const { canViewAppMenu, canViewMasterData, canAccessSetup } = usePermissions()
 
-const menuOpen = ref(true)
-/** ข้อมูลหลัก / ตั้งค่าระบบ — ปิดไว้ก่อน เปิดเมื่อเข้า route ใน section นั้น */
-const masterDataOpen = ref(route.path.startsWith('/app/master-data'))
+function isMasterDataRoute(path: string) {
+  return path.startsWith('/app/master-data')
+    || path.startsWith('/app/customer')
+    || path.startsWith('/app/contact')
+    || path.startsWith('/app/sales-target')
+    || path.startsWith('/app/product')
+    || path.startsWith('/app/category')
+    || path.startsWith('/app/unit')
+    || path.startsWith('/app/lead-source')
+    || path.startsWith('/app/partner')
+    || path.startsWith('/app/sales-team')
+    || path.startsWith('/app/module-status')
+    || path.startsWith('/app/job-code')
+}
+
+const menuOpen = ref(false)
+/** เมนู CRM — ปิดค่าเริ่มต้น · ข้อมูลหลัก — เปิด · ตั้งค่าระบบ — ปิดจนกว่าเข้า setup */
+const masterDataOpen = ref(true)
 const setupOpen = ref(route.path.startsWith('/app/setup'))
 
 watch(() => route.path, (path) => {
-  if (path.startsWith('/app/master-data')) {
+  if (isMasterDataRoute(path)) {
     masterDataOpen.value = true
+    menuOpen.value = false
   }
   if (path.startsWith('/app/setup')) {
     setupOpen.value = true
+    menuOpen.value = false
+  } else {
+    setupOpen.value = false
   }
 })
 
@@ -80,7 +99,7 @@ function isSetupActive(path: string) {
 const isMenuSectionActive = computed(() =>
   appMenuItems.some(item => canViewAppMenu(item.key) && isMenuActive(item.to))
 )
-const isMasterDataSectionActive = computed(() => route.path.startsWith('/app/master-data'))
+const isMasterDataSectionActive = computed(() => isMasterDataRoute(route.path))
 const isSetupSectionActive = computed(() => route.path.startsWith('/app/setup'))
 </script>
 

@@ -13,7 +13,7 @@
 | # | เมนู | Route | Key | สถานะ |
 |---|------|-------|-----|--------|
 | 1 | Dashboard | `/app` | `dashboard` | ✅ ใช้งานได้ (สถิติดีล Phase 1) |
-| 2 | Tasks | `/app/tasks` | `tasks` | ⏳ |
+| 2 | Tasks | `/app/tasks` | `tasks` | 📋 Phase 2 — ดู [TASKS-MODULE.md](./TASKS-MODULE.md) |
 | 3 | Lead | `/app/leads` | `lead` | ⏳ |
 | 4 | Opportunity | `/app/opportunities` | `opportunity` | ⏳ |
 | 5 | Quotations | `/app/quotations` | `quotations` | ⏳ |
@@ -39,7 +39,7 @@ Lead → Opportunity → Quotation → Sales order → Invoice
                               Contract agreement → Service
 ```
 
-- **Tasks** — งานข้ามโมดูล (ติดตามลูกค้า, follow-up, internal)
+- **Tasks** — งานข้ามโมดูล (ติดตามลูกค้า, follow-up, internal) — spec: [TASKS-MODULE.md](./TASKS-MODULE.md)
 - **Reports** — สรุปจากทุกโมดูลด้านบน
 - **Dashboard** — ภาพรวม KPI และงานค้าง
 
@@ -86,8 +86,8 @@ frontend/app/
 
 | ส่วน | เอกสาร |
 |------|--------|
-| Master data (`/app/master-data/**`) | [MASTER-DATA-MENU.md](./MASTER-DATA-MENU.md) |
-| Setup (`/app/setup/**`) | [SETUP-MENU.md](./SETUP-MENU.md) |
+| Master data (`/app/customer`, …) | **เปิด** — ไล่ implement ครบ Phase 1 | [MASTER-DATA-MENU.md](./MASTER-DATA-MENU.md) |
+| Setup (`/app/setup/**`) | **ปิด** — เปิดเมื่อเข้า route setup | [SETUP-MENU.md](./SETUP-MENU.md) |
 
 **Legacy routes** (`/app/contacts`, `/app/companies`, `/app/deals`) — ยังเข้า URL ได้จาก Dashboard
 

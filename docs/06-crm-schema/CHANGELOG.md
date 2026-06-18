@@ -8,6 +8,30 @@
 
 ## ประวัติ
 
+### 2026-06-08 — categories master (CATEGORY-MASTER-FIELDS)
+
+- **ทำอะไร:** ตาราง `categories` + RPC · spec หมวดสินค้า · ผูก products ถัดไป
+- **Migration:** `20260608120049_categories.sql`
+- **Phase:** 1
+
+### 2026-06-08 — products master (PRODUCT-MASTER-FIELDS)
+
+- **ทำอะไร:** ตาราง `products` + RPC CRUD/restore · spec ฟิลด์ UI
+- **Migration:** `20260608120048_products.sql`
+- **Phase:** 1
+
+### 2026-06-17 — restore master data (tabs + cascade)
+
+- **ทำอะไร:** `restore_company` / `restore_contact` · RLS อ่าน deleted · UI tab Active/Deleted
+- **Migration:** `20260608120043_restore_master_data.sql`
+- **Phase:** 1
+
+### 2026-06-17 — ลบลูกค้า cascade ผู้ติดต่อ
+
+- **ทำอะไร:** `soft_delete_company` soft delete contacts ที่ผูกอยู่ · trigger กัน contact active ชี้ลูกค้าที่ลบแล้ว · `useContacts` filter ลูกค้าที่ลบ
+- **Migration:** `20260608120041_soft_delete_company_cascade_contacts.sql`
+- **Phase:** 1
+
 ### 2026-06-17 — Customer CRUD RPC + Contact delete UI
 
 - **ทำอะไร:** `create_company` / `update_company` logs · ลบ contact บน list/view · DB-SCHEMA sync

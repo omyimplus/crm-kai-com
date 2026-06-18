@@ -16,6 +16,16 @@ export function useCompanies() {
     return data as Company[]
   }
 
+  async function listDeleted() {
+    const { data, error } = await supabase
+      .from('companies')
+      .select('*')
+      .not('deleted_at', 'is', null)
+      .order('deleted_at', { ascending: false })
+    if (error) throw error
+    return data as Company[]
+  }
+
   async function get(id: string) {
     const { data, error } = await supabase
       .from('companies')
@@ -46,6 +56,13 @@ export function useCompanies() {
 
   async function remove(id: string) {
     const { error } = await supabase.rpc('soft_delete_company', {
+      p_company_id: id
+    })
+    if (error) throw error
+  }
+
+  async function restore(id: string) {
+    const { error } = await supabase.rpc('restore_company', {
       p_company_id: id
     })
     if (error) throw error
@@ -147,10 +164,12 @@ export function useCompanies() {
 
   return {
     list,
+    listDeleted,
     get,
     create,
     update,
     remove,
+    restore,
     listBillAddresses,
     getDefaultBillAddress,
     syncBillAddresses,

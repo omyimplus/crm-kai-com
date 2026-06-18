@@ -36,7 +36,11 @@ Dialog สร้างบทบาท / entity อื่น — **hoist ไป p
 <SetupOrgRoleFormModal v-model:open="orgRoleFormOpen" />
 ```
 
-## 4. Supabase env (@nuxtjs/supabase v1)
+## 4. แท็บ ใช้งาน / ถูกลบ (soft delete archive)
+
+List ที่มี archive tabs — ใช้ **`useArchiveTabs()`** + **`<AppArchiveTabs>`** (owner/admin เห็นแท็บ · employee เห็นแค่รายการ active)
+
+## 5. Supabase env (@nuxtjs/supabase v1)
 
 Module อ่าน `SUPABASE_URL` / `SUPABASE_KEY` — map ใน `nuxt.config.ts`:
 

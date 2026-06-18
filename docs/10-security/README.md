@@ -18,6 +18,7 @@ Checklist และกฎความปลอดภัย — **ไม่ negot
 
 | ชั้น | กฎ |
 |------|-----|
+| QA ชั้น 7 | ยิง API/route **นอก Phase 1** + ทะลุ Supabase — ต้องไม่ได้ · ดู [QA-GUIDE.md](../11-dev-setup/QA-GUIDE.md#ชั้น-7--bypass--api-นอกระบบ-penetration) |
 | Control DB | ไม่ expose ให้ browser; secrets ใน API only |
 | Tenant DB | anon + RLS; ไม่มี service role ใน Nuxt |
 | API | validate ทุก request; webhook signature verify |

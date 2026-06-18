@@ -119,12 +119,11 @@
 
 | | |
 |--|--|
-| **ตัดสินใจ (ปัจจุบัน — interim)** | Login/auth: **Noto Sans Thai** · CRM (`th`): **Sarabun** ทั้งหมด · CRM (`en`): Noto ทั้งหมด |
+| **ตัดสินใจ (ปัจจุบัน)** | **IBM Plex Sans Thai** — Headline SemiBold (600) · Body Regular (400) · ทุก locale + auth |
 | **เปลี่ยนเมื่อ** | user สั่งเท่านั้น |
-| **แผนอนาคต** | EN CRM → Prompt |
-| **Implementation** | Google Fonts ใน `app.vue`, `html[lang="th"] .crm-app` ใน `main.css` |
+| **Implementation** | Google Fonts ใน `app.vue`, `--font-sans` / `--font-heading` ใน `main.css` |
 | **อ้างอิง** | [TYPOGRAPHY.md](../12-i18n/TYPOGRAPHY.md) |
-| **สถานะ** | 🔄 ใช้ Sarabun ใน CRM (th) |
+| **สถานะ** | ✅ ใช้งาน |
 
 ---
 
@@ -140,11 +139,11 @@
 
 ---
 
-## D-011: Node.js 22 LTS — ทั้งระบบ
+## D-011: Node.js 24 LTS — ทั้งระบบ
 
 | | |
 |--|--|
-| **ตัดสินใจ** | ใช้ **Node >= 22.12.0** ทุก package (`frontend`, `api`, CI) |
-| **เหตุผล** | Nuxt 4 ต้องการ Node 22+; API ใช้ runtime เดียวกันลดความสับสน |
+| **ตัดสินใจ** | ใช้ **Node >= 24.11.0** ทุก package (`frontend`, `api`, CI) |
+| **เหตุผล** | Latest LTS (Node 24); Nuxt 4 รองรับ `^24.11.0`; API ใช้ runtime เดียวกันลดความสับสน |
 | **Source of truth** | [`.nvmrc`](../../.nvmrc) · [NODE-VERSION.md](../11-dev-setup/NODE-VERSION.md) |
 | **สถานะ** | ✅ ใช้งาน |

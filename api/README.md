@@ -9,14 +9,14 @@
 
 | รายการ | ค่า |
 |--------|-----|
-| **Node (ทั้งระบบ)** | **>= 22.12.0** (LTS line 22) |
+| **Node (ทั้งระบบ)** | **>= 24.11.0** (LTS line 24) |
 | **Source of truth** | [`.nvmrc`](../.nvmrc) ที่ root repo |
-| **บังคับใน package** | `"engines": { "node": ">=22.12.0" }` ใน `api/package.json` และ `frontend/package.json` |
+| **บังคับใน package** | `"engines": { "node": ">=24.11.0" }` ใน `api/package.json` และ `frontend/package.json` |
 
 ```bash
 # ที่ root repo
 nvm use
-node -v   # ควรได้ v22.12.0 ขึ้นไป
+node -v   # ควรได้ v24.11.0 ขึ้นไป
 ```
 
 → รายละเอียด: [docs/11-dev-setup/NODE-VERSION.md](../docs/11-dev-setup/NODE-VERSION.md)
@@ -57,7 +57,7 @@ npm run dev
 
 ## Tech (เมื่อ implement Phase 3+)
 
-- **Runtime:** Node.js 22 LTS
+- **Runtime:** Node.js 24 LTS
 - **Framework:** Hono (หรือ Fastify — ดู [01-tech-stack](../docs/01-tech-stack/README.md))
 - **Language:** TypeScript
 

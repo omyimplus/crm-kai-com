@@ -23,7 +23,13 @@
 | `20260608120033_company_ship_addresses_is_default.sql` | ship-to default + `get_company_default_ship_address` |
 | `20260608120034_companies_individual_type_rules.sql` | individual customer → segment/industry CHECK |
 | `20260608120035_company_bill_addresses.sql` | bill-to addresses + default RPC + migrate legacy address |
-| `20260608120040_companies_crud_rpc.sql` | create/update customer RPC + data_change_logs |
+| `20260608120047_sales_targets_current_amount.sql` | ยอดปัจจุบัน manual · RPC อัปเดต |
+| `20260608120046_sales_targets.sql` | เป้ายอดขาย — CRUD + actual จาก deals won |
+| `20260608120045_contacts_single_main_contact.sql` | ผู้ติดต่อหลัก 1 คนต่อลูกค้า · auto ยกเลิกคนเดิม |
+| `20260608120044_deleted_records_admin_only.sql` | แท็บ/restore ถูกลบ — owner+admin · RLS soft-deleted |
+| `20260608120043_restore_master_data.sql` | restore ลูกค้า/ผู้ติดต่อ + RLS อ่าน deleted · cascade restore contacts |
+| `20260608120042_fix_soft_delete_contact_snapshot.sql` | สร้าง `contact_log_snapshot` ให้ cascade delete ลูกค้าทำงาน |
+| `20260608120041_soft_delete_company_cascade_contacts.sql` | ลบลูกค้า → cascade soft delete contacts |
 | `20260608120039_contacts_crud_rpc.sql` | contact CRUD RPC + data_change_logs |
 | `20260608120038_contacts_master_fields.sql` | contact master fields + company relation index |
 
@@ -41,5 +47,6 @@ supabase status     # URL + anon key → frontend/.env
 
 - slug: `demo`
 - id: `11111111-1111-1111-1111-111111111111`
+- seed: Sales pipeline · org role templates · **lead sources 13 รายการ** (ดู `seed.sql`)
 
 Signup ใช้ RPC `signup_profile(full_name)` ผูก user กับ demo org

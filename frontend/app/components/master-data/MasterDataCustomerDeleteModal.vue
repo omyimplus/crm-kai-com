@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { appFormErrorClass } from '~/config/appFormUi'
+import { getSupabaseErrorMessage } from '~/utils/supabaseError'
 
 const open = defineModel<boolean>('open', { required: true })
 
@@ -28,7 +29,7 @@ async function confirmDelete() {
     open.value = false
     emit('deleted')
   } catch (e: unknown) {
-    errorMsg.value = e instanceof Error ? e.message : t('common.deleteFailed')
+    errorMsg.value = getSupabaseErrorMessage(e, t('common.deleteFailed'))
   } finally {
     deleting.value = false
   }
@@ -47,6 +48,9 @@ async function confirmDelete() {
     <p class="mt-3 text-sm leading-relaxed text-gray-500 dark:text-gray-400">
       {{ t('masterData.customer.deleteSoftHint') }}
     </p>
+    <p class="mt-2 text-sm leading-relaxed text-amber-700 dark:text-amber-300">
+      {{ t('masterData.customer.deleteContactsHint') }}
+    </p>
 
     <p
       v-if="errorMsg"
@@ -57,16 +61,11 @@ async function confirmDelete() {
     </p>
 
     <template #footer>
-      <AppDialogFooter>
+      <AppDialogFooter @cancel="open = false">
         <UButton
-          variant="outline"
-          color="neutral"
-          @click="open = false"
-        >
-          {{ t('common.cancel') }}
-        </UButton>
-        <UButton
+          class="w-full sm:w-auto"
           color="error"
+          size="lg"
           icon="i-lucide-trash-2"
           :loading="deleting"
           @click="confirmDelete"

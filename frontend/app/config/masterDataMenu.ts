@@ -5,8 +5,8 @@ export type MasterDataMenuKey =
   | 'products'
   | 'category'
   | 'leadSource'
+  | 'partner'
   | 'unit'
-  | 'employee'
   | 'salesTeam'
   | 'moduleStatuses'
   | 'jobCode'
@@ -22,13 +22,13 @@ export interface MasterDataMenuItem {
 export const masterDataMenuItems: MasterDataMenuItem[] = [
   { key: 'customer', to: '/app/customer', icon: 'i-lucide-building', ready: true },
   { key: 'contact', to: '/app/contact', icon: 'i-lucide-contact', ready: true },
-  { key: 'salesTarget', to: '/app/master-data/sales-target', icon: 'i-lucide-target' },
-  { key: 'products', to: '/app/master-data/products', icon: 'i-lucide-package' },
-  { key: 'category', to: '/app/master-data/category', icon: 'i-lucide-tags' },
-  { key: 'leadSource', to: '/app/master-data/lead-source', icon: 'i-lucide-radar' },
-  { key: 'unit', to: '/app/master-data/unit', icon: 'i-lucide-ruler' },
-  { key: 'employee', to: '/app/master-data/employee', icon: 'i-lucide-id-card' },
-  { key: 'salesTeam', to: '/app/master-data/sales-team', icon: 'i-lucide-users' },
-  { key: 'moduleStatuses', to: '/app/master-data/module-statuses', icon: 'i-lucide-list-tree' },
-  { key: 'jobCode', to: '/app/master-data/job-code', icon: 'i-lucide-hash' }
+  { key: 'salesTarget', to: '/app/sales-target', icon: 'i-lucide-target', ready: true },
+  { key: 'products', to: '/app/product', icon: 'i-lucide-package', ready: true },
+  { key: 'category', to: '/app/category', icon: 'i-lucide-tags', ready: true },
+  { key: 'unit', to: '/app/unit', icon: 'i-lucide-ruler', ready: true },
+  { key: 'leadSource', to: '/app/lead-source', icon: 'i-lucide-radar', ready: true },
+  { key: 'partner', to: '/app/partner', icon: 'i-lucide-handshake', ready: true },
+  { key: 'salesTeam', to: '/app/sales-team', icon: 'i-lucide-users', ready: true },
+  { key: 'moduleStatuses', to: '/app/module-status', icon: 'i-lucide-list-tree', ready: true },
+  { key: 'jobCode', to: '/app/job-code', icon: 'i-lucide-hash', ready: true }
 ]

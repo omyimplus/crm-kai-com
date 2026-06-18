@@ -68,11 +68,6 @@ function formatWhen(iso: string) {
 function toggleDetails(log: DataChangeLog) {
   expandedId.value = expandedId.value === log.id ? null : log.id
 }
-
-function formatJson(data: Record<string, unknown> | null) {
-  if (!data) return '—'
-  return JSON.stringify(data, null, 2)
-}
 </script>
 
 <template>
@@ -171,23 +166,10 @@ function formatJson(data: Record<string, unknown> | null) {
           </UButton>
         </div>
 
-        <div
+        <SetupDataChangeLogDetails
           v-if="expandedId === log.id"
-          class="mt-4 grid gap-4 border-t border-gray-200 pt-4 dark:border-gray-800 lg:grid-cols-2"
-        >
-          <div>
-            <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">
-              {{ t('setup.userActivity.before') }}
-            </p>
-            <pre class="max-h-64 overflow-auto rounded-lg bg-gray-50 p-3 text-xs dark:bg-gray-900">{{ formatJson(log.old_data) }}</pre>
-          </div>
-          <div>
-            <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">
-              {{ t('setup.userActivity.after') }}
-            </p>
-            <pre class="max-h-64 overflow-auto rounded-lg bg-gray-50 p-3 text-xs dark:bg-gray-900">{{ formatJson(log.new_data) }}</pre>
-          </div>
-        </div>
+          :log="log"
+        />
       </UCard>
     </div>
   </div>

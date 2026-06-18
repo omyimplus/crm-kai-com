@@ -15,7 +15,7 @@
 | ครอบคลุม | `/login`, `/signup`, `/app/**` |
 | สลับภาษา | `LocaleSwitcher` — login/signup (มุมขวาบน) + sidebar CRM |
 | เงิน/วันที่ | `useFormat()` — ตาม locale ที่เลือก |
-| Typography | [TYPOGRAPHY.md](./TYPOGRAPHY.md) — **Noto Sans Thai default ทั้งระบบ** (interim) |
+| Typography | [TYPOGRAPHY.md](./TYPOGRAPHY.md) — **IBM Plex Sans Thai** (Headline 600 · Body 400) |
 
 ---
 
@@ -93,7 +93,7 @@ formatCurrency(amount, 'THB')
 
 | สถานะ | ฟอนต์ |
 |--------|-------|
-| **ปัจจุบัน (interim)** | **Noto Sans Thai** ทั้งระบบ — รอ user สั่งเปลี่ยน |
+| **ปัจจุบัน** | **IBM Plex Sans Thai** — Headline 600 · Body 400 |
 | **แผนอนาคต** | Taviraj (ไทย body), Prompt (EN) — ยังไม่ใช้ |
 
 หัวข้อ → `h1`–`h6` หรือ `.font-heading` · ห้าม hardcode `font-family`
@@ -150,7 +150,7 @@ i18n: {
 - [07-phases/PHASE-1-CHECKLIST.md](../07-phases/PHASE-1-CHECKLIST.md)
 - [DECISIONS D-009](../00-overview/DECISIONS.md) — 2 ภาษา
 - [DECISIONS D-010](../00-overview/DECISIONS.md) — typography
-- [TYPOGRAPHY.md](./TYPOGRAPHY.md) — ฟอนต์ Noto Sans Thai / Taviraj / Prompt
+- [TYPOGRAPHY.md](./TYPOGRAPHY.md) — IBM Plex Sans Thai
 
 ## ดูการเปลี่ยนแปลงล่าสุด
 

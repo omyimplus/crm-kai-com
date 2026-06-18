@@ -6,24 +6,33 @@ import { contactDisplayName } from '~/utils/masterContact'
 definePageMeta({ middleware: 'auth', layout: 'app' })
 
 const { t } = useI18n()
+const { formatDateTime } = useFormat()
 const { ensureProfile } = useProfile()
-const { list } = useContacts()
+const { list, listDeleted } = useContacts()
 const { list: listCompanies } = useCompanies()
+const { archiveTab, canViewDeletedRecords, isActiveArchive, ensureArchiveAccess } = useArchiveTabs()
 
 await ensureProfile()
+await ensureArchiveAccess()
 
 const contacts = ref<Contact[]>([])
 const companies = ref<{ label: string, value: string }[]>([])
 const loading = ref(true)
 const search = ref('')
 const companyFilter = ref<string | null>(null)
+const deleteOpen = ref(false)
+const deleteTarget = ref<Contact | null>(null)
+const restoreOpen = ref(false)
+const restoreTarget = ref<Contact | null>(null)
 
 async function refresh() {
   loading.value = true
   try {
-    const [contactRows, companyRows] = await Promise.all([list(), listCompanies()])
-    contacts.value = contactRows
+    const companyRows = await listCompanies()
     companies.value = companyRows.map(c => ({ label: c.name, value: c.id }))
+    contacts.value = isActiveArchive.value
+      ? await list()
+      : await listDeleted()
   } catch (e) {
     console.error(e)
     contacts.value = []
@@ -42,7 +51,7 @@ const companyFilterOptions = computed(() => [
 
 const filteredContacts = computed(() => {
   let rows = contacts.value
-  if (companyFilter.value) {
+  if (isActiveArchive.value && companyFilter.value) {
     rows = rows.filter(c => c.company_id === companyFilter.value)
   }
 
@@ -58,7 +67,7 @@ const filteredContacts = computed(() => {
 })
 
 const hasActiveFilters = computed(() =>
-  search.value.trim().length > 0 || companyFilter.value !== null
+  search.value.trim().length > 0 || (isActiveArchive.value && companyFilter.value !== null)
 )
 
 const {
@@ -72,12 +81,14 @@ const {
   resetPage: resetPagination
 } = usePagination(filteredContacts)
 
-const deleteOpen = ref(false)
-const deleteTarget = ref<Contact | null>(null)
-
 function openDelete(contact: Contact) {
   deleteTarget.value = contact
   deleteOpen.value = true
+}
+
+function openRestore(contact: Contact) {
+  restoreTarget.value = contact
+  restoreOpen.value = true
 }
 
 async function onDeleted() {
@@ -86,14 +97,31 @@ async function onDeleted() {
   resetPagination()
 }
 
+async function onRestored() {
+  restoreTarget.value = null
+  await refresh()
+  resetPagination()
+}
+
 watch([search, companyFilter], () => {
   resetPagination()
+})
+
+watch(archiveTab, async () => {
+  search.value = ''
+  companyFilter.value = null
+  resetPagination()
+  await refresh()
 })
 
 function clearFilters() {
   search.value = ''
   companyFilter.value = null
   resetPagination()
+}
+
+function isCustomerDeleted(contact: Contact) {
+  return Boolean(contact.companies?.deleted_at)
 }
 </script>
 
@@ -109,12 +137,21 @@ function clearFilters() {
         </p>
       </div>
       <UButton
+        v-if="isActiveArchive"
         icon="i-lucide-plus"
         to="/app/contact/new"
       >
         {{ t('masterData.contact.create') }}
       </UButton>
     </div>
+
+    <AppArchiveTabs
+      v-model:archive-tab="archiveTab"
+      :can-view-deleted="canViewDeletedRecords"
+      :active-label="t('masterData.contact.filters.activeRecords')"
+      :deleted-label="t('masterData.contact.filters.deletedRecords')"
+      :aria-label="t('masterData.contact.filters.archiveTabs')"
+    />
 
     <UCard v-if="loading">
       <p class="text-gray-500">
@@ -124,9 +161,10 @@ function clearFilters() {
 
     <UCard v-else-if="!contacts.length">
       <p class="text-gray-500">
-        {{ t('masterData.contact.empty') }}
+        {{ isActiveArchive ? t('masterData.contact.empty') : t('masterData.contact.filters.emptyDeleted') }}
       </p>
       <UButton
+        v-if="isActiveArchive"
         class="mt-4"
         size="sm"
         icon="i-lucide-plus"
@@ -140,6 +178,7 @@ function clearFilters() {
       <UCard class="mb-4">
         <div class="flex flex-wrap items-end gap-3">
           <UFormField
+            v-if="isActiveArchive"
             :label="t('masterData.contact.filters.byCustomer')"
             class="min-w-56"
           >
@@ -211,6 +250,9 @@ function clearFilters() {
               <AppDataTableTh>{{ t('masterData.contact.fields.email') }}</AppDataTableTh>
               <AppDataTableTh>{{ t('masterData.contact.fields.phone') }}</AppDataTableTh>
               <AppDataTableTh>{{ t('masterData.contact.fields.role') }}</AppDataTableTh>
+              <AppDataTableTh v-if="canViewDeletedRecords && !isActiveArchive">
+                {{ t('masterData.contact.filters.deletedAt') }}
+              </AppDataTableTh>
               <AppDataTableTh />
             </tr>
           </template>
@@ -222,13 +264,20 @@ function clearFilters() {
             <AppDataTableTd>
               <div class="flex items-center gap-2">
                 <NuxtLink
+                  v-if="isActiveArchive"
                   :to="`/app/contact/${c.id}`"
                   class="font-medium text-primary hover:underline"
                 >
                   {{ contactDisplayName(c) }}
                 </NuxtLink>
+                <span
+                  v-else
+                  class="font-medium"
+                >
+                  {{ contactDisplayName(c) }}
+                </span>
                 <UBadge
-                  v-if="c.is_main_contact"
+                  v-if="c.is_main_contact && isActiveArchive"
                   color="primary"
                   variant="subtle"
                   size="xs"
@@ -238,7 +287,17 @@ function clearFilters() {
               </div>
             </AppDataTableTd>
             <AppDataTableTd muted>
-              {{ c.companies?.name || t('common.empty') }}
+              <div class="flex flex-wrap items-center gap-2">
+                <span>{{ c.companies?.name || t('common.empty') }}</span>
+                <UBadge
+                  v-if="!isActiveArchive && isCustomerDeleted(c)"
+                  color="warning"
+                  variant="subtle"
+                  size="xs"
+                >
+                  {{ t('masterData.contact.filters.customerDeletedBadge') }}
+                </UBadge>
+              </div>
             </AppDataTableTd>
             <AppDataTableTd muted>
               {{ c.email || t('common.empty') }}
@@ -253,23 +312,38 @@ function clearFilters() {
                   : t('common.empty')
               }}
             </AppDataTableTd>
+            <AppDataTableTd
+              v-if="canViewDeletedRecords && !isActiveArchive"
+              muted
+            >
+              {{ formatDateTime(c.deleted_at) }}
+            </AppDataTableTd>
             <AppDataTableTd align="right">
               <div class="flex items-center justify-end gap-1">
+                <template v-if="isActiveArchive">
+                  <AppIconButton
+                    icon="i-lucide-eye"
+                    :aria-label="t('masterData.contact.view')"
+                    :to="`/app/contact/${c.id}`"
+                  />
+                  <AppIconButton
+                    icon="i-lucide-pencil"
+                    :aria-label="t('common.edit')"
+                    :to="`/app/contact/${c.id}/edit`"
+                  />
+                  <AppIconButton
+                    icon="i-lucide-trash-2"
+                    color="error"
+                    :aria-label="t('common.delete')"
+                    @click="openDelete(c)"
+                  />
+                </template>
                 <AppIconButton
-                  icon="i-lucide-eye"
-                  :aria-label="t('masterData.contact.view')"
-                  :to="`/app/contact/${c.id}`"
-                />
-                <AppIconButton
-                  icon="i-lucide-pencil"
-                  :aria-label="t('common.edit')"
-                  :to="`/app/contact/${c.id}/edit`"
-                />
-                <AppIconButton
-                  icon="i-lucide-trash-2"
-                  color="error"
-                  :aria-label="t('common.delete')"
-                  @click="openDelete(c)"
+                  v-else-if="canViewDeletedRecords"
+                  icon="i-lucide-rotate-ccw"
+                  color="primary"
+                  :aria-label="t('common.restore')"
+                  @click="openRestore(c)"
                 />
               </div>
             </AppDataTableTd>
@@ -295,6 +369,15 @@ function clearFilters() {
       :contact-id="deleteTarget.id"
       :contact-name="contactDisplayName(deleteTarget)"
       @deleted="onDeleted"
+    />
+
+    <MasterDataContactRestoreModal
+      v-if="restoreTarget"
+      v-model:open="restoreOpen"
+      :contact-id="restoreTarget.id"
+      :contact-name="contactDisplayName(restoreTarget)"
+      :customer-deleted="isCustomerDeleted(restoreTarget)"
+      @restored="onRestored"
     />
   </div>
 </template>

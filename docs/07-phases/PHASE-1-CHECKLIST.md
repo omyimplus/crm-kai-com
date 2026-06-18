@@ -37,9 +37,16 @@
 
 ## Data integrity
 
-- [ ] ทดสอบ user 2 คนใน org เดียว (manual QA หลังรัน Supabase)
+- [x] ทดสอบ user 2 คนใน org เดียว — [QA-MASTER-DATA.md](../11-dev-setup/QA-MASTER-DATA.md) (2026-06-08)
 - [x] RLS ตาม org_id (migration)
 - [x] Soft delete (deleted_at)
+
+---
+
+## Master Data (ข้อมูลหลัก)
+
+- [x] 11 เมนู CRUD + permissions + i18n th/en — ดู [MASTER-DATA-MENU.md](../05-frontend/MASTER-DATA-MENU.md)
+- [x] Smoke test ทุกเมนู — [QA-MASTER-DATA.md](../11-dev-setup/QA-MASTER-DATA.md) (2026-06-08)
 
 ---
 

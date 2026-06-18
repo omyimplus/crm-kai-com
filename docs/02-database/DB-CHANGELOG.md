@@ -18,7 +18,147 @@
 
 ## ประวัติ
 
-## ประวัติ
+### 2026-06-08 — job_code separator toggle + date part order UX
+
+- **ประเภท:** migration `20260608120068_job_code_separator_enabled.sql` · frontend job code form
+- **ทำอะไร:** `separator_enabled` · ตัวคั่นเลือกจาก `- _ . / :` · สลับลำดับวันที่แสดงเฉพาะส่วนที่เลือก
+
+### 2026-06-08 — job_code_sequences master
+
+- **ประเภท:** migration `20260608120067_job_code_sequences.sql`
+- **ทำอะไร:** ตาราง `job_code_sequences` · รูปแบบรหัสต่อโมดูล · RPC CRUD · permission `master.jobCode` มีอยู่แล้ว
+
+### 2026-06-08 — module_statuses status_code format (UPPER_SNAKE_CASE)
+
+- **ประเภท:** migration `20260608120066_module_status_code_format.sql`
+- **ทำอะไร:** CHECK `^[A-Z][A-Z0-9_]{1,48}$` · RPC upper(trim) + validate · frontend auto-uppercase + validation
+
+### 2026-06-08 — module_statuses RLS policies idempotent
+
+- **ประเภท:** แก้ migration `20260608120065_module_statuses.sql`
+- **ทำอะไร:** `DROP POLICY IF EXISTS` ก่อน `CREATE POLICY` — รันซ้ำใน SQL Editor / retry migration ไม่ error 42710
+
+### 2026-06-08 — module_statuses master table + RPC
+
+- **ประเภท:** migration `20260608120065_module_statuses.sql`
+- **ทำอะไร:** ตาราง `module_statuses` · สถานะต่อโมดูล · RPC CRUD · permission `master.moduleStatuses` มีอยู่แล้ว
+
+### 2026-06-08 — sales_teams + sales_team_members
+
+- **ประเภท:** migration `20260608120064_sales_teams.sql`
+- **ทำอะไร:** ตารางทีมขาย + junction สมาชิก (profiles) · RPC CRUD · permission `master.salesTeam` มีอยู่แล้ว
+
+### 2026-06-08 — ยกเลิก employee_positions master + master.employee permission
+
+- **ประเภท:** migration `20260608120063_drop_employee_position_master.sql`
+- **ทำอะไร:** drop ตาราง `employee_positions` + RPC · ลบ permission keys `master.employeePosition` และ `master.employee` จาก org role templates
+- **เหตุผล:** ใช้ **Setup → ผู้ใช้งานในระบบ** แทน master menu พนักงาน/ตำแหน่ง
+
+### 2026-06-08 — employee_positions master table + RPC (ยกเลิกแล้ว — ดู migration 63)
+
+- **ประเภท:** migration `20260608120061_employee_positions.sql` · `20260608120062_employee_position_permissions.sql`
+- **ทำอะไร:** ตาราง `employee_positions` + RPC CRUD · permission `master.employeePosition` · org กำหนดตำแหน่งเอง
+- **สถานะ:** superseded โดย `20260608120063`
+
+### 2026-06-08 — partners legacy form fields
+
+- **ประเภท:** migration `20260608120060_partners_legacy_fields.sql`
+- **ทำอะไร:** partner_type, tier, partner_since, contact, email, phone, website, commission_rate · อัปเดต RPC
+- **Docs:** `PARTNER-MASTER-FIELDS.md`
+
+### 2026-06-08 — partners master table + RPC
+
+- **ประเภท:** migration `20260608120058_partners.sql` · `20260608120059_partner_permissions.sql`
+- **ทำอะไร:** ตาราง `partners` + RPC CRUD · permission `master.partner`
+- **Docs:** `PARTNER-MASTER-FIELDS.md`
+
+### 2026-06-08 — lead_sources seed (demo org)
+
+- **ประเภท:** `supabase/seed.sql`
+- **ทำอะไร:** insert แหล่งที่มาลีด 13 รายการเริ่มต้นให้ demo org (WEB, GOOGLE, …) เมื่อ `db reset` · ไม่มี RPC seed ใน runtime
+
+### 2026-06-08 — lead_sources master (org-defined)
+
+- **ประเภท:** migration `20260608120056_lead_sources.sql` · fix `20260608120057_lead_sources_drop_channel_seed.sql` (ถ้ารัน variant เก่า)
+- **ทำอะไร:** ตาราง `lead_sources` + RPC CRUD · **ไม่มี seed ค่าเริ่มต้น** · org กำหนดเองใช้กับ Lead
+- **Docs:** `LEAD-SOURCE-MASTER-FIELDS.md`
+
+### 2026-06-08 — product_gallery_images table + RPC
+
+- **ประเภท:** migration `20260608120055_product_gallery_images.sql`
+- **ทำอะไร:** ตาราง `product_gallery_images` · RPC add/remove/reorder · RLS select · สูงสุด 20 รูป/สินค้า
+- **Docs:** `PRODUCT-MASTER-FIELDS.md` · `IMAGE-UPLOAD.md`
+
+### 2026-06-08 — units master + products.unit_id FK
+
+- **ประเภท:** migration `20260608120053_units.sql` · `20260608120054_products_unit_id.sql`
+- **ทำอะไร:** ตาราง `units` + RPC CRUD · FK `products.unit_id` · migrate legacy text · block ลบหน่วยถ้ามีสินค้า
+- **Docs:** `UNIT-MASTER-FIELDS.md` · `PRODUCT-MASTER-FIELDS.md`
+
+### 2026-06-08 — products image_url + storage policies
+
+- **ประเภท:** migration `20260608120052_product_image.sql`
+- **ทำอะไร:** column `image_url` · RPC `set_image` · Storage RLS `org-images/.../products/`
+- **Docs:** `PRODUCT-MASTER-FIELDS.md` · `IMAGE-UPLOAD.md`
+
+### 2026-06-08 — products.category_id FK
+
+- **ประเภท:** migration `20260608120051_products_category_id.sql`
+- **ทำอะไร:** FK → categories · migrate legacy text · `soft_delete_category` ตรวจสินค้า
+- **Docs:** `PRODUCT-MASTER-FIELDS.md` · `CATEGORY-MASTER-FIELDS.md`
+
+### 2026-06-08 — categories image_url + storage policies
+
+- **ประเภท:** migration `20260608120050_category_image.sql`
+- **ทำอะไร:** column `image_url` · RPC `set_image` · Storage RLS `org-images/.../categories/`
+- **Docs:** `CATEGORY-MASTER-FIELDS.md` · `IMAGE-UPLOAD.md`
+
+### 2026-06-08 — categories master table + CRUD RPC
+
+- **ประเภท:** migration `20260608120049_categories.sql`
+- **ทำอะไร:** ตาราง `categories` (module_key product) + hierarchy + RPC + restore
+- **Docs:** `CATEGORY-MASTER-FIELDS.md`
+
+### 2026-06-08 — products master table + CRUD RPC
+
+- **ประเภท:** migration `20260608120048_products.sql`
+- **ทำอะไร:** ตาราง `products` + RLS + create/update/soft delete/restore + `data_change_logs`
+- **Docs:** `PRODUCT-MASTER-FIELDS.md`
+
+### 2026-06-17 — sales_targets current_amount
+
+- **ประเภท:** migration — `current_amount` manual · อัปเดต RPC snapshot/create/update
+- **Migration file:** `supabase/migrations/20260608120047_sales_targets_current_amount.sql`
+
+### 2026-06-17 — Sales targets master data
+
+- **ประเภท:** migration — `sales_targets` + CRUD/restore RPC + actual from won deals
+- **Migration file:** `supabase/migrations/20260608120046_sales_targets.sql`
+
+### 2026-06-17 — ผู้ติดต่อหลัก 1 คนต่อลูกค้า
+
+- **ประเภท:** migration — unique index + `ensure_single_main_contact` · อัปเดต create/update/restore RPC
+- **Migration file:** `supabase/migrations/20260608120045_contacts_single_main_contact.sql`
+
+### 2026-06-17 — deleted records admin/owner only
+
+- **ประเภท:** migration — RLS ซ่อน soft-deleted จาก employee · restore RPC ต้อง `is_admin_or_owner`
+- **Migration file:** `supabase/migrations/20260608120044_deleted_records_admin_only.sql`
+
+### 2026-06-17 — restore master data (ลูกค้า + ผู้ติดต่อ)
+
+- **ประเภท:** migration — `restore_company` / `restore_contact` · tab Deleted ใน UI · cascade restore contacts จาก log
+- **Migration file:** `supabase/migrations/20260608120043_restore_master_data.sql`
+
+### 2026-06-17 — fix contact_log_snapshot สำหรับ soft_delete_company
+
+- **ประเภท:** migration — สร้าง `contact_log_snapshot` ถ้า migration 39 ยังไม่รัน แต่ 41 รันแล้ว
+- **Migration file:** `supabase/migrations/20260608120042_fix_soft_delete_contact_snapshot.sql`
+
+### 2026-06-17 — soft_delete_company cascade contacts
+
+- **ประเภท:** migration — ลบลูกค้า → soft delete ผู้ติดต่อที่ผูกอยู่ + trigger กัน FK ค้าง
+- **Migration file:** `supabase/migrations/20260608120041_soft_delete_company_cascade_contacts.sql`
 
 ### 2026-06-17 — companies create/update RPC + data_change_logs
 
