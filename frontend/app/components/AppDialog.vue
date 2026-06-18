@@ -21,6 +21,7 @@ const contentBySize: Record<DialogSize, string> = {
 }
 
 const modalUi = computed(() => ({
+  overlay: 'bg-black/60',
   content: contentBySize[props.size],
   header: 'px-6 pt-6 pb-4 border-b border-gray-200 dark:border-gray-800',
   body: 'px-6 py-5',

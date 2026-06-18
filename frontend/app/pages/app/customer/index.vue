@@ -91,11 +91,6 @@ watch(archiveTab, async () => {
   await refresh()
 })
 
-function industryLabel(slug: string | null | undefined) {
-  if (!slug) return ''
-  return t(`masterData.customer.options.industry.${slug}` as const)
-}
-
 function customerTypeLabel(slug: string | null | undefined) {
   if (slug && (CUSTOMER_TYPES as readonly string[]).includes(slug)) {
     return t(`masterData.customer.options.customerType.${slug as CustomerType}`)
@@ -143,7 +138,7 @@ const filteredCompanies = computed(() => {
   return rows.filter((c) => {
     const name = c.name.toLowerCase()
     const phone = (c.phone ?? '').toLowerCase()
-    const industry = `${c.industry ?? ''} ${industryLabel(c.industry)}`.toLowerCase()
+    const industry = `${c.industry_segment ?? ''} ${c.industry ?? ''} ${industrySegmentLabel(c.industry_segment)}`.toLowerCase()
 
     if (searchField.value === 'name') return name.includes(q)
     if (searchField.value === 'phone') return phone.includes(q)

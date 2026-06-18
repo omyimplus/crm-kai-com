@@ -47,7 +47,8 @@ const menuLinks = computed(() =>
       key: item.key,
       label: t(`appMenu.${item.key}.nav`),
       to: item.to,
-      icon: item.icon
+      icon: item.icon,
+      ready: item.ready === true
     }))
 )
 
@@ -141,7 +142,7 @@ const isSetupSectionActive = computed(() => route.path.startsWith('/app/setup'))
             :icon="link.icon"
             :label="link.label"
             :active="isMenuActive(link.to)"
-            :badge="link.key === 'dashboard' ? undefined : comingSoonBadge"
+            :badge="link.ready ? undefined : comingSoonBadge"
           />
         </div>
       </div>

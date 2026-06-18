@@ -18,6 +18,102 @@
 
 ## ประวัติ
 
+### 2026-06-18 — Opportunities module v1
+
+- **ประเภท:** migration `20260608120081_opportunities_module.sql`
+- **ทำอะไร:** ตาราง `opportunities` · RPC CRUD · `create_opportunity_from_lead` (1 ลีด = 1 opp) · lazy seed job code `opportunity` (prefix `OPP`) · trigger stage → status won/lost
+- **Docs:** [OPPORTUNITIES-MODULE.md](../05-frontend/OPPORTUNITIES-MODULE.md) · [tables.md](../06-crm-schema/tables.md)
+
+### 2026-06-18 — opportunity lead field rules
+
+- **ประเภท:** migration `20260608120082_opportunity_lead_field_rules.sql`
+- **ทำอะไร:** `create_opportunity_from_lead` / `update_opportunity` — ฟิลด์จากลีดอ่านอย่างเดียว · `probability` จาก stage · `estimated_value` sync จาก `leads.lead_value`
+- **Docs:** [OPPORTUNITIES-MODULE.md](../05-frontend/OPPORTUNITIES-MODULE.md)
+
+### 2026-06-18 — opportunity bill-to from customer
+
+- **ประเภท:** migration `20260608120083_opportunity_bill_address_from_customer.sql`
+- **ทำอะไร:** `address_bill_to` prefill จาก `get_company_default_bill_address` · แก้ไขได้ตอน update · UI เลือกจากรายการที่อยู่ออกบิลของลูกค้า
+- **Docs:** [OPPORTUNITIES-MODULE.md](../05-frontend/OPPORTUNITIES-MODULE.md) · [CUSTOMER-MASTER-FIELDS.md](../06-crm-schema/CUSTOMER-MASTER-FIELDS.md) §8
+
+### 2026-06-18 — opportunity estimated value sync lead
+
+- **ประเภท:** migration `20260608120084_opportunity_estimated_value_sync_lead.sql`
+- **ทำอะไร:** `estimated_value` แก้ได้บน opp · `create_opportunity_from_lead` / `update_opportunity` sync `leads.lead_value` + data change log
+- **Docs:** [OPPORTUNITIES-MODULE.md](../05-frontend/OPPORTUNITIES-MODULE.md)
+
+### 2026-06-18 — opportunity project fields editable
+
+- **ประเภท:** migration `20260608120085_opportunity_project_name_editable.sql`
+- **ทำอะไร:** `project_name` รับจาก payload ตอนสร้าง/แก้ไข — ส่วนโปรเจกต์เป็นข้อมูล opp ทั้งหมด
+- **Docs:** [OPPORTUNITIES-MODULE.md](../05-frontend/OPPORTUNITIES-MODULE.md)
+
+### 2026-06-18 — opportunity_projects (multi-project per opp)
+
+- **ประเภท:** migration `20260608120086_opportunity_projects.sql`
+- **ทำอะไร:** ตาราง `opportunity_projects` · RPC `list_opportunity_projects` / `sync_opportunity_projects` · `estimated_value` = ผลรวมมูลค่าโปรเจกต์
+- **Docs:** [OPPORTUNITIES-MODULE.md](../05-frontend/OPPORTUNITIES-MODULE.md) · [tables.md](../06-crm-schema/tables.md)
+
+### 2026-06-18 — revert customer_type + lead_type channel catalog
+
+- **ประเภท:** migration `20260608120080_restore_customer_type_lead_type_channel.sql`
+- **ทำอะไร:** `customer_type` กลับ `company`/`individual` · `lead_type` → end_user … other
+
+### 2026-06-18 — industry segment catalog (mockup)
+
+- **ประเภท:** migration `20260608120079_industry_segment_catalog.sql`
+- **ทำอะไร:** `industry_segment` จาก enterprise/sme/startup/individual → agriculture … transportation
+
+### 2026-06-18 — customer type channel catalog
+
+- **ประเภท:** migration `20260608120078_customer_type_channel.sql`
+- **ทำอะไร:** `customer_type` จาก `company`/`individual` → `end_user` · `dealer` · `contractor` · `distributor` · `oem` · `other` (companies + leads)
+
+### 2026-06-18 — lead status catalog (8 statuses)
+
+- **ประเภท:** migration `20260608120077_lead_status_catalog.sql`
+- **สถานะ:** NEW · OPEN · CONTACTED · NURTURING · QUALIFIED · UNQUALIFIED · CANCELLED · CONVERTED
+
+### 2026-06-18 — leads.contact_id
+
+- **ประเภท:** migration `20260608120076_leads_contact_id.sql`
+- **ทำอะไร:** FK `contact_id` · RPC list/create/update รองรับผู้ติดต่อ
+
+### 2026-06-18 — leads module
+
+- **ประเภท:** migration `20260608120075_leads_module.sql`
+- **ทำอะไร:** ตาราง `leads` · seed `module_key = lead` · RPC `list/create/update/soft_delete_lead` · block delete module status ถ้ามี lead
+
+### 2026-06-08 — tasks.sales_team_id
+
+- **ประเภท:** migration `20260608120074_tasks_sales_team.sql`
+- **ทำอะไร:** FK `sales_team_id` → `sales_teams` · อัปเดต `list_tasks` / `create_task` / `update_task` / `task_log_snapshot`
+
+### 2026-06-08 — Task status change log (not pipeline stepper)
+
+- **ประเภท:** migration `20260608120073_task_status_history_changelog.sql`
+- **ทำอะไร:** เอา unique (task, status) · append เมื่อเปลี่ยนสถานะจริง · แก้วันที่แถวเดิม by id · ไม่เติมสถานะกลางอัตโนมัติ
+
+### 2026-06-08 — Task status history (ordered timeline + dates)
+
+- **ประเภท:** migration `20260608120072_task_status_history.sql`
+- **ทำอะไร:** ตาราง `task_status_history` · RPC `list_task_status_history` · sync ใน `create_task`/`update_task` · backfill งานเดิม
+
+### 2026-06-08 — Tasks dynamic statuses + block delete in use
+
+- **ประเภท:** migration `20260608120071_module_status_block_delete_tasks.sql` · frontend Tasks
+- **ทำอะไร:** `soft_delete_module_status` ห้ามลบเมื่อมีงาน active อ้างอิง · การ์ดสรุป/list tab จาก `module_statuses` ที่ **active** · สร้างงานใช้ `is_default` · แก้ไขงานที่สถานะ inactive ยังเลือกสถานะเดิมได้ · i18n `inUseByTasks`
+
+### 2026-06-08 — Fix list_tasks read-only error
+
+- **ประเภท:** migration `20260608120070_fix_list_tasks_readonly.sql`
+- **ทำอะไร:** เอา `ensure_task_module_defaults()` ออกจาก `list_tasks` (STABLE + INSERT → PostgREST read-only txn error) · seed ผ่าน RPC `ensure_task_module_defaults` / `create_task` แทน
+
+### 2026-06-08 — Tasks module (Phase 2)
+
+- **ประเภท:** migration `20260608120069_tasks_module.sql` · frontend `/app/tasks`
+- **ทำอะไร:** ตาราง `tasks` · lazy seed สถานะ+job code โมดูล `task` · `generate_job_code` · RPC CRUD · หน้า list/calendar + form modal · i18n th/en
+
 ### 2026-06-08 — job_code separator toggle + date part order UX
 
 - **ประเภท:** migration `20260608120068_job_code_separator_enabled.sql` · frontend job code form

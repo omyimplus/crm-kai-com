@@ -1,3 +1,5 @@
+import type { CustomerType } from '~/config/masterCustomer'
+import type { LeadType } from '~/config/masterLeads'
 import type { PermissionAction } from '~/config/permissionModules'
 
 export type ProfileRole = 'owner' | 'admin' | 'employee'
@@ -489,4 +491,242 @@ export interface DealForm {
   stage_id: string
   amount: number
   expected_close_date: string | null
+}
+
+export interface TaskAssignee {
+  id: string
+  full_name: string | null
+  username: string | null
+  avatar_url: string | null
+  role: ProfileRole
+  is_active: boolean
+}
+
+export interface Task {
+  id: string
+  org_id: string
+  task_code: string
+  subject: string
+  task_type: 'task' | 'call' | 'email' | 'meeting' | 'visit'
+  module_status_id: string
+  status_code: string
+  status_name: string
+  status_color: string | null
+  priority: 'high' | 'medium' | 'low'
+  start_at: string | null
+  end_at: string | null
+  assigned_by: string | null
+  assigned_by_name: string | null
+  assigned_to: string | null
+  assigned_to_name: string | null
+  sales_team_id: string | null
+  sales_team_name: string | null
+  company_id: string | null
+  company_name: string | null
+  contact_id: string | null
+  contact_name: string | null
+  description: string | null
+  created_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface TaskFormInput {
+  subject: string
+  task_type: Task['task_type']
+  module_status_id: string | null
+  priority: Task['priority']
+  start_at: string
+  end_at: string
+  assigned_by: string | null
+  assigned_to: string | null
+  sales_team_id: string | null
+  company_id: string | null
+  contact_id: string | null
+  description: string
+  status_history: TaskStatusHistoryInput[]
+}
+
+export interface TaskStatusHistoryEntry {
+  id: string
+  module_status_id: string
+  status_code: string
+  status_name: string
+  status_color: string | null
+  sort_order: number
+  status_at: string
+  changed_by: string | null
+  changed_by_name: string | null
+}
+
+export interface TaskStatusHistoryInput {
+  id?: string
+  module_status_id: string
+  status_at: string
+  status_code?: string
+  status_name?: string
+  status_color?: string | null
+  changed_by?: string | null
+  changed_by_name?: string | null
+}
+
+export type { LeadType } from '~/config/masterLeads'
+export type LeadPriority = 'high' | 'medium' | 'low'
+
+export interface Lead {
+  id: string
+  org_id: string
+  lead_code: string
+  full_name: string | null
+  lead_type: LeadType
+  owner_id: string | null
+  owner_name: string | null
+  tele_sale_id: string | null
+  tele_sale_name: string | null
+  company_id: string | null
+  contact_id: string | null
+  contact_name: string | null
+  company_name: string | null
+  email: string
+  phone: string | null
+  mobile: string
+  tax_id: string | null
+  lead_value: number
+  customer_type: CustomerType
+  industry_segment: string | null
+  sales_grade: string | null
+  lead_source_id: string | null
+  lead_source_name: string | null
+  module_status_id: string
+  status_code: string
+  status_name: string
+  status_color: string | null
+  priority: LeadPriority
+  next_action_at: string | null
+  next_action: string | null
+  lead_score: number
+  requirement: string | null
+  address_street: string | null
+  address_sub_district: string | null
+  address_district: string | null
+  address_province: string | null
+  address_postal_code: string | null
+  created_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface LeadFormInput {
+  full_name: string
+  lead_type: LeadType
+  owner_id: string | null
+  tele_sale_id: string | null
+  company_id: string | null
+  contact_id: string | null
+  company_name: string
+  email: string
+  phone: string
+  mobile: string
+  tax_id: string
+  lead_value: string
+  customer_type: CustomerType
+  industry_segment: string | null
+  sales_grade: string | null
+  lead_source_id: string | null
+  module_status_id: string | null
+  priority: LeadPriority
+  next_action_at: string
+  next_action: string
+  lead_score: number
+  requirement: string
+  address_street: string
+  address_sub_district: string
+  address_district: string
+  address_province: string
+  address_postal_code: string
+}
+
+export type OpportunityStatus = 'open' | 'won' | 'lost'
+
+export interface Opportunity {
+  id: string
+  org_id: string
+  opportunity_code: string
+  title: string
+  lead_id: string
+  lead_code: string
+  company_id: string | null
+  company_name: string | null
+  contact_id: string | null
+  contact_name: string | null
+  pipeline_id: string
+  stage_id: string
+  stage_name: string
+  stage_color: string | null
+  stage_probability: number
+  stage_is_won: boolean
+  stage_is_lost: boolean
+  probability: number
+  estimated_value: number
+  close_date: string | null
+  description: string | null
+  project_name: string | null
+  project_type: string | null
+  project_sub_type: string | null
+  products_group: string | null
+  project_costs: number
+  owner_id: string | null
+  owner_name: string | null
+  sales_owner_id: string | null
+  sales_owner_name: string | null
+  sales_designer_id: string | null
+  sales_designer_name: string | null
+  sales_team_id: string | null
+  sales_team_name: string | null
+  address_bill_to: string | null
+  currency: string
+  status: OpportunityStatus
+  closed_at: string | null
+  created_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface OpportunityProject {
+  id: string
+  opportunity_id: string
+  project_name: string | null
+  project_type: string | null
+  project_sub_type: string | null
+  products_group: string | null
+  estimated_value: number
+  project_costs: number
+  sort_order: number
+  created_at: string
+  updated_at: string
+}
+
+export interface OpportunityProjectDraft {
+  id: string
+  project_name: string
+  project_type: string
+  project_sub_type: string
+  products_group: string
+  estimated_value: string
+  project_costs: string
+}
+
+export interface OpportunityFormInput {
+  title: string
+  company_id: string | null
+  contact_id: string | null
+  stage_id: string | null
+  probability: number
+  close_date: string
+  description: string
+  owner_id: string | null
+  sales_owner_id: string | null
+  sales_designer_id: string | null
+  sales_team_id: string | null
+  address_bill_to: string
 }

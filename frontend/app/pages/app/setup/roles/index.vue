@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import type { OrgRole } from '~/types/crm'
 import { ORG_SYSTEM_ROLE_CODES } from '~/config/orgRoleSystemCodes'
+import { appTableGridViewOptions, type AppTableGridViewMode } from '~/config/appViewMode'
 import { countGrantedPermissions } from '~/utils/orgRolePermissions'
 
 definePageMeta({ middleware: 'auth', layout: 'app' })
-
-type RolesViewMode = 'table' | 'grid'
 
 const { t } = useI18n()
 const { ensureProfile } = useProfile()
@@ -24,7 +23,8 @@ const editingRole = ref<OrgRole | null>(null)
 const deleteOpen = ref(false)
 const deletingRole = ref<OrgRole | null>(null)
 const search = ref('')
-const viewMode = ref<RolesViewMode>('table')
+const viewMode = ref<AppTableGridViewMode>('table')
+const viewModeOptions = computed(() => appTableGridViewOptions(t))
 
 async function refresh() {
   loading.value = true
@@ -169,34 +169,10 @@ function permissionCount(role: OrgRole) {
           icon="i-lucide-search"
           :placeholder="t('setup.roles.manage.search')"
         />
-        <div
-          class="inline-flex shrink-0 rounded-lg border border-gray-200 p-0.5 dark:border-gray-700"
-          role="group"
-          :aria-label="t('setup.roles.manage.viewTable')"
-        >
-          <UButton
-            size="sm"
-            :variant="viewMode === 'table' ? 'solid' : 'soft'"
-            :color="viewMode === 'table' ? 'primary' : 'neutral'"
-            icon="i-lucide-list"
-            square
-            class="rounded-md"
-            :aria-label="t('setup.roles.manage.viewTable')"
-            :aria-pressed="viewMode === 'table'"
-            @click="viewMode = 'table'"
-          />
-          <UButton
-            size="sm"
-            :variant="viewMode === 'grid' ? 'solid' : 'soft'"
-            :color="viewMode === 'grid' ? 'primary' : 'neutral'"
-            icon="i-lucide-layout-grid"
-            square
-            class="rounded-md"
-            :aria-label="t('setup.roles.manage.viewGrid')"
-            :aria-pressed="viewMode === 'grid'"
-            @click="viewMode = 'grid'"
-          />
-        </div>
+        <AppViewModeToggle
+          v-model="viewMode"
+          :options="viewModeOptions"
+        />
       </div>
     </UCard>
 

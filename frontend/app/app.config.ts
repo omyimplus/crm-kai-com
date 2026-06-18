@@ -3,6 +3,15 @@ export default defineAppConfig({
     colors: {
       primary: 'green',
       neutral: 'slate'
+    },
+    modal: {
+      variants: {
+        overlay: {
+          true: {
+            overlay: 'bg-black/60'
+          }
+        }
+      }
     }
   }
 })

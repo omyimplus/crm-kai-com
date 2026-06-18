@@ -1,47 +1,57 @@
 ---
-description: หลังทำ flow ใด ๆ ต้องเช็ค terminal — ห้ามปล่อย error/warn ค้าง
+description: หลังเขียนโค้ดจบทุกครั้ง — ห้ามปล่อย ERROR/WARN ใน terminal · ต้อง verify ก่อนบอก user ว่าเสร็จ
 alwaysApply: true
 ---
 
-# Terminal — zero error / warn
+# Terminal — zero error / warn (หลังเขียนโค้ดจบ)
 
-ทุกครั้งที่ทำ flow ใด ๆ (dev server, build, test, migration, script, deploy) **ต้องเช็ค terminal output ก่อนจบงาน**
+**กฎเหล็ก:** ทุกครั้งที่แก้/เพิ่มโค้ดแล้วจะจบงานหรือรายงาน user ว่าเสร็จ — **ห้ามมี `ERROR` หรือ `WARN` ค้างใน terminal ที่เกี่ยวข้อง** จนกว่าจะแก้หรือ user ยอมรับเป็น known issue ชัดเจน
 
-## บังคับ
+## บังคับ — ก่อนบอก user ว่าเสร็จ
 
-1. **อ่าน terminal** ที่เกี่ยวข้องหลังรันคำสั่ง — อย่าสรุปว่าเสร็จถ้ายังไม่ได้อ่าน output
-2. **ห้ามปล่อย error หรือ warn ค้าง** — แก้ให้หมดก่อนบอก user ว่าเสร็จ
-3. **Restart / re-run** หลังแก้ แล้วยืนยัน output สะอาดอีกครั้ง
+1. **อ่าน terminal output ล่าสุด** (dev server / คำสั่งที่รัน) — ห้ามสรุปว่าเสร็จถ้ายังไม่ได้อ่าน
+2. **Verify compile** ตามขอบเขตที่แก้:
+   - **Frontend** (`frontend/**`) → อ่าน dev terminal หลัง HMR **และ** รัน `npm run build` ใน `frontend/` (จับ syntax/compile ที่ HMR อาจพลาด เช่น `??` กับ `||`)
+   - **Migration / SQL** → รัน/ตรวจ migration หรือ syntax ที่เกี่ยวข้อง
+   - **test / lint** → รันถ้าแก้ไฟล์ที่ test/lint ครอบคลุม
+3. **แก้ root cause** — อย่า suppress โดยไม่จำเป็น
+4. **Re-run / refresh** หลังแก้ → ยืนยัน output สะอาดอีกครั้ง
 
-## ขอบเขตที่ต้องเช็ค
+## ห้ามจบงานเมื่อเห็น
 
-| แหล่ง | ตัวอย่างที่ห้ามปล่อย |
-|-------|---------------------|
-| `npm run dev` / `nuxt dev` | `WARN`, `ERROR`, missing env, module warnings |
-| `npm run build` | build errors, chunk warnings ที่แก้ได้ |
-| `supabase` CLI | migration failed, RLS/policy errors |
+| แหล่ง | ตัวอย่าง |
+|-------|----------|
+| `nuxt dev` / HMR | `ERROR Internal server error`, `[vue/compiler-sfc]`, `Pre-transform error` |
+| `npm run build` | `Build failed`, `SyntaxError`, `Nuxt build error` |
+| Module / env | `[@nuxt/supabase] WARN Missing supabase url` |
+| Supabase CLI | migration failed, policy errors |
 | test / lint | failing tests, eslint errors |
 
-## ลำดับเมื่อพบ warn/error
+## Checklist (ต้องผ่านก่อนส่งงาน)
 
-1. ระบุสาเหตุ (ไฟล์ / config / env)
-2. แก้ root cause — อย่า suppress โดยไม่จำเป็น
-3. รันคำสั่งเดิมซ้ำ → ยืนยันไม่มี `ERROR` / `WARN` (info/log ปกติได้)
+- [ ] อ่าน terminal ที่เกี่ยวข้องแล้ว
+- [ ] ไม่มี `ERROR`
+- [ ] ไม่มี `WARN` (ยกเว้น user ยอมรับ known issue แล้ว)
+- [ ] แก้ frontend แล้ว → build ผ่าน compile (client/server) หรือ dev terminal ไม่มี compile error
 
 ## ตัวอย่าง (โปรเจกต์นี้)
 
 ```text
-# ❌ ห้ามจบงานแบบนี้
-[@nuxt/supabase] WARN Missing supabase url
-[@nuxtjs/i18n] WARN bundle.optimizeTranslationDirective...
+# ❌ ห้ามจบงาน — compile พัง แต่ยังบอก user ว่าเสร็จ
+ERROR [vue/compiler-sfc] Nullish coalescing operator(??) requires parens...
 
-# ✅ แก้ config/env แล้ว restart — output สะอาด
+# ❌ ห้ามจบงาน — warn ค้าง
+[@nuxt/supabase] WARN Missing supabase url
+
+# ✅ แก้แล้ว verify
 ➜ Local: http://localhost:3000/
 ✔ Vite client built
+# npm run build → client + server built (ไม่มี Build failed)
 ```
 
-## ก่อนรายงาน user
+## ลำดับเมื่อพบ error/warn
 
-- [ ] อ่าน terminal output ล่าสุดแล้ว
-- [ ] ไม่มี error
-- [ ] ไม่มี warn (ยกเว้น user ยอมรับเป็น known issue ชัดเจน)
+1. ระบุไฟล์/บรรทัด/คำสั่งที่ fail
+2. แก้ root cause
+3. รันคำสั่งเดิม + อ่าน terminal ซ้ำ
+4. ค่อยรายงาน user

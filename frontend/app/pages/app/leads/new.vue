@@ -1,8 +1,10 @@
 <script setup lang="ts">
 definePageMeta({ middleware: 'auth', layout: 'app' })
-await useProfile().ensureProfile()
+
+const { ensureProfile } = useProfile()
+await ensureProfile()
 </script>
 
 <template>
-  <AppMenuComingSoon menu-key="opportunity" />
+  <LeadsLeadPage mode="new" />
 </template>

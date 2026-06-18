@@ -6,6 +6,72 @@
 
 ## ประวัติ
 
+### 2026-06-18 — Opportunities module v1 (implement)
+
+- **Route:** `/app/opportunities` · `/app/opportunities/from-lead/:leadId` · `/app/opportunities/:id` · `/app/opportunities/:id/edit`
+- **DB:** migration `20260608120081_opportunities_module.sql`
+- **Flow:** สร้างจากลีดเท่านั้น · ปุ่ม Convert บนหน้าดูลีด · stage จาก default pipeline
+- **Spec:** [OPPORTUNITIES-MODULE.md](./OPPORTUNITIES-MODULE.md) · QA: [QA-OPPORTUNITIES.md](../11-dev-setup/QA-OPPORTUNITIES.md)
+
+### 2026-06-18 — Leads list table redesign
+
+- ตารางใหม่ `LeadsLeadTable.vue` — คอลัมน์กระชับ · มูลค่า · ดำเนินการถัดไป · เจ้าของ
+- ฟิลเตอร์ชิปสถานะ · การ์ดสรุปกดกรองลีดร้อนแรง
+- **Spec:** [LEADS-MODULE.md](./LEADS-MODULE.md)
+
+### 2026-06-18 — Leads module v1 (implement)
+
+- **Route:** `/app/leads` · `/app/leads/new` · `/app/leads/:id/edit`
+- **DB:** migration `20260608120075_leads_module.sql`
+- **Spec:** [LEADS-MODULE.md](./LEADS-MODULE.md) — สถานะ ✅ implement v1
+
+### 2026-06-18 — Leads module design spec
+
+- **Docs:** `LEADS-MODULE.md` — รายการ + summary cards · filter · ฟอร์ม New Lead (หน้าเต็ม) · Lead Score · Address · อ้างอิง mockup ระบบเก่า
+- **อัปเดต:** `APP-MENU.md`, `README.md`
+
+### 2026-06-08 — Tasks list date range filter
+
+- **UX:** ช่วงวันที่ (ตั้งแต่–ถึง) ต่อท้ายช่องค้นหา · กรองตาม `start_at`
+- **ไฟล์:** `AppDateRangeFilter.vue`, `tasks.vue`, `masterTasks.ts`
+
+### 2026-06-08 — Tasks calendar day indicator redesign
+
+- **UX:** ช่องวันที่มีงาน — ขอบ/พื้นหลัง primary · ปุ่มเต็มความกว้างด้านล่าง · วันนี้เน้นวงกลม primary
+- **ไฟล์:** `TasksCalendar.vue`
+
+### 2026-06-08 — Tasks list schedule filters
+
+- **UX:** กรอง list/table/grid ตามปี · เดือน · วันเริ่ม (`start_at`) — default ปีปัจจุบัน
+- **ไฟล์:** `tasks.vue`, `masterTasks.ts` — `taskMatchesScheduleFilters`
+
+### 2026-06-08 — Tasks dynamic statuses (Master Data)
+
+- **UX:** summary cards / list filter จาก `module_statuses` active · create default = `is_default` · edit งาน inactive ยังเลือกสถานะเดิม
+- **Docs:** `TASKS-MODULE.md` § lifecycle สถานะ
+
+### 2026-06-08 — Tasks form modal layout
+
+- **UX:** flow แนวตั้ง · select ค้นหาได้ · `TasksFormModal.vue`
+- **Docs:** `TASKS-MODULE.md` modal wireframe
+
+### 2026-06-08 — Modal overlay ดำ fade
+
+- **UI:** พื้นหลัง `UModal` / `AppDialog` ทั้งระบบ — `bg-black/60` + fade animation
+- **ไฟล์:** `app/app.config.ts`, `components/AppDialog.vue`, `SHARED-COMPONENTS.md`
+
+### 2026-06-08 — AppViewModeToggle shared component
+
+- **Component:** `AppViewModeToggle` + `config/appViewMode.ts` — table/grid และ list/calendar presets
+- **Refactor:** Setup roles, company profiles, Tasks
+- **i18n:** `common.viewMode.*`
+
+### 2026-06-08 — Tasks page Phase 2 v1
+
+- **Route:** `/app/tasks` — summary cards · status tabs (list) · calendar view · CRUD modal
+- **ไฟล์:** `components/tasks/*`, `composables/useTasks.ts`, `config/masterTasks.ts`, i18n `tasks.*`
+- **Docs:** `TASKS-MODULE.md`, `APP-MENU.md`
+
 ### 2026-06-08 — Tasks module design spec (Phase 2)
 
 - **เอกสาร:** `TASKS-MODULE.md` — job code auto-running, lazy seed, ปฏิทินแยก view, Create Task modal (ระบบเก่า)

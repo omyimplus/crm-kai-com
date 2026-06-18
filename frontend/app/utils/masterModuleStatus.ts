@@ -172,5 +172,24 @@ export function moduleStatusSaveErrorMessage(error: unknown, t: (key: string) =>
 
 export function moduleStatusDeleteErrorMessage(error: unknown, t: (key: string) => string): string {
   const message = getSupabaseErrorMessage(error, t('common.deleteFailed'))
+  if (message.includes('Module status in use by tasks')) {
+    return t('masterData.moduleStatuses.validation.inUseByTasks')
+  }
   return message || t('common.deleteFailed')
+}
+
+const MODULE_STATUS_FALLBACK_COLOR = '#94a3b8'
+
+/** พื้น subtle + ตัวอักษรสีสถานะ — ใช้กับ UBadge ใน list/card */
+export function moduleStatusTintStyle(color: string | null | undefined) {
+  const value = color?.trim()
+  if (!value) return undefined
+  return {
+    backgroundColor: `${value}22`,
+    color: value
+  }
+}
+
+export function moduleStatusAccentColor(color: string | null | undefined) {
+  return color?.trim() || MODULE_STATUS_FALLBACK_COLOR
 }

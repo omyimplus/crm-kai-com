@@ -76,6 +76,8 @@ NUXT_PUBLIC_SUPABASE_KEY=sb_publishable_xxxx
 → [TEST-ACCOUNTS.md](./TEST-ACCOUNTS.md) — บัญชีทดสอบ  
 → **[QA-GUIDE.md](./QA-GUIDE.md)** — คู่มือทดสอบ **ชั้น 0–7** (อ่านก่อน) · ชั้น 7 = ยิงทะลุ API นอกระบบ  
 → [QA-CUSTOMER-CONTACT.md](./QA-CUSTOMER-CONTACT.md) — checklist ลูกค้า + ผู้ติดต่อ  
+→ [QA-LEADS.md](./QA-LEADS.md) — checklist สร้างลีด (ลูกค้าเก่า + ลูกค้าใหม่)  
+→ [QA-OPPORTUNITIES.md](./QA-OPPORTUNITIES.md) — checklist แปลงลีด → โอกาสขาย  
 → **กู้คืน:** แท็บ ใช้งาน/ถูกลบ บน `/app/customer` และ `/app/contact` (migration 43–44)
 
 ---

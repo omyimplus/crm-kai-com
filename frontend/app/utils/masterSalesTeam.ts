@@ -83,6 +83,12 @@ export function validateMasterSalesTeamForm(
   return null
 }
 
+export function salesTeamMemberProfileIds(team: Pick<SalesTeam, 'team_lead_id' | 'sales_team_members'>) {
+  const ids = new Set((team.sales_team_members ?? []).map(member => member.profile_id))
+  if (team.team_lead_id) ids.add(team.team_lead_id)
+  return [...ids]
+}
+
 export function salesTeamDisplayLabel(team: Pick<SalesTeam, 'name'>) {
   return team.name
 }

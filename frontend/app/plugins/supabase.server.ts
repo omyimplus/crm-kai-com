@@ -66,7 +66,12 @@ export default defineNuxtPlugin({
     if (useSsrCookies) {
       const { data: { session } } = await client.auth.getSession()
       useSupabaseSession().value = session
-      useSupabaseUser().value = session?.user ?? null
+      if (session) {
+        const { data: { user } } = await client.auth.getUser()
+        useSupabaseUser().value = user
+      } else {
+        useSupabaseUser().value = null
+      }
     }
   }
 })

@@ -15,5 +15,11 @@ export function useFormat() {
     }).format(new Date(value))
   }
 
-  return { formatCurrency, formatDateTime }
+  function formatDate(value: string | null | undefined) {
+    if (!value) return '—'
+    const intlLocale = locale.value === 'th' ? 'th-TH' : 'en-US'
+    return new Intl.DateTimeFormat(intlLocale, { dateStyle: 'medium' }).format(new Date(value))
+  }
+
+  return { formatCurrency, formatDateTime, formatDate }
 }

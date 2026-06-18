@@ -29,6 +29,13 @@
       "next": "Next",
       "page": "Page {page} / {total}"
     },
+    "viewMode": {
+      "groupLabel": "Display mode",
+      "table": "Table view",
+      "grid": "Card view",
+      "list": "List view",
+      "calendar": "Calendar view"
+    },
     "imageUpload": {
       "upload": "Upload image",
       "change": "Change image",
@@ -150,8 +157,8 @@
       ]
     },
     "lead": {
-      "nav": "Lead",
-      "title": "Lead",
+      "nav": "Leads",
+      "title": "Leads",
       "description": "Capture and qualify prospects before converting to opportunities",
       "features": [
         "Leads from multiple sources",
@@ -258,6 +265,461 @@
         "Link contracts and projects",
         "Customer service history"
       ]
+    }
+  },
+  "tasks": {
+    "pageTitle": "Tasks",
+    "pageSubtitle": "Manage your tasks and meetings",
+    "pageHint": "Tap a status card to filter · click a task to edit",
+    "newTask": "New task",
+    "createFirst": "Create your first task",
+    "emptyAll": "No tasks yet — start by creating one",
+    "createTitle": "Create task",
+    "editTitle": "Edit task",
+    "createSubtitle": "Pick a type, enter a subject, then set assignee and dates",
+    "editSubtitle": "Update task details and save",
+    "create": "Create task",
+    "save": "Save changes",
+    "none": "— None —",
+    "statusesMissing": "No active task statuses — configure under Master Data → Module Status → Task, or apply the Tasks migration",
+    "noActiveStatuses": "No active task statuses — enable statuses in Master Data or set a default",
+    "openModuleStatuses": "Open task statuses",
+    "emptyCell": "—",
+    "empty": "No tasks in this view yet",
+    "deleteTitle": "Delete task",
+    "deleteConfirm": "Delete “{name}”? This can be reviewed in activity logs.",
+    "changeStatus": {
+      "action": "Change status",
+      "title": "Change status",
+      "subtitle": "Update the workflow status and record when it changed",
+      "currentStatus": "Current status",
+      "save": "Save status"
+    },
+    "customerInfo": {
+      "titleFallback": "Customer details",
+      "hint": "Contact details for this customer — tap a contact to open their profile",
+      "openFor": "View contact details for {name}",
+      "contactSection": "Customer contact",
+      "address": "Address",
+      "linkedContact": "Contact on this task",
+      "linkedContactBadge": "On task",
+      "openProfile": "Open customer profile",
+      "loadFailed": "Could not load customer details"
+    },
+    "sections": {
+      "taskInfo": "Task info",
+      "people": "People & related",
+      "details": "Details",
+      "schedule": "Schedule & status",
+      "related": "Assignee & customer",
+      "relatedHint": "Assign to a sales team or a person (one or the other) · pick a customer first — contacts are filtered automatically"
+    },
+    "fields": {
+      "taskCode": "Task code",
+      "activityType": "Activity type",
+      "subject": "Subject",
+      "subjectPlaceholder": "Task subject",
+      "status": "Status",
+      "priority": "Priority",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "statusChangedAt": "Status changed on",
+      "statusChangedAtHint": "Date and time when the status was set",
+      "assignedBy": "Assigned by",
+      "assignedTo": "Assigned to",
+      "assignTarget": "Assign to",
+      "assignTargetHint": "Choose one — sales team or person",
+      "assignTargetTeam": "Sales team",
+      "assignTargetPerson": "Person",
+      "salesTeam": "Sales team",
+      "customer": "Customer related",
+      "contact": "Contact",
+      "description": "Description",
+      "descriptionPlaceholder": "Optional description…"
+    },
+    "columns": {
+      "task": "Task",
+      "type": "Type",
+      "customer": "Customer",
+      "contact": "Contact",
+      "assigned": "Assignee",
+      "assignedTo": "Assignee",
+      "assignedBy": "Assigned by",
+      "priority": "Priority",
+      "status": "Status",
+      "date": "Date",
+      "startDate": "Start",
+      "endDate": "End",
+      "actions": "Actions"
+    },
+    "filters": {
+      "search": "Search tasks…",
+      "allTypes": "All types",
+      "dateRange": "Date range",
+      "dateFrom": "From",
+      "dateTo": "To",
+      "typeGroup": "Task type",
+      "statusTabs": "Task status",
+      "displayCount": "{count} tasks · {status}",
+      "noResults": "No tasks match your filters",
+      "clear": "Clear filters"
+    },
+    "views": {
+      "groupLabel": "List or calendar",
+      "backToList": "Back to list",
+      "openCalendar": "Calendar",
+      "calendarMode": "Calendar view — all statuses shown",
+      "list": "List",
+      "calendar": "Calendar"
+    },
+    "calendar": {
+      "prevMonth": "Previous month",
+      "nextMonth": "Next month",
+      "more": "+{count} more",
+      "taskCount": "{count} tasks",
+      "taskCountLabel": "tasks",
+      "openDay": "View {count} tasks starting on this day",
+      "dayTitle": "Tasks starting {date}",
+      "dayTitleFallback": "Tasks on selected day",
+      "dayHint": "Tap a task to open details",
+      "dayEmpty": "No tasks on this day"
+    },
+    "statusChangeLog": {
+      "title": "Status change log",
+      "hint": "Only records when the status actually changed — set the date and time for each change",
+      "listLabel": "Status change history",
+      "dateFor": "Date for {status}",
+      "dateTimeFor": "Date and time for {status}",
+      "changedBy": "by {name}",
+      "empty": "No status changes recorded yet"
+    },
+    "statusCodes": {
+      "OPEN": "Open",
+      "IN_PROGRESS": "In progress",
+      "COMPLETED": "Completed",
+      "CANCELLED": "Cancelled"
+    },
+    "options": {
+      "type": {
+        "task": "Task",
+        "call": "Call",
+        "email": "Email",
+        "meeting": "Meeting",
+        "visit": "Visit"
+      },
+      "priority": {
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      }
+    },
+    "errors": {
+      "subjectRequired": "Subject is required",
+      "statusRequired": "Status is required",
+      "saveFailed": "Could not save task"
+    }
+  },
+  "leads": {
+    "pageTitle": "Leads",
+    "pageSubtitle": "Manage leads with scoring",
+    "newLead": "New lead",
+    "createFirst": "Create your first lead",
+    "emptyAll": "No leads yet — create your first one",
+    "createTitle": "New lead",
+    "editTitle": "Edit lead",
+    "viewTitle": "Lead details",
+    "viewSubtitle": "View lead information",
+    "view": "View lead",
+    "createSubtitle": "Fill in the details to create a new lead",
+    "editSubtitle": "Update lead details and save",
+    "create": "Create lead",
+    "save": "Save changes",
+    "none": "— None —",
+    "badge": "Lead",
+    "emptyCell": "—",
+    "actions": "Actions",
+    "deleteTitle": "Delete lead",
+    "deleteConfirm": "Delete “{name}”? This can be reviewed in activity logs.",
+    "summary": {
+      "active": "Active leads",
+      "hot": "Hot leads (80+)",
+      "potentialValue": "Potential value",
+      "potentialValueFiltered": "Value (filtered)"
+    },
+    "sections": {
+      "customer": "Customer",
+      "general": "Lead details",
+      "score": "Lead score",
+      "requirement": "Customer message / requirement"
+    },
+    "fields": {
+      "customerMode": "Link customer",
+      "customerModeHint": "Choose an existing customer or create a new one — the customer is saved before the lead",
+      "companySearch": "Search customer",
+      "companySearchHint": "Select a customer — summary shown with link to full profile",
+      "companySearchPlaceholder": "Search customer name…",
+      "companySearchEmpty": "Select a customer to show details",
+      "customerSummaryHint": "Edit tax, addresses, and other details on the customer page",
+      "editCustomerDetails": "Edit customer details",
+      "customerNewFormHint": "Same fields as customer creation — general · tax · bill-to (add ship-to on the customer page)",
+      "leadCode": "Lead code",
+      "leadType": "Lead type",
+      "leadTypePlaceholder": "Select lead type…",
+      "owner": "Lead owner (Sales)",
+      "teleSale": "Tele sales",
+      "fullName": "Contact name",
+      "fullNamePlaceholder": "Contact full name",
+      "leadValue": "Lead value",
+      "leadSource": "Lead source",
+      "status": "Lead status",
+      "priority": "Priority",
+      "nextActionDate": "Next action date",
+      "nextAction": "Next action",
+      "leadScore": "Lead score",
+      "leadScoreHint": "Drag the slider or use quick presets — red / orange / green for Cold · Warm · Hot",
+      "requirement": "Customer requirement",
+      "requirementPlaceholder": "Enter customer requirements…"
+    },
+    "columns": {
+      "lead": "Lead",
+      "score": "Score",
+      "name": "Name",
+      "company": "Customer",
+      "value": "Value",
+      "email": "Email",
+      "phone": "Phone",
+      "source": "Source",
+      "owner": "Lead owner",
+      "teleSale": "Tele sales",
+      "nextAction": "Next action",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "filters": {
+      "search": "Search",
+      "searchPlaceholder": "Search leads…",
+      "status": "Status",
+      "source": "Source",
+      "allStatuses": "All statuses",
+      "allSources": "All sources",
+      "hotOnly": "Hot leads (80+)",
+      "statusTabs": "Filter by status",
+      "dateRange": "Date range",
+      "dateFrom": "From",
+      "dateTo": "To",
+      "dateField": {
+        "created": "Created date",
+        "nextAction": "Next action date"
+      },
+      "displayCount": "Showing {count} · {filter}",
+      "noResults": "No leads match your filters",
+      "clear": "Clear filters"
+    },
+    "statusCodes": {
+      "NEW": "New",
+      "OPEN": "Open",
+      "CONTACTED": "Contacted",
+      "NURTURING": "Nurturing",
+      "QUALIFIED": "Qualified",
+      "UNQUALIFIED": "Unqualified",
+      "CANCELLED": "Cancelled",
+      "CONVERTED": "Converted to opportunity"
+    },
+    "options": {
+      "customerMode": {
+        "existing": "Existing customer",
+        "new": "New customer"
+      },
+      "leadType": {
+        "end_user": "End User",
+        "dealer": "Dealer",
+        "contractor": "Contractor",
+        "distributor": "Distributor",
+        "oem": "OEM",
+        "other": "Other"
+      },
+      "priority": {
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      },
+      "scoreTier": {
+        "cold": "Cold",
+        "warm": "Warm",
+        "hot": "Hot"
+      }
+    },
+    "validation": {
+      "customerRequired": "Please select a customer",
+      "emailRequired": "Email is required",
+      "mobileRequired": "Mobile is required",
+      "statusRequired": "Lead status is required",
+      "taxIdInvalid": "Tax ID must be exactly 13 digits",
+      "scoreInvalid": "Lead score must be between 0 and 100"
+    },
+    "errors": {
+      "saveFailed": "Could not save lead"
+    },
+    "convertToOpportunity": "Convert to opportunity",
+    "viewOpportunity": "View opportunity"
+  },
+  "opportunities": {
+    "pageTitle": "Opportunities",
+    "pageSubtitle": "Manage sales opportunities converted from qualified leads",
+    "createTitle": "New opportunity",
+    "editTitle": "Edit opportunity",
+    "viewTitle": "Opportunity details",
+    "viewSubtitle": "View opportunity",
+    "view": "View",
+    "viewLead": "View source lead",
+    "createSubtitle": "Fill in details to create an opportunity from this lead",
+    "editSubtitle": "Update opportunity details and save",
+    "create": "Create opportunity",
+    "save": "Save changes",
+    "defaultTitleSuffix": "Opportunity",
+    "none": "— None —",
+    "badge": "Opportunity",
+    "emptyCell": "—",
+    "notSet": "Not set",
+    "actions": "Actions",
+    "emptyAll": "No opportunities yet",
+    "emptyHint": "Create from a lead detail page — use Convert to opportunity",
+    "goToLeads": "Go to leads",
+    "deleteTitle": "Delete opportunity",
+    "deleteConfirm": "Delete “{name}”? This is recorded in the activity log.",
+    "summary": {
+      "pipeline": "Pipeline value",
+      "pipelineFiltered": "Pipeline value (filtered)",
+      "wonPeriod": "Won this period",
+      "open": "Open opportunities"
+    },
+    "sections": {
+      "opportunity": "Opportunity",
+      "project": "Project",
+      "projects": "Projects",
+      "people": "People",
+      "address": "Address"
+    },
+    "projects": {
+      "add": "Add project",
+      "empty": "No projects yet — add one to track value per project.",
+      "itemLabel": "Project {index}",
+      "totalValue": "Total estimated value:",
+      "hint": "Each project has its own value — the opportunity total syncs to the source lead on save."
+    },
+    "fields": {
+      "opportunityCode": "Opportunity code",
+      "leadCode": "Source lead code",
+      "title": "Opportunity name",
+      "titlePlaceholder": "Enter opportunity name…",
+      "customer": "Customer",
+      "customerPlaceholder": "Select customer…",
+      "stage": "Stage",
+      "stagePlaceholder": "Select stage…",
+      "probability": "Probability (%)",
+      "probabilityPlaceholder": "Auto from stage",
+      "estimatedValue": "Estimated value (THB)",
+      "closeDate": "Close date",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter details…",
+      "projectName": "Project name",
+      "projectNamePlaceholder": "e.g. Office renovation",
+      "projectType": "Project type",
+      "projectTypePlaceholder": "e.g. Installation, maintenance",
+      "projectSubType": "Project sub-type",
+      "projectSubTypePlaceholder": "e.g. Phase 1, warranty",
+      "productsGroup": "Products group",
+      "productsGroupPlaceholder": "e.g. HVAC, electrical",
+      "projectCosts": "Project costs (THB)",
+      "owner": "Opportunity owner",
+      "ownerPlaceholder": "Select owner…",
+      "salesOwner": "Sales owner",
+      "salesOwnerPlaceholder": "Select sales owner…",
+      "salesDesigner": "Sales designer",
+      "salesDesignerPlaceholder": "Select designer…",
+      "salesTeam": "Sales team",
+      "salesTeamPlaceholder": "Select team…",
+      "addressBillTo": "Bill-to address",
+      "addressBillToPlaceholder": "Enter billing address…",
+      "billToPlaceholder": "Select bill-to address…",
+      "billToFromCustomer": "Addresses come from the customer master — pick one for this opportunity.",
+      "billToEmpty": "This customer has no bill-to addresses yet.",
+      "addBillTo": "Add bill-to address",
+      "editCustomerBillTo": "Add addresses in customer master",
+      "shipToHint": "Multiple ship-to addresses — available after the opportunity is saved (next release)",
+      "leadLockedHint": "Fields copied from the source lead cannot be edited here — update the lead instead.",
+      "probabilityFromStage": "Set automatically from the selected stage.",
+      "estimatedValueSyncLead": "Saved to the opportunity and synced to the source lead.",
+      "editLeadForValue": "Edit lead to change estimated value",
+      "productsMultiHint": "One product group per opportunity in v1 — multiple line items coming in a future release."
+    },
+    "options": {
+      "projectType": {
+        "installation": "Installation",
+        "maintenance": "Maintenance",
+        "renovation": "Renovation",
+        "supply": "Supply",
+        "service": "Service",
+        "other": "Other"
+      },
+      "projectSubType": {
+        "phase_1": "Phase 1",
+        "phase_2": "Phase 2",
+        "warranty": "Warranty",
+        "upgrade": "Upgrade",
+        "other": "Other"
+      }
+    },
+    "columns": {
+      "title": "Opportunity",
+      "customer": "Customer",
+      "value": "Value",
+      "closeDate": "Close date",
+      "assigned": "Assigned to",
+      "stage": "Stage",
+      "actions": "Actions"
+    },
+    "filters": {
+      "searchPlaceholder": "Search opportunities…",
+      "allStages": "All stages",
+      "dateRange": "Date range",
+      "dateFrom": "From",
+      "dateTo": "To",
+      "dateField": {
+        "created": "Created date",
+        "close": "Close date"
+      },
+      "displayCount": "Showing {count} items",
+      "noResults": "No opportunities match your filters",
+      "clear": "Clear filters"
+    },
+    "stageNames": {
+      "lead": "Lead",
+      "qualified": "Qualified",
+      "proposal": "Proposal",
+      "negotiation": "Negotiation",
+      "won": "Closed won",
+      "lost": "Closed lost"
+    },
+    "validation": {
+      "titleRequired": "Opportunity name is required",
+      "customerRequired": "Customer is required",
+      "stageRequired": "Stage is required",
+      "ownerRequired": "Opportunity owner is required",
+      "probabilityInvalid": "Probability must be between 0 and 100",
+      "valueInvalid": "Value cannot be negative",
+      "costsInvalid": "Costs cannot be negative"
+    },
+    "errors": {
+      "saveFailed": "Could not save opportunity"
+    },
+    "billToModal": {
+      "title": "Add bill-to address",
+      "titleNamed": "Add bill-to address — {name}",
+      "subtitle": "Saved to this customer and selected for the opportunity.",
+      "save": "Save address",
+      "addressRequired": "Address is required",
+      "saveFailed": "Could not save bill-to address"
     }
   },
   "profile": {
@@ -391,8 +853,10 @@
       },
       "fields": {
         "customerType": "Customer Type",
+        "customerTypePlaceholder": "Select customer type…",
         "email": "Email",
         "industrySegment": "Industry Segment",
+        "industrySegmentPlaceholder": "Select industry…",
         "companyName": "Company Name",
         "phone": "Phone",
         "industry": "Industry",
@@ -448,10 +912,16 @@
           "individual": "Individual"
         },
         "industrySegment": {
-          "enterprise": "Enterprise",
-          "sme": "SME",
-          "startup": "Startup",
-          "individual": "Individual"
+          "agriculture": "Agriculture",
+          "construction": "Construction",
+          "education": "Education",
+          "finance": "Finance",
+          "healthcare": "Healthcare",
+          "hospitality": "Hospitality",
+          "manufacturing": "Manufacturing",
+          "retail": "Retail",
+          "technology": "Technology",
+          "transportation": "Transportation"
         },
         "industry": {
           "agriculture": "Agriculture",
@@ -466,11 +936,11 @@
           "transportation": "Transportation"
         },
         "salesGrade": {
-          "vip": "VIP — Very Important Customer",
-          "a": "A — High Purchase",
-          "b": "B — Regular Customer",
-          "c": "C — Low Purchase",
-          "prospect": "Prospect — Target Customer"
+          "vip": "VIP · Top priority customer",
+          "a": "A · High purchase volume",
+          "b": "B · Regular customer",
+          "c": "C · Low purchase volume",
+          "prospect": "Prospect · Target customer"
         },
         "status": {
           "active": "Active",
@@ -1231,6 +1701,7 @@
       },
       "options": {
         "module": {
+          "task": "Tasks",
           "customer": "Customer",
           "contact": "Contact",
           "lead": "Lead",
@@ -1259,7 +1730,8 @@
         "nameRequired": "Status name is required",
         "sortOrderInvalid": "Sort order must be 0 or greater",
         "colorInvalid": "Color must be a valid hex code (e.g. #22c55e)",
-        "duplicateCode": "This status code already exists for the selected module"
+        "duplicateCode": "This status code already exists for the selected module",
+        "inUseByTasks": "Tasks are using this status — set it to inactive instead of deleting, or move tasks to another status first"
       }
     },
     "jobCode": {

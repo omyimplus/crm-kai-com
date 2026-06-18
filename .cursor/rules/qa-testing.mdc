@@ -1,5 +1,5 @@
 ---
-description: QA / tester — อ่าน QA-GUIDE ก่อนทดสอบ ทำตามชั้น 0–7
+description: QA / tester — Claude agent เท่านั้น · อ่าน QA-GUIDE ก่อนทดสอบ ชั้น 0–7
 alwaysApply: true
 ---
 
@@ -9,15 +9,36 @@ alwaysApply: true
 
 1. **`docs/11-dev-setup/QA-GUIDE.md`** — ชั้น 0–7 (Environment → Audit → **Bypass**)
 2. **`docs/11-dev-setup/TEST-ACCOUNTS.md`** — login · migration
-3. Checklist โมดูล (ถ้าเกี่ยว): **`docs/11-dev-setup/QA-CUSTOMER-CONTACT.md`**
+3. Checklist โมดูล (ถ้าเกี่ยว): **`docs/11-dev-setup/QA-*.md`** (เช่น `QA-LEADS.md`, `QA-OPPORTUNITIES.md`)
 
-## บังคับ
+## Agent — Claude เท่านั้น (บังคับ)
+
+งาน **QA / tester ทั้งหมด** ในโปรเจกต์นี้ให้รันผ่าน **Cursor Agent ที่เป็น Claude** เท่านั้น
+
+| ✅ ใช้ | ❌ ห้ามใช้สำหรับ QA |
+|--------|---------------------|
+| Claude (Sonnet / Opus ใน Cursor Chat หรือ Agent) | Composer · GPT · Gemini · โมเดลอื่นที่ไม่ใช่ Claude |
+| Browser automation ผ่าน agent Claude ตาม QA-GUIDE | สลับโมเดลกลางรอบ QA แล้วสรุปต่อจาก context คนละโมเดล |
+
+**ทีม / ชั้น (user):**
+
+- เปิด session QA ใหม่ → เลือก **Claude** เป็น agent ก่อนเริ่มชั้น 0
+- ใช้ agent เดียวกันจบทั้งรอบ (ชั้น 0→7 + retest) — อย่าแยกรอบ QA คนละโมเดล
+- สั่งงานด้วยคำว่า **ทดสอบ / QA / retest** เพื่อให้ rule นี้ทำงาน
+
+**Agent (Claude) ที่รับงาน QA:**
+
+- ทำตามชั้น 0→7 ใน `QA-GUIDE.md` — ไม่ข้ามไป implement แทน tester
+- รายงาน PASS/FAIL ทีละชั้น · บัคระบุ **ชั้น** + Expected/Actual
+- ใช้ browser / terminal จริง — ห้ามเดา PASS โดยไม่รัน
+
+## บังคับ (ขั้นตอนทดสอบ)
 
 - ทดสอบ **ชั้น 0 → 7** ตามลำดับ — ชั้นล่าง fail อย่ารีบทดสอบชั้นบน · **ชั้น 7** (ยิงทะลุ) หลังชั้น 2
 - บันทึกผลทีละชั้น (PASS/FAIL) ตามรูปแบบใน QA-GUIDE
 - บัคใหม่ระบุ **ชั้น** + Expected/Actual
-- หลังแก้โค้ด/ migration — retest จากชั้นที่ fail
+- หลังแก้โค้ด/ migration — retest จากชั้นที่ fail (ยังใช้ **Claude agent** รอบเดิมหรือ session Claude ใหม่)
 
 ## ไม่ใช่งาน tester
 
-Implement feature / migration / UI — ใช้ `crm-kai-docs.mdc` ตามปกติ ไม่ต้องรัน checklist QA เต็มชุด
+Implement feature / migration / UI — ใช้ `crm-kai-docs.mdc` ตามปกติ ไม่ต้องรัน checklist QA เต็มชุด · ไม่บังคับจำกัดโมเดล (ยกเว้น user ต้องการเอง)

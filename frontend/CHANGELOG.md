@@ -6,6 +6,244 @@
 
 ## ประวัติ
 
+### 2026-06-18 — Opportunities i18n (th/en)
+
+- แปลครบ `opportunities.*` · `stageNames` สำหรับ default pipeline · `usePipelineStageLabel`
+- ชื่อ prefill จากลีดใช้ `defaultTitleSuffix` แทน hardcode ภาษาอังกฤษ
+
+### 2026-06-18 — Opportunities module v1
+
+- **Route:** `/app/opportunities` · `from-lead/:leadId` · `:id` · `:id/edit`
+- **DB:** migration `20260608120081_opportunities_module.sql` (ต้อง apply ก่อนทดสอบ)
+- **Flow:** สร้างจากลีดเท่านั้น · Convert บนหน้าดูลีด
+- **Spec:** [OPPORTUNITIES-MODULE.md](../docs/05-frontend/OPPORTUNITIES-MODULE.md)
+
+### 2026-06-18 — Leads: หน้าดู + ปุ่มดู (แยกจากแก้ไข)
+
+- Route `/app/leads/:id` · `LeadsLeadViewPage.vue` (readonly)
+- ตาราง/การ์ด: ปุ่มดู (eye) · ไม่คลิกแถวเข้าแก้ไข
+- หลังสร้าง/บันทึกแก้ไข → กลับหน้าดู
+
+### 2026-06-18 — Leads list: ตารางใหม่ + ฟิลเตอร์
+
+- ตาราง: คอลัมน์ Lead (คะแนน + ชื่อ + รหัส + ความสำคัญ) · มูลค่า · ดำเนินการถัดไป · แหล่งที่มา · เจ้าของ · สถานะ
+- ฟิลเตอร์: ชิปสถานะ · การ์ดสรุปสอดคล้องตัวกรอง · ช่วงวันที่
+- `LeadsStatusBadge` — UBadge subtle + จุดสี (สไตล์เดียวกับ Tasks)
+- component `LeadsLeadTable.vue`
+
+### 2026-06-18 — Lead form: ฟอร์มลูกค้าใหม่ตามหน้าสร้างลูกค้า
+
+- ลูกค้าใหม่บนหน้าลีด: ใช้ `MasterDataCustomerForm` — ข้อมูลทั่วไป · ภาษี · ที่อยู่ออกใบแจ้งหนี้ (ซ่อน ship-to)
+- ลูกค้าในระบบ: สรุป + ปุ่มไป `/app/customer/:id/edit`
+- ลบ `LeadsCustomerQuickForm` (ฟิลด์น้อยเกินไป)
+
+### 2026-06-18 — Lead form: ย่อฟอร์มลูกค้า (superseded)
+
+### 2026-06-18 — Fix lead_value save on edit (number from spinbutton)
+
+- `formToLeadPayload`: coerce `lead_value` with `String()` before `.trim()` — แก้ error ตอนบันทึกแก้ไขลีดเมื่อมูลค่าเป็น number
+
+### 2026-06-18 — Lead form layout: ลูกค้าก่อนคะแนนลีด
+
+- ลำดับ: ข้อมูลทั่วไป → ลูกค้า → คะแนนลีด → ความต้องการ
+
+### 2026-06-18 — Lead form layout: ข้อมูลลีดบนสุด
+
+- หน้า new/edit: `LeadsForm` ก่อน `LeadsCustomerSection`
+
+### 2026-06-18 — Fix: customer_type vs lead_type
+
+- **Customer Type** กลับ `company` / `individual` (เหมือนฟอร์มลูกค้า)
+- **Lead Type** → End User · Dealer · Contractor · Distributor · OEM · Other
+- migration `20260608120080_restore_customer_type_lead_type_channel.sql`
+
+### 2026-06-18 — Industry Segment catalog (mockup)
+
+- `industry_segment`: Agriculture … Transportation (แทน enterprise/sme/startup/individual)
+- ซ่อนฟิลด์ Industry ซ้ำในฟอร์ม · placeholder th/en
+- migration `20260608120079_industry_segment_catalog.sql`
+
+### 2026-06-18 — Customer Type channel options (mockup) — **ยกเลิก**
+
+- ~~`CUSTOMER_TYPES`: End User …~~ → revert ใน `20260608120080_*` · ย้ายไป `lead_type` แทน
+
+### 2026-06-18 — Leads i18n polish (th + en)
+
+- แปล `leads.*` ครบ — สถานะ · คะแนน · คอลัมน์ · ประเภทลีด · เมนู
+
+### 2026-06-18 — Lead status catalog (8 statuses)
+
+- **สถานะ:** NEW · OPEN · CONTACTED · NURTURING · QUALIFIED · UNQUALIFIED · CANCELLED · CONVERTED
+- **Migration:** `20260608120077_lead_status_catalog.sql` · i18n `leads.statusCodes.*`
+
+### 2026-06-18 — Leads score UI polish
+
+- **`LeadsScoreControl`** — ring gauge · gradient slider · tier legend · quick presets
+- **`LeadsScoreBadge`** — progress ring ใน list/grid
+
+### 2026-06-18 — Leads customer section (existing vs new)
+
+- **โหมด:** ลูกค้าในระบบ (ค้นหา + readonly) · ลูกค้าใหม่ (ฟอร์มสร้างลูกค้า + validate + create ก่อนบันทึกลีด)
+- **ไฟล์:** `LeadsCustomerSection.vue` · reuse `MasterDataCustomerForm`
+- **fix:** import `CUSTOMER_*` จาก `config/masterCustomer` (build error)
+
+### 2026-06-18 — Leads form pulls from customer + contact
+
+- **ฟอร์ม:** เลือกลูกค้า/ผู้ติดต่อ → auto-fill ข้อมูลทั่วไป · `contact_id` บน `leads`
+- **Migration:** `20260608120076_leads_contact_id.sql`
+
+### 2026-06-18 — Leads module v1 (frontend + migration)
+
+- **Route:** `/app/leads` · `/app/leads/new` · `/app/leads/:id/edit`
+- **DB:** `20260608120075_leads_module.sql` — table `leads` · RPC CRUD · seed module `lead`
+- **ไฟล์:** `components/leads/*`, `useLeads.ts`, `masterLeads.ts`, i18n `leads.*`
+
+### 2026-06-08 — Tasks priority badge smaller text
+
+- **UX:** badge ความสำคัญ — `text-xs` · padding/มุมโค้งกะทัดรัดขึ้น
+- **ไฟล์:** `TasksPriorityBadge.vue`
+
+### 2026-06-08 — Tasks assign target team OR person
+
+- **UX:** มอบหมายให้ — สลับทีมขาย / บุคคล (เลือกได้อย่างใดอย่างหนึ่ง) · ตาราง/การ์ดแสดงชื่อทีมเมื่อมอบให้ทีม
+- **ไฟล์:** `TasksFormModal.vue`, `masterTasks.ts`, `tasks.vue`, `TasksTaskCard.vue`
+
+### 2026-06-08 — Tasks form sales team
+
+- **UX:** ฟอร์มสร้าง/แก้ไขงาน — เลือกทีมขาย · กรองผู้รับผิดชอบตามสมาชิกทีม
+- **DB:** `tasks.sales_team_id` · migration `20260608120074_tasks_sales_team.sql`
+- **ไฟล์:** `TasksFormModal.vue`, `tasks.vue`, `masterTasks.ts`, `crm.ts`
+
+### 2026-06-08 — Tasks actions column header
+
+- **UX:** คอลัมน์การทำงาน — ไม่แสดงหัวข้อใน header · ปุ่มชิดขวา (`align="right"`)
+- **ไฟล์:** `tasks.vue`
+
+### 2026-06-08 — Tasks table row truncate + semibold
+
+- **UX:** หัวของ truncate ไม่ล้นคอลัมน์ · `table-fixed` + กำหนดความกว้าง · ทั้งแถว `font-semibold`
+- **ไฟล์:** `tasks.vue`, `appTableRowClass`, task cell components
+
+### 2026-06-08 — Tasks table typography unify
+
+- **UX:** ชื่อ · ลูกค้า · ผู้ติดต่อ · ความสำคัญ — ใช้ `appTableTextClass` (IBM Plex 400) เดียวกัน · priority ไม่ใช้ UBadge
+- **ไฟล์:** `appFormUi.ts`, `TasksPriorityBadge`, `TasksCustomerLink`, `TasksContactCell`, `tasks.vue`
+
+### 2026-06-08 — Tasks priority badge solid style
+
+- **UX:** ความสำคัญ — badge ใหญ่ขึ้น · พื้นเข้ม · ตัวอักษรขาว
+- **ไฟล์:** `TasksPriorityBadge.vue`, `TASK_PRIORITY_SOLID_COLORS`
+
+### 2026-06-08 — Tasks quick status change action
+
+- **UX:** ปุ่มธงในคอลัมน์การทำงาน + การ์ด → modal เปลี่ยนสถานะอย่างเดียว (ไม่เปิดฟอร์มแก้ไขเต็ม)
+- **ไฟล์:** `TasksStatusChangeModal.vue`, `tasks.vue`, `TasksTaskCard.vue`
+
+### 2026-06-08 — Tasks list priority colors + contact phone + assigner
+
+- **UX:** ความสำคัญสีแยก (สูง/กลาง/ต่ำ) · คอลัมน์ผู้ติดต่อ+เบอร์ · ผู้มอบหมาย + ผู้รับผิดชอบ
+- **ไฟล์:** `TasksPriorityBadge.vue`, `TasksContactCell.vue`, `tasks.vue`, `TasksTaskCard.vue`
+
+### 2026-06-08 — Tasks customer info dialog from table/card
+
+- **UX:** คลิกชื่อลูกค้าใน table/card → dialog โทร · อีเมล · ที่อยู่ · รายชื่อผู้ติดต่อ · ลิงก์โปรไฟล์ลูกค้า
+- **ไฟล์:** `TasksCustomerLink.vue`, `TasksCustomerInfoDialog.vue`, `tasks.vue`, `TasksTaskCard.vue`
+
+### 2026-06-08 — Tasks activity type colors
+
+- **UX:** สีแยกประเภทงาน (งาน/โทร/อีเมล/ประชุม/เยี่ยม) — filter · ตาราง · การ์ด · ฟอร์ม · dialog ปฏิทิน
+- **ไฟล์:** `masterTasks.TASK_TYPE_COLORS`, `TasksTypeIcon`, `TasksTypeBadge`
+
+### 2026-06-08 — Tasks list date range filter
+
+- **UX:** แทน filter ปี/เดือน/วัน — ช่วงวันที่ (ตั้งแต่–ถึง) ต่อท้ายช่องค้นหา · default เดือนปัจจุบัน
+- **ไฟล์:** `tasks.vue`, `AppDateRangeFilter.vue`, `masterTasks.taskMatchesDateRange`
+
+### 2026-06-08 — Tasks calendar day chip redesign
+
+- **UX:** ช่องวันที่มีงาน — ขอบ/พื้นหลัง primary · badge ตัวเลขมุมขวา · ปุ่มเต็มความกว้างด้านล่าง (icon + จำนวน) · วันนี้เน้นวงกลม primary
+- **ไฟล์:** `TasksCalendar.vue`
+
+### 2026-06-08 — Tasks list schedule filters (year / month / start date)
+
+- **UX:** กรอง list/table/grid ตามปี · เดือน · วันเริ่ม (`start_at`) · default ปีปัจจุบัน
+- **ไฟล์:** `tasks.vue`, `masterTasks.taskMatchesScheduleFilters`
+
+### 2026-06-08 — Tasks calendar count chip + day dialog
+
+- **UX:** ปฏิทินแสดง chip จำนวนงานตามวันเริ่ม · dialog รายการพร้อมวันสิ้นสุด · กดเปิดแก้ไข
+- **ไฟล์:** `TasksCalendar.vue`, `TasksCalendarDayDialog.vue`
+
+### 2026-06-08 — Task status change log datetime
+
+- **UX:** บันทึกเปลี่ยนสถานะใช้ `datetime-local` (วัน+เวลา) · default = ตอนเปลี่ยนสถานะ · แสดง preview `formatDateTime`
+
+### 2026-06-08 — Task status change log UX
+
+- **UX:** บันทึกเฉพาะการเปลี่ยนสถานะจริง + วันที่ · ไม่ใช่ stepper ครบทุกสถานะ · `TasksStatusChangeLog.vue`
+- **DB:** migration `20260608120073_task_status_history_changelog.sql`
+
+### 2026-06-08 — Task status timeline in form
+
+- **UX:** ลำดับสถานะตาม Master Data · ระบุวันที่แต่ละขั้น · เปลี่ยนสถานะบันทึกอัตโนมัติ
+- **ไฟล์:** `TasksStatusTimeline.vue`, `TasksFormModal.vue`, `useTasks.listStatusHistory`
+- **DB:** migration `20260608120072_task_status_history.sql`
+
+### 2026-06-08 — Tasks show end date in list views
+
+- **UX:** ตาราง/grid card แสดงวันเริ่ม + วันสิ้นสุด · ปฏิทินแสดงช่วงวันที่บน chip และโผล่ทั้งวันเริ่ม/วันสิ้นสุด
+- **ไฟล์:** `tasks.vue`, `TasksTaskCard.vue`, `TasksCalendar.vue`, `useFormat.formatDate`, `masterTasks.taskCalendarDateKeys`
+
+### 2026-06-08 — Tasks dynamic statuses (Master Data)
+
+- **UX:** การ์ดสรุป/list tab จาก `module_statuses` ที่ active (ไม่ hardcode 4 สถานะ) · default สร้างงาน = `is_default` · แก้ไขงานที่สถานะ inactive ยังเลือกสถานะเดิมได้
+- **Master Data:** ลบสถานะถูกบล็อกเมื่องานยังใช้อยู่ — ตั้ง inactive แทน · i18n `masterData.moduleStatuses.validation.inUseByTasks`
+- **ไฟล์:** `utils/masterTasks.ts`, `TasksSummaryCards.vue`, `tasks.vue`, `TasksFormModal.vue`, `utils/masterModuleStatus.ts`
+- **DB:** migration `20260608120071_module_status_block_delete_tasks.sql`
+
+### 2026-06-08 — Tasks default table view
+
+- **UX:** หน้า `/app/tasks` เปิดมาเป็นมุมมองตาราง (table) แทน grid
+
+### 2026-06-08 — Task status i18n display
+
+- **i18n:** แสดงชื่อสถานะจาก `tasks.statusCodes.*` ตาม locale (ไม่ใช้ชื่อ EN จาก DB) · `useTaskStatusLabel`
+- **th:** เปิดอยู่ · กำลังดำเนินการ · เสร็จสิ้น · ยกเลิกแล้ว
+
+### 2026-06-08 — Fix task status dropdown empty (list_tasks read-only)
+
+- **Root cause:** `list_tasks` STABLE เรียก INSERT → error → `Promise.all` ล้าง statuses ทั้งที่ DB มี 4 สถานะแล้ว
+- **Fix:** แยกโหลด statuses จาก `list()` · migration `20260608120070_fix_list_tasks_readonly.sql`
+
+### 2026-06-08 — Task status lazy seed fix
+
+- **Fix:** เรียก `ensure_task_module_defaults` ก่อนโหลดสถานะ (กัน race ใน `Promise.all`)
+- **UX:** ข้อความใน modal เมื่อยังไม่มีสถานะ · i18n `tasks.statusesMissing`
+
+### 2026-06-08 — Tasks form modal layout
+
+- **UX:** flow แนวตั้ง — ประเภท+หัวข้อ → กำหนดการ/สถานะ → ผู้รับผิดชอบ/ลูกค้า → รายละเอียด · select ค้นหาได้
+- **ไฟล์:** `components/tasks/TasksFormModal.vue`, i18n `tasks.createSubtitle`, `tasks.sections.schedule|related`
+
+### 2026-06-08 — Modal overlay ดำ fade
+
+- **UI:** พื้นหลัง modal ทั้งระบบ `bg-black/60` + fade in/out (ผ่าน `app.config.ts` + `AppDialog`)
+
+### 2026-06-08 — Tasks page UX pass
+
+- **UX:** การ์ดสถานะคลิกกรอง · chip ประเภท · ตารางกระชับ · คลิกแถว/การ์ดแก้ไข · default grid
+- **ไฟล์:** `pages/app/tasks.vue`, `TasksSummaryCards.vue`, `TasksTaskCard.vue`
+
+### 2026-06-08 — AppViewModeToggle (table/card switcher)
+
+- **ทำอะไร:** component กลางสลับมุมมอง · ใช้ใน roles, company profiles, tasks
+- **ไฟล์:** `AppViewModeToggle.vue`, `config/appViewMode.ts`, `common.viewMode` i18n
+
+### 2026-06-08 — Tasks module `/app/tasks` (Phase 2 v1)
+
+- **ทำอะไร:** หน้างาน CRM แรก — สรุปสถานะ · แท็บ list · ปฏิทิน (view switcher) · Create/Edit modal 3 คอลัมน์ · i18n th/en
+- **ไฟล์ที่กระทบ:** `pages/app/tasks.vue`, `components/tasks/*`, `composables/useTasks.ts`, `config/masterTasks.ts`, `config/appMenu.ts`, `AppSidebar.vue`, `locales/{th,en}.json`
+
 ### 2026-06-08 — แก้ build: import path supabaseRealtimeTransport
 
 - **ทำอะไร:** `app/plugins/supabase.server.ts` → `../../build/supabaseRealtimeTransport` (SSR build ผ่าน)

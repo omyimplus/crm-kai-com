@@ -64,8 +64,8 @@
 | email | text | YES | | |
 | mobile | text | YES | | |
 | notes | text | YES | | |
-| industry | text | YES | | slug — [§2 Industry](./CUSTOMER-MASTER-FIELDS.md#2-industry-industry) |
-| industry_segment | text | YES | `'sme'` | slug — [§1](./CUSTOMER-MASTER-FIELDS.md#1-industry-segment-industry_segment) |
+| industry | text | YES | | legacy mirror ของ `industry_segment` — [§2](./CUSTOMER-MASTER-FIELDS.md#2-industry-industry-legacy-column) |
+| industry_segment | text | YES | | slug อุตสาหกรรม — [§1](./CUSTOMER-MASTER-FIELDS.md#1-industry-segment-industry_segment) |
 | sales_grade | text | YES | | slug — [§3](./CUSTOMER-MASTER-FIELDS.md#3-sales-classification--grade-sales_grade) |
 | website | text | YES | | |
 | phone | text | YES | | |
@@ -487,6 +487,154 @@
 | updated_at | timestamptz | NO | now() | |
 | closed_at | timestamptz | YES | | |
 | deleted_at | timestamptz | YES | | |
+
+---
+
+## tasks
+
+งาน CRM (Phase 2) — [TASKS-MODULE.md](../05-frontend/TASKS-MODULE.md)
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| task_code | text | NO | | auto `generate_job_code('task')` |
+| subject | text | NO | | |
+| task_type | text | NO | `'task'` | task \| call \| email \| meeting \| visit |
+| module_status_id | uuid | NO | | FK → module_statuses (module `task`) |
+| priority | text | NO | `'medium'` | high \| medium \| low |
+| start_at | timestamptz | YES | | |
+| end_at | timestamptz | YES | | |
+| assigned_by | uuid | YES | | FK → profiles |
+| assigned_to | uuid | YES | | FK → profiles |
+| sales_team_id | uuid | YES | | FK → sales_teams |
+| company_id | uuid | YES | | FK → companies |
+| contact_id | uuid | YES | | FK → contacts |
+| opportunity_id | uuid | YES | | Phase 2+ modules |
+| lead_id | uuid | YES | | |
+| project_id | uuid | YES | | |
+| description | text | YES | | |
+| created_by | uuid | YES | | FK → profiles |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+| deleted_at | timestamptz | YES | | soft delete |
+
+**RPC:** `list_tasks`, `create_task`, `update_task`, `soft_delete_task`, `list_org_assignees`, `seed_org_module_defaults`, `generate_job_code`
+
+**Migration:** `20260608120069_tasks_module.sql` · `20260608120074_tasks_sales_team.sql` (`sales_team_id`)
+
+---
+
+## leads
+
+Lead CRM (Phase 2) — [LEADS-MODULE.md](../05-frontend/LEADS-MODULE.md)
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| lead_code | text | NO | | auto `generate_job_code('lead')` |
+| lead_type | text | NO | `'end_user'` | `end_user` \| `dealer` \| `contractor` \| `distributor` \| `oem` \| `other` |
+| owner_id | uuid | YES | | FK → profiles (Sales owner) |
+| tele_sale_id | uuid | YES | | FK → profiles |
+| full_name | text | YES | | |
+| company_id | uuid | YES | | FK → companies |
+| contact_id | uuid | YES | | FK → contacts |
+| company_name | text | YES | | free text if no company link |
+| email | text | NO | | |
+| phone | text | YES | | |
+| mobile | text | NO | | |
+| tax_id | text | YES | | |
+| lead_value | numeric | YES | | |
+| customer_type | text | YES | | individual \| corporate |
+| industry_segment_id | uuid | YES | | FK → industry_segments |
+| lead_source_id | uuid | YES | | FK → lead_sources |
+| sales_grade_id | uuid | YES | | FK → sales_grades |
+| module_status_id | uuid | NO | | FK → module_statuses (module `lead`) |
+| priority | text | NO | `'medium'` | high \| medium \| low |
+| next_action_date | date | YES | | |
+| next_action | text | YES | | |
+| lead_score | int | NO | `0` | 0–100 |
+| requirement | text | YES | | |
+| address_street | text | YES | | |
+| address_sub_district | text | YES | | |
+| address_district | text | YES | | |
+| address_province | text | YES | | |
+| address_postal_code | text | YES | | |
+| created_by | uuid | YES | | FK → profiles |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+| deleted_at | timestamptz | YES | | soft delete |
+
+**RPC:** `list_leads`, `create_lead`, `update_lead`, `soft_delete_lead`, `ensure_lead_module_defaults`, `lead_log_snapshot`
+
+**Migration:** `20260608120075_leads_module.sql` · `20260608120076_leads_contact_id.sql`
+
+---
+
+## opportunities
+
+Opportunity CRM (Phase 2) — [OPPORTUNITIES-MODULE.md](../05-frontend/OPPORTUNITIES-MODULE.md) · สร้างจากลีดเท่านั้น
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| opportunity_code | text | NO | | auto `generate_job_code('opportunity')` |
+| title | text | NO | | |
+| lead_id | uuid | NO | | FK → leads · unique active |
+| company_id | uuid | YES | | FK → companies |
+| contact_id | uuid | YES | | FK → contacts |
+| pipeline_id | uuid | NO | | FK → pipelines (default) |
+| stage_id | uuid | NO | | FK → pipeline_stages |
+| probability | int | NO | `0` | 0–100 |
+| estimated_value | numeric | NO | `0` | SUM จาก `opportunity_projects` |
+| close_date | date | YES | | |
+| description | text | YES | | |
+| project_name | text | YES | | denormalized โปรเจกต์แรก (legacy) |
+| project_type | text | YES | | denormalized โปรเจกต์แรก |
+| project_sub_type | text | YES | | denormalized โปรเจกต์แรก |
+| products_group | text | YES | | denormalized โปรเจกต์แรก |
+| project_costs | numeric | NO | `0` | denormalized โปรเจกต์แรก |
+| owner_id | uuid | YES | | FK → profiles |
+| sales_owner_id | uuid | YES | | FK → profiles |
+| sales_designer_id | uuid | YES | | FK → profiles |
+| sales_team_id | uuid | YES | | FK → sales_teams |
+| address_bill_to | text | YES | | |
+| currency | text | NO | `'THB'` | |
+| status | text | NO | `'open'` | open \| won \| lost |
+| closed_at | timestamptz | YES | | set เมื่อ stage won/lost |
+| created_by | uuid | YES | | FK → profiles |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+| deleted_at | timestamptz | YES | | soft delete |
+
+**RPC:** `list_opportunities`, `create_opportunity_from_lead`, `update_opportunity`, `soft_delete_opportunity`, `get_opportunity_by_lead`, `list_opportunity_projects`, `sync_opportunity_projects`, `ensure_opportunity_module_defaults`, `opportunity_log_snapshot`
+
+**Migration:** `20260608120081_opportunities_module.sql` · `20260608120086_opportunity_projects.sql`
+
+---
+
+## opportunity_projects
+
+โปรเจกต์ภายใต้โอกาสขาย — หลายแถวต่อ 1 `opportunities` · [OPPORTUNITIES-MODULE.md](../05-frontend/OPPORTUNITIES-MODULE.md)
+
+| Column | Type | Null | Default | หมายเหตุ |
+|--------|------|------|---------|----------|
+| id | uuid | NO | gen_random_uuid() | PK |
+| org_id | uuid | NO | | FK → organizations |
+| opportunity_id | uuid | NO | | FK → opportunities ON DELETE CASCADE |
+| project_name | text | YES | | |
+| project_type | text | YES | | |
+| project_sub_type | text | YES | | |
+| products_group | text | YES | | category id หรือข้อความ |
+| estimated_value | numeric | NO | `0` | มูลค่าต่อโปรเจกต์ |
+| project_costs | numeric | NO | `0` | |
+| sort_order | int | NO | `0` | ลำดับใน UI |
+| created_at | timestamptz | NO | now() | |
+| updated_at | timestamptz | NO | now() | |
+
+**Migration:** `20260608120086_opportunity_projects.sql`
 
 ---
 

@@ -111,7 +111,7 @@ export function defaultMasterCustomerFormInput(): MasterCustomerFormInput {
     name: '',
     customer_type: 'company',
     email: '',
-    industry_segment: 'sme',
+    industry_segment: null,
     phone: '',
     industry: null,
     owner_id: null,
@@ -131,14 +131,14 @@ export function defaultMasterCustomerFormInput(): MasterCustomerFormInput {
   }
 }
 
-/** บุคคลธรรมดา → กลุ่มอุตสาหกรรม = individual · อุตสาหกรรม = ไม่ระบุ */
+/** บุคคลธรรมดา → ไม่ระบุอุตสาหกรรม */
 export function applyIndividualCustomerTypeRules(
   input: MasterCustomerFormInput
 ): MasterCustomerFormInput {
   if (input.customer_type !== 'individual') return input
   return {
     ...input,
-    industry_segment: 'individual',
+    industry_segment: null,
     industry: null
   }
 }
@@ -160,9 +160,10 @@ export function companyToFormInput(company: Company): MasterCustomerFormInput {
     email: company.email ?? '',
     mobile: company.mobile ?? '',
     notes: company.notes ?? '',
-    industry_segment: parseSlug(company.industry_segment, CUSTOMER_INDUSTRY_SEGMENTS, 'sme'),
+    industry_segment: parseSlug(company.industry_segment, CUSTOMER_INDUSTRY_SEGMENTS, null)
+      ?? parseSlug(company.industry, CUSTOMER_INDUSTRIES, null),
     phone: company.phone ?? '',
-    industry: parseSlug(company.industry, CUSTOMER_INDUSTRIES, null),
+    industry: null,
     sales_grade: parseSlug(company.sales_grade, CUSTOMER_SALES_GRADES, null),
     website: company.website ?? '',
     owner_id: company.owner_id,
@@ -190,7 +191,7 @@ export function formToCompanyPayload(
     mobile: form.mobile.trim() || null,
     notes: form.notes.trim() || null,
     industry_segment: form.industry_segment,
-    industry: form.industry || null,
+    industry: form.industry_segment,
     sales_grade: form.sales_grade,
     website: normalizeWebsiteUrl(form.website) || null,
     phone: form.phone.trim() || null,

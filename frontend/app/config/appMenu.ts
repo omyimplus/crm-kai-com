@@ -16,13 +16,15 @@ export interface AppMenuItem {
   key: AppMenuKey
   to: string
   icon: string
+  /** true = หน้าพร้อมใช้งาน (ไม่แสดง Coming soon badge) */
+  ready?: boolean
 }
 
 export const appMenuItems: AppMenuItem[] = [
-  { key: 'dashboard', to: '/app', icon: 'i-lucide-layout-dashboard' },
-  { key: 'tasks', to: '/app/tasks', icon: 'i-lucide-list-checks' },
-  { key: 'lead', to: '/app/leads', icon: 'i-lucide-user-plus' },
-  { key: 'opportunity', to: '/app/opportunities', icon: 'i-lucide-sparkles' },
+  { key: 'dashboard', to: '/app', icon: 'i-lucide-layout-dashboard', ready: true },
+  { key: 'tasks', to: '/app/tasks', icon: 'i-lucide-list-checks', ready: true },
+  { key: 'lead', to: '/app/leads', icon: 'i-lucide-user-plus', ready: true },
+  { key: 'opportunity', to: '/app/opportunities', icon: 'i-lucide-sparkles', ready: true },
   { key: 'quotations', to: '/app/quotations', icon: 'i-lucide-file-text' },
   { key: 'pipeline', to: '/app/pipeline', icon: 'i-lucide-kanban' },
   { key: 'salesOrder', to: '/app/sales-orders', icon: 'i-lucide-shopping-cart' },

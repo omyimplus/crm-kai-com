@@ -1,4 +1,5 @@
 export const MODULE_STATUS_MODULE_KEYS = [
+  'task',
   'customer',
   'contact',
   'lead',

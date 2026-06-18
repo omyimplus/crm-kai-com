@@ -31,6 +31,7 @@
 | `AppDataTableRow` | `components/AppDataTableRow.vue` | `<tr>` hover |
 | `AppPagination` | `components/AppPagination.vue` | แถบแบ่งหน้าใต้ตาราง |
 | `AppIconButton` | `components/AppIconButton.vue` | ปุ่มไอคอนในคอลัมน์ action |
+| `AppViewModeToggle` | `components/AppViewModeToggle.vue` | สลับมุมมอง table/card หรือ list/calendar |
 
 ### Composable
 
@@ -87,6 +88,34 @@ const {
 ```
 
 **`embedded`** บน `AppDataTable` + `AppPagination` = แชร์ border กับ wrapper ด้านนอก (ไม่ซ้อนกรอบ)
+
+### สลับมุมมอง (table / card / list / calendar)
+
+ใช้ **`AppViewModeToggle`** + preset จาก `config/appViewMode.ts` — reference: Setup → กำหนด Role
+
+```vue
+<script setup lang="ts">
+import { appTableGridViewOptions, type AppTableGridViewMode } from '~/config/appViewMode'
+
+const { t } = useI18n()
+const viewMode = ref<AppTableGridViewMode>('table')
+const viewModeOptions = computed(() => appTableGridViewOptions(t))
+</script>
+
+<template>
+  <AppViewModeToggle v-model="viewMode" :options="viewModeOptions" />
+  <!-- v-if="viewMode === 'table'" → AppDataTable -->
+  <!-- v-else → grid ของ card components -->
+</template>
+```
+
+| Preset | ค่า | ใช้ที่ |
+|--------|-----|--------|
+| `appTableGridViewOptions(t)` | `table` \| `grid` | Setup roles, company profiles |
+| `appListCalendarViewOptions(t)` | `list` \| `calendar` | Tasks |
+
+- i18n: `common.viewMode.*` (th + en)
+- ค่าเริ่มต้น: ปุ่มไอคอนอย่างเดียว (`showLabels: false`) — ใส่ `show-labels` ถ้าต้องการข้อความคู่ไอคอน
 
 ---
 
@@ -308,7 +337,7 @@ const {
 
 | Component | ไฟล์ | หน้าที่ |
 |-----------|------|---------|
-| `AppDialog` | `components/AppDialog.vue` | modal มาตรฐาน — `v-model:open`, `title`, `size` |
+| `AppDialog` | `components/AppDialog.vue` | modal มาตรฐาน — `v-model:open`, `title`, `size` · overlay ดำ fade (`bg-black/60`) |
 | `AppDialogFooter` | `components/AppDialogFooter.vue` | ปุ่มยกเลิก + slot ปุ่มหลัก |
 | `AppPasswordFieldGroup` | `components/AppPasswordFieldGroup.vue` | รหัสผ่าน + confirm + strength + สร้างรหัสผ่าน |
 | `AppPasswordInput` | `components/AppPasswordInput.vue` | input รหัสผ่าน + แสดง/ซ่อน |

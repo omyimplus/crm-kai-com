@@ -8,7 +8,6 @@ import {
   appTextareaUi
 } from '~/config/appFormUi'
 import {
-  CUSTOMER_INDUSTRIES,
   CUSTOMER_INDUSTRY_SEGMENTS,
   CUSTOMER_PAYMENT_CODES,
   CUSTOMER_SALES_GRADES,
@@ -20,12 +19,16 @@ import {
 } from '~/config/masterCustomer'
 import { normalizeWebsiteUrl } from '~/utils/websiteUrl'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   modelValue: MasterCustomerFormInput
   billAddresses?: CustomerCompanyAddressDraft[]
   shipAddresses?: CustomerCompanyAddressDraft[]
   readonly?: boolean
-}>()
+  /** ซ่อนที่อยู่จัดส่ง — ใช้บนหน้าลีด (สร้างลูกค้าใหม่) */
+  showShipTo?: boolean
+}>(), {
+  showShipTo: true
+})
 
 const emit = defineEmits<{
   'update:modelValue': [value: MasterCustomerFormInput]
@@ -46,19 +49,14 @@ const isIndividualCustomer = computed(() => form.value.customer_type === 'indivi
 
 watch(
   () => form.value.customer_type,
-  (type, previous) => {
-    if (type === 'individual') {
-      const next = applyIndividualCustomerTypeRules(form.value)
-      if (
-        next.industry_segment !== form.value.industry_segment
-        || next.industry !== form.value.industry
-      ) {
-        form.value = next
-      }
-      return
-    }
-    if (previous === 'individual' && form.value.industry_segment === 'individual') {
-      form.value = { ...form.value, industry_segment: 'sme' }
+  (type) => {
+    if (type !== 'individual') return
+    const next = applyIndividualCustomerTypeRules(form.value)
+    if (
+      next.industry_segment !== form.value.industry_segment
+      || next.industry !== form.value.industry
+    ) {
+      form.value = next
     }
   }
 )
@@ -82,18 +80,11 @@ const customerTypeOptions = computed(() =>
   }))
 )
 
-const industrySegmentOptions = computed(() =>
-  CUSTOMER_INDUSTRY_SEGMENTS.map(value => ({
+const industrySegmentOptions = computed(() => [
+  { value: null, label: t('masterData.customer.options.notSpecified') },
+  ...CUSTOMER_INDUSTRY_SEGMENTS.map(value => ({
     value,
     label: t(`masterData.customer.options.industrySegment.${value}`)
-  }))
-)
-
-const industryOptions = computed(() => [
-  { value: null, label: t('masterData.customer.options.notSpecified') },
-  ...CUSTOMER_INDUSTRIES.map(value => ({
-    value,
-    label: t(`masterData.customer.options.industry.${value}`)
   }))
 ])
 
@@ -181,6 +172,7 @@ onMounted(() => {
             value-key="value"
             :disabled="readonly"
             :class="appFormFieldClass"
+            :placeholder="t('masterData.customer.fields.customerTypePlaceholder')"
             :ui="appSelectMenuUi"
           />
         </UFormField>
@@ -208,6 +200,7 @@ onMounted(() => {
             :items="industrySegmentOptions"
             value-key="value"
             size="lg"
+            :placeholder="t('masterData.customer.fields.industrySegmentPlaceholder')"
             :disabled="readonly || isIndividualCustomer"
             :class="appFormFieldClass"
             :ui="appSelectMenuUi"
@@ -237,22 +230,6 @@ onMounted(() => {
             :disabled="readonly"
             :class="appFormFieldClass"
             :ui="appInputUi"
-          />
-        </UFormField>
-
-        <UFormField
-          :label="t('masterData.customer.fields.industry')"
-          :class="appFormFieldClass"
-        >
-          <USelectMenu
-            v-model="form.industry"
-            :items="industryOptions"
-            value-key="value"
-            size="lg"
-            :placeholder="t('masterData.customer.options.notSpecified')"
-            :disabled="readonly || isIndividualCustomer"
-            :class="appFormFieldClass"
-            :ui="appSelectMenuUi"
           />
         </UFormField>
 
@@ -495,6 +472,7 @@ onMounted(() => {
     </AppFormSection>
 
     <AppFormSection
+      v-if="showShipTo"
       :title="t('masterData.customer.sections.shipTo')"
       :icon="masterCustomerSectionThemes.shipTo.icon"
       :icon-class="masterCustomerSectionThemes.shipTo.iconClass"

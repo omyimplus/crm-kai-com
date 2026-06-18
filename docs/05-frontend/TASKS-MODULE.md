@@ -2,7 +2,7 @@
 
 > **Phase:** 2 — CRM Menu โมดูลแรก  
 > **Route:** `/app/tasks`  
-> **สถานะ:** 📋 ออกแบบล็อกแล้ว — ยังไม่ implement  
+> **สถานะ:** ✅ implement v1 — รอ apply migration `20260608120069_tasks_module.sql`  
 > **อ้างอิง UI เก่า:** รายการงาน · Create Task modal · สรุปตามสถานะ · filter ประเภท · ปฏิทิน
 
 ---
@@ -53,14 +53,15 @@
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│  Tasks                                    [ + New Task ]     │
+│  Tasks                          [ 📅 ] [ + New Task ]       │
 │  Summary cards: Open | Completed | In Progress | Cancelled   │
 ├──────────────────────────────────────────────────────────────┤
-│  [ค้นหา...]  [All Types ▼]  [Filter]     [ List ] [ 📅 ]   │  ← view switcher
+│  [ค้นหา...]  [ table | grid ] [ ปฏิทิน ]  [ ล้างตัวกรอง ] │
+│  chips: ทุกประเภท | Task | Call | Email | Meeting | Visit │
 ├──────────────────────────────────────────────────────────────┤
 │  LIST VIEW:                                                  │
-│    Tabs: Open | In Progress | Completed | Cancelled          │  ← เฉพาะ list
-│    ตาราง / grid                                              │
+│    การ์ดสถานะด้านบน = filter (ไม่มีแท็บซ้ำ)                  │
+│    คลิกแถว/การ์ด → เปิดแก้ไข · default table                 │
 ├──────────────────────────────────────────────────────────────┤
 │  CALENDAR VIEW:                                              │
 │    Month calendar (lib) — ไม่มีแท็บสถานะ                     │
@@ -73,11 +74,12 @@
 |-----------|-----------|---------------|
 | แท็บสถานะ | ✅ Open / In Progress / Completed / Cancelled | ❌ ไม่แสดง |
 | ตาราง / grid | ✅ | ❌ |
-| ปฏิทิน | ❌ | ✅ month view |
+| ปฏิทิน | ❌ | ✅ month view — ช่องวันที่มีงานเน้นขอบ primary · ปุ่มเต็มความกว้าง (icon + จำนวน) · dialog รายการ + วันสิ้นสุด · กดเปิดแก้ไข |
 | Summary cards | ✅ | ✅ (optional — นับรวมทั้ง org) |
-| Search / type filter | ✅ | ✅ |
+| Search / type filter | ✅ — ชิปสีแยกประเภท | ✅ |
+| Schedule filter (date range on start date) | ✅ list + grid — default เดือนปัจจุบัน | ❌ (ใช้ month nav ของปฏิทิน) |
 
-**v1 ปฏิทิน:** month view จาก lib (เช่น `@fullcalendar/vue3` หรือ `v-calendar`) — ยังไม่ drag-reschedule / สร้างจากปฏิทิน (v1.1)
+**v1 ปฏิทิน:** month view — แต่ละวันแสดง chip `{n} งาน` จาก **`start_at` เท่านั้น** · กด chip → dialog รายการ (สถานะ + วันสิ้นสุด) · กดแถว → เปิดฟอร์มแก้ไข · ยังไม่ drag / สร้างจากปฏิทิน (v1.1)
 
 **State:** `viewMode: 'list' | 'calendar'` — เก็บใน query `?view=calendar` ได้เพื่อ deep link
 
@@ -100,7 +102,29 @@
 | Job code sequence | prefix `TSK`, รูปแบบมาตรฐาน |
 | ไม่ seed | task type, priority |
 
-**ช่องว่างที่ต้องแก้ก่อน implement:** เพิ่ม `task` ใน CHECK ของ `module_statuses` + `MODULE_STATUS_MODULE_KEYS` (ตอนนี้ job code มี `task` แล้ว แต่ module status ยังไม่มี)
+**ช่องว่างที่ต้องแก้ก่อน implement:** ~~เพิ่ม `task` ใน CHECK~~ ✅ ทำใน migration `20260608120069_tasks_module.sql`
+
+**Dropdown สถานะว่าง?**
+
+| สาเหตุ | วิธีแก้ |
+|--------|--------|
+| ยังไม่ apply migration Tasks | รัน `supabase/migrations/20260608120069_tasks_module.sql` บน Supabase (SQL Editor หรือ `supabase db push`) |
+| Race โหลดหน้า (แก้แล้ว) | Frontend เรียก `ensure_task_module_defaults` ก่อน `listByModule('task')` |
+| `list_tasks` error ล้าง dropdown (แก้แล้ว) | RPC `list_tasks` เป็น STABLE แต่เคยเรียก INSERT → รัน migration `20260608120070_fix_list_tasks_readonly.sql` |
+| ต้องการปรับชื่อ/สีสถานะ | **Master Data → Module Status → แท็บ Task** — ไม่ต้อง seed เองใน `seed.sql` |
+
+**Lifecycle สถานะ (v1 — ไม่แยก standard/custom)**
+
+| การกระทำ | พฤติกรรม |
+|----------|----------|
+| **active** | แสดงในการ์ดสรุป · dropdown สร้างงานใหม่ · list filter tab |
+| **inactive** | ซ่อนจากการสร้างใหม่ · งานเดิมยังแสดงใน list · แก้ไขยังเลือกสถานะเดิมได้ |
+| **is_default** | สถานะเริ่มต้นตอน Create Task (จาก active rows) |
+| **soft delete** | retire สถานะ · **บล็อก** ถ้ามีงาน active อ้างอิง — ใช้ inactive แทน หรือย้ายงานก่อน (migration `20260608120071`) |
+
+**การ์ดสรุป / list tabs:** สร้างจาก `module_statuses` ที่ `status = active` เรียง `sort_order` — ไม่ hardcode `OPEN/IN_PROGRESS/...` ใน UI (ชื่อแสดงผ่าน i18n `tasks.statusCodes.*` เมื่อมี mapping)
+
+**ไม่ต้อง seed manual ใน `seed.sql`** — ระบบสร้าง 4 สถานะ + job code `TSK` ให้ org อัตโนมัติ (ครั้งแรกที่เข้า Tasks หรือตอน migration backfill)
 
 ### 4. Create / Edit Task modal (ระบบเก่า)
 
@@ -108,17 +132,18 @@ Modal **Create Task** ระบบเก่า — ใช้เป็น referen
 
 ```
 ┌──────────────── Create Task ────────────────────────────────┐
-│  [ Task ] [ Call ] [ Email ] [ Meeting ] [ Visit ]          │  ← activity type (segment)
-├──────────────────┬──────────────────┬─────────────────────────┤
-│ Task Info        │ People & Related │ Details                 │
-│ · Subject *      │ · Assigned By    │ · Description           │
-│ · Status         │ · Assigned To    │ · Products Group (multi)│
-│ · Priority       │ · Customer       │                         │
-│ · Start Date     │ · Contact        │                         │
-│ · End Date       │ · Opportunity    │                         │
-│                  │ · Lead           │                         │
-│                  │ · Project        │                         │
-├──────────────────┴──────────────────┴─────────────────────────┤
+│  subtitle: เลือกประเภท · หัวข้อ · ผู้รับผิดชอบ · วันที่      │
+│  [ Task ] [ Call ] [ Email ] [ Meeting ] [ Visit ]          │  ← grid 2×2 mobile / 5 คอลัมน์ desktop
+│  Subject * (input ใหญ่)                                      │
+├──────────────────────────────────────────────────────────────┤
+│  กำหนดการและสถานะ (กล่อง)                                    │
+│  [ Status ] [ Priority ]  ·  [ Start ] [ End ]              │
+├──────────────────────────────────────────────────────────────┤
+│  ผู้รับผิดชอบและลูกค้า (กล่อง · select ค้นหาได้)              │
+│  [ Assigned To ] [ Assigned By ]  ·  [ Customer ] [ Contact ]│
+├──────────────────────────────────────────────────────────────┤
+│  Description (เต็มความกว้าง)                                  │
+├──────────────────────────────────────────────────────────────┤
 │                              [ Cancel ]  [ Create Task ]      │
 └───────────────────────────────────────────────────────────────┘
 ```
@@ -137,7 +162,7 @@ Modal **Create Task** ระบบเก่า — ใช้เป็น referen
 | Customer / Contact | dropdown | FK → `companies` / `contacts` (Master Data Phase 1) |
 | Opportunity / Lead / Project | dropdown (None) | **v1:** คอลัมน์ nullable พร้อมไว้ · **UI เปิดเมื่อ ship โมดูลนั้น** |
 | Products Group | chip multi-select (HVAC, Electrical, …) | **v1.1** — junction `task_categories` จาก Master Category (product) หรือ master ใหม่ถ้าต้องแยก |
-| Layout | 3 คอลัมน์ | ใช้ `AppDialog` + section themes (pattern Master Data / Setup modals) |
+| Layout | 3 คอลัมน์ | **flow แนวตั้ง** — ประเภท+หัวข้อ → กำหนดการ → ผู้เกี่ยวข้อง → รายละเอียด · `AppDialog` size `xl` |
 
 **Footer:** Cancel + primary **Create Task** / **Save** — ใช้ `AppDialogFooter`
 
@@ -145,8 +170,15 @@ Modal **Create Task** ระบบเก่า — ใช้เป็น referen
 
 | โหมด | พฤติกรรม |
 |------|----------|
-| Create | ไม่แสดง `task_code` · type default Task · status default OPEN · assigned_by = ผู้ login |
-| Edit | แสดง `task_code` read-only · โหลดค่าทั้งหมด · soft delete จาก action menu |
+| Create | ไม่แสดง `task_code` · type default Task · status default OPEN · assigned_by = ผู้ login · บันทึกวันเปลี่ยนสถานะครั้งแรก |
+| Edit | แสดง `task_code` read-only · โหลดค่าทั้งหมด · **บันทึกการเปลี่ยนสถานะ** (เฉพาะที่เกิดจริง) · soft delete จาก action menu |
+
+**Status change log (v1):**
+
+- บันทึกเฉพาะครั้งที่เปลี่ยนสถานะจริง (ไม่แสดง pipeline ครบทุกสถานะ)
+- แต่ละแถว = สถานะ + วันเปลี่ยนสถานะ (แก้วันที่ได้)
+- เปลี่ยน dropdown สถานะ → เพิ่มแถวใหม่ · ไม่เติมสถานะกลางอัตโนมัติ
+- DB: `task_status_history` append-only · migration `20260608120073`
 
 ---
 
@@ -165,6 +197,7 @@ Modal **Create Task** ระบบเก่า — ใช้เป็น referen
 | `end_at` | วันสิ้นสุด · date picker |
 | `assigned_by` | FK → profiles · ผู้มอบหมาย |
 | `assigned_to` | FK → profiles · ผู้รับผิดชอบ |
+| `sales_team_id` | FK → sales_teams · ทีมขาย (กรองผู้รับผิดชอบในฟอร์ม) |
 | `company_id` | FK → companies (Customer Related) |
 | `contact_id` | FK → contacts |
 | `opportunity_id` | nullable — UI เมื่อมีโมดูล Opportunity |
@@ -225,7 +258,7 @@ frontend/app/
 
 | Master | การใช้ใน Tasks |
 |--------|----------------|
-| Module statuses (`task`) | dropdown สถานะ · แท็บ list · badge |
+| Module statuses (`task`) | dropdown สถานะ · การ์ดสรุป/list tab (active) · badge · lifecycle active/inactive/default |
 | Job code (`task`) | generate `task_code` ตอน create |
 | Customer / Contact | FK ในฟอร์ม |
 | System users | assigned_by · assigned_to |

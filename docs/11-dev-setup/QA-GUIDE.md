@@ -8,12 +8,27 @@
 
 ---
 
+## Agent สำหรับ QA — Claude เท่านั้น
+
+| รายการ | กำหนด |
+|--------|--------|
+| **โมเดล** | รอบทดสอบ / retest ใช้ **Cursor Agent = Claude** (Sonnet หรือ Opus) เท่านั้น |
+| **ห้าม** | ใช้ Composer · GPT · Gemini หรือโมเดลอื่นรัน checklist QA แทน Claude |
+| **Session** | หนึ่งรอบ QA (ชั้น 0→7) ควรจบใน agent Claude เดียวกัน — สลับโมเดลกลางรอบแล้วสรุปต่อไม่ได้ |
+| **สั่งงาน** | พิมพ์ **ทดสอบ · QA · retest · หาบัค** ในแชท Claude เพื่อให้ agent โหลด rule `qa-testing.mdc` |
+
+งาน implement โค้ดไม่จำกัดโมเดล — กฎนี้ใช้เฉพาะ **งาน tester**
+
+---
+
 ## อ่านก่อนเริ่ม
 
 | เอกสาร | ใช้เมื่อ |
 |--------|----------|
 | [TEST-ACCOUNTS.md](./TEST-ACCOUNTS.md) | Login · บัญชี · แก้ migration error |
 | [QA-CUSTOMER-CONTACT.md](./QA-CUSTOMER-CONTACT.md) | Checklist ละเอียดโมดูล ลูกค้า + ผู้ติดต่อ |
+| [QA-LEADS.md](./QA-LEADS.md) | Checklist สร้างลีด — ลูกค้าในระบบ + ลูกค้าใหม่ |
+| [QA-OPPORTUNITIES.md](./QA-OPPORTUNITIES.md) | Checklist แปลงลีด → โอกาสขาย |
 | [DB-README.md](../../supabase/DB-README.md) | ลำดับ migration บน Supabase |
 | [permissions.md](../06-crm-schema/permissions.md) | สิทธิ์ role × ตาราง |
 

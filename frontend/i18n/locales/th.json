@@ -29,6 +29,13 @@
       "next": "ถัดไป",
       "page": "หน้า {page} / {total}"
     },
+    "viewMode": {
+      "groupLabel": "รูปแบบการแสดงผล",
+      "table": "มุมมองตาราง",
+      "grid": "มุมมองการ์ด",
+      "list": "มุมมองรายการ",
+      "calendar": "มุมมองปฏิทิน"
+    },
     "imageUpload": {
       "upload": "อัปโหลดรูป",
       "change": "เปลี่ยนรูป",
@@ -150,8 +157,8 @@
       ]
     },
     "lead": {
-      "nav": "ลีด (Lead)",
-      "title": "ลีด (Lead)",
+      "nav": "ลีด",
+      "title": "ลีด",
       "description": "รับและคัดกรองลูกค้าเป้าหมายก่อนแปลงเป็นโอกาสขาย",
       "features": [
         "บันทึกลีดจากหลายแหล่ง",
@@ -258,6 +265,461 @@
         "เชื่อมสัญญาและโครงการ",
         "ประวัติการให้บริการลูกค้า"
       ]
+    }
+  },
+  "tasks": {
+    "pageTitle": "งาน (Tasks)",
+    "pageSubtitle": "จัดการงานและนัดหมายของคุณ",
+    "pageHint": "แตะการ์ดสถานะเพื่อกรอง · คลิกงานเพื่อแก้ไข",
+    "newTask": "งานใหม่",
+    "createFirst": "สร้างงานแรก",
+    "emptyAll": "ยังไม่มีงาน — เริ่มสร้างงานแรกได้เลย",
+    "createTitle": "สร้างงาน",
+    "editTitle": "แก้ไขงาน",
+    "createSubtitle": "เลือกประเภท กรอกหัวข้อ แล้วกำหนดผู้รับผิดชอบและวันที่",
+    "editSubtitle": "ปรับรายละเอียดงานแล้วบันทึก",
+    "create": "สร้างงาน",
+    "save": "บันทึกการเปลี่ยนแปลง",
+    "none": "— ไม่ระบุ —",
+    "statusesMissing": "ยังไม่มีสถานะงานที่เปิดใช้ — ตั้งค่าที่ Master Data → สถานะตามโมดูล → Task หรือ apply migration Tasks",
+    "noActiveStatuses": "ยังไม่มีสถานะงานที่เปิดใช้ — เปิดสถานะใน Master Data หรือตั้งค่าเริ่มต้น",
+    "openModuleStatuses": "ไปตั้งค่าสถานะงาน",
+    "emptyCell": "—",
+    "empty": "ยังไม่มีงานในมุมมองนี้",
+    "deleteTitle": "ลบงาน",
+    "deleteConfirm": "ลบ “{name}” หรือไม่? ระบบบันทึกใน activity log",
+    "changeStatus": {
+      "action": "เปลี่ยนสถานะ",
+      "title": "เปลี่ยนสถานะ",
+      "subtitle": "อัปเดตสถานะงานและบันทึกวันเวลาที่เปลี่ยน",
+      "currentStatus": "สถานะปัจจุบัน",
+      "save": "บันทึกสถานะ"
+    },
+    "customerInfo": {
+      "titleFallback": "ข้อมูลลูกค้า",
+      "hint": "ข้อมูลติดต่อของลูกค้า — แตะชื่อผู้ติดต่อเพื่อเปิดโปรไฟล์",
+      "openFor": "ดูข้อมูลติดต่อของ {name}",
+      "contactSection": "ข้อมูลติดต่อลูกค้า",
+      "address": "ที่อยู่",
+      "linkedContact": "ผู้ติดต่อในงานนี้",
+      "linkedContactBadge": "ในงาน",
+      "openProfile": "เปิดโปรไฟล์ลูกค้า",
+      "loadFailed": "โหลดข้อมูลลูกค้าไม่สำเร็จ"
+    },
+    "sections": {
+      "taskInfo": "ข้อมูลงาน",
+      "people": "ผู้เกี่ยวข้อง",
+      "details": "รายละเอียด",
+      "schedule": "กำหนดการและสถานะ",
+      "related": "ผู้รับผิดชอบและลูกค้า",
+      "relatedHint": "มอบหมายให้ทีมขาย หรือ บุคคล (เลือกอย่างใดอย่างหนึ่ง) · เลือกลูกค้าก่อน แล้วระบบจะกรองผู้ติดต่อให้"
+    },
+    "fields": {
+      "taskCode": "รหัสงาน",
+      "activityType": "ประเภทกิจกรรม",
+      "subject": "หัวข้อ",
+      "subjectPlaceholder": "หัวข้องาน",
+      "status": "สถานะ",
+      "priority": "ความสำคัญ",
+      "startDate": "วันที่เริ่ม",
+      "endDate": "วันที่สิ้นสุด",
+      "statusChangedAt": "วันเปลี่ยนสถานะ",
+      "statusChangedAtHint": "วันและเวลาที่ตั้งสถานะนั้น",
+      "assignedBy": "มอบหมายโดย",
+      "assignedTo": "มอบหมายให้",
+      "assignTarget": "มอบหมายให้",
+      "assignTargetHint": "เลือกได้อย่างใดอย่างหนึ่ง — ทีมขาย หรือ บุคคล",
+      "assignTargetTeam": "ทีมขาย",
+      "assignTargetPerson": "บุคคล",
+      "salesTeam": "ทีมขาย",
+      "customer": "ลูกค้าที่เกี่ยวข้อง",
+      "contact": "ผู้ติดต่อ",
+      "description": "รายละเอียด",
+      "descriptionPlaceholder": "รายละเอียดเพิ่มเติม (ถ้ามี)…"
+    },
+    "columns": {
+      "task": "งาน",
+      "type": "ประเภท",
+      "customer": "ลูกค้า",
+      "contact": "ผู้ติดต่อ",
+      "assigned": "ผู้รับผิดชอบ",
+      "assignedTo": "ผู้รับผิดชอบ",
+      "assignedBy": "ผู้มอบหมาย",
+      "priority": "ความสำคัญ",
+      "status": "สถานะ",
+      "date": "วันที่",
+      "startDate": "เริ่ม",
+      "endDate": "สิ้นสุด",
+      "actions": "การทำงาน"
+    },
+    "filters": {
+      "search": "ค้นหางาน…",
+      "allTypes": "ทุกประเภท",
+      "dateRange": "ช่วงวันที่",
+      "dateFrom": "ตั้งแต่",
+      "dateTo": "ถึง",
+      "typeGroup": "ประเภทงาน",
+      "statusTabs": "สถานะงาน",
+      "displayCount": "{count} งาน · {status}",
+      "noResults": "ไม่พบงานตามตัวกรอง",
+      "clear": "ล้างตัวกรอง"
+    },
+    "views": {
+      "groupLabel": "รายการหรือปฏิทิน",
+      "backToList": "กลับรายการ",
+      "openCalendar": "ปฏิทิน",
+      "calendarMode": "มุมมองปฏิทิน — แสดงทุกสถานะ",
+      "list": "รายการ",
+      "calendar": "ปฏิทิน"
+    },
+    "calendar": {
+      "prevMonth": "เดือนก่อนหน้า",
+      "nextMonth": "เดือนถัดไป",
+      "more": "อีก {count} รายการ",
+      "taskCount": "{count} งาน",
+      "taskCountLabel": "งาน",
+      "openDay": "ดู {count} งานที่เริ่มในวันนี้",
+      "dayTitle": "งานที่เริ่ม {date}",
+      "dayTitleFallback": "งานในวันที่เลือก",
+      "dayHint": "แตะงานเพื่อดูรายละเอียด",
+      "dayEmpty": "ไม่มีงานในวันนี้"
+    },
+    "statusChangeLog": {
+      "title": "บันทึกการเปลี่ยนสถานะ",
+      "hint": "บันทึกเฉพาะครั้งที่เปลี่ยนสถานะจริง — ระบุวันและเวลาของแต่ละครั้ง",
+      "listLabel": "ประวัติการเปลี่ยนสถานะ",
+      "dateFor": "วันที่สำหรับ {status}",
+      "dateTimeFor": "วันและเวลาสำหรับ {status}",
+      "changedBy": "โดย {name}",
+      "empty": "ยังไม่มีบันทึกการเปลี่ยนสถานะ"
+    },
+    "statusCodes": {
+      "OPEN": "เปิดอยู่",
+      "IN_PROGRESS": "กำลังดำเนินการ",
+      "COMPLETED": "เสร็จสิ้น",
+      "CANCELLED": "ยกเลิกแล้ว"
+    },
+    "options": {
+      "type": {
+        "task": "งาน",
+        "call": "โทร",
+        "email": "อีเมล",
+        "meeting": "ประชุม",
+        "visit": "เยี่ยม"
+      },
+      "priority": {
+        "high": "สูง",
+        "medium": "ปานกลาง",
+        "low": "ต่ำ"
+      }
+    },
+    "errors": {
+      "subjectRequired": "กรุณาระบุหัวข้อ",
+      "statusRequired": "กรุณาเลือกสถานะ",
+      "saveFailed": "บันทึกงานไม่สำเร็จ"
+    }
+  },
+  "leads": {
+    "pageTitle": "ลีด",
+    "pageSubtitle": "จัดการลีดพร้อมการให้คะแนน",
+    "newLead": "สร้างลีด",
+    "createFirst": "สร้างลีดแรก",
+    "emptyAll": "ยังไม่มีลีด — เริ่มสร้างลีดแรกได้เลย",
+    "createTitle": "สร้างลีด",
+    "editTitle": "แก้ไขลีด",
+    "viewTitle": "รายละเอียดลีด",
+    "viewSubtitle": "ดูข้อมูลลีด",
+    "view": "ดูลีด",
+    "createSubtitle": "กรอกรายละเอียดเพื่อสร้างลีดใหม่",
+    "editSubtitle": "ปรับรายละเอียดลีดแล้วบันทึก",
+    "create": "สร้างลีด",
+    "save": "บันทึกการเปลี่ยนแปลง",
+    "none": "— ไม่ระบุ —",
+    "badge": "ลีด",
+    "emptyCell": "—",
+    "actions": "การดำเนินการ",
+    "deleteTitle": "ลบลีด",
+    "deleteConfirm": "ลบ “{name}” หรือไม่? ระบบบันทึกไว้ใน activity log",
+    "summary": {
+      "active": "ลีดที่ใช้งาน",
+      "hot": "ลีดร้อนแรง (80+)",
+      "potentialValue": "มูลค่าที่เป็นไปได้",
+      "potentialValueFiltered": "มูลค่า (ตามตัวกรอง)"
+    },
+    "sections": {
+      "customer": "ลูกค้า",
+      "general": "ข้อมูลลีด",
+      "score": "คะแนนลีด",
+      "requirement": "ข้อความ / ความต้องการลูกค้า"
+    },
+    "fields": {
+      "customerMode": "การเชื่อมโยงลูกค้า",
+      "customerModeHint": "เลือกลูกค้าในระบบ หรือสร้างลูกค้าใหม่ — ระบบจะสร้างลูกค้าก่อนบันทึกลีด",
+      "companySearch": "ค้นหาลูกค้า",
+      "companySearchHint": "เลือกลูกค้าในระบบ — แสดงสรุปข้อมูลและลิงก์ไปแก้ไขรายละเอียดเต็ม",
+      "companySearchPlaceholder": "ค้นหาชื่อลูกค้า…",
+      "companySearchEmpty": "เลือกลูกค้าเพื่อแสดงข้อมูล",
+      "customerSummaryHint": "แก้ไขภาษี ที่อยู่ และรายละเอียดอื่นได้จากหน้าลูกค้า",
+      "editCustomerDetails": "แก้ไขรายละเอียดลูกค้า",
+      "customerNewFormHint": "ฟอร์มเดียวกับสร้างลูกค้า — ข้อมูลทั่วไป · ภาษี · ที่อยู่ออกใบแจ้งหนี้ (ที่อยู่จัดส่งเพิ่มได้ที่หน้าลูกค้า)",
+      "leadCode": "รหัสลีด",
+      "leadType": "ประเภทลีด",
+      "leadTypePlaceholder": "เลือกประเภทลีด…",
+      "owner": "เจ้าของลีด (ฝ่ายขาย)",
+      "teleSale": "เทเลเซลล์",
+      "fullName": "ชื่อผู้ติดต่อ",
+      "fullNamePlaceholder": "ชื่อ-นามสกุลผู้ติดต่อ",
+      "leadValue": "มูลค่าลีด",
+      "leadSource": "แหล่งที่มา",
+      "status": "สถานะลีด",
+      "priority": "ความสำคัญ",
+      "nextActionDate": "วันที่ดำเนินการถัดไป",
+      "nextAction": "ดำเนินการถัดไป",
+      "leadScore": "คะแนนลีด",
+      "leadScoreHint": "ลากแถบหรือกดปุ่มลัดเพื่อให้คะแนน — สีแดง/ส้ม/เขียวตามระดับ เย็น · อุ่น · ร้อนแรง",
+      "requirement": "ความต้องการลูกค้า",
+      "requirementPlaceholder": "ระบุความต้องการของลูกค้า…"
+    },
+    "columns": {
+      "lead": "ลีด",
+      "score": "คะแนน",
+      "name": "ชื่อ",
+      "company": "ลูกค้า",
+      "value": "มูลค่า",
+      "email": "อีเมล",
+      "phone": "โทรศัพท์",
+      "source": "แหล่งที่มา",
+      "owner": "เจ้าของลีด",
+      "teleSale": "เทเลเซลล์",
+      "nextAction": "ดำเนินการถัดไป",
+      "status": "สถานะ",
+      "actions": "การดำเนินการ"
+    },
+    "filters": {
+      "search": "ค้นหา",
+      "searchPlaceholder": "ค้นหาลีด…",
+      "status": "สถานะ",
+      "source": "แหล่งที่มา",
+      "allStatuses": "ทุกสถานะ",
+      "allSources": "ทุกแหล่งที่มา",
+      "hotOnly": "ลีดร้อนแรง (80+)",
+      "statusTabs": "กรองตามสถานะ",
+      "dateRange": "ช่วงวันที่",
+      "dateFrom": "ตั้งแต่",
+      "dateTo": "ถึง",
+      "dateField": {
+        "created": "วันที่สร้าง",
+        "nextAction": "ดำเนินการถัดไป"
+      },
+      "displayCount": "แสดง {count} รายการ · {filter}",
+      "noResults": "ไม่พบลีดตามตัวกรอง",
+      "clear": "ล้างตัวกรอง"
+    },
+    "statusCodes": {
+      "NEW": "ใหม่",
+      "OPEN": "เปิด",
+      "CONTACTED": "ติดต่อแล้ว",
+      "NURTURING": "บ่มเพาะ",
+      "QUALIFIED": "ผ่านเกณฑ์",
+      "UNQUALIFIED": "ไม่ผ่านเกณฑ์",
+      "CANCELLED": "ยกเลิก",
+      "CONVERTED": "แปลงเป็นโอกาสขายแล้ว"
+    },
+    "options": {
+      "customerMode": {
+        "existing": "ลูกค้าในระบบ",
+        "new": "ลูกค้าใหม่"
+      },
+      "leadType": {
+        "end_user": "ผู้ใช้ปลายทาง",
+        "dealer": "ตัวแทนจำหน่าย",
+        "contractor": "ผู้รับเหมา",
+        "distributor": "ผู้จัดจำหน่าย",
+        "oem": "OEM",
+        "other": "อื่นๆ"
+      },
+      "priority": {
+        "high": "สูง",
+        "medium": "ปานกลาง",
+        "low": "ต่ำ"
+      },
+      "scoreTier": {
+        "cold": "เย็น",
+        "warm": "อุ่น",
+        "hot": "ร้อนแรง"
+      }
+    },
+    "validation": {
+      "customerRequired": "กรุณาเลือกลูกค้าในระบบ",
+      "emailRequired": "กรุณาระบุอีเมล",
+      "mobileRequired": "กรุณาระบุมือถือ",
+      "statusRequired": "กรุณาเลือกสถานะลีด",
+      "taxIdInvalid": "เลขประจำตัวผู้เสียภาษีต้องเป็นตัวเลข 13 หลัก",
+      "scoreInvalid": "คะแนนลีดต้องอยู่ระหว่าง 0–100"
+    },
+    "errors": {
+      "saveFailed": "บันทึกลีดไม่สำเร็จ"
+    },
+    "convertToOpportunity": "แปลงเป็นโอกาสขาย",
+    "viewOpportunity": "ดูโอกาสขาย"
+  },
+  "opportunities": {
+    "pageTitle": "โอกาสขาย",
+    "pageSubtitle": "จัดการโอกาสการขายจากลีดที่ผ่านการคัดกรองแล้ว",
+    "createTitle": "สร้างโอกาสขาย",
+    "editTitle": "แก้ไขโอกาสขาย",
+    "viewTitle": "รายละเอียดโอกาสขาย",
+    "viewSubtitle": "ดูข้อมูลโอกาสขาย",
+    "view": "ดูโอกาสขาย",
+    "viewLead": "ดูลีดต้นทาง",
+    "createSubtitle": "กรอกรายละเอียดเพื่อสร้างโอกาสขายจากลีด",
+    "editSubtitle": "ปรับรายละเอียดโอกาสขายแล้วบันทึก",
+    "create": "สร้างโอกาสขาย",
+    "save": "บันทึกการเปลี่ยนแปลง",
+    "defaultTitleSuffix": "โอกาสขาย",
+    "none": "— ไม่ระบุ —",
+    "badge": "โอกาสขาย",
+    "emptyCell": "—",
+    "notSet": "ยังไม่กำหนด",
+    "actions": "การดำเนินการ",
+    "emptyAll": "ยังไม่มีโอกาสขาย",
+    "emptyHint": "สร้างได้จากหน้าดูลีด — กดปุ่ม「แปลงเป็นโอกาสขาย」",
+    "goToLeads": "ไปที่ลีด",
+    "deleteTitle": "ลบโอกาสขาย",
+    "deleteConfirm": "ลบ “{name}” หรือไม่? ระบบบันทึกไว้ในบันทึกกิจกรรม",
+    "summary": {
+      "pipeline": "มูลค่าในแพ็ปไลน์",
+      "pipelineFiltered": "มูลค่าในแพ็ปไลน์ (ตามตัวกรอง)",
+      "wonPeriod": "ยอดชนะในช่วงนี้",
+      "open": "โอกาสที่เปิดอยู่"
+    },
+    "sections": {
+      "opportunity": "ข้อมูลโอกาสขาย",
+      "project": "ข้อมูลโปรเจกต์",
+      "projects": "โปรเจกต์",
+      "people": "ทีมงาน",
+      "address": "ที่อยู่"
+    },
+    "projects": {
+      "add": "เพิ่มโปรเจกต์",
+      "empty": "ยังไม่มีโปรเจกต์ — กดเพิ่มเพื่อบันทึกมูลค่าแยกตามโปรเจกต์",
+      "itemLabel": "โปรเจกต์ {index}",
+      "totalValue": "มูลค่ารวมที่คาดหวัง:",
+      "hint": "แต่ละโปรเจกต์มีมูลค่าของตัวเอง — ยอดรวมจะ sync ไปลีดต้นทางเมื่อบันทึก"
+    },
+    "fields": {
+      "opportunityCode": "รหัสโอกาสขาย",
+      "leadCode": "รหัสลีดต้นทาง",
+      "title": "ชื่อโอกาสขาย",
+      "titlePlaceholder": "ระบุชื่อโอกาสขาย…",
+      "customer": "ลูกค้า",
+      "customerPlaceholder": "เลือกลูกค้า…",
+      "stage": "ระดับการขาย",
+      "stagePlaceholder": "เลือกระดับการขาย…",
+      "probability": "ความน่าจะเป็น (%)",
+      "probabilityPlaceholder": "อัตโนมัติตามระดับการขาย",
+      "estimatedValue": "มูลค่าที่คาดหวัง (บาท)",
+      "closeDate": "วันที่ปิดการขาย",
+      "description": "รายละเอียด",
+      "descriptionPlaceholder": "ระบุรายละเอียด…",
+      "projectName": "ชื่อโปรเจกต์",
+      "projectNamePlaceholder": "เช่น ปรับปรุงออฟฟิศ",
+      "projectType": "ประเภทโปรเจกต์",
+      "projectTypePlaceholder": "เช่น ติดตั้ง, บำรุงรักษา",
+      "projectSubType": "ประเภทย่อย",
+      "projectSubTypePlaceholder": "เช่น เฟส 1, การรับประกัน",
+      "productsGroup": "กลุ่มสินค้า",
+      "productsGroupPlaceholder": "เช่น ระบบปรับอากาศ, ไฟฟ้า",
+      "projectCosts": "ต้นทุนโปรเจกต์ (บาท)",
+      "owner": "เจ้าของโอกาสขาย",
+      "ownerPlaceholder": "เลือกเจ้าของ…",
+      "salesOwner": "ผู้รับผิดชอบฝ่ายขาย",
+      "salesOwnerPlaceholder": "เลือกผู้รับผิดชอบฝ่ายขาย…",
+      "salesDesigner": "ดีไซน์เนอร์ขาย",
+      "salesDesignerPlaceholder": "เลือกดีไซน์เนอร์…",
+      "salesTeam": "ทีมขาย",
+      "salesTeamPlaceholder": "เลือกทีมขาย…",
+      "addressBillTo": "ที่อยู่ออกบิล",
+      "addressBillToPlaceholder": "ระบุที่อยู่ออกบิล…",
+      "billToPlaceholder": "เลือกที่อยู่ออกบิล…",
+      "billToFromCustomer": "ดึงจากที่อยู่ออกบิลของลูกค้า — เลือกรายการสำหรับโอกาสขายนี้",
+      "billToEmpty": "ลูกค้ารายนี้ยังไม่มีที่อยู่ออกบิล",
+      "addBillTo": "เพิ่มที่อยู่ออกบิล",
+      "editCustomerBillTo": "เพิ่มที่อยู่ในข้อมูลลูกค้า",
+      "shipToHint": "ที่อยู่จัดส่งหลายรายการ — จะเปิดใช้หลังบันทึกโอกาสขาย (รุ่นถัดไป)",
+      "leadLockedHint": "ข้อมูลที่มาจากลีดต้นทางแก้ไขที่นี่ไม่ได้ — กรุณาแก้ที่หน้าลีด",
+      "probabilityFromStage": "คำนวณอัตโนมัติตามระดับการขายที่เลือก",
+      "estimatedValueSyncLead": "บันทึกที่โอกาสขายและอัปเดตมูลค่าในลีดต้นทางด้วย",
+      "editLeadForValue": "แก้ไขลีดเพื่อเปลี่ยนมูลค่าที่คาดหวัง",
+      "productsMultiHint": "v1 เลือกได้ 1 กลุ่มสินค้าต่อโอกาสขาย — รายการสินค้าหลายชิ้นจะมาในรุ่นถัดไป"
+    },
+    "options": {
+      "projectType": {
+        "installation": "ติดตั้ง",
+        "maintenance": "บำรุงรักษา",
+        "renovation": "ปรับปรุง",
+        "supply": "จัดหา/ส่งมอบ",
+        "service": "บริการ",
+        "other": "อื่น ๆ"
+      },
+      "projectSubType": {
+        "phase_1": "เฟส 1",
+        "phase_2": "เฟส 2",
+        "warranty": "การรับประกัน",
+        "upgrade": "อัปเกรด",
+        "other": "อื่น ๆ"
+      }
+    },
+    "columns": {
+      "title": "ชื่อโอกาสขาย",
+      "customer": "ลูกค้า",
+      "value": "มูลค่า",
+      "closeDate": "วันปิดการขาย",
+      "assigned": "ผู้รับผิดชอบ",
+      "stage": "ระดับการขาย",
+      "actions": "การดำเนินการ"
+    },
+    "filters": {
+      "searchPlaceholder": "ค้นหาโอกาสขาย…",
+      "allStages": "ทุกระดับการขาย",
+      "dateRange": "ช่วงวันที่",
+      "dateFrom": "ตั้งแต่",
+      "dateTo": "ถึง",
+      "dateField": {
+        "created": "วันที่สร้าง",
+        "close": "วันปิดการขาย"
+      },
+      "displayCount": "แสดง {count} รายการ",
+      "noResults": "ไม่พบโอกาสขายตามตัวกรอง",
+      "clear": "ล้างตัวกรอง"
+    },
+    "stageNames": {
+      "lead": "ลีด",
+      "qualified": "ผ่านเกณฑ์",
+      "proposal": "เสนอราคา",
+      "negotiation": "เจรจาต่อรอง",
+      "won": "ชนะการขาย",
+      "lost": "เสียการขาย"
+    },
+    "validation": {
+      "titleRequired": "กรุณาระบุชื่อโอกาสขาย",
+      "customerRequired": "กรุณาเลือกลูกค้า",
+      "stageRequired": "กรุณาเลือกระดับการขาย",
+      "ownerRequired": "กรุณาเลือกเจ้าของโอกาสขาย",
+      "probabilityInvalid": "ความน่าจะเป็นต้องอยู่ระหว่าง 0–100",
+      "valueInvalid": "มูลค่าต้องไม่ติดลบ",
+      "costsInvalid": "ต้นทุนต้องไม่ติดลบ"
+    },
+    "errors": {
+      "saveFailed": "บันทึกโอกาสขายไม่สำเร็จ"
+    },
+    "billToModal": {
+      "title": "เพิ่มที่อยู่ออกบิล",
+      "titleNamed": "เพิ่มที่อยู่ออกบิล — {name}",
+      "subtitle": "บันทึกลงข้อมูลลูกค้าและเลือกใช้กับโอกาสขายนี้",
+      "save": "บันทึกที่อยู่",
+      "addressRequired": "กรุณาระบุที่อยู่",
+      "saveFailed": "บันทึกที่อยู่ออกบิลไม่สำเร็จ"
     }
   },
   "profile": {
@@ -391,8 +853,10 @@
       },
       "fields": {
         "customerType": "ประเภทลูกค้า",
+        "customerTypePlaceholder": "เลือกประเภทลูกค้า…",
         "email": "อีเมล",
-        "industrySegment": "กลุ่มอุตสาหกรรม",
+        "industrySegment": "อุตสาหกรรม",
+        "industrySegmentPlaceholder": "เลือกอุตสาหกรรม…",
         "companyName": "ชื่อบริษัท",
         "phone": "โทรศัพท์",
         "industry": "อุตสาหกรรม",
@@ -448,10 +912,16 @@
           "individual": "บุคคลธรรมดา"
         },
         "industrySegment": {
-          "enterprise": "Enterprise",
-          "sme": "SME",
-          "startup": "สตาร์ทอัพ",
-          "individual": "รายบุคคล"
+          "agriculture": "เกษตรกรรม",
+          "construction": "ก่อสร้าง",
+          "education": "การศึกษา",
+          "finance": "การเงิน",
+          "healthcare": "สุขภาพ",
+          "hospitality": "โรงแรมและบริการ",
+          "manufacturing": "การผลิต",
+          "retail": "ค้าปลีก",
+          "technology": "เทคโนโลยี",
+          "transportation": "ขนส่ง"
         },
         "industry": {
           "agriculture": "เกษตรกรรม",
@@ -466,11 +936,11 @@
           "transportation": "ขนส่ง"
         },
         "salesGrade": {
-          "vip": "VIP — ลูกค้าสำคัญมาก",
-          "a": "A — ซื้อสูง",
-          "b": "B — ลูกค้าปกติ",
-          "c": "C — ซื้อต่ำ",
-          "prospect": "Prospect — ลูกค้าเป้าหมาย"
+          "vip": "VIP · ลูกค้าลำดับความสำคัญสูงสุด",
+          "a": "A · ปริมาณซื้อสูง",
+          "b": "B · ลูกค้าปกติ",
+          "c": "C · ปริมาณซื้อต่ำ",
+          "prospect": "Prospect · ลูกค้าเป้าหมาย"
         },
         "status": {
           "active": "ใช้งาน",
@@ -1231,6 +1701,7 @@
       },
       "options": {
         "module": {
+          "task": "งาน (Tasks)",
           "customer": "ลูกค้า",
           "contact": "ผู้ติดต่อ",
           "lead": "ลีด (Lead)",
@@ -1259,7 +1730,8 @@
         "nameRequired": "กรุณากรอกชื่อสถานะ",
         "sortOrderInvalid": "ลำดับต้องไม่ต่ำกว่า 0",
         "colorInvalid": "สีต้องเป็นรหัส hex ที่ถูกต้อง (เช่น #22c55e)",
-        "duplicateCode": "มีรหัสสถานะนี้ในโมดูลที่เลือกอยู่แล้ว"
+        "duplicateCode": "มีรหัสสถานะนี้ในโมดูลที่เลือกอยู่แล้ว",
+        "inUseByTasks": "มีงานใช้สถานะนี้อยู่ — ตั้งเป็นไม่ใช้งาน (inactive) แทนการลบ หรือย้ายงานไปสถานะอื่นก่อน"
       }
     },
     "jobCode": {

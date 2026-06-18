@@ -6,6 +6,16 @@
 
 ## ประวัติ
 
+### 2026-06-18 — กฎ QA: Claude agent เท่านั้น
+
+- **ทำอะไร:** บังคับรอบ tester ใช้ Cursor Agent = Claude · อัปเดต `qa-testing.mdc` + `QA-GUIDE.md`
+- **ไฟล์ที่กระทบ:** `.cursor/rules/qa-testing.mdc`, `QA-GUIDE.md`
+
+### 2026-06-18 — QA-LEADS.md (สร้างลีด 2 โหมด)
+
+- **ทำอะไร:** Checklist tester ชั้น 0–7 · Flow A ลูกค้าในระบบ · Flow B ลูกค้าใหม่ · SQL verify · รายการที่ควรมีเพิ่ม
+- **ไฟล์ที่กระทบ:** `QA-LEADS.md`, `QA-GUIDE.md`, `README.md`
+
 ### 2026-06-08 — QA Master Data smoke + 2-user
 
 - **ทำอะไร:** Smoke test 11 เมนู · admin vs employee (archive tabs, Setup, RLS restore)

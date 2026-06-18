@@ -1,6 +1,6 @@
 # App Menu — CRM Navigation (Scaffold)
 
-> **สถานะ:** Coming soon ทุกหน้า — scaffold menu + routes + เอกสารเท่านั้น  
+> **สถานะ:** Tasks · Lead · Opportunity ✅ — ที่เหลือ Coming soon scaffold  
 > **Config แหล่งเดียว:** `frontend/app/config/appMenu.ts`  
 > **Sidebar:** ส่วน **Menu** อยู่บนสุด — ตามด้วย **Master Data** และ **Setup** (ดู [MASTER-DATA-MENU.md](./MASTER-DATA-MENU.md), [SETUP-MENU.md](./SETUP-MENU.md))
 
@@ -13,9 +13,9 @@
 | # | เมนู | Route | Key | สถานะ |
 |---|------|-------|-----|--------|
 | 1 | Dashboard | `/app` | `dashboard` | ✅ ใช้งานได้ (สถิติดีล Phase 1) |
-| 2 | Tasks | `/app/tasks` | `tasks` | 📋 Phase 2 — ดู [TASKS-MODULE.md](./TASKS-MODULE.md) |
-| 3 | Lead | `/app/leads` | `lead` | ⏳ |
-| 4 | Opportunity | `/app/opportunities` | `opportunity` | ⏳ |
+| 2 | Tasks | `/app/tasks` | `tasks` | ✅ Phase 2 v1 — [TASKS-MODULE.md](./TASKS-MODULE.md) |
+| 3 | Lead | `/app/leads` | `lead` | ✅ — [LEADS-MODULE.md](./LEADS-MODULE.md) |
+| 4 | Opportunity | `/app/opportunities` | `opportunity` | ✅ — [OPPORTUNITIES-MODULE.md](./OPPORTUNITIES-MODULE.md) |
 | 5 | Quotations | `/app/quotations` | `quotations` | ⏳ |
 | 6 | Pipeline | `/app/pipeline` | `pipeline` | ⏳ |
 | 7 | Sales order | `/app/sales-orders` | `salesOrder` | ⏳ |
@@ -39,7 +39,8 @@ Lead → Opportunity → Quotation → Sales order → Invoice
                               Contract agreement → Service
 ```
 
-- **Tasks** — งานข้ามโมดูล (ติดตามลูกค้า, follow-up, internal) — spec: [TASKS-MODULE.md](./TASKS-MODULE.md)
+- **Tasks** — งานข้ามโมดูล — spec: [TASKS-MODULE.md](./TASKS-MODULE.md)
+- **Lead** — ลีด + คะแนน — spec: [LEADS-MODULE.md](./LEADS-MODULE.md)
 - **Reports** — สรุปจากทุกโมดูลด้านบน
 - **Dashboard** — ภาพรวม KPI และงานค้าง
 
@@ -56,8 +57,11 @@ frontend/app/
 └── pages/app/
     ├── index.vue                  → dashboard
     ├── tasks.vue
-    ├── leads.vue
-    ├── opportunities.vue
+    ├── leads/
+    ├── opportunities/
+    │   ├── index.vue
+    │   ├── from-lead/[leadId].vue
+    │   └── [id]/index.vue · edit.vue
     ├── quotations.vue
     ├── pipeline.vue
     ├── sales-orders.vue

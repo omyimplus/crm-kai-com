@@ -1,10 +1,8 @@
+/** ประเภทลูกค้า (นิติบุคคล / บุคคลธรรมดา) */
 export const CUSTOMER_TYPES = ['company', 'individual'] as const
 export type CustomerType = (typeof CUSTOMER_TYPES)[number]
 
-export const CUSTOMER_INDUSTRY_SEGMENTS = ['enterprise', 'sme', 'startup', 'individual'] as const
-export type CustomerIndustrySegment = (typeof CUSTOMER_INDUSTRY_SEGMENTS)[number]
-
-/** อุตสาหกรรม (Industry) — slug บันทึกลง `companies.industry` */
+/** อุตสาหกรรม (Industry Segment ใน mockup) — slug บันทึกลง `companies.industry_segment` */
 export const CUSTOMER_INDUSTRIES = [
   'agriculture',
   'construction',
@@ -18,6 +16,9 @@ export const CUSTOMER_INDUSTRIES = [
   'transportation'
 ] as const
 export type CustomerIndustry = (typeof CUSTOMER_INDUSTRIES)[number]
+
+export const CUSTOMER_INDUSTRY_SEGMENTS = CUSTOMER_INDUSTRIES
+export type CustomerIndustrySegment = CustomerIndustry
 
 export const CUSTOMER_SALES_GRADES = ['vip', 'a', 'b', 'c', 'prospect'] as const
 export type CustomerSalesGrade = (typeof CUSTOMER_SALES_GRADES)[number]

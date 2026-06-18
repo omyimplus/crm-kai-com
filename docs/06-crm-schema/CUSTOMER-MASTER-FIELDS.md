@@ -44,59 +44,29 @@
 
 **i18n:** `masterData.customer.options.customerType.{slug}`
 
-**กฎ UI (บุคคลธรรมดา / `individual`):**
+| slug | Label EN | Label TH |
+|------|----------|----------|
+| `company` | Company | นิติบุคคล |
+| `individual` | Individual | บุคคลธรรมดา |
 
-| ฟิลด์ | พฤติกรรม |
-|--------|----------|
-| `industry_segment` | ล็อกเป็น `individual` (รายบุคคล) — ปิด dropdown |
-| `industry` | ล็อกเป็น `NULL` (ไม่ระบุ) — ปิด dropdown |
+**กฎ UI (บุคคลธรรมดา / `individual`):** ล็อก `industry_segment` และ `industry` เป็นไม่ระบุ
 
-**Code:** `applyIndividualCustomerTypeRules()` ใน `masterCustomer.ts` · migration CHECK `20260608120034_*`
+**Code:** `applyIndividualCustomerTypeRules()` ใน `masterCustomer.ts` · migration CHECK `20260608120080_*`
 
-**Migration:** `20260608120031_companies_customer_master_fields.sql`
+**Migration:** `20260608120031_*` (column) · `20260608120080_restore_customer_type_lead_type_channel.sql` (revert จาก 078)
 
 ---
 
 ## 1. Industry Segment (`industry_segment`)
 
-**UI:** dropdown · label EN = *Industry Segment* · label TH = *กลุ่มอุตสาหกรรม*
+**UI:** dropdown · label EN = *Industry Segment* · label TH = *อุตสาหกรรม* · placeholder *Select industry…*
 
-**DB ปัจจุบัน:** คอลัมน์ `companies.industry_segment` — **บันทึก slug แล้ว** (migration `20260608120031_*`)
-
-**Default UI:** `sme`
-
-| ลำดับ | slug (แนะนำ SQL) | Label EN | Label TH |
-|------|------------------|----------|----------|
-| 1 | `enterprise` | Enterprise | Enterprise |
-| 2 | `sme` | SME | SME |
-| 3 | `startup` | Startup | สตาร์ทอัพ |
-| 4 | `individual` | Individual | รายบุคคล |
-
-**แนะนำ migration:**
-
-```sql
--- ตัวอย่าง — ปรับชื่อคอลัมน์/constraint ตาม naming จริง
-ALTER TABLE companies
-  ADD COLUMN industry_segment text NULL
-  CHECK (industry_segment IS NULL OR industry_segment IN (
-    'enterprise', 'sme', 'startup', 'individual'
-  ));
-```
-
-**i18n:** `masterData.customer.options.industrySegment.{slug}`
-
----
-
-## 2. Industry (`industry`)
-
-**UI:** dropdown · label EN = *Industry* · label TH = *อุตสาหกรรม*
-
-**DB ปัจจุบัน:** คอลัมน์ `companies.industry` (text NULL) — **บันทึก slug แล้ว**
+**DB ปัจจุบัน:** คอลัมน์ `companies.industry_segment` — **บันทึก slug อุตสาหกรรม** (migration `20260608120079_*`)
 
 **Default UI:** `NULL` → แสดง *— Not specified —* / *— ไม่ระบุ —*
 
-| ลำดับ | slug (ค่าใน DB) | Label EN | Label TH |
-|------|-----------------|----------|------------|
+| ลำดับ | slug | Label EN | Label TH |
+|------|------|----------|----------|
 | 1 | `agriculture` | Agriculture | เกษตรกรรม |
 | 2 | `construction` | Construction | ก่อสร้าง |
 | 3 | `education` | Education | การศึกษา |
@@ -108,21 +78,21 @@ ALTER TABLE companies
 | 9 | `technology` | Technology | เทคโนโลยี |
 | 10 | `transportation` | Transportation | ขนส่ง |
 
-**แนะนำ migration (ทำให้ DB สอดคล้อง UI):**
+**หมายเหตุ:** คอลัมน์ `companies.industry` ยัง sync ค่าเดียวกันเพื่อ backward compat — UI ใช้ `industry_segment` อย่างเดียว
 
-```sql
--- ข้อมูลเก่าที่ไม่ใช่ slug → ต้อง map หรือ NULL ก่อนใส่ constraint
-ALTER TABLE companies
-  ADD CONSTRAINT companies_industry_check
-  CHECK (industry IS NULL OR industry IN (
-    'agriculture', 'construction', 'education', 'finance', 'healthcare',
-    'hospitality', 'manufacturing', 'retail', 'technology', 'transportation'
-  ));
-```
+**i18n:** `masterData.customer.options.industrySegment.{slug}`
 
-**ทางเลือก Phase 2+:** ตาราง lookup `customer_industries` + FK แทน text slug
+**Migration:** `20260608120079_industry_segment_catalog.sql` (แทน enterprise/sme/startup/individual)
 
-**i18n:** `masterData.customer.options.industry.{slug}`
+---
+
+## 2. Industry (`industry`) — legacy column
+
+**สถานะ:** ซ่อนจาก UI — ค่าถูก mirror จาก `industry_segment` ตอนบันทึก
+
+**DB:** คอลัมน์ `companies.industry` (text NULL) · CHECK เดิมยังใช้ slug ชุดเดียวกับ §1
+
+**i18n (change log):** `masterData.customer.options.industry.{slug}`
 
 ---
 

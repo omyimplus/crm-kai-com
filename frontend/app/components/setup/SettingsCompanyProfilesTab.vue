@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { OrgCompanyProfile } from '~/types/crm'
+import { appTableGridViewOptions, type AppTableGridViewMode } from '~/config/appViewMode'
 import { appTableBadgeClass, appTableTextClass } from '~/config/appFormUi'
 import {
   localizedOrgCompanyAddress,
   localizedOrgCompanyName
 } from '~/utils/orgCompanyProfile'
 
-type CompanyProfilesViewMode = 'table' | 'grid'
+type CompanyProfilesViewMode = AppTableGridViewMode
 
 const { t, locale } = useI18n()
 const { list, remove } = useOrgCompanyProfiles()
@@ -14,6 +15,7 @@ const { list, remove } = useOrgCompanyProfiles()
 const profiles = ref<OrgCompanyProfile[]>([])
 const loading = ref(true)
 const viewMode = ref<CompanyProfilesViewMode>('table')
+const viewModeOptions = computed(() => appTableGridViewOptions(t))
 const formOpen = ref(false)
 const editingProfile = ref<OrgCompanyProfile | null>(null)
 const deleteOpen = ref(false)
@@ -83,35 +85,11 @@ function displayCompany(profile: OrgCompanyProfile) {
         {{ t('setup.settings.companyInfo.listHint') }}
       </p>
       <div class="flex flex-wrap items-center gap-2">
-        <div
+        <AppViewModeToggle
           v-if="profiles.length"
-          class="inline-flex shrink-0 rounded-lg border border-gray-200 p-0.5 dark:border-gray-700"
-          role="group"
-          :aria-label="t('setup.settings.companyInfo.viewTable')"
-        >
-          <UButton
-            size="sm"
-            :variant="viewMode === 'table' ? 'solid' : 'soft'"
-            :color="viewMode === 'table' ? 'primary' : 'neutral'"
-            icon="i-lucide-list"
-            square
-            class="rounded-md"
-            :aria-label="t('setup.settings.companyInfo.viewTable')"
-            :aria-pressed="viewMode === 'table'"
-            @click="viewMode = 'table'"
-          />
-          <UButton
-            size="sm"
-            :variant="viewMode === 'grid' ? 'solid' : 'soft'"
-            :color="viewMode === 'grid' ? 'primary' : 'neutral'"
-            icon="i-lucide-layout-grid"
-            square
-            class="rounded-md"
-            :aria-label="t('setup.settings.companyInfo.viewGrid')"
-            :aria-pressed="viewMode === 'grid'"
-            @click="viewMode = 'grid'"
-          />
-        </div>
+          v-model="viewMode"
+          :options="viewModeOptions"
+        />
         <UButton
           icon="i-lucide-plus"
           @click="openCreate"

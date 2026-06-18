@@ -97,7 +97,8 @@ frontend/
 ## App menu (sidebar หลัก)
 
 - [APP-MENU.md](./APP-MENU.md) — 12 หน้า CRM (Coming soon scaffold)
-- [TASKS-MODULE.md](./TASKS-MODULE.md) — Phase 2 โมดูลแรก (design spec)
+- [TASKS-MODULE.md](./TASKS-MODULE.md) — Tasks ✅ shipped
+- [LEADS-MODULE.md](./LEADS-MODULE.md) — Lead (design spec จาก mockup ระบบเก่า)
 
 ## Master data + Setup (sidebar)
 

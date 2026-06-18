@@ -7,6 +7,6 @@ export async function useAuthSession() {
     return user.value
   }
 
-  const { data: { session } } = await supabase.auth.getSession()
-  return session?.user ?? null
+  const { data: { user: verified } } = await supabase.auth.getUser()
+  return verified
 }
