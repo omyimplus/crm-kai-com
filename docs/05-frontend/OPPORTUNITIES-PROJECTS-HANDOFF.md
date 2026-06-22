@@ -1,8 +1,8 @@
 # Opportunities — ส่วนโปรเจกต์ (Handoff)
 
 > **วันที่:** 2026-06-18  
-> **สถานะ:** หยุดชั่วคราว — dropdown ประเภทโปรเจกต์ / ประเภทย่อย / กลุ่มสินค้า ยังไม่ verify ว่าใช้ได้จริง  
-> **Dev server:** ปิดแล้ว (port 3000 ว่าง)
+> **สถานะ:** ✅ แก้ dropdown แล้ว — verify บน browser ผ่าน  
+> **Dev server:** รันได้ที่ `http://localhost:3000`
 
 ---
 
@@ -13,73 +13,41 @@
 
 ---
 
-## สาเหตุที่สงสัย (จากการทดสอบ agent)
+## Root cause (ยืนยันแล้ว)
 
-| # | ประเด็น | รายละเอียด |
-|---|---------|------------|
-| 1 | **ชั้น component / v-model ซ้อนกัน** | เคยใช้ `OpportunitiesProjectsSection` → `OpportunitiesProjectCard` + `defineModel` หลายชั้น + `patchProject()` / `:model-value` แทน `v-model` ทำให้ `USelectMenu` ไม่ sync กับ parent |
-| 2 | **`USelectMenu` ใน v-for** | bind ผ่าน `projects[index].field` หรือ emit แบบ manual อาจทำให้ Combobox เปิดได้แต่ไม่มีรายการใน portal (ทดสอบแล้ว: stage dropdown มี `listbox` + `option` แต่ project type ไม่มี) |
-| 3 | **Sticky sidebar ทับพื้นที่คลิก** | layout `lg:grid` + `aside lg:sticky` — agent เจอ `Click target intercepted` ตอนคลิก dropdown โปรเจกต์ (แก้บางส่วนด้วย `lg:self-start` แล้ว) |
-| 4 | **Grid 3 คอลัมน์แคบ** | `xl:grid-cols-3` บนฟิลด์โปรเจกต์อาจทำให้คอลัมน์ขวาชิดกับ aside — เปลี่ยนเป็น `md:grid-cols-2` แล้ว |
+**`USelectMenu` + `value: ''` (empty string) สำหรับตัวเลือก "ไม่ระบุ"** — Combobox เปิด (`expanded`) แต่ไม่ render `listbox` / `option` ใน DOM
+
+แก้โดยใช้ **`value: null`** + `normalizeSelectValue()` เหมือน dropdown อื่นในโปรเจกต์ (Leads, Master Product)
 
 ---
 
-## สิ่งที่ทำแล้ว (รื้อ + ทำใหม่)
+## สิ่งที่ทำแล้ว
 
-### ลบ component แยก
+### `OpportunitiesProjectCard.vue` (ใหม่)
 
-- ~~`OpportunitiesProjectsSection.vue`~~
-- ~~`OpportunitiesProjectCard.vue`~~
+- `defineModel<OpportunityProjectDraft>` — หนึ่งโปรเจกต์ต่อ component
+- computed options ใน script (ไม่เรียก function ใน template)
+- enum dropdown: `null` = ไม่ระบุ · `@update:model-value` + `normalizeSelectValue`
+- ไม่ใช้ `:search-input="false"`
 
-### รวมเข้า `OpportunitiesForm.vue` โดยตรง
+### Types / utils
 
-- ส่วนโปรเจกต์อยู่ใน form เดียวกับ stage / customer (pattern เดียวกับ `LeadsForm` + `v-model="row.project_type"`)
-- `v-for="(row, index) in projects"` บน `defineModel('projects')`
-- grid **2 คอลัมน์** (`md:grid-cols-2`)
-- enum dropdown: `:search-input="false"`
-
-### Utils ใหม่ใน `masterOpportunityProjects.ts`
-
-- `opportunityProjectTypeSelectOptions(t, current)`
-- `opportunityProjectSubTypeSelectOptions(t, current)`
-- `opportunityProductGroupSelectOptions(t, categories, current)`
+- `OpportunityProjectDraft`: `project_type` / `project_sub_type` / `products_group` → `string | null`
+- `masterOpportunityProjects.ts`: default `null` · payload แปลงเป็น `''` ก่อนส่ง RPC
 
 ### Layout
 
-- `OpportunitiesOpportunityPage.vue` + `OpportunitiesViewPage.vue` — aside เพิ่ม `lg:self-start`
-
-### Build
-
-- `npm run build` ผ่าน (ใช้ `NODE_OPTIONS=--max-old-space-size=4096`)
+- `OpportunitiesForm.vue` — v-for + `OpportunitiesProjectCard`
+- aside `lg:self-start` (OpportunityPage + ViewPage)
 
 ---
 
-## สิ่งที่ยังไม่ verify
+## Verify แล้ว
 
-- [ ] เปิด dropdown **ประเภทโปรเจกต์** แล้วเห็นตัวเลือก (ติดตั้ง, บำรุงรักษา, …) และเลือกแล้วค่าค้าง
-- [ ] ประเภทย่อย + กลุ่มสินค้า เช่นเดียวกัน
-- [ ] บันทึก opp แล้ว `opportunity_projects` ถูก sync ใน DB (ต้องมี migration 081–086 apply แล้ว)
-- [ ] หน้า edit โหลดโปรเจกต์จาก `list_opportunity_projects` ถูกต้อง
-
-### ผลทดสอบ agent ล่าสุด (ก่อนพัก)
-
-- **Stage** `USelectMenu`: เปิดแล้วมี `listbox` + 6 `option` ✅
-- **Project type** `USelectMenu`: สถานะ `expanded` แต่ **ไม่มี `listbox` / `option` ใน DOM** ❌
-- ยังไม่ได้ retest หลังรื้อรวมเข้า `OpportunitiesForm` แบบเต็ม (user ขอพักก่อน)
-
----
-
-## งานต่อเมื่อกลับมา
-
-1. **รัน dev** → `cd frontend && npm run dev`
-2. **Hard refresh** หน้า `/app/opportunities/from-lead/:leadId` (ลีดที่ convert ได้)
-3. **ทดสอบ manual** 3 dropdown ในส่วนโปรเจกต์
-4. ถ้ายังพัง — ลองทางเลือก:
-   - ใช้ **computed options คงที่** ใน form (ไม่เรียก function ใน template ทุก render)
-   - เปรียบเทียบ props ของ `USelectMenu` ที่ทำงาน (stage) กับโปรเจกต์ทีละตัวใน Vue DevTools
-   - ลอง **`USelect`** แทน `USelectMenu` สำหรับ enum คงที่ (ถ้า Nuxt UI รองรับ)
-   - ตรวจ **`supabase db push`** migration `081`–`086` โดยเฉพาะ `list_opportunity_projects`
-5. อัปเดต `frontend/CHANGELOG.md` + `docs/05-frontend/CHANGELOG.md` เมื่อ fix ยืนยันแล้ว
+- [x] เปิด dropdown **ประเภทโปรเจกต์** — มี listbox + 7 options · เลือก "ติดตั้ง" ได้
+- [x] **ประเภทย่อย** — มี listbox + options
+- [ ] บันทึก opp แล้ว `opportunity_projects` sync ใน DB (ต้อง apply migration 081–086)
+- [ ] หน้า edit โหลดโปรเจกต์จาก `list_opportunity_projects`
 
 ---
 
@@ -87,9 +55,9 @@
 
 | ไฟล์ | บทบาท |
 |------|--------|
+| `frontend/app/components/opportunities/OpportunitiesProjectCard.vue` | การ์ดโปรเจกต์ + dropdown |
 | `frontend/app/components/opportunities/OpportunitiesForm.vue` | ฟอร์มรวมส่วนโปรเจกต์ |
-| `frontend/app/utils/masterOpportunityProjects.ts` | draft helpers + select options |
-| `frontend/app/components/opportunities/OpportunitiesOpportunityPage.vue` | create/edit page |
+| `frontend/app/utils/masterOpportunityProjects.ts` | draft helpers + payload |
 | `frontend/app/composables/useOpportunities.ts` | `listProjects`, create/update + projects payload |
 | `supabase/migrations/20260608120086_opportunity_projects.sql` | ตาราง + RPC sync |
 
@@ -98,9 +66,8 @@
 ## ทดสอบ
 
 - URL: `http://localhost:3000`
-- Account: `tester1` / `testpass123` (ดู `docs/11-dev-setup/TEST-ACCOUNTS.md`)
-- สร้าง opp จากลีด: `/app/leads` → ลีดที่ผ่านเกณฑ์ → แปลงเป็นโอกาสขาย  
-  หรือตรง: `/app/opportunities/from-lead/<leadId>`
+- Account: `tester1` / `testpasspass123` (ดู `docs/11-dev-setup/TEST-ACCOUNTS.md`)
+- สร้าง opp จากลีด: `/app/opportunities/from-lead/<leadId>`
 
 ---
 

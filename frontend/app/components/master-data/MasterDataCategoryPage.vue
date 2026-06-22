@@ -1,19 +1,28 @@
 <script setup lang="ts">
+import type { Category } from '~/types/crm'
 import { appFormErrorClass } from '~/config/appFormUi'
 import {
+  categoryDisplayLabel,
   categorySaveErrorMessage,
   categoryToFormInput,
   defaultMasterCategoryFormInput,
   parentCategoryOptions,
   validateMasterCategoryForm
 } from '~/utils/masterCategory'
+import {
+  CATEGORY_MODULE_KEY,
+  SERVICE_CATEGORY_MODULE_KEY,
+  type CategoryModuleKey
+} from '~/config/masterCategory'
 
 const props = defineProps<{
   mode: 'new' | 'edit'
   categoryId?: string | null
+  parentId?: string | null
 }>()
 
 const { t } = useI18n()
+const route = useRoute()
 const { list, get, create, update, updateImage } = useCategories()
 const { uploadCategoryImage, removeCategoryImage } = useCategoryImage()
 const {
@@ -30,20 +39,56 @@ const {
 const saving = ref(false)
 const errorMsg = ref('')
 const form = ref(defaultMasterCategoryFormInput())
+const categoryRows = ref<Category[]>([])
 const allCategories = ref<{ label: string, value: string }[]>([])
 
 const isEdit = computed(() => props.mode === 'edit')
 
+const parentId = computed(() => {
+  if (props.parentId) return props.parentId
+  const query = route.query.parentId
+  return typeof query === 'string' && query.trim() ? query.trim() : null
+})
+
+const moduleKey = computed((): CategoryModuleKey => {
+  const query = route.query.moduleKey
+  if (query === SERVICE_CATEGORY_MODULE_KEY) return SERVICE_CATEGORY_MODULE_KEY
+  if (props.parentId || parentId.value) {
+    const parent = categoryRows.value.find(row => row.id === (props.parentId ?? parentId.value))
+    if (parent?.module_key === SERVICE_CATEGORY_MODULE_KEY) return SERVICE_CATEGORY_MODULE_KEY
+  }
+  return CATEGORY_MODULE_KEY
+})
+
+const parentCategory = computed(() =>
+  parentId.value
+    ? categoryRows.value.find(row => row.id === parentId.value) ?? null
+    : null
+)
+
 const pageTitle = computed(() =>
   isEdit.value ? t('masterData.category.editTitle') : t('masterData.category.newTitle')
 )
-const pageSubtitle = computed(() =>
-  isEdit.value ? t('masterData.category.editSubtitle') : t('masterData.category.newSubtitle')
-)
+const pageSubtitle = computed(() => {
+  if (isEdit.value) return t('masterData.category.editSubtitle')
+  if (parentCategory.value) {
+    return t('masterData.category.newUnderParentSubtitle', {
+      parent: categoryDisplayLabel(parentCategory.value)
+    })
+  }
+  return t('masterData.category.newSubtitle')
+})
 
 try {
-  const rows = await list()
+  const rows = await list(moduleKey.value)
+  categoryRows.value = rows
   allCategories.value = parentCategoryOptions(rows, props.categoryId)
+  if (!isEdit.value) {
+    form.value = {
+      ...defaultMasterCategoryFormInput(moduleKey.value),
+      parent_id: parentId.value
+    }
+  }
 } catch (e) {
   console.error(e)
 }

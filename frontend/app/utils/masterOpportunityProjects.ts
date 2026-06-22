@@ -1,67 +1,17 @@
-import type { Category, Lead, OpportunityProject, OpportunityProjectDraft } from '~/types/crm'
-import {
-  OPPORTUNITY_PROJECT_SUB_TYPES,
-  OPPORTUNITY_PROJECT_TYPES
-} from '~/config/masterOpportunities'
-import { productCategoryOptions } from '~/utils/masterProduct'
+import type { Lead, OpportunityProject, OpportunityProjectDraft } from '~/types/crm'
 
-type SelectOption = { label: string, value: string }
-
-function withExtraOption(options: SelectOption[], current: string): SelectOption[] {
-  const trimmed = current.trim()
-  if (!trimmed || options.some(option => option.value === trimmed)) {
-    return options
-  }
-  return [{ label: trimmed, value: trimmed }, ...options]
-}
-
-export function opportunityProjectTypeSelectOptions(
-  t: (key: string) => string,
-  current = ''
-): SelectOption[] {
-  const options: SelectOption[] = [
-    { label: t('opportunities.none'), value: '' },
-    ...OPPORTUNITY_PROJECT_TYPES.map(value => ({
-      label: t(`opportunities.options.projectType.${value}`),
-      value
-    }))
-  ]
-  return withExtraOption(options, current)
-}
-
-export function opportunityProjectSubTypeSelectOptions(
-  t: (key: string) => string,
-  current = ''
-): SelectOption[] {
-  const options: SelectOption[] = [
-    { label: t('opportunities.none'), value: '' },
-    ...OPPORTUNITY_PROJECT_SUB_TYPES.map(value => ({
-      label: t(`opportunities.options.projectSubType.${value}`),
-      value
-    }))
-  ]
-  return withExtraOption(options, current)
-}
-
-export function opportunityProductGroupSelectOptions(
-  t: (key: string) => string,
-  categories: Category[],
-  current = ''
-): SelectOption[] {
-  const options: SelectOption[] = [
-    { label: t('opportunities.none'), value: '' },
-    ...productCategoryOptions(categories)
-  ]
-  return withExtraOption(options, current)
+function emptyToNull(value: string | null | undefined): string | null {
+  const trimmed = value?.trim() ?? ''
+  return trimmed || null
 }
 
 export function defaultOpportunityProjectDraft(): OpportunityProjectDraft {
   return {
     id: crypto.randomUUID(),
     project_name: '',
-    project_type: '',
-    project_sub_type: '',
-    products_group: '',
+    project_type: null,
+    project_sub_type: null,
+    products_group: null,
     estimated_value: '0',
     project_costs: '0'
   }
@@ -80,9 +30,9 @@ export function opportunityProjectsToDrafts(rows: OpportunityProject[]): Opportu
   return rows.map(row => ({
     id: row.id,
     project_name: row.project_name?.trim() ?? '',
-    project_type: row.project_type?.trim() ?? '',
-    project_sub_type: row.project_sub_type?.trim() ?? '',
-    products_group: row.products_group?.trim() ?? '',
+    project_type: emptyToNull(row.project_type),
+    project_sub_type: emptyToNull(row.project_sub_type),
+    products_group: emptyToNull(row.products_group),
     estimated_value: String(row.estimated_value ?? 0),
     project_costs: String(row.project_costs ?? 0)
   }))
@@ -110,9 +60,9 @@ export function legacyOpportunityToProjects(row: {
   return [{
     id: crypto.randomUUID(),
     project_name: row.project_name?.trim() ?? '',
-    project_type: row.project_type?.trim() ?? '',
-    project_sub_type: row.project_sub_type?.trim() ?? '',
-    products_group: row.products_group?.trim() ?? '',
+    project_type: emptyToNull(row.project_type),
+    project_sub_type: emptyToNull(row.project_sub_type),
+    products_group: emptyToNull(row.products_group),
     estimated_value: String(row.estimated_value ?? 0),
     project_costs: String(row.project_costs ?? 0)
   }]
@@ -128,9 +78,9 @@ export function sumOpportunityProjectsValue(projects: OpportunityProjectDraft[])
 export function projectsToOpportunityPayload(projects: OpportunityProjectDraft[]) {
   return projects.map(row => ({
     project_name: row.project_name.trim(),
-    project_type: row.project_type.trim(),
-    project_sub_type: row.project_sub_type.trim(),
-    products_group: row.products_group.trim(),
+    project_type: row.project_type?.trim() ?? '',
+    project_sub_type: row.project_sub_type?.trim() ?? '',
+    products_group: row.products_group?.trim() ?? '',
     estimated_value: row.estimated_value,
     project_costs: row.project_costs
   }))

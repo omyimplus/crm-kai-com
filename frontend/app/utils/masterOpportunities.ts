@@ -1,12 +1,9 @@
-import type { CompanyBillAddress, Lead, Opportunity, OpportunityFormInput, OpportunityProjectDraft, PipelineStage } from '~/types/crm'
+import type { Lead, Opportunity, OpportunityFormInput, OpportunityLineItemDraft, PipelineStage } from '~/types/crm'
 import { leadDisplayName } from '~/utils/masterLeads'
 import {
-  leadToDefaultProjects,
-  legacyOpportunityToProjects,
-  opportunityProjectsToDrafts,
-  projectsToOpportunityPayload,
-  validateOpportunityProjects
-} from '~/utils/masterOpportunityProjects'
+  lineItemsToPayload,
+  validateOpportunityLineItems
+} from '~/utils/masterOpportunityLineItems'
 import { isoToDateInput, dateInputToIso, currentMonthDateRange } from '~/utils/masterTasks'
 
 export type OpportunityDateField = 'created' | 'close'
@@ -37,8 +34,7 @@ export function defaultOpportunityFormInput(): OpportunityFormInput {
     owner_id: null,
     sales_owner_id: null,
     sales_designer_id: null,
-    sales_team_id: null,
-    address_bill_to: ''
+    sales_team_id: null
   }
 }
 
@@ -63,12 +59,9 @@ export function leadToOpportunityPrefill(
     owner_id: lead.owner_id ?? ownerId,
     sales_owner_id: lead.owner_id,
     sales_designer_id: null,
-    sales_team_id: null,
-    address_bill_to: ''
+    sales_team_id: null
   }
 }
-
-export { leadToDefaultProjects, opportunityProjectsToDrafts, legacyOpportunityToProjects }
 
 export function opportunityToFormInput(row: Opportunity): OpportunityFormInput {
   return {
@@ -82,8 +75,7 @@ export function opportunityToFormInput(row: Opportunity): OpportunityFormInput {
     owner_id: row.owner_id,
     sales_owner_id: row.sales_owner_id,
     sales_designer_id: row.sales_designer_id,
-    sales_team_id: row.sales_team_id,
-    address_bill_to: row.address_bill_to?.trim() ?? ''
+    sales_team_id: row.sales_team_id
   }
 }
 
@@ -177,64 +169,56 @@ export function computeOpportunitySummary(
 
 export function validateOpportunityForm(
   form: OpportunityFormInput,
-  projects: OpportunityProjectDraft[] = []
+  lineItems: OpportunityLineItemDraft[] = []
 ): string | null {
   if (!form.title.trim()) return 'titleRequired'
   if (!form.company_id) return 'customerRequired'
   if (!form.stage_id) return 'stageRequired'
   if (!form.owner_id) return 'ownerRequired'
 
-  return validateOpportunityProjects(projects)
+  return validateOpportunityLineItems(lineItems)
 }
 
-/** ฟิลด์ที่แก้ได้บน opp (ไม่รวมข้อมูลจากลีด) */
-export function formToOpportunityEditablePayload(
+/** ฟิลด์ที่แก้ได้บน opp ที่มาจากลีด */
+export function formToOpportunityLeadUpdatePayload(
   form: OpportunityFormInput,
-  projects: OpportunityProjectDraft[] = []
+  lineItems: OpportunityLineItemDraft[] = []
 ) {
   return {
     stage_id: form.stage_id,
     close_date: dateInputToIso(form.close_date),
     sales_designer_id: form.sales_designer_id,
     sales_team_id: form.sales_team_id,
-    address_bill_to: form.address_bill_to.trim(),
-    projects: projectsToOpportunityPayload(projects)
+    line_items: lineItemsToPayload(lineItems)
   }
 }
 
-export interface CompanyBillAddressOption {
-  value: string
-  label: string
-  address: string
-}
-
-export function companyBillAddressSelectOptions(
-  addresses: CompanyBillAddress[],
-  currentText = ''
-): CompanyBillAddressOption[] {
-  const options = addresses.map(row => ({
-    value: row.id,
-    label: row.label?.trim()
-      ? `${row.label.trim()} — ${row.address.trim()}`
-      : row.address.trim(),
-    address: row.address.trim()
-  }))
-
-  const trimmed = currentText.trim()
-  if (trimmed && !options.some(option => option.address === trimmed)) {
-    options.unshift({
-      value: `legacy:${trimmed}`,
-      label: trimmed,
-      address: trimmed
-    })
+/** ฟิลด์ครบสำหรับสร้าง/แก้ opp ที่ไม่มีลีดต้นทาง */
+export function formToOpportunityStandalonePayload(
+  form: OpportunityFormInput,
+  lineItems: OpportunityLineItemDraft[] = []
+) {
+  return {
+    title: form.title.trim(),
+    company_id: form.company_id,
+    contact_id: form.contact_id,
+    stage_id: form.stage_id,
+    close_date: dateInputToIso(form.close_date),
+    description: form.description.trim(),
+    owner_id: form.owner_id,
+    sales_owner_id: form.sales_owner_id,
+    sales_designer_id: form.sales_designer_id,
+    sales_team_id: form.sales_team_id,
+    line_items: lineItemsToPayload(lineItems)
   }
-
-  return options
 }
 
-export function defaultCompanyBillAddressText(addresses: CompanyBillAddress[]): string {
-  const row = addresses.find(address => address.is_default) ?? addresses[0]
-  return row?.address.trim() ?? ''
+/** @deprecated use formToOpportunityLeadUpdatePayload */
+export function formToOpportunityEditablePayload(
+  form: OpportunityFormInput,
+  lineItems: OpportunityLineItemDraft[] = []
+) {
+  return formToOpportunityLeadUpdatePayload(form, lineItems)
 }
 
 export function opportunityAssigneeDisplay(

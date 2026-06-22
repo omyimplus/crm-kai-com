@@ -2,7 +2,11 @@
 import type { Category } from '~/types/crm'
 import { appFormFieldClass, appSelectMenuUi, appTableTextClass } from '~/config/appFormUi'
 import { CATEGORY_STATUSES } from '~/config/masterCategory'
-import { categoryDisplayLabel } from '~/utils/masterCategory'
+import { CATEGORY_MODULE_KEY, SERVICE_CATEGORY_MODULE_KEY, type CategoryModuleKey } from '~/config/masterCategory'
+import { categoryDisplayLabel, categoryPathLabel, buildCategoryTree, filterCategoriesWithAncestors } from '~/utils/masterCategory'
+import type { AppViewModeOption } from '~/config/appViewMode'
+
+type CategoryViewMode = 'tree' | 'table'
 
 definePageMeta({ middleware: 'auth', layout: 'app' })
 
@@ -23,13 +27,20 @@ const deleteOpen = ref(false)
 const deleteTarget = ref<Category | null>(null)
 const restoreOpen = ref(false)
 const restoreTarget = ref<Category | null>(null)
+const viewMode = ref<CategoryViewMode>('tree')
+const moduleKey = ref<CategoryModuleKey>(CATEGORY_MODULE_KEY)
+
+const viewModeOptions = computed((): AppViewModeOption<CategoryViewMode>[] => [
+  { value: 'tree', icon: 'i-lucide-list-tree', label: t('masterData.category.viewMode.tree') },
+  { value: 'table', icon: 'i-lucide-list', label: t('masterData.category.viewMode.table') }
+])
 
 async function refresh() {
   loading.value = true
   try {
     categories.value = isActiveArchive.value
-      ? await list()
-      : await listDeleted()
+      ? await list(moduleKey.value)
+      : await listDeleted(moduleKey.value)
   } catch (e) {
     console.error(e)
     categories.value = []
@@ -56,25 +67,22 @@ const filteredCategories = computed(() => {
 
   const q = search.value.trim().toLowerCase()
   if (!q) return rows
-  return rows.filter((c) => {
-    const code = c.category_code.toLowerCase()
-    const name = c.name.toLowerCase()
-    const parent = parentLabel(c).toLowerCase()
-    return code.includes(q) || name.includes(q) || parent.includes(q)
+
+  return filterCategoriesWithAncestors(rows, (category) => {
+    const code = category.category_code.toLowerCase()
+    const name = category.name.toLowerCase()
+    const path = categoryPathLabel(categories.value, category.id).toLowerCase()
+    return code.includes(q) || name.includes(q) || path.includes(q)
   })
 })
 
+const categoryTree = computed(() => buildCategoryTree(filteredCategories.value))
+
 const categoryById = computed(() => new Map(categories.value.map(c => [c.id, c])))
 
-function parentLabel(category: Category) {
-  if (!category.parent_id) {
-    return t('masterData.category.fields.noParent')
-  }
-  const parent = categoryById.value.get(category.parent_id)
-  if (!parent) {
-    return t('common.empty')
-  }
-  return categoryDisplayLabel(parent)
+function pathLabel(category: Category) {
+  const path = categoryPathLabel(categories.value, category.id)
+  return path || t('masterData.category.fields.noParent')
 }
 
 function isParentDeleted(category: Category) {
@@ -131,6 +139,11 @@ watch(archiveTab, async () => {
   await refresh()
 })
 
+watch(moduleKey, async () => {
+  resetPagination()
+  await refresh()
+})
+
 function clearFilters() {
   search.value = ''
   statusFilter.value = null
@@ -152,7 +165,7 @@ function clearFilters() {
       <UButton
         v-if="isActiveArchive"
         icon="i-lucide-plus"
-        to="/app/category/new"
+        :to="`/app/category/new?moduleKey=${moduleKey}`"
       >
         {{ t('masterData.category.create') }}
       </UButton>
@@ -220,10 +233,54 @@ function clearFilters() {
           >
             {{ t('masterData.category.filters.viewAll') }}
           </UButton>
+
+          <AppViewModeToggle
+            v-model="viewMode"
+            :options="viewModeOptions"
+            :group-aria-label="t('masterData.category.viewMode.groupLabel')"
+          />
+
+          <div
+            class="inline-flex rounded-lg border border-gray-200 p-1 dark:border-gray-700"
+            role="group"
+            :aria-label="t('masterData.category.moduleTabs.groupLabel')"
+          >
+            <UButton
+              type="button"
+              size="sm"
+              :variant="moduleKey === CATEGORY_MODULE_KEY ? 'solid' : 'outline'"
+              @click="moduleKey = CATEGORY_MODULE_KEY"
+            >
+              {{ t('masterData.category.moduleTabs.product') }}
+            </UButton>
+            <UButton
+              type="button"
+              size="sm"
+              :variant="moduleKey === SERVICE_CATEGORY_MODULE_KEY ? 'solid' : 'outline'"
+              @click="moduleKey = SERVICE_CATEGORY_MODULE_KEY"
+            >
+              {{ t('masterData.category.moduleTabs.service') }}
+            </UButton>
+          </div>
         </div>
       </UCard>
 
-      <div class="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800">
+      <MasterDataCategoryTree
+        v-if="viewMode === 'tree'"
+        :nodes="categoryTree"
+        :categories="categories"
+        :is-active-archive="isActiveArchive"
+        :can-restore="canViewDeletedRecords"
+        :show-deleted-at="!isActiveArchive"
+        :module-key="moduleKey"
+        @delete="openDelete"
+        @restore="openRestore"
+      />
+
+      <div
+        v-else
+        class="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800"
+      >
         <p
           class="border-b border-gray-200 px-3 py-2 text-gray-600 dark:border-gray-800 dark:text-gray-400"
           :class="appTableTextClass"
@@ -258,7 +315,7 @@ function clearFilters() {
               <AppDataTableTh class="w-14">{{ t('masterData.category.fields.image') }}</AppDataTableTh>
               <AppDataTableTh>{{ t('masterData.category.fields.code') }}</AppDataTableTh>
               <AppDataTableTh>{{ t('masterData.category.fields.name') }}</AppDataTableTh>
-              <AppDataTableTh>{{ t('masterData.category.fields.parent') }}</AppDataTableTh>
+              <AppDataTableTh>{{ t('masterData.category.fields.path') }}</AppDataTableTh>
               <AppDataTableTh>{{ t('masterData.category.fields.sortOrder') }}</AppDataTableTh>
               <AppDataTableTh>{{ t('masterData.category.fields.status') }}</AppDataTableTh>
               <AppDataTableTh v-if="canViewDeletedRecords && !isActiveArchive">
@@ -316,7 +373,7 @@ function clearFilters() {
             </AppDataTableTd>
             <AppDataTableTd muted>
               <div class="flex flex-wrap items-center gap-2">
-                <span>{{ parentLabel(c) }}</span>
+                <span>{{ pathLabel(c) }}</span>
                 <UBadge
                   v-if="!isActiveArchive && isParentDeleted(c)"
                   color="warning"

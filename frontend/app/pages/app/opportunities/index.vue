@@ -161,13 +161,24 @@ async function confirmDelete() {
 
 <template>
   <div class="space-y-5">
-    <div>
-      <h1 class="text-2xl font-bold font-heading text-gray-900 dark:text-gray-100">
-        {{ t('opportunities.pageTitle') }}
-      </h1>
-      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-        {{ t('opportunities.pageSubtitle') }}
-      </p>
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+      <div>
+        <h1 class="text-2xl font-bold font-heading text-gray-900 dark:text-gray-100">
+          {{ t('opportunities.pageTitle') }}
+        </h1>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          {{ t('opportunities.pageSubtitle') }}
+        </p>
+      </div>
+      <UButton
+        v-if="canWrite"
+        to="/app/opportunities/new"
+        color="primary"
+        icon="i-lucide-plus"
+        class="shrink-0"
+      >
+        {{ t('opportunities.new') }}
+      </UButton>
     </div>
 
     <OpportunitiesSummaryCards
@@ -289,7 +300,16 @@ async function confirmDelete() {
             {{ t('opportunities.emptyHint') }}
           </p>
           <UButton
+            v-if="canWrite"
             class="mt-4"
+            to="/app/opportunities/new"
+            color="primary"
+            icon="i-lucide-plus"
+          >
+            {{ t('opportunities.new') }}
+          </UButton>
+          <UButton
+            class="mt-3"
             to="/app/leads"
             variant="soft"
             icon="i-lucide-user-plus"

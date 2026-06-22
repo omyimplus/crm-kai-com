@@ -1,10 +1,11 @@
-import type { Product, Unit } from '~/types/crm'
+import type { Category, Product, Unit } from '~/types/crm'
 import {
   PRODUCT_CURRENCIES,
   PRODUCT_STATUSES,
   type ProductCurrency,
   type ProductStatus
 } from '~/config/masterProduct'
+import { categoryPathLabel, categorySelectOptions } from '~/utils/masterCategory'
 import { normalizeSelectValue } from '~/utils/normalizeSelectValue'
 import { getSupabaseErrorMessage } from '~/utils/supabaseError'
 
@@ -114,20 +115,17 @@ export function productDisplayLabel(product: Pick<Product, 'product_code' | 'nam
   return `${product.product_code} · ${product.name}`
 }
 
-export function productCategoryOptions(categories: { id: string, category_code: string, name: string }[]) {
-  return categories.map(c => ({
-    value: c.id,
-    label: `${c.category_code} · ${c.name}`
-  }))
+export function productCategoryOptions(categories: Category[]) {
+  return categorySelectOptions(categories, { leafOnly: true })
 }
 
 export function productCategoryLabel(
   categoryId: string | null | undefined,
-  categories: { id: string, category_code: string, name: string }[]
+  categories: Category[]
 ): string | null {
   if (!categoryId) return null
-  const category = categories.find(c => c.id === categoryId)
-  return category ? `${category.category_code} · ${category.name}` : null
+  const path = categoryPathLabel(categories, categoryId)
+  return path || null
 }
 
 export function productUnitOptions(units: Unit[]) {

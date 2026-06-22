@@ -29,6 +29,8 @@
 
 ## ลำดับชั้น (`parent_id`)
 
+→ **Flow ลูกค้า (Client › ประเภท › ยี่ห้อ › สินค้า):** [CATEGORY-HIERARCHY.md](./CATEGORY-HIERARCHY.md)
+
 - หมวดย่อยชี้หมวดแม่ได้ 1 ชั้นต่อการเลือก ( chain ได้หลายระดับ )
 - ห้ามวน loop · ห้ามเลือกตัวเองเป็นแม่
 - ลบ (soft): ห้ามถ้ามีหมวดลูก active อยู่
@@ -41,7 +43,7 @@
 | ฟิลด์ | รายละเอียด |
 |-------|------------|
 | `products.category_id` | FK → `categories.id` · ลบหมวด (soft) ห้ามถ้ามีสินค้า active |
-| UI สินค้า | `USelectMenu` จาก `useCategories()` · แสดงรูป/ชื่อหมวดในรายการและหน้า view |
+| UI สินค้า | `USelectMenu` จาก `useCategories()` · **leaf only** · แสดง path เต็ม |
 
 ---
 

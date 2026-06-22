@@ -33,9 +33,5 @@ export const opportunitiesSectionThemes = {
   people: {
     icon: 'i-lucide-users',
     iconClass: 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300'
-  },
-  address: {
-    icon: 'i-lucide-map-pin',
-    iconClass: 'bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300'
   }
 } as const

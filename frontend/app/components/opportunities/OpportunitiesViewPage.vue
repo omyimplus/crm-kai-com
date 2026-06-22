@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import type { Category, Company, CompanyBillAddress, Opportunity, OpportunityProjectDraft, PipelineStage, SalesTeam, TaskAssignee } from '~/types/crm'
+import type { Category, Company, Opportunity, OpportunityLineItemDraft, PipelineStage, Product, SalesTeam, Service, TaskAssignee } from '~/types/crm'
 import {
-  legacyOpportunityToProjects,
-  opportunityProjectsToDrafts,
   opportunityToFormInput,
   defaultOpportunityFormInput
 } from '~/utils/masterOpportunities'
+import {
+  defaultOpportunityLineItemDraft,
+  opportunityLineItemsToDrafts
+} from '~/utils/masterOpportunityLineItems'
+import { SERVICE_CATEGORY_MODULE_KEY, CATEGORY_MODULE_KEY } from '~/config/masterCategory'
 
 const props = defineProps<{
   opportunityId: string
@@ -13,44 +16,54 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const { ensurePermissions, canWriteModule } = usePermissions()
-const { list, listProjects, remove, ensureDefaults } = useOpportunities()
+const { list, listLineItems, remove, ensureDefaults } = useOpportunities()
 const { getDefaultPipeline } = useDeals()
 const { listAssignees } = useTasks()
-const { list: listCompanies, listBillAddresses } = useCompanies()
+const { list: listCompanies } = useCompanies()
 const { list: listSalesTeams } = useSalesTeams()
 const { list: listCategories } = useCategories()
+const { list: listProducts } = useProducts()
+const { list: listServices } = useServices()
 
 await ensurePermissions()
 
 const loading = ref(true)
 const opportunity = ref<Opportunity | null>(null)
 const form = ref(defaultOpportunityFormInput())
-const projects = ref<OpportunityProjectDraft[]>([])
+const lineItems = ref<OpportunityLineItemDraft[]>([])
 const stages = ref<PipelineStage[]>([])
 const assignees = ref<TaskAssignee[]>([])
 const companies = ref<Company[]>([])
 const salesTeams = ref<SalesTeam[]>([])
-const categories = ref<Category[]>([])
-const billAddresses = ref<CompanyBillAddress[]>([])
+const productCategories = ref<Category[]>([])
+const serviceCategories = ref<Category[]>([])
+const products = ref<Product[]>([])
+const services = ref<Service[]>([])
 const deleteOpen = ref(false)
 
 const canWrite = computed(() => canWriteModule('app.opportunity'))
 
 try {
   await ensureDefaults()
-  const [pipelineData, assigneeRows, companyRows, teamRows, categoryRows, rows] = await Promise.all([
+  const [pipelineData, assigneeRows, companyRows, teamRows, productCatResult, serviceCatResult, productResult, serviceResult, rows] = await Promise.all([
     getDefaultPipeline(),
     listAssignees(),
     listCompanies(),
     listSalesTeams(),
-    listCategories(),
+    listCategories(CATEGORY_MODULE_KEY).catch(() => [] as Category[]),
+    listCategories(SERVICE_CATEGORY_MODULE_KEY).catch(() => [] as Category[]),
+    listProducts().catch(() => [] as Product[]),
+    listServices().catch(() => [] as Service[]),
     list()
   ])
   stages.value = pipelineData.stages
   assignees.value = assigneeRows
   companies.value = companyRows
   salesTeams.value = teamRows
-  categories.value = categoryRows
+  productCategories.value = productCatResult
+  serviceCategories.value = serviceCatResult
+  products.value = productResult
+  services.value = serviceResult
 
   const row = rows.find(item => item.id === props.opportunityId)
   if (!row) {
@@ -58,13 +71,10 @@ try {
   } else {
     opportunity.value = row
     form.value = opportunityToFormInput(row)
-    const projectRows = await listProjects(row.id)
-    projects.value = projectRows.length
-      ? opportunityProjectsToDrafts(projectRows)
-      : legacyOpportunityToProjects(row)
-    billAddresses.value = row.company_id
-      ? await listBillAddresses(row.company_id)
-      : []
+    const itemRows = await listLineItems(row.id)
+    lineItems.value = itemRows.length
+      ? opportunityLineItemsToDrafts(itemRows, [...productCatResult, ...serviceCatResult])
+      : [defaultOpportunityLineItemDraft()]
   }
 } catch (error) {
   console.error(error)
@@ -127,17 +137,20 @@ async function confirmDelete() {
 
         <OpportunitiesForm
           v-model="form"
-          v-model:projects="projects"
+          v-model:line-items="lineItems"
           :stages="stages"
           :companies="companies"
           :assignees="assignees"
           :sales-teams="salesTeams"
-          :categories="categories"
-          :bill-addresses="billAddresses"
+          :product-categories="productCategories"
+          :service-categories="serviceCategories"
+          :products="products"
+          :services="services"
           :opportunity-code="opportunity.opportunity_code"
           :lead-code="opportunity.lead_code"
           :lead-id="opportunity.lead_id"
-          lock-lead-fields
+          :lock-lead-fields="Boolean(opportunity.lead_id)"
+          :customer-in-form="Boolean(opportunity.lead_id)"
           readonly
         />
       </div>
@@ -157,6 +170,7 @@ async function confirmDelete() {
             {{ t('common.edit') }}
           </UButton>
           <UButton
+            v-if="opportunity.lead_id"
             block
             class="mt-2"
             variant="soft"

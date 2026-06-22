@@ -653,8 +653,8 @@ export interface Opportunity {
   org_id: string
   opportunity_code: string
   title: string
-  lead_id: string
-  lead_code: string
+  lead_id: string | null
+  lead_code: string | null
   company_id: string | null
   company_name: string | null
   contact_id: string | null
@@ -709,11 +709,68 @@ export interface OpportunityProject {
 export interface OpportunityProjectDraft {
   id: string
   project_name: string
-  project_type: string
-  project_sub_type: string
-  products_group: string
+  project_type: string | null
+  project_sub_type: string | null
+  products_group: string | null
   estimated_value: string
   project_costs: string
+}
+
+export type OpportunityLineType = 'product' | 'service'
+
+export interface OpportunityLineItem {
+  id: string
+  opportunity_id: string
+  line_type: OpportunityLineType
+  category_id: string | null
+  category_path: string[] | null
+  product_id: string | null
+  service_id: string | null
+  item_name: string | null
+  line_description: string | null
+  quantity: number
+  unit_price: number
+  line_total: number
+  sort_order: number
+  created_at: string
+  updated_at: string
+}
+
+export interface OpportunityLineItemDraft {
+  id: string
+  line_type: OpportunityLineType
+  category_path: (string | null)[]
+  category_id: string | null
+  product_id: string | null
+  service_id: string | null
+  item_name: string
+  line_description: string
+  quantity: string
+  unit_price: string
+  line_total: string
+}
+
+export type ServiceKind = 'repair' | 'maintenance' | 'installation' | 'consulting' | 'other'
+export type ServiceStatus = 'active' | 'inactive'
+
+export interface Service {
+  id: string
+  org_id: string
+  service_code: string
+  name: string
+  description: string | null
+  category_id: string | null
+  unit_id: string | null
+  list_price: number
+  cost_price: number | null
+  currency: string
+  service_kind: ServiceKind
+  status: ServiceStatus
+  is_sellable: boolean
+  notes: string | null
+  created_at: string
+  updated_at: string
+  deleted_at?: string | null
 }
 
 export interface OpportunityFormInput {
@@ -728,5 +785,4 @@ export interface OpportunityFormInput {
   sales_owner_id: string | null
   sales_designer_id: string | null
   sales_team_id: string | null
-  address_bill_to: string
 }

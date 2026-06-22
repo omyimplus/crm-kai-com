@@ -6,6 +6,32 @@
 
 ## ประวัติ
 
+### 2026-06-18 — Opportunities: รายการสินค้า/บริการ + หมวดสินค้า/บริการ
+
+- **UI:** `OpportunitiesLineItems.vue` — ตาราง line items แทน project cards (cascade หมวด 3 ชั้นสินค้า / 2–3 ชั้นบริการ · combobox สินค้า/บริการ · qty/price · quick-create)
+- **Category:** `/app/category` — toggle **สินค้า | บริการ** · `module_key` บนฟอร์ม/ต้นไม้
+- **Service master:** `/app/service` · `/app/service/new` · `useServices`
+- **DB:** migration `20260608120088_service_categories_line_items.sql` — `services`, `opportunity_line_items`, RPC sync/create/update
+- **เมนู:** `service` ตั้ง `ready: true`
+
+### 2026-06-18 — Opportunities: เอาที่อยู่ออกบิลออกจากฟอร์ม
+
+- **เหตุผล:** ใช้ที่อยู่ออกบิลจาก master ลูกค้า — ไม่เลือกซ้ำบน opp
+- **UI:** ลบ section Address · `OpportunitiesCustomerBillAddressModal`
+- **Payload:** ไม่ส่ง `address_bill_to` — RPC สร้าง opp ดึง default จาก `get_company_default_bill_address`
+
+### 2026-06-18 — Opportunities: สร้าง standalone (ไม่ผ่านลีด)
+
+- **Route:** `/app/opportunities/new` · ปุ่มบนรายการ
+- **UI:** `LeadsCustomerSection` — เลือกลูกค้าเดิมหรือสร้างใหม่
+- **DB:** migration `20260608120087_opportunity_standalone_create.sql` · RPC `create_opportunity`
+
+### 2026-06-18 — Opportunities: แก้ dropdown โปรเจกต์
+
+- **Root cause:** `USelectMenu` + `value: ''` ทำให้ listbox ไม่ render
+- **`OpportunitiesProjectCard.vue`:** enum ใช้ `null` + `normalizeSelectValue` · computed options
+- **Types:** `OpportunityProjectDraft` — `project_type` / `project_sub_type` / `products_group` เป็น `string | null`
+
 ### 2026-06-18 — Opportunities i18n (th/en)
 
 - แปลครบ `opportunities.*` · `stageNames` สำหรับ default pipeline · `usePipelineStageLabel`

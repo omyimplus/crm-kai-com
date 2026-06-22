@@ -1,5 +1,5 @@
-import type { Opportunity, OpportunityFormInput, OpportunityProject, OpportunityProjectDraft } from '~/types/crm'
-import { formToOpportunityEditablePayload } from '~/utils/masterOpportunities'
+import type { Opportunity, OpportunityFormInput, OpportunityLineItem, OpportunityLineItemDraft } from '~/types/crm'
+import { formToOpportunityLeadUpdatePayload, formToOpportunityStandalonePayload } from '~/utils/masterOpportunities'
 
 export function useOpportunities() {
   const supabase = useSupabaseClient()
@@ -12,12 +12,12 @@ export function useOpportunities() {
     return (data ?? []) as Opportunity[]
   }
 
-  async function listProjects(opportunityId: string) {
-    const { data, error } = await supabase.rpc('list_opportunity_projects', {
+  async function listLineItems(opportunityId: string) {
+    const { data, error } = await supabase.rpc('list_opportunity_line_items', {
       p_opportunity_id: opportunityId
     })
     if (error) throw error
-    return (data ?? []) as OpportunityProject[]
+    return (data ?? []) as OpportunityLineItem[]
   }
 
   async function getByLeadId(leadId: string) {
@@ -31,11 +31,25 @@ export function useOpportunities() {
   async function createFromLead(
     leadId: string,
     form: OpportunityFormInput,
-    projects: OpportunityProjectDraft[] = []
+    lineItems: OpportunityLineItemDraft[] = []
   ) {
     const { data: id, error } = await supabase.rpc('create_opportunity_from_lead', {
       p_lead_id: leadId,
-      p_payload: formToOpportunityEditablePayload(form, projects)
+      p_payload: formToOpportunityLeadUpdatePayload(form, lineItems)
+    })
+    if (error) throw error
+    const rows = await list()
+    const created = rows.find(row => row.id === String(id))
+    if (!created) throw new Error('Opportunity not found after create')
+    return created
+  }
+
+  async function create(
+    form: OpportunityFormInput,
+    lineItems: OpportunityLineItemDraft[] = []
+  ) {
+    const { data: id, error } = await supabase.rpc('create_opportunity', {
+      p_payload: formToOpportunityStandalonePayload(form, lineItems)
     })
     if (error) throw error
     const rows = await list()
@@ -47,11 +61,15 @@ export function useOpportunities() {
   async function update(
     id: string,
     form: OpportunityFormInput,
-    projects: OpportunityProjectDraft[] = []
+    lineItems: OpportunityLineItemDraft[] = [],
+    standalone = false
   ) {
+    const payload = standalone
+      ? formToOpportunityStandalonePayload(form, lineItems)
+      : formToOpportunityLeadUpdatePayload(form, lineItems)
     const { error } = await supabase.rpc('update_opportunity', {
       p_opportunity_id: id,
-      p_payload: formToOpportunityEditablePayload(form, projects)
+      p_payload: payload
     })
     if (error) throw error
     const rows = await list()
@@ -72,5 +90,5 @@ export function useOpportunities() {
     if (error) throw error
   }
 
-  return { list, listProjects, getByLeadId, createFromLead, update, remove, ensureDefaults }
+  return { list, listLineItems, getByLeadId, createFromLead, create, update, remove, ensureDefaults }
 }

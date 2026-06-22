@@ -6,6 +6,16 @@
 
 ## ประวัติ
 
+### 2026-06-18 — Opportunities: standalone create
+
+- **Route:** `/app/opportunities/new` · ลูกค้า pattern Lead
+- **Spec:** [OPPORTUNITIES-MODULE.md](./OPPORTUNITIES-MODULE.md)
+
+### 2026-06-18 — Opportunities: แก้ dropdown โปรเจกต์
+
+- **Handoff:** [OPPORTUNITIES-PROJECTS-HANDOFF.md](./OPPORTUNITIES-PROJECTS-HANDOFF.md) — root cause `value: ''` ใน `USelectMenu`
+- **`OpportunitiesProjectCard.vue`** — แยกการ์ดโปรเจกต์ · enum ใช้ `null` แทน empty string
+
 ### 2026-06-18 — Opportunities module v1 (implement)
 
 - **Route:** `/app/opportunities` · `/app/opportunities/from-lead/:leadId` · `/app/opportunities/:id` · `/app/opportunities/:id/edit`

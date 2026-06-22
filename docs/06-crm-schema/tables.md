@@ -574,7 +574,7 @@ Lead CRM (Phase 2) — [LEADS-MODULE.md](../05-frontend/LEADS-MODULE.md)
 
 ## opportunities
 
-Opportunity CRM (Phase 2) — [OPPORTUNITIES-MODULE.md](../05-frontend/OPPORTUNITIES-MODULE.md) · สร้างจากลีดเท่านั้น
+Opportunity CRM (Phase 2) — [OPPORTUNITIES-MODULE.md](../05-frontend/OPPORTUNITIES-MODULE.md) · สร้าง standalone หรือจากลีด
 
 | Column | Type | Null | Default | หมายเหตุ |
 |--------|------|------|---------|----------|
@@ -582,7 +582,7 @@ Opportunity CRM (Phase 2) — [OPPORTUNITIES-MODULE.md](../05-frontend/OPPORTUNI
 | org_id | uuid | NO | | FK → organizations |
 | opportunity_code | text | NO | | auto `generate_job_code('opportunity')` |
 | title | text | NO | | |
-| lead_id | uuid | NO | | FK → leads · unique active |
+| lead_id | uuid | YES | | FK → leads · unique active เมื่อ NOT NULL |
 | company_id | uuid | YES | | FK → companies |
 | contact_id | uuid | YES | | FK → contacts |
 | pipeline_id | uuid | NO | | FK → pipelines (default) |
@@ -609,9 +609,9 @@ Opportunity CRM (Phase 2) — [OPPORTUNITIES-MODULE.md](../05-frontend/OPPORTUNI
 | updated_at | timestamptz | NO | now() | |
 | deleted_at | timestamptz | YES | | soft delete |
 
-**RPC:** `list_opportunities`, `create_opportunity_from_lead`, `update_opportunity`, `soft_delete_opportunity`, `get_opportunity_by_lead`, `list_opportunity_projects`, `sync_opportunity_projects`, `ensure_opportunity_module_defaults`, `opportunity_log_snapshot`
+**RPC:** `list_opportunities`, `create_opportunity`, `create_opportunity_from_lead`, `update_opportunity`, `soft_delete_opportunity`, `get_opportunity_by_lead`, `list_opportunity_projects`, `sync_opportunity_projects`, `ensure_opportunity_module_defaults`, `opportunity_log_snapshot`
 
-**Migration:** `20260608120081_opportunities_module.sql` · `20260608120086_opportunity_projects.sql`
+**Migration:** `20260608120081_opportunities_module.sql` · `20260608120086_opportunity_projects.sql` · `20260608120087_opportunity_standalone_create.sql`
 
 ---
 

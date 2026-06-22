@@ -144,6 +144,10 @@ const parentSelectOptions = computed(() => [
       :icon-class="masterCategorySectionThemes.hierarchy.iconClass"
     >
       <div class="space-y-5">
+        <p class="rounded-xl border border-violet-200 bg-violet-50 px-4 py-3 text-sm text-violet-900 dark:border-violet-900/50 dark:bg-violet-950/30 dark:text-violet-200">
+          {{ t('masterData.category.hierarchyHint') }}
+        </p>
+
         <UFormField
           :label="t('masterData.category.fields.parent')"
           :class="appFormFieldClass"

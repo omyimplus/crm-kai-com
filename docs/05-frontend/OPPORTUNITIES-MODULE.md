@@ -1,7 +1,7 @@
 # Opportunities Module — Phase 2 Design Spec
 
 > **Phase:** 2 — CRM Menu (ถัดจาก Lead ✅)  
-> **Route:** `/app/opportunities` · สร้าง `/app/opportunities/from-lead/:leadId` · ดู/แก้ `/app/opportunities/:id`  
+> **Route:** `/app/opportunities` · สร้าง `/app/opportunities/new` · จากลีด `/app/opportunities/from-lead/:leadId` · ดู/แก้ `/app/opportunities/:id`  
 > **สถานะ:** ✅ implement v1 — migration `20260608120081_opportunities_module.sql`  
 > **อ้างอิง UI เก่า:** รายการโอกาส · สรุป Pipeline/Won/Open · ฟอร์ม 3 คอลัมน์ + ที่อยู่
 
@@ -20,7 +20,7 @@ Flow: **Lead → Opportunity → Quotation → …** (ดู [APP-MENU.md](./APP
 | หัวข้อ | กำหนด |
 |--------|--------|
 | Phase | 2 |
-| **สร้างได้จากลีดเท่านั้น** | ไม่มี `/app/opportunities/new` แบบ standalone · ปุ่ม Convert บนหน้าดูลีด → `/app/opportunities/from-lead/:leadId` |
+| **สร้างได้ 2 ทาง** | `/app/opportunities/new` (standalone) · แปลงจากลีด → `/app/opportunities/from-lead/:leadId` |
 | Stage workflow | **`pipeline_stages`** ของ default pipeline (เช่น Lead → Qualified → … → Won/Lost) — มี `probability` ต่อ stage |
 | เลขที่โอกาส | **`job_code_sequences`** — module `opportunity` · prefix `OPP` · read-only หลังสร้าง |
 | สิทธิ์ | `app.opportunity` — view / create / edit / delete |
@@ -28,7 +28,7 @@ Flow: **Lead → Opportunity → Quotation → …** (ดู [APP-MENU.md](./APP
 | i18n | th + en — key `appMenu.opportunity.*` / `opportunities.*` |
 | ฟอร์ม | **หน้าเต็ม** (pattern Lead) — sidebar Actions |
 
-**1 ลีด → 1 โอกาส** (unique `lead_id` ขณะ active) — หลัง convert ลีดเปลี่ยนสถานะเป็น `CONVERTED`
+**1 ลีด → 1 โอกาส** (unique `lead_id` ขณะ active · `lead_id` nullable สำหรับ opp standalone) — หลัง convert ลีดเปลี่ยนสถานะเป็น `CONVERTED`
 
 ---
 
@@ -40,7 +40,7 @@ Flow: **Lead → Opportunity → Quotation → …** (ดู [APP-MENU.md](./APP
 | **ชนะช่วงนี้** | ผลรวม opp `status = won` ที่ `closed_at` อยู่ในช่วงวันที่ filter (default เดือนปัจจุบัน) |
 | **โอกาสเปิด** | จำนวน opp `status = open` ในชุดที่ตรง filter |
 
-**ไม่มีปุ่ม + New Opportunity** — สร้างจากลีดเท่านั้น
+**ปุ่ม + New Opportunity** บนรายการ → `/app/opportunities/new` · สร้างจากลีดได้เหมือนเดิม
 
 ### ตาราง
 
@@ -60,9 +60,15 @@ Flow: **Lead → Opportunity → Quotation → …** (ดู [APP-MENU.md](./APP
 
 ---
 
-## ฟอร์ม (จากลีด / แก้ไข)
+## ฟอร์ม (สร้างใหม่ / จากลีด / แก้ไข)
 
-### Opportunity
+### Standalone (`/new`)
+
+- ส่วนลูกค้า pattern เดียวกับ Lead — เลือกลูกค้าเดิมหรือสร้างใหม่ (`LeadsCustomerSection`)
+- ฟิลด์ title · description · owner · sales_owner แก้ได้
+- ไม่มี `lead_id`
+
+### จากลีด
 
 | ฟิลด์ | คีย์ DB | หมายเหตุ |
 |--------|---------|----------|
@@ -96,11 +102,11 @@ Flow: **Lead → Opportunity → Quotation → …** (ดู [APP-MENU.md](./APP
 | Sales Designer | `sales_designer_id` | **แก้ได้** |
 | Sales Team | `sales_team_id` | **แก้ได้** |
 
-### Address (v1)
+### Address
 
 | ฟิลด์ | v1 |
 |--------|-----|
-| Bill to | `address_bill_to` | dropdown จาก `company_bill_addresses` · ถ้ายังไม่มี → ปุ่ม「เพิ่ม」เปิด modal บันทึกลงลูกค้าแล้วเลือกให้อัตโนมัติ |
+| Bill to | **ไม่มีในฟอร์ม opp** — ใช้ที่อยู่ออกบิลจาก master ลูกค้า (`company_bill_addresses` · default) · RPC สร้าง opp ดึงจาก `get_company_default_bill_address` อัตโนมัติ |
 | Ship to | v1.1 — หลังบันทึก opp แรก (pattern ระบบเก่า) |
 
 ---
@@ -111,7 +117,8 @@ Flow: **Lead → Opportunity → Quotation → …** (ดู [APP-MENU.md](./APP
 |-----|----------|
 | `ensure_opportunity_module_defaults` | lazy seed job code `opportunity` |
 | `list_opportunities` | filter stage optional |
-| `create_opportunity_from_lead` | **ทางสร้างเดียว** · convert ลีด → CONVERTED |
+| `create_opportunity` | สร้าง standalone (ไม่มีลีด) |
+| `create_opportunity_from_lead` | แปลงลีด · convert → CONVERTED |
 | `update_opportunity` | |
 | `soft_delete_opportunity` | |
 | `get_opportunity_by_lead` | ตรวจว่าลีด convert แล้วหรือยัง |
@@ -125,7 +132,7 @@ Flow: **Lead → Opportunity → Quotation → …** (ดู [APP-MENU.md](./APP
 | รายการ | v1 | v1.1+ |
 |--------|----|-------|
 | List + summary + filter | ✅ | |
-| Create from lead only | ✅ | |
+| Create standalone + from lead | ✅ | |
 | Edit หน้าเต็ม | ✅ | |
 | Bill to address | ✅ | |
 | Ship to multi-address | | ✅ |

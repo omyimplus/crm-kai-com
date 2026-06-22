@@ -18,6 +18,12 @@
 
 ## ประวัติ
 
+### 2026-06-18 — Opportunities standalone create
+
+- **ประเภท:** migration `20260608120087_opportunity_standalone_create.sql`
+- **ทำอะไร:** `lead_id` nullable · RPC `create_opportunity` · `list_opportunities` LEFT JOIN leads · `update_opportunity` แก้ฟิลด์ครบเมื่อไม่มีลีด
+- **Docs:** [OPPORTUNITIES-MODULE.md](../05-frontend/OPPORTUNITIES-MODULE.md)
+
 ### 2026-06-18 — Opportunities module v1
 
 - **ประเภท:** migration `20260608120081_opportunities_module.sql`

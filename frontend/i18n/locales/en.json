@@ -256,15 +256,42 @@
       ]
     },
     "service": {
-      "nav": "Service",
-      "title": "Service",
-      "description": "After-sales service, support tickets, and SLA",
+      "nav": "Services",
+      "title": "Services",
+      "description": "Sellable service items (repair, MA, install) — pick on opportunity line items",
       "features": [
-        "Open and track service tickets",
-        "SLA and priority",
-        "Link contracts and projects",
-        "Customer service history"
-      ]
+        "Service catalog linked to service categories",
+        "Quick create from opportunity form",
+        "Unit price and description",
+        "Active / inactive status"
+      ],
+      "listTitle": "Services",
+      "listSubtitle": "Manage sellable service items — categories on Category page (Service tab)",
+      "empty": "No services yet",
+      "create": "Add service",
+      "newTitle": "New service",
+      "editTitle": "Edit service",
+      "fields": {
+        "code": "Code",
+        "name": "Name",
+        "kind": "Service kind",
+        "listPrice": "List price",
+        "category": "Category",
+        "description": "Description",
+        "unitPrice": "Unit price",
+        "status": "Status"
+      },
+      "options": {
+        "active": "Active",
+        "inactive": "Inactive",
+        "kind": {
+          "repair": "Repair",
+          "maintenance": "Maintenance",
+          "installation": "Installation",
+          "consulting": "Consulting",
+          "other": "Other"
+        }
+      }
     }
   },
   "tasks": {
@@ -565,16 +592,19 @@
   },
   "opportunities": {
     "pageTitle": "Opportunities",
-    "pageSubtitle": "Manage sales opportunities converted from qualified leads",
+    "pageSubtitle": "Manage sales opportunities — create new or convert from leads",
     "createTitle": "New opportunity",
+    "createFromLeadTitle": "New opportunity from lead",
     "editTitle": "Edit opportunity",
     "viewTitle": "Opportunity details",
     "viewSubtitle": "View opportunity",
     "view": "View",
     "viewLead": "View source lead",
-    "createSubtitle": "Fill in details to create an opportunity from this lead",
+    "createSubtitle": "Enter customer details and opportunity information",
+    "createFromLeadSubtitle": "Fill in details to create an opportunity from this lead",
     "editSubtitle": "Update opportunity details and save",
     "create": "Create opportunity",
+    "new": "New opportunity",
     "save": "Save changes",
     "defaultTitleSuffix": "Opportunity",
     "none": "— None —",
@@ -583,7 +613,7 @@
     "notSet": "Not set",
     "actions": "Actions",
     "emptyAll": "No opportunities yet",
-    "emptyHint": "Create from a lead detail page — use Convert to opportunity",
+    "emptyHint": "Use New opportunity or convert from a qualified lead",
     "goToLeads": "Go to leads",
     "deleteTitle": "Delete opportunity",
     "deleteConfirm": "Delete “{name}”? This is recorded in the activity log.",
@@ -606,6 +636,33 @@
       "itemLabel": "Project {index}",
       "totalValue": "Total estimated value:",
       "hint": "Each project has its own value — the opportunity total syncs to the source lead on save."
+    },
+    "lineItems": {
+      "title": "Products / services",
+      "totalValue": "Total:",
+      "empty": "No line items — add a product or service row.",
+      "addProduct": "Add product",
+      "addService": "Add service",
+      "addItemOption": "+ Add item",
+      "itemPlaceholder": "Product / service name",
+      "descriptionPlaceholder": "Description (Shift+Enter for new line)",
+      "categoryLevel": "Level {level}",
+      "pickCategoryProduct": "Select all 3 product category levels (leaf) before choosing a product.",
+      "pickCategoryService": "Select at least 2 service category levels (leaf) before choosing a service.",
+      "quickCreateProduct": "Add new product",
+      "quickCreateService": "Add new service",
+      "quickCreateFailed": "Could not create item",
+      "types": {
+        "product": "Product",
+        "service": "Service"
+      },
+      "columns": {
+        "no": "No.",
+        "item": "Product / description",
+        "qty": "Qty",
+        "unitPrice": "Unit price",
+        "total": "Amount"
+      }
     },
     "fields": {
       "opportunityCode": "Opportunity code",
@@ -708,7 +765,10 @@
       "ownerRequired": "Opportunity owner is required",
       "probabilityInvalid": "Probability must be between 0 and 100",
       "valueInvalid": "Value cannot be negative",
-      "costsInvalid": "Costs cannot be negative"
+      "costsInvalid": "Costs cannot be negative",
+      "lineItemsRequired": "Add at least one line item",
+      "lineItemCategoryRequired": "Complete all category levels",
+      "lineItemRequired": "Select a product or service"
     },
     "errors": {
       "saveFailed": "Could not save opportunity"
@@ -1257,15 +1317,62 @@
         }
       }
     },
+    "service": {
+      "validation": {
+        "codeRequired": "Service code is required",
+        "nameRequired": "Service name is required",
+        "listPriceInvalid": "List price must be 0 or greater",
+        "costPriceInvalid": "Cost price must be 0 or greater",
+        "kindInvalid": "Invalid service kind",
+        "statusInvalid": "Invalid status"
+      },
+      "errors": {
+        "saveFailed": "Could not save service"
+      }
+    },
     "category": {
       "nav": "Category",
       "title": "Category",
       "description": "Product categories — used when assigning products",
       "features": ["Hierarchical categories", "Multi-module use", "Color and icon"],
       "listTitle": "Product categories",
-      "listSubtitle": "Manage categories for products and services",
+      "listSubtitle": "Manage category hierarchy — Client › type › brand (products attach at brand level)",
+      "moduleTabs": {
+        "product": "Products",
+        "service": "Services"
+      },
+      "hierarchyHint": "Recommended hierarchy: Client (root) › device type e.g. PC/Notebook › brand — attach products to leaf categories only",
+      "viewMode": {
+        "groupLabel": "Category list view",
+        "tree": "Tree",
+        "table": "Table"
+      },
+      "levels": {
+        "client": "Client",
+        "type": "Type",
+        "brand": "Brand",
+        "other": "Other",
+        "serviceRoot": "Service group",
+        "serviceMid": "Sub-group",
+        "serviceLeaf": "Service type"
+      },
+      "tree": {
+        "guideTitle": "Recommended structure",
+        "guide": {
+          "client": "Client",
+          "type": "PC / Notebook",
+          "brand": "Brand",
+          "productHint": "Products (Products menu)"
+        },
+        "addChild": "Add subcategory",
+        "expandAll": "Expand all",
+        "collapseAll": "Collapse all",
+        "expand": "Expand",
+        "collapse": "Collapse"
+      },
       "newTitle": "New category",
       "newSubtitle": "Create a new product category",
+      "newUnderParentSubtitle": "Add subcategory under {parent}",
       "editTitle": "Edit category",
       "editSubtitle": "Update category information",
       "viewSubtitle": "Category details",
@@ -1303,6 +1410,7 @@
         "name": "Category name",
         "description": "Description",
         "parent": "Parent category",
+        "path": "Path",
         "noParent": "None (top level)",
         "parentPlaceholder": "Select parent…",
         "sortOrder": "Sort order",

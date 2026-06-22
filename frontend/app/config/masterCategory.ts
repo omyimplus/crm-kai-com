@@ -1,10 +1,11 @@
-export const CATEGORY_MODULE_KEYS = ['product'] as const
+export const CATEGORY_MODULE_KEYS = ['product', 'service'] as const
 export type CategoryModuleKey = (typeof CATEGORY_MODULE_KEYS)[number]
 
 export const CATEGORY_STATUSES = ['active', 'inactive'] as const
 export type CategoryStatus = (typeof CATEGORY_STATUSES)[number]
 
 export const CATEGORY_MODULE_KEY: CategoryModuleKey = 'product'
+export const SERVICE_CATEGORY_MODULE_KEY: CategoryModuleKey = 'service'
 
 export const masterCategorySectionThemes = {
   basicInfo: {

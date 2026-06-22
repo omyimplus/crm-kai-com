@@ -32,5 +32,5 @@ export const appMenuItems: AppMenuItem[] = [
   { key: 'reports', to: '/app/reports', icon: 'i-lucide-bar-chart-3' },
   { key: 'projects', to: '/app/projects', icon: 'i-lucide-folder-kanban' },
   { key: 'contractAgreements', to: '/app/contract-agreements', icon: 'i-lucide-file-signature' },
-  { key: 'service', to: '/app/service', icon: 'i-lucide-headphones' }
+  { key: 'service', to: '/app/service', icon: 'i-lucide-headphones', ready: true }
 ]
