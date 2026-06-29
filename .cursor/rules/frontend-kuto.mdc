@@ -1,0 +1,58 @@
+---
+description: KuTo UI track — frontend-kuto only. อ่าน KUTO-MENU-PAGE-MATRIX ก่อนแก้เมนู/หน้า.
+globs: frontend-kuto/**
+alwaysApply: true
+---
+
+# frontend-kuto — Agent Rules
+
+**Scope:** แก้ได้เฉพาะ `frontend-kuto/` · **ห้าม**แก้ `frontend/` โดยไม่สั่ง
+
+## อ่านก่อนทำงาน (บังคับ)
+
+| งาน | ไฟล์ |
+|-----|------|
+| **เมนู sidebar · route · เพิ่ม/ลดหน้า** | [`docs/05-frontend/KUTO-MENU-PAGE-MATRIX.md`](../../docs/05-frontend/KUTO-MENU-PAGE-MATRIX.md) |
+| **Leads IA** | [`docs/05-frontend/KUTO-LEADS-IA.md`](../../docs/05-frontend/KUTO-LEADS-IA.md) |
+| Overview track | [`docs/05-frontend/FRONTEND-KUTO.md`](../../docs/05-frontend/FRONTEND-KUTO.md) |
+| i18n | `12-i18n/README.md` — th + en · key `kuto.*` |
+| Schema / DB | `docs/06-crm-schema/tables.md` — **ห้าม** SQL จาก Figma |
+
+## Sync เมนู ↔ หน้า (4 จุด)
+
+เพิ่ม · ลด · rename · ย้าย route → แก้พร้อมกัน:
+
+1. `app/config/kutoMenu.ts`
+2. `docs/05-frontend/KUTO-MENU-PAGE-MATRIX.md` (สถานะ ✅/⏳)
+3. `i18n/locales/th.json` + `en.json`
+4. `frontend-kuto/CHANGELOG.md`
+
+Implement หน้าจริง → ตั้ง ✅ ใน matrix · สร้าง `pages/` ถ้าไม่ใช้ placeholder
+
+## Stack
+
+Nuxt 4 · Nuxt UI · `@nuxtjs/supabase` · `@nuxtjs/i18n` th+en · Tailwind 4 · port **3001**
+
+## UX reference
+
+- [Figma Make](https://www.figma.com/make/XZYS22WiMTgEdPInRzwVJS/KC-KuTo-CRM) · https://morph-boho-25621922.figma.site/
+- Sidebar teal `#17A8A3` · dropdown ย่อยตาม figma.site (ยกเว้น **แดชบอร์ด** = direct link · ประเภทเลือกในหน้า)
+- **ไม่** copy แบนเนอร์/SQL DB จาก Figma
+
+## Sidebar IA (code)
+
+- Source: `config/kutoMenu.ts` — nested `children` + badge
+- Expand 2 ระดับ: ตั้งค่า → ข้อมูลหลัก
+- รายงาน · AI = direct link (ไม่มี sub ใน sidebar)
+- Helpers: `flattenKutoNav()`, `kutoExpandedKeysForPath()`
+
+## Nuxt pitfalls
+
+- Component prefix: `components/kuto/Foo.vue` → `<KutoFoo>`
+- ห้าม `pages/app/foo.vue` + `pages/app/foo/bar.vue` พร้อมกัน
+- Placeholder: `pages/app/[...slug].vue` จนกว่าจะ implement จริง
+
+## จบงาน
+
+- `frontend-kuto/CHANGELOG.md`
+- terminal ไม่มี ERROR/WARN · `pnpm run build` ผ่าน

@@ -1,0 +1,15 @@
+/** Mobile sidebar drawer — เปิดจากปุ่มเมนูใน header */
+
+export function useMobileNav() {
+  const open = useState('app-mobile-nav-open', () => false)
+
+  function toggle() {
+    open.value = !open.value
+  }
+
+  function close() {
+    open.value = false
+  }
+
+  return { open, toggle, close }
+}

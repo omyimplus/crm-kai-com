@@ -13,20 +13,20 @@ defineProps<{
 <template>
   <NuxtLink
     :to="to"
-    class="group flex items-center gap-3 rounded-lg px-2.5 py-2 font-sans transition-colors"
+    class="group flex items-center gap-3 rounded-2xl px-2.5 py-2 font-sans transition-colors"
     :class="[
       appSidebarNavTextClass,
       active
-        ? 'bg-menu-section/10 font-semibold text-menu-section dark:bg-primary/15 dark:text-green-400'
-        : 'font-normal text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800/80'
+        ? 'bg-sidebar-accent font-semibold text-sidebar-accent-fg dark:bg-primary/15 dark:text-blue-300'
+        : 'text-slate-600 hover:bg-slate-50 dark:text-gray-200 dark:hover:bg-gray-800/80'
     ]"
   >
     <span
-      class="flex size-8 shrink-0 items-center justify-center rounded-md transition-colors [&_svg]:stroke-[2.25]"
+      class="flex size-8 shrink-0 items-center justify-center rounded-xl transition-colors [&_svg]:stroke-[2.25]"
       :class="[
         active
-          ? 'bg-menu-section text-white shadow-sm dark:bg-primary dark:text-white'
-          : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200 group-hover:text-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:group-hover:bg-gray-700'
+          ? 'bg-primary/10 text-primary dark:bg-primary dark:text-white'
+          : 'bg-slate-100 text-slate-500 group-hover:bg-slate-200 group-hover:text-slate-700 dark:bg-gray-800 dark:text-gray-300 dark:group-hover:bg-gray-700'
       ]"
     >
       <UIcon

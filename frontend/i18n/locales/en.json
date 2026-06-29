@@ -798,7 +798,93 @@
     "openDeals": "Open deals",
     "wonDeals": "Won deals",
     "pipelineValue": "Pipeline value",
-    "dealsPipeline": "Deals pipeline"
+    "dealsPipeline": "Deals pipeline",
+    "mock": {
+      "modeTh": "Thai mode",
+      "modeEn": "English Mode",
+      "title": "KC KuTo CRM Business Command Center",
+      "subtitle": "Enterprise CRM with true separated Thai and English localization states",
+      "kpi": {
+        "salesTarget": "Sales Target",
+        "wonRevenue": "Won Revenue",
+        "openPipeline": "Open Pipeline",
+        "forecastRevenue": "Forecast Revenue",
+        "openTickets": "Open Tickets",
+        "renewalAlert": "Renewal Alert"
+      },
+      "customerList": {
+        "title": "Customer List",
+        "hint": "Table headers, buttons, and statuses display in English only",
+        "newCustomer": "New Customer",
+        "searchPlaceholder": "Search customers",
+        "filter": "Filter"
+      },
+      "table": {
+        "customerName": "Customer Name",
+        "customerCode": "Customer Code",
+        "industry": "Industry",
+        "customerType": "Customer Type",
+        "accountOwner": "Account Owner",
+        "customerTier": "Customer Tier",
+        "totalRevenue": "Total Revenue",
+        "openPipeline": "Open Pipeline",
+        "openTickets": "Open Tickets",
+        "healthScore": "Health Score"
+      },
+      "customer360": {
+        "title": "Customer 360",
+        "sampleHint": "Sample data ready for real CRM development",
+        "tabs": {
+          "overview": "Overview",
+          "companyInfo": "Company Info",
+          "contacts": "Contacts",
+          "opportunities": "Opportunities",
+          "documents": "Documents",
+          "financial": "Financial"
+        },
+        "cards": {
+          "customerProfile": "Customer Profile",
+          "revenueSummary": "Revenue Summary",
+          "aiRecommendation": "AI Recommendation"
+        }
+      },
+      "aiPanel": {
+        "title": "AI Insights Panel",
+        "atRisk": "At Risk",
+        "renewalHint": "Recommended to schedule renewal follow-up within 7 days",
+        "createActivity": "Create Activity",
+        "createOpportunity": "Create Opportunity",
+        "createTicket": "Create Ticket"
+      },
+      "statusBadges": {
+        "title": "Status Badges"
+      },
+      "status": {
+        "active": "Active",
+        "prospect": "Prospect",
+        "atRisk": "At Risk",
+        "approved": "Approved",
+        "won": "Won",
+        "lost": "Lost"
+      }
+    }
+  },
+  "appHeader": {
+    "openMenu": "Open menu",
+    "search": "Global search",
+    "approvalTasks": "Approval tasks",
+    "notifications": "Notifications",
+    "quickCreate": {
+      "label": "Quick create",
+      "lead": "New lead",
+      "customer": "New customer",
+      "contact": "New contact",
+      "opportunity": "New opportunity",
+      "quotation": "New quotation",
+      "contract": "New contract",
+      "ticket": "New ticket",
+      "activity": "New activity"
+    }
   },
   "contacts": {
     "title": "Contacts",

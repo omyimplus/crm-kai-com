@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
+import { appHeaderControlClass } from '~/config/appHeaderUi'
 
 const { t } = useI18n()
 const supabase = useSupabaseClient()
@@ -23,6 +24,19 @@ const roleLabel = computed(() => {
 const isAdmin = computed(() =>
   profile.value?.role === 'owner' || profile.value?.role === 'admin'
 )
+
+const initials = computed(() => {
+  const parts = displayName.value.trim().split(/\s+/).filter(Boolean)
+  if (!parts.length) {
+    return '?'
+  }
+  if (parts.length === 1) {
+    return parts[0]!.slice(0, 2).toUpperCase()
+  }
+  return `${parts[0]![0] ?? ''}${parts[parts.length - 1]![0] ?? ''}`.toUpperCase()
+})
+
+const hasCustomAvatar = computed(() => Boolean(profile.value?.avatar_url?.trim()))
 
 async function logout() {
   await endSession()
@@ -63,26 +77,41 @@ const items = computed<DropdownMenuItem[][]>(() => [
 <template>
   <UDropdownMenu
     :items="items"
-    :ui="{ content: 'w-64' }"
+    :ui="{ content: 'w-64 rounded-2xl' }"
   >
-    <UButton
-      variant="ghost"
-      color="neutral"
-      class="gap-1.5 rounded-full py-1 pl-1 pr-2"
+    <button
+      type="button"
+      :class="[appHeaderControlClass, 'flex max-w-[12rem] items-center gap-2 px-2 py-2 transition hover:bg-shell-input']"
       :aria-label="displayName"
     >
-      <AppUserAvatar
-        :src="profile?.avatar_url"
-        :alt="displayName"
-        size="sm"
-      />
-      <span class="hidden max-w-[8rem] truncate text-sm font-medium sm:inline">
-        {{ displayName }}
-      </span>
-      <UIcon
-        name="i-lucide-chevron-down"
-        class="size-4 shrink-0 text-gray-400"
-      />
-    </UButton>
+      <div
+        v-if="hasCustomAvatar"
+        class="size-8 shrink-0 overflow-hidden rounded-xl ring-1 ring-gray-200 dark:ring-gray-700"
+      >
+        <img
+          :src="resolveAvatarUrl(profile?.avatar_url)"
+          :alt="displayName"
+          class="size-full object-cover"
+          decoding="async"
+        >
+      </div>
+      <div
+        v-else
+        class="grid size-8 shrink-0 place-items-center rounded-xl bg-green-100 text-xs font-bold text-green-700 dark:bg-green-950/50 dark:text-green-300"
+      >
+        {{ initials }}
+      </div>
+      <div class="hidden min-w-0 text-left xl:block">
+        <p class="truncate text-xs font-bold text-shell-fg">
+          {{ displayName }}
+        </p>
+        <p
+          v-if="roleLabel"
+          class="truncate text-[10px] text-shell-muted"
+        >
+          {{ roleLabel }}
+        </p>
+      </div>
+    </button>
   </UDropdownMenu>
 </template>

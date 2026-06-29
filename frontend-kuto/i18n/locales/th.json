@@ -1,0 +1,1185 @@
+{
+  "kuto": {
+    "nav": {
+      "dashboard": "แดชบอร์ด",
+      "leads": "ลูกค้าเป้าหมาย",
+      "customers": "ลูกค้า",
+      "contacts": "ผู้ติดต่อ",
+      "opportunities": "โอกาสการขาย",
+      "quotations": "ใบเสนอราคา",
+      "contracts": "สัญญาและต่ออายุ",
+      "assets": "สินทรัพย์ และระบบที่ติดตั้ง",
+      "tickets": "Ticket / งานบริการ",
+      "activities": "กิจกรรม",
+      "documents": "เอกสาร",
+      "reports": "รายงานและการวิเคราะห์",
+      "ai": "ข้อมูลเชิงลึกจาก AI",
+      "settings": "ตั้งค่าระบบ",
+      "sub": {
+        "dashboard": {
+          "my": "แดชบอร์ดของฉัน",
+          "sales": "แดชบอร์ดฝ่ายขาย",
+          "manager": "แดชบอร์ดผู้จัดการ",
+          "executive": "แดชบอร์ดผู้บริหาร",
+          "service": "แดชบอร์ดงานบริการ",
+          "renewal": "แดชบอร์ดต่ออายุสัญญา",
+          "admin": "แดชบอร์ดผู้ดูแลระบบ",
+          "aiDash": "แดชบอร์ด AI"
+        },
+        "leads": {
+          "inbox": "กล่องรับเป้าหมาย",
+          "all": "เป้าหมายทั้งหมด",
+          "new": "เพิ่มเป้าหมายใหม่",
+          "kanban": "มุมมอง Kanban",
+          "assignment": "การมอบหมายเป้าหมาย",
+          "scoring": "คะแนนเป้าหมาย",
+          "sources": "แหล่งที่มาของเป้าหมาย",
+          "duplicates": "เป้าหมายซ้ำ",
+          "import": "นำเข้าเป้าหมาย",
+          "converted": "เป้าหมายที่แปลงแล้ว"
+        },
+        "customers": {
+          "list": "รายชื่อลูกค้า",
+          "contacts": "รายชื่อผู้ติดต่อ",
+          "contactHistory": "ประวัติการติดต่อ",
+          "c360": "มุมมองลูกค้า 360 องศา",
+          "accounts": "บัญชีลูกค้า",
+          "documents": "เอกสารลูกค้า",
+          "branches": "สาขา",
+          "duplicates": "ลูกค้าซ้ำ",
+          "import": "นำเข้าข้อมูลลูกค้า",
+          "activitySchedule": "กำหนดการกิจกรรมลูกค้า"
+        },
+        "contacts": {
+          "list": "รายชื่อผู้ติดต่อ",
+          "primary": "ผู้ติดต่อหลัก",
+          "decisionMakers": "ผู้มีอำนาจตัดสินใจ",
+          "purchasing": "ผู้ติดต่อฝ่ายจัดซื้อ",
+          "it": "ผู้ติดต่อฝ่ายไอที",
+          "roles": "บทบาทผู้ติดต่อ",
+          "history": "ประวัติการติดต่อ",
+          "duplicates": "ผู้ติดต่อซ้ำ",
+          "import": "นำเข้าผู้ติดต่อ",
+          "schedule": "กำหนดการผู้ติดต่อ"
+        },
+        "opportunities": {
+          "pipelineKanban": "Pipeline แบบ Kanban",
+          "list": "รายการโอกาสการขาย",
+          "new": "เพิ่มโอกาสการขาย",
+          "mine": "โอกาสการขายของฉัน",
+          "team": "โอกาสการขายของทีม",
+          "detail": "รายละเอียดโอกาสการขาย",
+          "forecast": "คาดการณ์ยอดขาย",
+          "stale": "ดีลที่ค้างนาน",
+          "competitors": "คู่แข่ง",
+          "winLoss": "วิเคราะห์ชนะและแพ้",
+          "lostReasons": "เหตุผลที่แพ้",
+          "scoring": "คะแนนโอกาสการขาย",
+          "salesStages": "ตั้งค่า Sales Stage"
+        },
+        "quotations": {
+          "list": "รายการใบเสนอราคา",
+          "create": "สร้างใบเสนอราคา",
+          "approvals": "อนุมัติใบเสนอราคา",
+          "pricing": "ราคาสินค้า",
+          "templates": "Template ใบเสนอราคา",
+          "versions": "ประวัติเวอร์ชัน",
+          "expired": "ใบเสนอราคาหมดอายุ"
+        },
+        "contracts": {
+          "all": "สัญญาทั้งหมด",
+          "renewalAlerts": "แจ้งเตือนต่ออายุ",
+          "renewalForecast": "คาดการณ์รายได้ต่ออายุ",
+          "expiring": "สัญญาใกล้หมดอายุ",
+          "expired": "สัญญาหมดอายุแล้ว",
+          "renewed": "สัญญาที่ต่ออายุแล้ว",
+          "notRenewed": "สัญญาที่ไม่ต่ออายุ",
+          "renewalCalendar": "Calendar ต่ออายุ",
+          "m365": "สัญญา Microsoft CSP",
+          "google": "สัญญา Google Workspace",
+          "firewall": "สัญญา Firewall",
+          "edr": "สัญญา Antivirus / EDR",
+          "maintenance": "สัญญา Maintenance",
+          "sla": "สัญญา SLA",
+          "warranty": "ติดตาม Warranty"
+        },
+        "assets": {
+          "all": "สินทรัพย์ทั้งหมด",
+          "installedBase": "ฐานข้อมูลการติดตั้ง",
+          "subscriptions": "การสมัครใช้งาน",
+          "warranty": "การรับประกัน",
+          "byCustomer": "สินทรัพย์ตามลูกค้า",
+          "import": "นำเข้าสินทรัพย์",
+          "settings": "ตั้งค่าสินทรัพย์"
+        },
+        "tickets": {
+          "all": "Ticket ทั้งหมด",
+          "create": "สร้าง Ticket",
+          "mine": "Ticket ของฉัน",
+          "team": "Ticket ของทีม",
+          "kanban": "มุมมอง Kanban",
+          "sla": "ติดตาม SLA",
+          "engineerAssign": "มอบหมายวิศวกร",
+          "serviceReport": "รายงานงานบริการ",
+          "knowledgeBase": "ฐานความรู้"
+        },
+        "activities": {
+          "mine": "กิจกรรมของฉัน",
+          "schedule": "กำหนดการกิจกรรม",
+          "calendar": "มุมมองปฏิทิน",
+          "meetings": "การประชุม",
+          "followUp": "การติดตามงาน"
+        },
+        "documents": {
+          "all": "เอกสารทั้งหมด",
+          "customer": "เอกสารลูกค้า",
+          "quotation": "เอกสารใบเสนอราคา",
+          "contract": "เอกสารสัญญา",
+          "project": "เอกสารโครงการ",
+          "service": "รายงานงานบริการ",
+          "warranty": "เอกสารประกัน",
+          "invoice": "เอกสาร Invoice",
+          "templates": "Template เอกสาร",
+          "versioning": "ควบคุมเวอร์ชัน",
+          "archived": "เอกสารที่จัดเก็บ"
+        },
+        "settings": {
+          "company": "ข้อมูลบริษัท",
+          "users": "ผู้ใช้งาน",
+          "roles": "บทบาทและสิทธิ์",
+          "locale": "ตั้งค่าภาษา",
+          "auditLog": "ประวัติการใช้งานระบบ",
+          "teams": "ทีมงานและแผนก",
+          "notifications": "การแจ้งเตือน",
+          "approvalWorkflow": "Workflow การอนุมัติ",
+          "security": "ความปลอดภัย",
+          "importExport": "การนำเข้า/ส่งออก",
+          "api": "API และ Integration",
+          "masterData": "ข้อมูลหลัก",
+          "aiSettings": "ตั้งค่า AI",
+          "package": "แพ็กเกจการใช้งาน",
+          "featureFlags": "การตั้งค่าการใช้งานฟังก์ชัน",
+          "masterDataItems": {
+            "customerType": "ประเภทลูกค้า",
+            "businessType": "ประเภทธุรกิจ",
+            "leadSource": "แหล่งที่มาของลูกค้า",
+            "salesStage": "ขั้นตอนการขาย",
+            "productCategory": "หมวดหมู่สินค้า",
+            "region": "ภูมิภาค",
+            "tier": "ระดับ",
+            "unit": "หน่วย",
+            "tags": "แท็ก",
+            "lostReason": "เหตุผลที่แพ้"
+          }
+        }
+      }
+    },
+    "sidebar": {
+      "userName": "นิชา ศรีวงศ์",
+      "userRole": "ผู้จัดการฝ่ายขาย",
+      "toggleSubmenu": "เปิด/ปิดเมนูย่อย {label}"
+    },
+    "header": {
+      "openMenu": "เปิดเมนู",
+      "search": "ค้นหาทั่วระบบ...",
+      "create": "สร้าง",
+      "approvals": "งานอนุมัติ",
+      "notifications": "การแจ้งเตือน",
+      "comingSoon": "เร็ว ๆ นี้",
+      "quickCreate": {
+        "lead": "เพิ่ม Lead ใหม่",
+        "customer": "เพิ่มลูกค้าใหม่",
+        "opportunity": "เพิ่มโอกาสการขาย",
+        "quotation": "สร้างใบเสนอราคา"
+      }
+    },
+    "common": {
+      "pagination": {
+        "range": "แสดง {start}–{end} จาก {total}",
+        "previous": "ก่อนหน้า",
+        "next": "ถัดไป",
+        "page": "หน้า {page}/{total}"
+      }
+    },
+    "dashboard": {
+      "modeTh": "โหมดภาษาไทย",
+      "modeEn": "English Mode",
+      "selectType": "เลือกประเภทแดชบอร์ด",
+      "myTitle": "แดชบอร์ดของฉัน",
+      "mySubtitle": "ภาพรวมงานของฉัน Lead, Opportunity, กิจกรรม และสิ่งที่ต้องติดตามวันนี้",
+      "settings": "ตั้งค่า",
+      "filterSearch": "ค้นหา...",
+      "viewAll": "ดูทั้งหมด",
+      "placeholder": "อยู่ระหว่างการพัฒนา",
+      "period": {
+        "today": "วันนี้",
+        "week": "สัปดาห์นี้",
+        "month": "เดือนนี้",
+        "quarter": "ไตรมาสนี้",
+        "year": "ปีนี้"
+      },
+      "filters": {
+        "status": "สถานะงาน",
+        "priority": "Priority",
+        "customer": "Customer",
+        "priorityHigh": "สูง",
+        "priorityNormal": "ปกติ",
+        "customerAll": "ทุกลูกค้า"
+      },
+      "types": {
+        "my": "แดชบอร์ดของฉัน",
+        "sales": "แดชบอร์ดฝ่ายขาย",
+        "manager": "แดชบอร์ดผู้จัดการฝ่ายขาย",
+        "executive": "แดชบอร์ดผู้บริหาร",
+        "service": "แดชบอร์ดงานบริการ",
+        "renewal": "แดชบอร์ดต่ออายุสัญญา",
+        "admin": "แดชบอร์ดผู้ดูแลระบบ",
+        "ai": "แดชบอร์ด AI"
+      },
+      "live": {
+        "pageTitle": "แดชบอร์ด",
+        "liveDataHint": "ข้อมูลสดจาก Supabase",
+        "refresh": "รีเฟรช",
+        "newLeads": "Lead ใหม่",
+        "newLeadsSub": "ทั้งหมด 0",
+        "pipeline": "โอกาสการขาย",
+        "pipelineSub": "0 deals",
+        "openTickets": "Ticket เปิด",
+        "openTicketsSub": "ปกติ",
+        "expiringContracts": "สัญญาใกล้หมด",
+        "within90Days": "ภายใน 90 วัน",
+        "totalCustomers": "ลูกค้าทั้งหมด",
+        "totalCustomersSub": "Platinum 0",
+        "activitiesToday": "กิจกรรมวันนี้",
+        "activitiesTodaySub": "รายการที่ต้องทำ"
+      },
+      "myKpi": {
+        "activitiesToday": "กิจกรรมวันนี้",
+        "overdue": "งานเกินกำหนด",
+        "leadsFollowUp": "Lead ที่ต้องติดตาม",
+        "openOpps": "Opportunity ที่เปิดอยู่",
+        "pendingQuotations": "ใบเสนอราคารอดำเนินการ",
+        "myTickets": "Ticket ที่เกี่ยวข้องกับฉัน"
+      },
+      "tasks": {
+        "title": "งานที่ต้องทำวันนี้",
+        "status": {
+          "today": "วันนี้",
+          "overdue": "เกินกำหนด"
+        },
+        "items": {
+          "renewalScg": "โทรติดตาม Renewal — SCG",
+          "demoCrm": "ประชุม Demo CRM",
+          "finalProposal": "ส่ง Final Proposal — Example Hospital",
+          "firewallRenewal": "ติดตาม Firewall Renewal"
+        },
+        "meta": {
+          "scg": "กลุ่มซิเมนต์ไทย · 10:00",
+          "asiaFoods": "เอเชีย ฟู้ดส์ · 14:00",
+          "hospital": "Example Hospital · 17:00",
+          "bangkokTech": "Bangkok Technology · เมื่อวาน"
+        }
+      },
+      "opps": {
+        "title": "Opportunity ของฉัน",
+        "col": {
+          "opportunity": "Opportunity",
+          "customer": "ลูกค้า",
+          "stage": "Stage",
+          "amount": "Amount",
+          "prob": "Prob."
+        },
+        "stage": {
+          "verbalCommit": "Verbal Commit",
+          "negotiation": "Negotiation",
+          "proposal": "Proposal"
+        }
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "activity": "เพิ่มกิจกรรม",
+        "lead": "เพิ่ม Lead",
+        "opportunity": "สร้าง Opportunity",
+        "quotation": "สร้างใบเสนอราคา"
+      },
+      "ai": {
+        "title": "AI Insight",
+        "renewalDeal": "ดีล Microsoft 365 Renewal มีโอกาสปิดสูง 88% — ส่งสัญญาวันนี้",
+        "followUp": "มีงาน Follow-up ค้างอยู่ 3 รายการ ควรดำเนินการก่อนสิ้นวัน"
+      }
+    },
+    "leads": {
+      "inbox": {
+        "title": "กล่องรับเป้าหมาย",
+        "subtitle": "ลีดใหม่และเป้าหมายที่ยังไม่ได้มอบหมาย — ตรวจสอบและมอบหมายทีมขาย",
+        "searchPlaceholder": "ค้นหารหัส · บริษัท · ผู้ติดต่อ...",
+        "unassigned": "ยังไม่มอบหมาย",
+        "viewDetail": "ดูรายละเอียด",
+        "summary": {
+          "total": "เป้าหมายทั้งหมด",
+          "newToday": "เป้าหมายใหม่วันนี้",
+          "newTodaySub": "ในกล่องรับ",
+          "highScore": "คะแนนสูง (80+)",
+          "contacted": "ติดต่อแล้ว",
+          "website": "จาก Website",
+          "lineOa": "จาก LINE OA"
+        },
+        "chips": {
+          "newToday": "เป้าหมายใหม่วันนี้",
+          "pendingReview": "รอตรวจสอบ",
+          "unassigned": "รอมอบหมาย",
+          "highScore": "คะแนนสูง",
+          "notContacted": "ยังไม่ได้ติดต่อ",
+          "website": "Website",
+          "lineOa": "LINE OA",
+          "facebook": "Facebook",
+          "marketplace": "Marketplace",
+          "tender": "Tender/RFP"
+        },
+        "filters": {
+          "source": "แหล่งที่มา",
+          "status": "สถานะเป้าหมาย",
+          "score": "คะแนนเป้าหมาย",
+          "scoreHigh": "80 ขึ้นไป",
+          "scoreLow": "ต่ำกว่า 40",
+          "sales": "Sales",
+          "dateCreated": "วันที่สร้าง",
+          "product": "สินค้า"
+        },
+        "col": {
+          "code": "รหัส",
+          "company": "บริษัท / ชื่อ",
+          "contact": "ผู้ติดต่อ",
+          "source": "แหล่งที่มา",
+          "product": "สินค้า",
+          "score": "คะแนน",
+          "status": "สถานะ",
+          "priority": "ความสำคัญ",
+          "sales": "Sales",
+          "date": "วันที่",
+          "action": "ดู"
+        },
+        "sources": {
+          "website": "Website",
+          "lineOa": "LINE OA",
+          "facebook": "Facebook",
+          "marketplace": "Marketplace",
+          "tender": "Tender/RFP"
+        },
+        "products": {
+          "m365": "Microsoft 365",
+          "firewall": "Firewall",
+          "edr": "EDR / Antivirus",
+          "maintenance": "Maintenance",
+          "google": "Google Workspace"
+        },
+        "status": {
+          "new": "ใหม่",
+          "pending": "รอดำเนินการ",
+          "review": "รอตรวจสอบ"
+        },
+        "priority": {
+          "urgent": "ด่วน!",
+          "high": "สูง",
+          "normal": "ปกติ",
+          "low": "ต่ำ"
+        },
+        "detail": {
+          "quickTitle": "ดูรายละเอียดด่วน",
+          "contact": "ผู้ติดต่อ",
+          "position": "ตำแหน่ง",
+          "phone": "โทรศัพท์",
+          "email": "อีเมล",
+          "source": "แหล่งที่มา",
+          "product": "สินค้า",
+          "budget": "งบประมาณ",
+          "scoreLabel": "คะแนนเป้าหมาย",
+          "actionToday": "วันนี้ต้องทำ",
+          "aiTitle": "AI Insight",
+          "call": "โทร",
+          "emailAction": "Email",
+          "openFull": "ดูรายละเอียดเพิ่มเติม"
+        },
+        "positions": {
+          "manager": "ผู้จัดการ"
+        },
+        "actions": {
+          "sendSample": "นัดส่งตัวอย่าง"
+        },
+        "channels": {
+          "title": "ช่องทางวันนี้",
+          "website": "Website",
+          "lineOa": "LINE OA",
+          "phone": "โทร",
+          "facebook": "Facebook",
+          "marketplace": "Marketplace"
+        },
+        "ai": {
+          "highScoreFollowUp": "คะแนนสูง — แนะนำติดตามทันทีภายในวันนี้",
+          "hospitalDemo": "ลูกค้าสนใจ Firewall — นัด Demo ภายใน 3 วัน",
+          "assignSoon": "ยังไม่มอบหมาย — ควรมอบให้ทีมขายโซนกรุงเทพ",
+          "bkkTechUrgent": "คะแนน 84 — ความต้องการด่วน",
+          "tenderDeadline": "Tender ใกล้ปิด — ตรวจเอกสารก่อนศุกร์นี้",
+          "lowScoreNurture": "คะแนนต่ำ — เหมาะ nurture ผ่านอีเมลก่อนโทร"
+        }
+      },
+      "list": {
+        "title": "เป้าหมายทั้งหมด",
+        "subtitle": "Hub หลัก — ค้นหา กรอง มุมมองตาราง/Kanban · งานที่ยุบจากเมนู figma อยู่ในหน้านี้",
+        "searchPlaceholder": "ค้นหารหัส · บริษัท · ผู้ติดต่อ · อีเมล · โทร...",
+        "clearFilters": "ล้างตัวกรอง",
+        "resultCount": "แสดง {count} รายการ",
+        "col": {
+          "leadId": "Lead ID"
+        },
+        "selectAll": "เลือกทั้งหมด",
+        "empty": "ไม่พบเป้าหมายตามตัวกรอง",
+        "inboxHint": "มุมมองกล่องรับ — ลีดที่ยังไม่มอบหมาย",
+        "openInbox": "เปิดกล่องรับเต็มรูปแบบ →",
+        "pipeline": {
+          "all": "ทั้งหมด",
+          "newCustomer": "เป้าหมายใหม่",
+          "contacted": "ติดต่อแล้ว",
+          "qualified": "ผ่านการคัดกรอง",
+          "failed": "ไม่ผ่าน",
+          "followUp": "รอติดตาม",
+          "losingInterest": "ใกล้หมดความสนใจ",
+          "converted": "แปลงแล้ว"
+        },
+        "summary": {
+          "total": "ทั้งหมด",
+          "totalSub": "เป้าหมายทั้งหมด",
+          "newCustomer": "เป้าหมายใหม่",
+          "newCustomerSub": "สัปดาห์นี้",
+          "qualified": "ผ่านการคัดกรอง",
+          "qualifiedSub": "พร้อมขายต่อ",
+          "converted": "แปลงแล้ว",
+          "convertedSub": "เดือนนี้",
+          "failed": "ไม่ผ่าน",
+          "failedSub": "ต้องจัดการ"
+        },
+        "view": {
+          "table": "ตาราง",
+          "kanban": "Kanban"
+        },
+        "actions": {
+          "new": "ลีดใหม่",
+          "inbox": "กล่องรับเป้าหมาย",
+          "import": "นำเข้า",
+          "duplicates": "ตรวจซ้ำ"
+        },
+        "bulk": {
+          "selected": "เลือก {count} รายการ",
+          "assign": "มอบหมาย",
+          "mockHint": "(mock — ยังไม่ต่อ API)"
+        }
+      },
+      "import": {
+        "title": "นำเข้าเป้าหมาย",
+        "subtitle": "อัปโหลด · Mapping · ตรวจสอบ · ตรวจซ้ำ · ยืนยัน · ผลลัพธ์",
+        "downloadTemplate": "ดาวน์โหลดเทมเพลตตัวอย่าง",
+        "backToList": "กลับรายการเป้าหมาย",
+        "templateMockHint": "เทมเพลต mock — ยังไม่ต่อ storage (กดดาวน์โหลดเพื่อดูข้อความนี้)",
+        "mockHint": "(mock — ยังไม่บันทึกลงฐานข้อมูลจริง)",
+        "steps": {
+          "upload": "อัปโหลดไฟล์",
+          "mapping": "Mapping ข้อมูล",
+          "preview": "ตรวจสอบข้อมูล",
+          "duplicates": "ตรวจสอบซ้ำ",
+          "owner": "กำหนด Owner",
+          "confirm": "ยืนยัน",
+          "result": "ผลลัพธ์"
+        },
+        "summary": {
+          "month": "นำเข้าเดือนนี้",
+          "monthSub": "ไฟล์ทั้งหมด",
+          "success": "อัตราสำเร็จ",
+          "successSub": "30 วันล่าสุด",
+          "rows": "แถวที่นำเข้า",
+          "rowsSub": "รวมทุกครั้ง",
+          "last": "ครั้งล่าสุด",
+          "lastSub": "ก่อนหน้านี้"
+        },
+        "upload": {
+          "dropTitle": "ลากไฟล์มาวาง หรือเลือกจากเครื่อง",
+          "dropHint": "รองรับ .csv · .xlsx · .xls · สูงสุด 5 MB (mock)",
+          "chooseFile": "เลือกไฟล์",
+          "useSample": "ใช้ไฟล์ตัวอย่าง",
+          "tipFormats": "รองรับ UTF-8 CSV และ Excel 2010+",
+          "tipRequired": "ต้องมีคอลัมน์ บริษัท · ผู้ติดต่อ · อีเมล อย่างน้อย"
+        },
+        "mapping": {
+          "hint": "จับคู่คอลัมน์ในไฟล์ «{file}» กับฟิลด์ลูกค้า",
+          "detected": "พบ {count} คอลัมน์",
+          "colField": "ฟิลด์ลูกค้า",
+          "colColumn": "คอลัมน์ในไฟล์",
+          "selectColumn": "เลือกคอลัมน์",
+          "skip": "— ข้าม —"
+        },
+        "fields": {
+          "company": "บริษัท / ชื่อ",
+          "contact": "ผู้ติดต่อ",
+          "email": "อีเมล",
+          "phone": "โทรศัพท์",
+          "mobile": "มือถือ",
+          "source": "แหล่งที่มา",
+          "product": "สินค้าที่สนใจ",
+          "priority": "ความสำคัญ",
+          "leadValue": "มูลค่าลีด",
+          "owner": "เจ้าของ (อีเมล)"
+        },
+        "preview": {
+          "valid": "ผ่าน",
+          "warning": "คำเตือน",
+          "error": "ผิดพลาด",
+          "colRow": "แถว",
+          "colStatus": "สถานะ",
+          "colMessage": "ข้อความ",
+          "skipErrorsHint": "แถวที่ผิดพลาดจะถูกข้าม · แถวคำเตือนจะนำเข้าได้",
+          "filter": {
+            "all": "ทั้งหมด",
+            "valid": "ผ่าน",
+            "warning": "คำเตือน",
+            "error": "ผิดพลาด"
+          },
+          "status": {
+            "valid": "ผ่าน",
+            "warning": "คำเตือน",
+            "error": "ผิดพลาด"
+          }
+        },
+        "errors": {
+          "invalidEmail": "รูปแบบอีเมลไม่ถูกต้อง",
+          "missingCompany": "ไม่มีชื่อบริษัท",
+          "duplicateEmail": "อีเมลซ้ำกับลูกค้าในระบบ",
+          "missingPhone": "ไม่มีเบอร์โทร — แนะนำกรอก"
+        },
+        "actions": {
+          "back": "ย้อนกลับ",
+          "next": "ถัดไป",
+          "import": "ยืนยันนำเข้า",
+          "importing": "กำลังนำเข้า..."
+        },
+        "duplicates": {
+          "hint": "ตรวจพบลูกค้าที่อาจซ้ำกับข้อมูลในระบบ — เลือกการดำเนินการต่อแถว",
+          "found": "พบ {count} รายการ",
+          "colMatch": "ตรงกับในระบบ",
+          "colAction": "ดำเนินการ",
+          "actionSkip": "ข้าม",
+          "actionImport": "นำเข้าต่อ",
+          "actionMerge": "รวมข้อมูล"
+        },
+        "owner": {
+          "hint": "กำหนดเจ้าของลีดหลังนำเข้า — ใช้ได้กับแถวที่นำเข้าสำเร็จ",
+          "modeLabel": "วิธีมอบหมาย",
+          "modeSingle": "มอบหมายให้คนเดียว",
+          "modeRoundRobin": "หมุนเวียนทีมขาย",
+          "modeBySource": "ตามแหล่งที่มา",
+          "defaultLabel": "เจ้าของเริ่มต้น",
+          "somsak": "สมศักดิ์ ใจดี"
+        },
+        "confirm": {
+          "title": "สรุปก่อนนำเข้า",
+          "file": "ไฟล์",
+          "rows": "แถวที่จะนำเข้า",
+          "errors": "แถวผิดพลาด (ข้าม)",
+          "duplicates": "รายการซ้ำ",
+          "duplicatesDetail": "{total} รายการ · ข้าม {skip}",
+          "owner": "การมอบหมาย",
+          "hint": "กดยืนยันนำเข้าเพื่อเริ่มประมวลผล — ขั้นตอนนี้ยังเป็น mock"
+        },
+        "result": {
+          "title": "นำเข้าสำเร็จ",
+          "subtitle": "ไฟล์ «{file}» ประมวลผลเสร็จแล้ว",
+          "imported": "นำเข้าแล้ว",
+          "skipped": "ข้าม",
+          "failed": "ล้มเหลว",
+          "viewLeads": "ดูเป้าหมายทั้งหมด",
+          "importAnother": "นำเข้าไฟล์ใหม่"
+        },
+        "history": {
+          "title": "ประวัติการนำเข้า",
+          "subtitle": "รายการนำเข้าล่าสุดในองค์กร (mock)",
+          "colFile": "ไฟล์",
+          "colDate": "วันที่",
+          "colUser": "ผู้นำเข้า",
+          "colTotal": "ทั้งหมด",
+          "colSuccess": "สำเร็จ",
+          "colFailed": "ล้มเหลว",
+          "colStatus": "สถานะ",
+          "status": {
+            "completed": "สำเร็จทั้งหมด",
+            "partial": "สำเร็จบางส่วน",
+            "failed": "ล้มเหลว"
+          }
+        }
+      }
+    },
+    "customers": {
+      "list": {
+        "title": "รายชื่อลูกค้า",
+        "subtitle": "ศูนย์กลางข้อมูลลูกค้าสำหรับงานขาย งานบริการ สัญญา และการต่ออายุ",
+        "searchPlaceholder": "ค้นหาลูกค้า บริษัท Tax ID...",
+        "clearFilters": "ล้างตัวกรอง",
+        "selectAll": "เลือกทั้งหมด",
+        "empty": "ไม่พบลูกค้าตามตัวกรอง",
+        "viewDetail": "ดูรายละเอียด",
+        "openC360": "Customer 360",
+        "filters": {
+          "group": "กลุ่มลูกค้า",
+          "tier": "ระดับลูกค้า",
+          "health": "สุขภาพลูกค้า",
+          "status": "สถานะ",
+          "customerType": "ประเภทลูกค้า",
+          "businessType": "ประเภทธุรกิจ",
+          "owner": "Owner",
+          "province": "จังหวัด",
+          "revenue": "Revenue Range",
+          "renewal": "Renewal Status",
+          "ticket": "Ticket Status"
+        },
+        "actions": {
+          "new": "เพิ่มลูกค้าใหม่",
+          "export": "Export",
+          "import": "Import",
+          "bulkUpdate": "Bulk Update",
+          "renewContract": "ต่ออายุสัญญา",
+          "openC360": "เปิด Customer 360",
+          "addOpp": "เพิ่ม Opportunity",
+          "addQuotation": "สร้างใบเสนอราคา",
+          "addTicket": "สร้าง Ticket",
+          "addActivity": "เพิ่มกิจกรรม",
+          "opp": "Opp",
+          "quotation": "QT",
+          "ticket": "TK"
+        },
+        "tabs": {
+          "all": "ลูกค้าทั้งหมด",
+          "active": "ใช้งานอยู่",
+          "target": "สถานะ: เป้าหมาย",
+          "inactive": "ไม่ใช้งาน",
+          "blacklist": "Blacklist",
+          "atRisk": "มีความเสี่ยง",
+          "renewalSoon": "Renewal ใกล้หมด",
+          "noActivity": "ไม่มี Activity >90 วัน"
+        },
+        "summary": {
+          "total": "ลูกค้าทั้งหมด",
+          "totalSub": "เดือนนี้",
+          "active": "ลูกค้า Active",
+          "activeSub": "สัดส่วนใช้งาน",
+          "target": "สถานะเป้าหมาย",
+          "targetSub": "เดือนนี้",
+          "renewal": "Renewal ใกล้หมด",
+          "renewalSub": "ภายใน 30 วัน",
+          "atRisk": "ลูกค้า At Risk",
+          "atRiskSub": "ต้องติดตาม",
+          "tickets": "ลูกค้ามี Ticket ค้าง",
+          "ticketsSub": "ต้องดำเนินการ"
+        },
+        "col": {
+          "customer": "ชื่อลูกค้า",
+          "code": "รหัส",
+          "type": "ประเภทลูกค้า",
+          "business": "ประเภทธุรกิจ",
+          "tier": "ระดับ",
+          "owner": "Owner",
+          "revenue": "รายได้ & Pipeline",
+          "tickets": "Ticket",
+          "renewal": "Renewal",
+          "health": "สุขภาพ",
+          "lastActivity": "กิจกรรมล่าสุด",
+          "action": "การดำเนินการ",
+          "actions": "เมนู"
+        },
+        "bulk": {
+          "selected": "เลือก {count} รายการ",
+          "update": "Bulk Update",
+          "mockHint": "(mock — ยังไม่เชื่อม API)"
+        },
+        "detail": {
+          "quickTitle": "ดูรายละเอียดด่วน",
+          "revenue": "รายได้",
+          "pipeline": "Pipeline",
+          "tickets": "Ticket",
+          "industry": "อุตสาหกรรม",
+          "type": "ประเภท",
+          "group": "กลุ่ม",
+          "tier": "ระดับ",
+          "owner": "Owner",
+          "phone": "โทรศัพท์",
+          "email": "อีเมล",
+          "health": "สุขภาพลูกค้า",
+          "renewalAlert": "Renewal Alert",
+          "lastActivity": "กิจกรรมล่าสุด",
+          "aiTitle": "AI Insight"
+        },
+        "relations": {
+          "title": "ความสัมพันธ์ลูกค้า",
+          "contacts": "ผู้ติดต่อ",
+          "opps": "Opportunity",
+          "tickets": "Ticket",
+          "contracts": "สัญญา",
+          "viewBranch": "ดู Branch / ภาพรวม"
+        },
+        "types": {
+          "enterprise": "Enterprise",
+          "keyAccount": "Key Account",
+          "sme": "SME",
+          "standard": "Standard"
+        },
+        "business": {
+          "manufacturing": "Manufacturing",
+          "itServices": "IT Services",
+          "healthcare": "Healthcare",
+          "retail": "Retail",
+          "logistics": "Logistics",
+          "services": "Services",
+          "finance": "Finance"
+        },
+        "tiers": {
+          "platinum": "Platinum",
+          "gold": "Gold",
+          "silver": "Silver"
+        },
+        "renewal": {
+          "days30": "30 วัน",
+          "atRisk": "เสี่ยง",
+          "ok": "ปกติ",
+          "none": "—"
+        },
+        "activity": {
+          "days1": "1 วันที่แล้ว",
+          "days2": "2 วันที่แล้ว",
+          "days3": "3 วันที่แล้ว",
+          "days5": "5 วันที่แล้ว",
+          "days7": "7 วันที่แล้ว",
+          "days14": "14 วันที่แล้ว",
+          "week1": "1 สัปดาห์ที่แล้ว",
+          "days90plus": ">90 วัน",
+          "months3": "3 เดือนที่แล้ว",
+          "months6": "6 เดือนที่แล้ว"
+        },
+        "status": {
+          "active": "ใช้งานอยู่",
+          "inactive": "ไม่ใช้งาน",
+          "blacklist": "Blacklist"
+        },
+        "industry": {
+          "materials": "วัสดุก่อสร้าง",
+          "technology": "เทคโนโลยี",
+          "healthcare": "สุขภาพ",
+          "retail": "ค้าปลีก",
+          "logistics": "โลจิสติกส์",
+          "services": "บริการ",
+          "finance": "การเงิน"
+        },
+        "groups": {
+          "holding": "กลุ่มบริษัท",
+          "standalone": "นิติบุคคลเดี่ยว"
+        },
+        "ai": {
+          "scgRenewal": "สาขานี้มี Ticket ค้างอยู่ 3 รายการ และ Asset ครบอายุ 2 รายการในเดือนหน้า ควรวางแผน Maintenance เชิงรุกก่อนสัญญาหมดอายุ",
+          "bkkTechRisk": "สุขภาพลูกค้าลดลง — แนะนำนัด review SLA และต่ออายุ Firewall ภายใน 2 สัปดาห์",
+          "hospitalProposal": "โอกาสส่ง Final Proposal สำหรับระบบ HIS — ปิดดีลภายในเดือนนี้",
+          "asiaFoodsFollowUp": "Pipeline ยังเปิดอยู่ — ติดตามผู้ตัดสินใจฝ่ายจัดซื้อ",
+          "northLogNurture": "ไม่มีกิจกรรม 2 สัปดาห์ — ส่งอีเมลสรุปบริการรายไตรมาส",
+          "metroRenewal": "Renewal M365 กลุ่มสาขาใกล้ครบ 30 วัน — เตรียมใบเสนอต่ออายุ",
+          "staleReengage": "ไม่มี Activity เกิน 90 วัน — ควรโทร re-engage หรือปรับสถานะ",
+          "blacklist": "ลูกค้าถูก Blacklist — ห้ามออกใบเสนอราคาใหม่โดยไม่ได้รับอนุมัติ",
+          "pacificUpsell": "มีโอกาส Upsell EDR หลัง audit ความปลอดภัยไตรมาสที่แล้ว",
+          "dormant": "สถานะไม่ใช้งาน — พิจารณา archive หรือมอบหมายทีม reactivation"
+        }
+      },
+      "contacts": {
+        "list": {
+          "title": "รายชื่อผู้ติดต่อ",
+          "subtitle": "ศูนย์กลางข้อมูลผู้ติดต่อทั้งหมดของลูกค้า สำหรับงานขาย งานบริการ และการติดตามความสัมพันธ์",
+          "searchPlaceholder": "ค้นหาผู้ติดต่อ ชื่อ บริษัท อีเมล...",
+          "clearFilters": "ล้างตัวกรอง",
+          "selectAll": "เลือกทั้งหมด",
+          "empty": "ไม่พบผู้ติดต่อตามตัวกรอง",
+          "filters": {
+            "company": "บริษัท/ลูกค้า",
+            "position": "ตำแหน่ง",
+            "department": "แผนก",
+            "role": "บทบาทผู้ติดต่อ",
+            "status": "สถานะ",
+            "primary": "Primary Contact",
+            "owner": "Account Owner",
+            "industry": "Industry",
+            "province": "จังหวัด",
+            "lastContact": "ติดต่อล่าสุด",
+            "opportunity": "Related Opportunity",
+            "ticket": "Related Ticket"
+          },
+          "actions": {
+            "new": "เพิ่มผู้ติดต่อ",
+            "export": "Export",
+            "import": "Import",
+            "view": "ดู",
+            "call": "โทร",
+            "email": "ส่งอีเมล",
+            "addActivity": "เพิ่มกิจกรรม",
+            "addOpp": "สร้าง Opp.",
+            "addTicket": "สร้าง Ticket",
+            "openDetail": "เปิดรายละเอียดผู้ติดต่อ"
+          },
+          "tabs": {
+            "all": "ผู้ติดต่อทั้งหมด",
+            "active": "ใช้งานอยู่",
+            "inactive": "ไม่ใช้งาน",
+            "primary": "ผู้ติดต่อหลัก",
+            "decisionMaker": "ผู้มีอำนาจตัดสินใจ",
+            "purchasing": "ฝ่ายจัดซื้อ",
+            "it": "ฝ่ายไอที",
+            "neverContacted": "ยังไม่เคยติดต่อ",
+            "noActivity": "ไม่มี Activity >90 วัน"
+          },
+          "summary": {
+            "total": "ผู้ติดต่อทั้งหมด",
+            "totalSub": "เดือนนี้",
+            "active": "ใช้งานอยู่",
+            "activeSub": "สัดส่วนใช้งาน",
+            "primary": "ผู้ติดต่อหลัก",
+            "primarySub": "Main contact",
+            "decisionMaker": "ผู้ตัดสินใจ",
+            "decisionMakerSub": "Decision maker",
+            "neverContacted": "ยังไม่เคยติดต่อ",
+            "neverContactedSub": "ต้องติดตาม",
+            "noActivity": "ไม่มี Activity >90 วัน",
+            "noActivitySub": "ต้อง re-engage"
+          },
+          "col": {
+            "contact": "ชื่อผู้ติดต่อ",
+            "company": "บริษัท",
+            "position": "ตำแหน่ง",
+            "department": "แผนก",
+            "phone": "โทรศัพท์",
+            "email": "อีเมล",
+            "role": "บทบาท",
+            "primary": "Primary",
+            "status": "สถานะ",
+            "owner": "Owner",
+            "lastContact": "ติดต่อล่าสุด",
+            "actions": "เมนู"
+          },
+          "bulk": {
+            "selected": "เลือก {count} รายการ",
+            "update": "Bulk Update",
+            "mockHint": "(mock — ยังไม่เชื่อม API)"
+          },
+          "badges": {
+            "primary": "Primary"
+          },
+          "detail": {
+            "quickTitle": "ดูรายละเอียดด่วน",
+            "company": "บริษัท",
+            "department": "แผนก",
+            "phone": "โทรศัพท์",
+            "email": "อีเมล",
+            "line": "LINE ID",
+            "owner": "Owner",
+            "lastContact": "ติดต่อล่าสุด",
+            "satisfaction": "ระดับความพึงพอใจ",
+            "relatedTitle": "ข้อมูลที่เกี่ยวข้อง",
+            "relatedOpp": "Opportunity",
+            "relatedQuotation": "ใบเสนอราคา",
+            "relatedTicket": "Ticket",
+            "aiTitle": "AI สรุปข้อมูล"
+          },
+          "recent": {
+            "title": "กิจกรรมล่าสุด",
+            "viewAll": "ดูประวัติการติดต่อทั้งหมด",
+            "call": "โทรติดตาม Renewal",
+            "email": "ส่งอีเมลสรุปบริการ",
+            "meeting": "นัดประชุม Demo"
+          },
+          "roles": {
+            "decisionMaker": "ผู้ตัดสินใจ",
+            "influencer": "ผู้ให้คำแนะนำ",
+            "purchasing": "ฝ่ายจัดซื้อ",
+            "it": "ฝ่ายไอที",
+            "gatekeeper": "ผู้ประสาน",
+            "user": "ผู้ใช้งาน",
+            "other": "อื่น ๆ"
+          },
+          "status": {
+            "active": "ใช้งานอยู่",
+            "inactive": "ไม่ใช้งาน"
+          },
+          "activity": {
+            "never": "ยังไม่เคยติดต่อ",
+            "days1": "1 วันที่แล้ว",
+            "days2": "2 วันที่แล้ว",
+            "days3": "3 วันที่แล้ว",
+            "days5": "5 วันที่แล้ว",
+            "days7": "7 วันที่แล้ว",
+            "days14": "14 วันที่แล้ว",
+            "week1": "1 สัปดาห์ที่แล้ว",
+            "months3": "3 เดือนที่แล้ว"
+          },
+          "ai": {
+            "scgDecision": "ผู้ตัดสินใจด้าน IT — มีอิทธิพลต่อ Renewal M365 และ Firewall ควรนัด review ก่อนสัญญาหมดอายุ",
+            "hospitalPurchasing": "ฝ่ายจัดซื้อกำลังเปรียบเทียบใบเสนอ HIS — ส่ง Final Proposal ภายในสัปดาห์นี้",
+            "bkkTechCto": "CTO สนใจ EDR และ Firewall subscription — นัด technical demo ภายใน 3 วัน",
+            "asiaFoodsCfo": "CFO อนุมัติงบ Q3 แล้ว — โอกาสปิด CRM Implementation สูง",
+            "northLogistics": "ไม่มีกิจกรรม 2 สัปดาห์ — ส่งอีเมลสรุปบริการรายไตรมาส",
+            "metroRetail": "Store Manager เป็น gatekeeper — ควรผ่านผู้ติดต่อหลักก่อนเสนอ upsell",
+            "inactive": "สถานะไม่ใช้งาน — พิจารณา archive หรือมอบหมายทีม reactivation",
+            "neverContacted": "ยังไม่เคยติดต่อ — แนะนำโทรแนะนำตัวและส่ง one-pager ภายใน 48 ชม.",
+            "scgPurchasing": "ฝ่ายจัดซื้อเกี่ยวข้องกับ OPP-2481 — sync กับผู้ตัดสินใจก่อนส่งใบเสนอ",
+            "bkkTechDm": "ผู้ตัดสินใจฝ่ายจัดซื้อ — ติดตาม QT-1755 และ SLA renewal"
+          }
+        }
+      },
+      "contactHistory": {
+        "title": "ประวัติการติดต่อ",
+        "subtitle": "บันทึกและติดตามทุกการติดต่อกับลูกค้า โทร · อีเมล · นัดหมาย · การติดตาม",
+        "searchPlaceholder": "ค้นหากิจกรรม ชื่อผู้ติดต่อ ลูกค้า...",
+        "empty": "ไม่พบกิจกรรมตามตัวกรอง",
+        "filters": {
+          "contact": "ผู้ติดต่อ",
+          "company": "ลูกค้า",
+          "type": "Activity Type",
+          "owner": "Owner",
+          "dateRange": "ช่วงวันที่",
+          "status": "Status",
+          "opportunity": "Related Opportunity",
+          "ticket": "Related Ticket"
+        },
+        "tabs": {
+          "all": "กิจกรรมทั้งหมด",
+          "call": "การโทร",
+          "email": "อีเมล",
+          "meeting": "การประชุม",
+          "onlineMeeting": "ประชุมออนไลน์",
+          "line": "ติดต่อ LINE",
+          "followUp": "การติดตาม",
+          "upcoming": "กำลังจะถึง",
+          "overdue": "เกินกำหนด",
+          "completed": "เสร็จสิ้นแล้ว"
+        },
+        "status": {
+          "completed": "เสร็จสิ้น",
+          "upcoming": "กำลังจะถึง",
+          "overdue": "เกินกำหนด"
+        },
+        "view": {
+          "table": "โหมดตาราง",
+          "timeline": "โหมด Timeline"
+        },
+        "actions": {
+          "add": "เพิ่มกิจกรรม",
+          "myTasks": "ดูงานของฉัน",
+          "openC360": "เปิด Customer 360",
+          "openContact": "เปิดรายละเอียดผู้ติดต่อ"
+        },
+        "col": {
+          "activity": "กิจกรรม",
+          "type": "ประเภท",
+          "contact": "ผู้ติดต่อ",
+          "company": "ลูกค้า",
+          "date": "วันที่",
+          "owner": "Owner",
+          "status": "สถานะ"
+        },
+        "groups": {
+          "today": "วันนี้",
+          "yesterday": "เมื่อวาน",
+          "upcoming": "กำลังจะถึง",
+          "jun19": "19 มิ.ย. 2026",
+          "jun18": "18 มิ.ย. 2026",
+          "jun17": "17 มิ.ย. 2026",
+          "jun16": "16 มิ.ย. 2026",
+          "jun15": "15 มิ.ย. 2026",
+          "jun7": "7 มิ.ย. 2026"
+        },
+        "dates": {
+          "today": "วันนี้",
+          "yesterday": "เมื่อวาน",
+          "jun25": "25 มิ.ย. 2026",
+          "jun26": "26 มิ.ย. 2026",
+          "jun19": "19 มิ.ย. 2026",
+          "jun18": "18 มิ.ย. 2026",
+          "jun17": "17 มิ.ย. 2026",
+          "jun16": "16 มิ.ย. 2026",
+          "jun15": "15 มิ.ย. 2026",
+          "jun7": "7 มิ.ย. 2026"
+        },
+        "items": {
+          "renewalCall": "โทรติดตาม Renewal Proposal",
+          "firewallEmail": "ส่ง Firewall Proposal",
+          "itMeeting": "ประชุมโซลูชันไอที",
+          "lineDemo": "ส่งข้อมูล Demo ทาง LINE",
+          "contractReview": "นัดประชุม Contract Review",
+          "overdueFollowUp": "Follow-up เกินกำหนด 14 วัน",
+          "m365Call": "โทรเสนอ Microsoft 365 Renewal",
+          "proposalEmail": "ส่งใบเสนอราคา Firewall",
+          "demoMeeting": "นัด Demo ระบบ CRM",
+          "lineFollowUp": "ติดตามผลทาง LINE"
+        }
+      },
+      "import": {
+        "title": "นำเข้าข้อมูลลูกค้า",
+        "subtitle": "อัปโหลด · Mapping · ตรวจสอบ · ตรวจซ้ำ · กำหนด Owner · ยืนยัน · ผลลัพธ์",
+        "stepTitle": "ขั้นตอนที่ {step}: {label}",
+        "downloadTemplate": "ดาวน์โหลด Template",
+        "backToList": "กลับรายชื่อลูกค้า",
+        "templateMockHint": "เทมเพลต mock — ยังไม่ต่อ storage (กดดาวน์โหลดเพื่อดูข้อความนี้)",
+        "mockHint": "(mock — ยังไม่บันทึกลงฐานข้อมูลจริง)",
+        "steps": {
+          "upload": "Upload File",
+          "mapping": "Field Mapping",
+          "preview": "ตรวจสอบข้อมูล",
+          "duplicates": "Duplicate Check",
+          "owner": "กำหนด Owner",
+          "confirm": "ยืนยัน",
+          "result": "ผลลัพธ์"
+        },
+        "sheets": {
+          "companies": "Sheet ลูกค้า",
+          "contacts": "Sheet ผู้ติดต่อ"
+        },
+        "summary": {
+          "month": "นำเข้าเดือนนี้",
+          "monthSub": "ไฟล์ทั้งหมด",
+          "success": "อัตราสำเร็จ",
+          "successSub": "30 วันล่าสุด",
+          "rows": "แถวที่นำเข้า",
+          "rowsSub": "รวมทุกครั้ง",
+          "last": "ครั้งล่าสุด",
+          "lastSub": "ก่อนหน้านี้"
+        },
+        "upload": {
+          "dropTitle": "ลากไฟล์ Excel/CSV มาวาง หรือคลิก",
+          "dropHint": "รองรับ .xlsx · .xls · .csv · สูงสุด 10 MB (mock)",
+          "sheetsHint": "ไฟล์เทมเพลตมี 2 sheet — ลูกค้า และผู้ติดต่อ (optional)"
+        },
+        "mapping": {
+          "hint": "จับคู่คอลัมน์ในไฟล์ «{file}» กับฟิลด์ลูกค้า",
+          "detected": "พบ {count} คอลัมน์",
+          "colField": "ฟิลด์",
+          "colColumn": "คอลัมน์ในไฟล์",
+          "selectColumn": "เลือกคอลัมน์",
+          "skip": "— ข้าม —"
+        },
+        "fields": {
+          "company": "ชื่อลูกค้า / บริษัท",
+          "taxId": "Tax ID",
+          "customerType": "ประเภทลูกค้า",
+          "businessType": "ประเภทธุรกิจ",
+          "tier": "ระดับลูกค้า",
+          "status": "สถานะ",
+          "owner": "Owner (อีเมล)",
+          "phone": "โทรศัพท์",
+          "email": "อีเมล",
+          "province": "จังหวัด",
+          "contactName": "ชื่อผู้ติดต่อ",
+          "contactEmail": "อีเมลผู้ติดต่อ",
+          "contactPhone": "โทรผู้ติดต่อ",
+          "companyCode": "รหัสลูกค้า",
+          "contactRole": "บทบาทผู้ติดต่อ",
+          "primaryContact": "Primary Contact"
+        },
+        "preview": {
+          "valid": "ผ่าน",
+          "warning": "คำเตือน",
+          "error": "ผิดพลาด",
+          "colRow": "แถว",
+          "colStatus": "สถานะ",
+          "colMessage": "ข้อความ",
+          "skipErrorsHint": "แถวที่ผิดพลาดจะถูกข้าม · แถวคำเตือนจะนำเข้าได้",
+          "filter": {
+            "all": "ทั้งหมด",
+            "valid": "ผ่าน",
+            "warning": "คำเตือน",
+            "error": "ผิดพลาด"
+          },
+          "status": {
+            "valid": "ผ่าน",
+            "warning": "คำเตือน",
+            "error": "ผิดพลาด"
+          }
+        },
+        "errors": {
+          "invalidTaxId": "รูปแบบ Tax ID ไม่ถูกต้อง",
+          "missingCompany": "ไม่มีชื่อลูกค้า",
+          "duplicateTaxId": "Tax ID ซ้ำกับลูกค้าในระบบ",
+          "missingOwner": "ไม่มี Owner — แนะนำกำหนดก่อนนำเข้า"
+        },
+        "actions": {
+          "back": "ย้อนกลับ",
+          "next": "ถัดไป",
+          "import": "ยืนยันนำเข้า",
+          "importing": "กำลังนำเข้า..."
+        },
+        "duplicates": {
+          "hint": "ตรวจพบลูกค้าที่อาจซ้ำกับข้อมูลในระบบ — เลือกการดำเนินการต่อแถว",
+          "found": "พบ {count} รายการ",
+          "colMatch": "ตรงกับในระบบ",
+          "colAction": "ดำเนินการ",
+          "actionSkip": "ข้าม",
+          "actionImport": "นำเข้าต่อ",
+          "actionMerge": "รวมข้อมูล"
+        },
+        "owner": {
+          "hint": "กำหนด Owner หลังนำเข้า — ใช้ได้กับแถวที่ไม่มี Owner ในไฟล์",
+          "modeLabel": "วิธีมอบหมาย",
+          "modeSingle": "มอบหมายให้คนเดียว",
+          "modeRoundRobin": "หมุนเวียนทีมขาย",
+          "modeByTier": "ตามระดับลูกค้า (Tier)",
+          "defaultLabel": "Owner เริ่มต้น",
+          "somsak": "สมศักดิ์ ใจดี",
+          "nicha": "นิชา ศรีวงศ์",
+          "wipa": "วิภา สุขใจ",
+          "modeHint": {
+            "roundRobin": "แจกลูกค้าให้ทีมขายตามลำดับ — mock ยังไม่ต่อกฎจริง",
+            "byTier": "Platinum/Gold → Key Account · Silver/SME → Inside Sales — mock"
+          },
+          "modeLabelValues": {
+            "roundRobin": "หมุนเวียนทีมขาย",
+            "byTier": "ตามระดับลูกค้า"
+          }
+        },
+        "confirm": {
+          "title": "สรุปก่อนนำเข้า",
+          "file": "ไฟล์",
+          "rows": "แถวที่จะนำเข้า",
+          "errors": "แถวผิดพลาด (ข้าม)",
+          "duplicates": "รายการซ้ำ",
+          "duplicatesDetail": "{total} รายการ · ข้าม {skip}",
+          "owner": "การมอบหมาย",
+          "hint": "กดยืนยันนำเข้าเพื่อเริ่มประมวลผล — ขั้นตอนนี้ยังเป็น mock"
+        },
+        "result": {
+          "title": "นำเข้าสำเร็จ",
+          "subtitle": "ไฟล์ «{file}» ประมวลผลเสร็จแล้ว",
+          "imported": "ลูกค้า",
+          "contacts": "ผู้ติดต่อ",
+          "skipped": "ข้าม",
+          "failed": "ล้มเหลว",
+          "viewCustomers": "ดูรายชื่อลูกค้า",
+          "importAnother": "นำเข้าไฟล์ใหม่"
+        },
+        "history": {
+          "title": "ประวัติการนำเข้า",
+          "subtitle": "รายการนำเข้าล่าสุดในองค์กร (mock)",
+          "colFile": "ไฟล์",
+          "colDate": "วันที่",
+          "colUser": "ผู้นำเข้า",
+          "colTotal": "ลูกค้า",
+          "colContacts": "ผู้ติดต่อ",
+          "colSuccess": "สำเร็จ",
+          "colFailed": "ล้มเหลว",
+          "colStatus": "สถานะ",
+          "status": {
+            "completed": "สำเร็จทั้งหมด",
+            "partial": "สำเร็จบางส่วน",
+            "failed": "ล้มเหลว"
+          }
+        }
+      }
+    }
+  }
+}

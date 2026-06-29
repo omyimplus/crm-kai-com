@@ -5,25 +5,29 @@
 
 ---
 
-## สีหลัก (Primary)
+## สีหลัก (Primary) — KuTo demo
 
 | รายการ | ค่า |
 |--------|-----|
-| **Brand primary** | `#5fb76a` |
-| **Sidebar section header (light)** | `#2e9e3c` → `--color-menu-section` |
-| **Nuxt UI** | `primary: 'green'` → `--color-green-500` |
+| **Brand primary** | `#0b2a5b` (navy) |
+| **Accent** | `#10b981` (emerald — KPI, mode label, focus ring) |
+| **Sidebar active** | `#eef6ff` bg · `#0b2a5b` text → `sidebar-accent` |
+| **Nuxt UI** | `primary: 'blue'` → `--color-blue-500` |
 | **Implementation** | `frontend/app/assets/css/main.css` (`@theme static`) |
 
-ใช้ class `text-primary`, `bg-primary`, `color="primary"` บน Nuxt UI — **ห้าม** hardcode `#5fb76a` ใน component (ยกเว้นเอกสาร)
+ใช้ class `text-primary`, `bg-primary`, `color="primary"` บน Nuxt UI — accent เขียวใช้ `text-green-700` / `bg-green-50` ตาม demo
 
-หัวข้อ section ใน sidebar (เมนู / ข้อมูลหลัก / ตั้งค่าระบบ): light mode ใช้ `bg-menu-section` · dark mode ใช้ `bg-primary` ตามเดิม
+หัวข้อ section sidebar (active): `bg-sidebar-accent` · หัวตาราง / tab active: `bg-menu-section` (navy)
 
 ---
 
 ## ตำแหน่งไฟล์
 
 ```
+frontend/public/images/
+├── logo.png                       # ต้นฉบับ PNG (CuTo CRM) — แปลงเป็น .webp คู่ด้านล่าง
 frontend/public/images/logo/
+├── logo-draft.png                 # สำเนา draft (sync จาก logo.png)
 ├── logo-kai-com-crm.webp        # logo เต็ม (header, login, marketing)
 └── logo-kai-com-crm-icon.webp   # icon / favicon-style (sidebar ย่อ, mobile)
 
@@ -55,12 +59,13 @@ frontend/public/images/flags/
 
 **Alt text:** ใช้ i18n `t('common.appName')` หรือ `"CRM Kai"`
 
-**Component:** ใช้ `<AppLogo variant="full" | "icon" />` — ดู `frontend/app/components/AppLogo.vue`
+**Component:** ใช้ `<AppLogo variant="full" | "icon" />` — ดู `frontend/app/components/AppLogo.vue`  
+**Sidebar / login:** ใส่ `framed` เพื่อกล่องขาวมุมโค้งแบบ demo KuTo
 
 **ตัวอย่าง:**
 
 ```vue
-<AppLogo variant="full" size="md" />
+<AppLogo variant="full" size="md" framed />
 <AppLogo variant="icon" size="sm" />
 ```
 

@@ -1,0 +1,45 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  --font-sans: "IBM Plex Sans Thai", sans-serif;
+  --font-heading: "IBM Plex Sans Thai", sans-serif;
+
+  /* KuTo Figma Make — teal primary */
+  --color-kuto-teal: #17a8a3;
+  --color-kuto-teal-dark: #0e8580;
+  --color-kuto-amber: #f59e0b;
+
+  --color-shell-bg: #f9fafb;
+  --color-shell-fg: #1a1a1a;
+  --color-shell-muted: #6b7280;
+  --color-shell-border: rgb(0 0 0 / 0.08);
+  --color-shell-input: #f9fafb;
+  --color-shell-card: #ffffff;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  line-height: 1.55;
+  @apply text-gray-900;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+html:has(.kuto-app),
+html:has(.kuto-app) body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.kuto-app {
+  font-family: var(--font-sans);
+}

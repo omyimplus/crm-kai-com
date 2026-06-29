@@ -6,6 +6,12 @@
 
 ## ประวัติ
 
+### 2026-06-22 — Customer 360 functional spec (ลูกค้า) + gap analysis
+
+- **ทำอะไร:** วิเคราะห์ `Functional Specification.docx` เทียบ CRM Kai — ตารางแท็บ/ฟิลด์/entity/MVP
+- **ไฟล์ที่กระทบ:** `CUSTOMER-360-FUNCTIONAL-SPEC.md`, `README.md`
+- **Phase:** 2+ (roadmap)
+
 ### 2026-06-08 — Phase 2 scope: CRM Menu + Tasks spec
 
 - **ทำอะไร:** ล็อก Phase 2 เริ่ม CRM Menu ที่ Tasks · ออกแบบ UX ปฏิทินแยก view

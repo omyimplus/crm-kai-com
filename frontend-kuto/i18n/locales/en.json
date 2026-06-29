@@ -1,0 +1,1185 @@
+{
+  "kuto": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "leads": "Leads",
+      "customers": "Customers",
+      "contacts": "Contacts",
+      "opportunities": "Opportunities",
+      "quotations": "Quotations",
+      "contracts": "Contracts & Renewal",
+      "assets": "Assets / Installed Base",
+      "tickets": "Tickets / Service",
+      "activities": "Activities",
+      "documents": "Documents",
+      "reports": "Reports & Analytics",
+      "ai": "AI Insights",
+      "settings": "Settings",
+      "sub": {
+        "dashboard": {
+          "my": "My Dashboard",
+          "sales": "Sales Dashboard",
+          "manager": "Manager Dashboard",
+          "executive": "Executive Dashboard",
+          "service": "Service Dashboard",
+          "renewal": "Renewal Dashboard",
+          "admin": "Admin Dashboard",
+          "aiDash": "AI Dashboard"
+        },
+        "leads": {
+          "inbox": "Target Inbox",
+          "all": "All Targets",
+          "new": "New Target",
+          "kanban": "Kanban View",
+          "assignment": "Target Assignment",
+          "scoring": "Target Scoring",
+          "sources": "Target Sources",
+          "duplicates": "Duplicate Targets",
+          "import": "Import Targets",
+          "converted": "Converted Targets"
+        },
+        "customers": {
+          "list": "Customer List",
+          "contacts": "Contact List",
+          "contactHistory": "Contact History",
+          "c360": "Customer 360 View",
+          "accounts": "Customer Accounts",
+          "documents": "Customer Documents",
+          "branches": "Branches",
+          "duplicates": "Duplicate Customers",
+          "import": "Import Customers",
+          "activitySchedule": "Customer Activity Schedule"
+        },
+        "contacts": {
+          "list": "Contact List",
+          "primary": "Primary Contacts",
+          "decisionMakers": "Decision Makers",
+          "purchasing": "Purchasing Contacts",
+          "it": "IT Contacts",
+          "roles": "Contact Roles",
+          "history": "Contact History",
+          "duplicates": "Duplicate Contacts",
+          "import": "Import Contacts",
+          "schedule": "Contact Schedule"
+        },
+        "opportunities": {
+          "pipelineKanban": "Pipeline Kanban",
+          "list": "Opportunity List",
+          "new": "New Opportunity",
+          "mine": "My Opportunities",
+          "team": "Team Opportunities",
+          "detail": "Opportunity Detail",
+          "forecast": "Sales Forecast",
+          "stale": "Stale Deals",
+          "competitors": "Competitors",
+          "winLoss": "Win/Loss Analysis",
+          "lostReasons": "Lost Reasons",
+          "scoring": "Opportunity Scoring",
+          "salesStages": "Sales Stage Settings"
+        },
+        "quotations": {
+          "list": "Quotation List",
+          "create": "Create Quotation",
+          "approvals": "Quotation Approvals",
+          "pricing": "Product Pricing",
+          "templates": "Quotation Templates",
+          "versions": "Version History",
+          "expired": "Expired Quotations"
+        },
+        "contracts": {
+          "all": "All Contracts",
+          "renewalAlerts": "Renewal Alerts",
+          "renewalForecast": "Renewal Revenue Forecast",
+          "expiring": "Expiring Contracts",
+          "expired": "Expired Contracts",
+          "renewed": "Renewed Contracts",
+          "notRenewed": "Not Renewed",
+          "renewalCalendar": "Renewal Calendar",
+          "m365": "Microsoft CSP Contracts",
+          "google": "Google Workspace Contracts",
+          "firewall": "Firewall Contracts",
+          "edr": "Antivirus / EDR Contracts",
+          "maintenance": "Maintenance Contracts",
+          "sla": "SLA Contracts",
+          "warranty": "Warranty Tracking"
+        },
+        "assets": {
+          "all": "All Assets",
+          "installedBase": "Installed Base",
+          "subscriptions": "Subscriptions",
+          "warranty": "Warranty",
+          "byCustomer": "Assets by Customer",
+          "import": "Import Assets",
+          "settings": "Asset Settings"
+        },
+        "tickets": {
+          "all": "All Tickets",
+          "create": "Create Ticket",
+          "mine": "My Tickets",
+          "team": "Team Tickets",
+          "kanban": "Kanban View",
+          "sla": "SLA Tracking",
+          "engineerAssign": "Engineer Assignment",
+          "serviceReport": "Service Reports",
+          "knowledgeBase": "Knowledge Base"
+        },
+        "activities": {
+          "mine": "My Activities",
+          "schedule": "Activity Schedule",
+          "calendar": "Calendar View",
+          "meetings": "Meetings",
+          "followUp": "Follow-ups"
+        },
+        "documents": {
+          "all": "All Documents",
+          "customer": "Customer Documents",
+          "quotation": "Quotation Documents",
+          "contract": "Contract Documents",
+          "project": "Project Documents",
+          "service": "Service Reports",
+          "warranty": "Warranty Documents",
+          "invoice": "Invoice Documents",
+          "templates": "Document Templates",
+          "versioning": "Version Control",
+          "archived": "Archived Documents"
+        },
+        "settings": {
+          "company": "Company Profile",
+          "users": "Users",
+          "roles": "Roles & Permissions",
+          "locale": "Language Settings",
+          "auditLog": "Audit Log",
+          "teams": "Teams & Departments",
+          "notifications": "Notifications",
+          "approvalWorkflow": "Approval Workflow",
+          "security": "Security",
+          "importExport": "Import / Export",
+          "api": "API & Integration",
+          "masterData": "Master Data",
+          "aiSettings": "AI Settings",
+          "package": "Subscription Package",
+          "featureFlags": "Feature Flags",
+          "masterDataItems": {
+            "customerType": "Customer Type",
+            "businessType": "Business Type",
+            "leadSource": "Lead Source",
+            "salesStage": "Sales Stage",
+            "productCategory": "Product Category",
+            "region": "Region",
+            "tier": "Tier",
+            "unit": "Unit",
+            "tags": "Tags",
+            "lostReason": "Lost Reason"
+          }
+        }
+      }
+    },
+    "sidebar": {
+      "userName": "Nicha Sriwong",
+      "userRole": "Sales Manager",
+      "toggleSubmenu": "Toggle submenu {label}"
+    },
+    "header": {
+      "openMenu": "Open menu",
+      "search": "Global search...",
+      "create": "Create",
+      "approvals": "Approvals",
+      "notifications": "Notifications",
+      "comingSoon": "Coming soon",
+      "quickCreate": {
+        "lead": "New Lead",
+        "customer": "New Customer",
+        "opportunity": "New Opportunity",
+        "quotation": "New Quotation"
+      }
+    },
+    "common": {
+      "pagination": {
+        "range": "Showing {start}–{end} of {total}",
+        "previous": "Previous",
+        "next": "Next",
+        "page": "Page {page}/{total}"
+      }
+    },
+    "dashboard": {
+      "modeTh": "Thai language mode",
+      "modeEn": "English Mode",
+      "selectType": "Select dashboard type",
+      "myTitle": "My Dashboard",
+      "mySubtitle": "Overview of your leads, opportunities, activities and follow-ups for today",
+      "settings": "Settings",
+      "filterSearch": "Search...",
+      "viewAll": "View all",
+      "placeholder": "Under development",
+      "period": {
+        "today": "Today",
+        "week": "This week",
+        "month": "This month",
+        "quarter": "This quarter",
+        "year": "This year"
+      },
+      "filters": {
+        "status": "Task status",
+        "priority": "Priority",
+        "customer": "Customer",
+        "priorityHigh": "High",
+        "priorityNormal": "Normal",
+        "customerAll": "All customers"
+      },
+      "types": {
+        "my": "My Dashboard",
+        "sales": "Sales Dashboard",
+        "manager": "Sales Manager Dashboard",
+        "executive": "Executive Dashboard",
+        "service": "Service Dashboard",
+        "renewal": "Renewal Dashboard",
+        "admin": "Admin Dashboard",
+        "ai": "AI Dashboard"
+      },
+      "live": {
+        "pageTitle": "Dashboard",
+        "liveDataHint": "Live data from Supabase",
+        "refresh": "Refresh",
+        "newLeads": "New leads",
+        "newLeadsSub": "Total 0",
+        "pipeline": "Sales opportunities",
+        "pipelineSub": "0 deals",
+        "openTickets": "Open tickets",
+        "openTicketsSub": "Normal",
+        "expiringContracts": "Expiring contracts",
+        "within90Days": "Within 90 days",
+        "totalCustomers": "Total customers",
+        "totalCustomersSub": "Platinum 0",
+        "activitiesToday": "Activities today",
+        "activitiesTodaySub": "To-do items"
+      },
+      "myKpi": {
+        "activitiesToday": "Activities today",
+        "overdue": "Overdue tasks",
+        "leadsFollowUp": "Leads to follow up",
+        "openOpps": "Open opportunities",
+        "pendingQuotations": "Pending quotations",
+        "myTickets": "My tickets"
+      },
+      "tasks": {
+        "title": "Tasks for today",
+        "status": {
+          "today": "Today",
+          "overdue": "Overdue"
+        },
+        "items": {
+          "renewalScg": "Follow-up call Renewal — SCG",
+          "demoCrm": "CRM Demo meeting",
+          "finalProposal": "Send Final Proposal — Example Hospital",
+          "firewallRenewal": "Follow up Firewall Renewal"
+        },
+        "meta": {
+          "scg": "Siam Cement Group · 10:00",
+          "asiaFoods": "Asia Foods · 14:00",
+          "hospital": "Example Hospital · 17:00",
+          "bangkokTech": "Bangkok Technology · Yesterday"
+        }
+      },
+      "opps": {
+        "title": "My opportunities",
+        "col": {
+          "opportunity": "Opportunity",
+          "customer": "Customer",
+          "stage": "Stage",
+          "amount": "Amount",
+          "prob": "Prob."
+        },
+        "stage": {
+          "verbalCommit": "Verbal Commit",
+          "negotiation": "Negotiation",
+          "proposal": "Proposal"
+        }
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "activity": "Add activity",
+        "lead": "Add lead",
+        "opportunity": "Create opportunity",
+        "quotation": "Create quotation"
+      },
+      "ai": {
+        "title": "AI Insight",
+        "renewalDeal": "Microsoft 365 Renewal deal has 88% close probability — send contract today",
+        "followUp": "3 follow-up tasks are pending — complete before end of day"
+      }
+    },
+    "leads": {
+      "inbox": {
+        "title": "Target Inbox",
+        "subtitle": "New leads and unassigned targets — review and assign to sales",
+        "searchPlaceholder": "Search code, company, contact...",
+        "unassigned": "Unassigned",
+        "viewDetail": "View details",
+        "summary": {
+          "total": "All targets",
+          "newToday": "New today",
+          "newTodaySub": "In inbox",
+          "highScore": "High score (80+)",
+          "contacted": "Contacted",
+          "website": "From Website",
+          "lineOa": "From LINE OA"
+        },
+        "chips": {
+          "newToday": "New today",
+          "pendingReview": "Pending review",
+          "unassigned": "Awaiting assignment",
+          "highScore": "High score",
+          "notContacted": "Not contacted",
+          "website": "Website",
+          "lineOa": "LINE OA",
+          "facebook": "Facebook",
+          "marketplace": "Marketplace",
+          "tender": "Tender/RFP"
+        },
+        "filters": {
+          "source": "Source",
+          "status": "Lead status",
+          "score": "Lead score",
+          "scoreHigh": "80 and above",
+          "scoreLow": "Below 40",
+          "sales": "Sales",
+          "dateCreated": "Created date",
+          "product": "Product"
+        },
+        "col": {
+          "code": "Code",
+          "company": "Company / Name",
+          "contact": "Contact",
+          "source": "Source",
+          "product": "Product",
+          "score": "Score",
+          "status": "Status",
+          "priority": "Priority",
+          "sales": "Sales",
+          "date": "Date",
+          "action": "View"
+        },
+        "sources": {
+          "website": "Website",
+          "lineOa": "LINE OA",
+          "facebook": "Facebook",
+          "marketplace": "Marketplace",
+          "tender": "Tender/RFP"
+        },
+        "products": {
+          "m365": "Microsoft 365",
+          "firewall": "Firewall",
+          "edr": "EDR / Antivirus",
+          "maintenance": "Maintenance",
+          "google": "Google Workspace"
+        },
+        "status": {
+          "new": "New",
+          "pending": "Pending",
+          "review": "Under review"
+        },
+        "priority": {
+          "urgent": "Urgent!",
+          "high": "High",
+          "normal": "Normal",
+          "low": "Low"
+        },
+        "detail": {
+          "quickTitle": "Quick details",
+          "contact": "Contact",
+          "position": "Position",
+          "phone": "Phone",
+          "email": "Email",
+          "source": "Source",
+          "product": "Product",
+          "budget": "Budget",
+          "scoreLabel": "Lead score",
+          "actionToday": "Due today",
+          "aiTitle": "AI Insight",
+          "call": "Call",
+          "emailAction": "Email",
+          "openFull": "View more details"
+        },
+        "positions": {
+          "manager": "Manager"
+        },
+        "actions": {
+          "sendSample": "Schedule sample delivery"
+        },
+        "channels": {
+          "title": "Today's channels",
+          "website": "Website",
+          "lineOa": "LINE OA",
+          "phone": "Phone",
+          "facebook": "Facebook",
+          "marketplace": "Marketplace"
+        },
+        "ai": {
+          "highScoreFollowUp": "High score — recommend immediate follow-up today",
+          "hospitalDemo": "Interested in Firewall — schedule demo within 3 days",
+          "assignSoon": "Unassigned — assign to Bangkok sales team",
+          "bkkTechUrgent": "Score 84 — urgent need",
+          "tenderDeadline": "Tender closing soon — review documents by Friday",
+          "lowScoreNurture": "Low score — nurture via email before calling"
+        }
+      },
+      "list": {
+        "title": "All Targets",
+        "subtitle": "Main hub — search, filters, table/Kanban views · figma sub-menus consolidated here",
+        "searchPlaceholder": "Search code, company, contact, email, phone...",
+        "clearFilters": "Clear filters",
+        "resultCount": "Showing {count} items",
+        "col": {
+          "leadId": "Lead ID"
+        },
+        "selectAll": "Select all",
+        "empty": "No leads match your filters",
+        "inboxHint": "Inbox view — unassigned leads",
+        "openInbox": "Open full inbox →",
+        "pipeline": {
+          "all": "All",
+          "newCustomer": "New customer",
+          "contacted": "Contacted",
+          "qualified": "Qualified",
+          "failed": "Not qualified",
+          "followUp": "Follow-up",
+          "losingInterest": "Losing interest",
+          "converted": "Converted"
+        },
+        "summary": {
+          "total": "Total",
+          "totalSub": "All targets",
+          "newCustomer": "New customers",
+          "newCustomerSub": "This week",
+          "qualified": "Qualified",
+          "qualifiedSub": "Ready to sell",
+          "converted": "Converted",
+          "convertedSub": "This month",
+          "failed": "Not qualified",
+          "failedSub": "Needs action"
+        },
+        "view": {
+          "table": "Table",
+          "kanban": "Kanban"
+        },
+        "actions": {
+          "new": "New lead",
+          "inbox": "Target inbox",
+          "import": "Import",
+          "duplicates": "Duplicates"
+        },
+        "bulk": {
+          "selected": "{count} selected",
+          "assign": "Assign",
+          "mockHint": "(mock — API not wired)"
+        }
+      },
+      "import": {
+        "title": "Import Targets",
+        "subtitle": "Upload · Mapping · Validate · Duplicates · Confirm · Result",
+        "downloadTemplate": "Download sample template",
+        "backToList": "Back to all targets",
+        "templateMockHint": "Template mock — storage not wired yet (download shows this message)",
+        "mockHint": "(mock — not saved to the database)",
+        "steps": {
+          "upload": "Upload file",
+          "mapping": "Mapping data",
+          "preview": "Validate data",
+          "duplicates": "Check duplicates",
+          "owner": "Assign owner",
+          "confirm": "Confirm",
+          "result": "Result"
+        },
+        "summary": {
+          "month": "Imports this month",
+          "monthSub": "All files",
+          "success": "Success rate",
+          "successSub": "Last 30 days",
+          "rows": "Rows imported",
+          "rowsSub": "All time",
+          "last": "Last import",
+          "lastSub": "Ago"
+        },
+        "upload": {
+          "dropTitle": "Drag a file here or browse",
+          "dropHint": "Supports .csv · .xlsx · .xls · max 5 MB (mock)",
+          "chooseFile": "Choose file",
+          "useSample": "Use sample file",
+          "tipFormats": "UTF-8 CSV and Excel 2010+ supported",
+          "tipRequired": "Requires company · contact · email columns at minimum"
+        },
+        "mapping": {
+          "hint": "Map columns in «{file}» to lead fields",
+          "detected": "{count} columns detected",
+          "colField": "Lead field",
+          "colColumn": "File column",
+          "selectColumn": "Select column",
+          "skip": "— Skip —"
+        },
+        "fields": {
+          "company": "Company / name",
+          "contact": "Contact person",
+          "email": "Email",
+          "phone": "Phone",
+          "mobile": "Mobile",
+          "source": "Source",
+          "product": "Product interest",
+          "priority": "Priority",
+          "leadValue": "Lead value",
+          "owner": "Owner (email)"
+        },
+        "preview": {
+          "valid": "Valid",
+          "warning": "Warnings",
+          "error": "Errors",
+          "colRow": "Row",
+          "colStatus": "Status",
+          "colMessage": "Message",
+          "skipErrorsHint": "Error rows are skipped · warning rows can be imported",
+          "filter": {
+            "all": "All",
+            "valid": "Valid",
+            "warning": "Warnings",
+            "error": "Errors"
+          },
+          "status": {
+            "valid": "Valid",
+            "warning": "Warning",
+            "error": "Error"
+          }
+        },
+        "errors": {
+          "invalidEmail": "Invalid email format",
+          "missingCompany": "Company name is required",
+          "duplicateEmail": "Email already exists in CRM",
+          "missingPhone": "Phone missing — recommended"
+        },
+        "actions": {
+          "back": "Back",
+          "next": "Next",
+          "import": "Confirm import",
+          "importing": "Importing..."
+        },
+        "duplicates": {
+          "hint": "Potential duplicates found — choose an action per row",
+          "found": "{count} matches",
+          "colMatch": "Matches existing",
+          "colAction": "Action",
+          "actionSkip": "Skip",
+          "actionImport": "Import anyway",
+          "actionMerge": "Merge"
+        },
+        "owner": {
+          "hint": "Assign lead owners after import — applies to successfully imported rows",
+          "modeLabel": "Assignment mode",
+          "modeSingle": "Single owner",
+          "modeRoundRobin": "Round-robin sales team",
+          "modeBySource": "By lead source",
+          "defaultLabel": "Default owner",
+          "somsak": "Somsak Jaidee"
+        },
+        "confirm": {
+          "title": "Import summary",
+          "file": "File",
+          "rows": "Rows to import",
+          "errors": "Error rows (skipped)",
+          "duplicates": "Duplicates",
+          "duplicatesDetail": "{total} rows · skip {skip}",
+          "owner": "Assignment",
+          "hint": "Click confirm import to process — mock only"
+        },
+        "result": {
+          "title": "Import complete",
+          "subtitle": "File «{file}» has been processed",
+          "imported": "Imported",
+          "skipped": "Skipped",
+          "failed": "Failed",
+          "viewLeads": "View all targets",
+          "importAnother": "Import another file"
+        },
+        "history": {
+          "title": "Import history",
+          "subtitle": "Recent imports in your org (mock)",
+          "colFile": "File",
+          "colDate": "Date",
+          "colUser": "Imported by",
+          "colTotal": "Total",
+          "colSuccess": "Success",
+          "colFailed": "Failed",
+          "colStatus": "Status",
+          "status": {
+            "completed": "Completed",
+            "partial": "Partial",
+            "failed": "Failed"
+          }
+        }
+      }
+    },
+    "customers": {
+      "list": {
+        "title": "Customer List",
+        "subtitle": "Customer hub for sales, service, contracts, and renewals",
+        "searchPlaceholder": "Search customer, company, Tax ID...",
+        "clearFilters": "Clear filters",
+        "selectAll": "Select all",
+        "empty": "No customers match your filters",
+        "viewDetail": "View details",
+        "openC360": "Customer 360",
+        "filters": {
+          "group": "Customer group",
+          "tier": "Customer tier",
+          "health": "Customer health",
+          "status": "Status",
+          "customerType": "Customer type",
+          "businessType": "Business type",
+          "owner": "Owner",
+          "province": "Province",
+          "revenue": "Revenue range",
+          "renewal": "Renewal status",
+          "ticket": "Ticket status"
+        },
+        "actions": {
+          "new": "Add customer",
+          "export": "Export",
+          "import": "Import",
+          "bulkUpdate": "Bulk update",
+          "renewContract": "Renew contract",
+          "openC360": "Open Customer 360",
+          "addOpp": "Add opportunity",
+          "addQuotation": "Create quotation",
+          "addTicket": "Create ticket",
+          "addActivity": "Add activity",
+          "opp": "Opp",
+          "quotation": "QT",
+          "ticket": "TK"
+        },
+        "tabs": {
+          "all": "All customers",
+          "active": "Active",
+          "target": "Prospect",
+          "inactive": "Inactive",
+          "blacklist": "Blacklist",
+          "atRisk": "At risk",
+          "renewalSoon": "Renewal soon",
+          "noActivity": "No activity >90 days"
+        },
+        "summary": {
+          "total": "Total customers",
+          "totalSub": "This month",
+          "active": "Active customers",
+          "activeSub": "Active share",
+          "target": "Prospect status",
+          "targetSub": "This month",
+          "renewal": "Renewal soon",
+          "renewalSub": "Within 30 days",
+          "atRisk": "At-risk customers",
+          "atRiskSub": "Needs attention",
+          "tickets": "Open tickets",
+          "ticketsSub": "Needs action"
+        },
+        "col": {
+          "customer": "Customer",
+          "code": "Code",
+          "type": "Type",
+          "business": "Business",
+          "tier": "Tier",
+          "owner": "Owner",
+          "revenue": "Revenue & pipeline",
+          "tickets": "Tickets",
+          "renewal": "Renewal",
+          "health": "Health",
+          "lastActivity": "Last activity",
+          "action": "Action",
+          "actions": "Actions"
+        },
+        "bulk": {
+          "selected": "{count} selected",
+          "update": "Bulk update",
+          "mockHint": "(mock — not connected to API)"
+        },
+        "detail": {
+          "quickTitle": "Quick details",
+          "revenue": "Revenue",
+          "pipeline": "Pipeline",
+          "tickets": "Tickets",
+          "industry": "Industry",
+          "type": "Type",
+          "group": "Group",
+          "tier": "Tier",
+          "owner": "Owner",
+          "phone": "Phone",
+          "email": "Email",
+          "health": "Customer health",
+          "renewalAlert": "Renewal alert",
+          "lastActivity": "Last activity",
+          "aiTitle": "AI Insight"
+        },
+        "relations": {
+          "title": "Customer relations",
+          "contacts": "Contacts",
+          "opps": "Opportunities",
+          "tickets": "Tickets",
+          "contracts": "Contracts",
+          "viewBranch": "View branch overview"
+        },
+        "types": {
+          "enterprise": "Enterprise",
+          "keyAccount": "Key Account",
+          "sme": "SME",
+          "standard": "Standard"
+        },
+        "business": {
+          "manufacturing": "Manufacturing",
+          "itServices": "IT Services",
+          "healthcare": "Healthcare",
+          "retail": "Retail",
+          "logistics": "Logistics",
+          "services": "Services",
+          "finance": "Finance"
+        },
+        "tiers": {
+          "platinum": "Platinum",
+          "gold": "Gold",
+          "silver": "Silver"
+        },
+        "renewal": {
+          "days30": "30 days",
+          "atRisk": "At risk",
+          "ok": "OK",
+          "none": "—"
+        },
+        "activity": {
+          "days1": "1 day ago",
+          "days2": "2 days ago",
+          "days3": "3 days ago",
+          "days5": "5 days ago",
+          "days7": "7 days ago",
+          "days14": "14 days ago",
+          "week1": "1 week ago",
+          "days90plus": ">90 days",
+          "months3": "3 months ago",
+          "months6": "6 months ago"
+        },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive",
+          "blacklist": "Blacklist"
+        },
+        "industry": {
+          "materials": "Materials",
+          "technology": "Technology",
+          "healthcare": "Healthcare",
+          "retail": "Retail",
+          "logistics": "Logistics",
+          "services": "Services",
+          "finance": "Finance"
+        },
+        "groups": {
+          "holding": "Corporate group",
+          "standalone": "Standalone"
+        },
+        "ai": {
+          "scgRenewal": "This branch has 3 open tickets and 2 assets expiring next month — plan proactive maintenance before contract end.",
+          "bkkTechRisk": "Health score declining — schedule SLA review and firewall renewal within 2 weeks.",
+          "hospitalProposal": "Opportunity to send final HIS proposal — close this month.",
+          "asiaFoodsFollowUp": "Pipeline still open — follow up with purchasing decision maker.",
+          "northLogNurture": "No activity for 2 weeks — send quarterly service summary email.",
+          "metroRenewal": "Group M365 renewal within 30 days — prepare renewal quote.",
+          "staleReengage": "No activity over 90 days — call to re-engage or update status.",
+          "blacklist": "Customer is blacklisted — no new quotes without approval.",
+          "pacificUpsell": "EDR upsell opportunity after last quarter security audit.",
+          "dormant": "Inactive status — consider archive or reactivation team."
+        }
+      },
+      "contacts": {
+        "list": {
+          "title": "Contact List",
+          "subtitle": "Central hub for all customer contacts — sales, service, and relationship follow-up",
+          "searchPlaceholder": "Search contacts, name, company, email...",
+          "clearFilters": "Clear filters",
+          "selectAll": "Select all",
+          "empty": "No contacts match your filters",
+          "filters": {
+            "company": "Company / Customer",
+            "position": "Position",
+            "department": "Department",
+            "role": "Contact role",
+            "status": "Status",
+            "primary": "Primary contact",
+            "owner": "Account owner",
+            "industry": "Industry",
+            "province": "Province",
+            "lastContact": "Last contact",
+            "opportunity": "Related opportunity",
+            "ticket": "Related ticket"
+          },
+          "actions": {
+            "new": "Add contact",
+            "export": "Export",
+            "import": "Import",
+            "view": "View",
+            "call": "Call",
+            "email": "Send email",
+            "addActivity": "Add activity",
+            "addOpp": "Create opp.",
+            "addTicket": "Create ticket",
+            "openDetail": "Open contact details"
+          },
+          "tabs": {
+            "all": "All contacts",
+            "active": "Active",
+            "inactive": "Inactive",
+            "primary": "Primary contacts",
+            "decisionMaker": "Decision makers",
+            "purchasing": "Purchasing",
+            "it": "IT",
+            "neverContacted": "Never contacted",
+            "noActivity": "No activity >90 days"
+          },
+          "summary": {
+            "total": "Total contacts",
+            "totalSub": "This month",
+            "active": "Active",
+            "activeSub": "Active share",
+            "primary": "Primary contacts",
+            "primarySub": "Main contact",
+            "decisionMaker": "Decision makers",
+            "decisionMakerSub": "Decision maker",
+            "neverContacted": "Never contacted",
+            "neverContactedSub": "Needs outreach",
+            "noActivity": "No activity >90 days",
+            "noActivitySub": "Needs re-engage"
+          },
+          "col": {
+            "contact": "Contact",
+            "company": "Company",
+            "position": "Position",
+            "department": "Department",
+            "phone": "Phone",
+            "email": "Email",
+            "role": "Role",
+            "primary": "Primary",
+            "status": "Status",
+            "owner": "Owner",
+            "lastContact": "Last contact",
+            "actions": "Actions"
+          },
+          "bulk": {
+            "selected": "{count} selected",
+            "update": "Bulk update",
+            "mockHint": "(mock — API not wired)"
+          },
+          "badges": {
+            "primary": "Primary"
+          },
+          "detail": {
+            "quickTitle": "Quick details",
+            "company": "Company",
+            "department": "Department",
+            "phone": "Phone",
+            "email": "Email",
+            "line": "LINE ID",
+            "owner": "Owner",
+            "lastContact": "Last contact",
+            "satisfaction": "Satisfaction",
+            "relatedTitle": "Related records",
+            "relatedOpp": "Opportunity",
+            "relatedQuotation": "Quotation",
+            "relatedTicket": "Ticket",
+            "aiTitle": "AI summary"
+          },
+          "recent": {
+            "title": "Recent activity",
+            "viewAll": "View full contact history",
+            "call": "Renewal follow-up call",
+            "email": "Service summary email",
+            "meeting": "Demo meeting scheduled"
+          },
+          "roles": {
+            "decisionMaker": "Decision maker",
+            "influencer": "Influencer",
+            "purchasing": "Purchasing",
+            "it": "IT",
+            "gatekeeper": "Gatekeeper",
+            "user": "User",
+            "other": "Other"
+          },
+          "status": {
+            "active": "Active",
+            "inactive": "Inactive"
+          },
+          "activity": {
+            "never": "Never contacted",
+            "days1": "1 day ago",
+            "days2": "2 days ago",
+            "days3": "3 days ago",
+            "days5": "5 days ago",
+            "days7": "7 days ago",
+            "days14": "14 days ago",
+            "week1": "1 week ago",
+            "months3": "3 months ago"
+          },
+          "ai": {
+            "scgDecision": "IT decision maker — influences M365 and Firewall renewal; schedule review before contract expiry.",
+            "hospitalPurchasing": "Purchasing comparing HIS proposals — send final proposal this week.",
+            "bkkTechCto": "CTO interested in EDR and Firewall subscription — schedule technical demo within 3 days.",
+            "asiaFoodsCfo": "CFO approved Q3 budget — high chance to close CRM implementation.",
+            "northLogistics": "No activity for 2 weeks — send quarterly service summary email.",
+            "metroRetail": "Store manager is gatekeeper — route through primary contact before upsell.",
+            "inactive": "Inactive status — consider archive or reactivation team.",
+            "neverContacted": "Never contacted — recommend intro call and one-pager within 48 hours.",
+            "scgPurchasing": "Purchasing linked to OPP-2481 — align with decision maker before quotation.",
+            "bkkTechDm": "Purchasing decision maker — follow up QT-1755 and SLA renewal."
+          }
+        }
+      },
+      "contactHistory": {
+        "title": "Contact History",
+        "subtitle": "Log and track every customer touchpoint — calls, email, meetings, and follow-ups",
+        "searchPlaceholder": "Search activities, contacts, customers...",
+        "empty": "No activities match your filters",
+        "filters": {
+          "contact": "Contact",
+          "company": "Customer",
+          "type": "Activity type",
+          "owner": "Owner",
+          "dateRange": "Date range",
+          "status": "Status",
+          "opportunity": "Related opportunity",
+          "ticket": "Related ticket"
+        },
+        "tabs": {
+          "all": "All activities",
+          "call": "Calls",
+          "email": "Email",
+          "meeting": "Meetings",
+          "onlineMeeting": "Online meetings",
+          "line": "LINE",
+          "followUp": "Follow-ups",
+          "upcoming": "Upcoming",
+          "overdue": "Overdue",
+          "completed": "Completed"
+        },
+        "status": {
+          "completed": "Completed",
+          "upcoming": "Upcoming",
+          "overdue": "Overdue"
+        },
+        "view": {
+          "table": "Table view",
+          "timeline": "Timeline view"
+        },
+        "actions": {
+          "add": "Add activity",
+          "myTasks": "My tasks",
+          "openC360": "Open Customer 360",
+          "openContact": "Open contact details"
+        },
+        "col": {
+          "activity": "Activity",
+          "type": "Type",
+          "contact": "Contact",
+          "company": "Customer",
+          "date": "Date",
+          "owner": "Owner",
+          "status": "Status"
+        },
+        "groups": {
+          "today": "Today",
+          "yesterday": "Yesterday",
+          "upcoming": "Upcoming",
+          "jun19": "19 Jun 2026",
+          "jun18": "18 Jun 2026",
+          "jun17": "17 Jun 2026",
+          "jun16": "16 Jun 2026",
+          "jun15": "15 Jun 2026",
+          "jun7": "7 Jun 2026"
+        },
+        "dates": {
+          "today": "Today",
+          "yesterday": "Yesterday",
+          "jun25": "25 Jun 2026",
+          "jun26": "26 Jun 2026",
+          "jun19": "19 Jun 2026",
+          "jun18": "18 Jun 2026",
+          "jun17": "17 Jun 2026",
+          "jun16": "16 Jun 2026",
+          "jun15": "15 Jun 2026",
+          "jun7": "7 Jun 2026"
+        },
+        "items": {
+          "renewalCall": "Renewal proposal follow-up call",
+          "firewallEmail": "Sent Firewall proposal",
+          "itMeeting": "IT solution meeting",
+          "lineDemo": "Sent demo info via LINE",
+          "contractReview": "Contract review meeting",
+          "overdueFollowUp": "Follow-up overdue 14 days",
+          "m365Call": "Microsoft 365 renewal call",
+          "proposalEmail": "Sent Firewall quotation",
+          "demoMeeting": "CRM demo meeting",
+          "lineFollowUp": "LINE follow-up"
+        }
+      },
+      "import": {
+        "title": "Import Customers",
+        "subtitle": "Upload · Mapping · Validate · Duplicates · Owner · Confirm · Result",
+        "stepTitle": "Step {step}: {label}",
+        "downloadTemplate": "Download Template",
+        "backToList": "Back to customer list",
+        "templateMockHint": "Mock template — not connected to storage yet",
+        "mockHint": "(mock — not saved to the database)",
+        "steps": {
+          "upload": "Upload File",
+          "mapping": "Field Mapping",
+          "preview": "Validate Data",
+          "duplicates": "Duplicate Check",
+          "owner": "Assign Owner",
+          "confirm": "Confirm",
+          "result": "Result"
+        },
+        "sheets": {
+          "companies": "Customers sheet",
+          "contacts": "Contacts sheet"
+        },
+        "summary": {
+          "month": "Imports this month",
+          "monthSub": "All files",
+          "success": "Success rate",
+          "successSub": "Last 30 days",
+          "rows": "Rows imported",
+          "rowsSub": "All time",
+          "last": "Last import",
+          "lastSub": "Previous run"
+        },
+        "upload": {
+          "dropTitle": "Drag Excel/CSV here or click",
+          "dropHint": "Supports .xlsx · .xls · .csv · max 10 MB (mock)",
+          "sheetsHint": "Template has 2 sheets — customers and contacts (optional)"
+        },
+        "mapping": {
+          "hint": "Map columns in «{file}» to customer fields",
+          "detected": "{count} columns detected",
+          "colField": "Field",
+          "colColumn": "File column",
+          "selectColumn": "Select column",
+          "skip": "— skip —"
+        },
+        "fields": {
+          "company": "Customer / company name",
+          "taxId": "Tax ID",
+          "customerType": "Customer type",
+          "businessType": "Business type",
+          "tier": "Customer tier",
+          "status": "Status",
+          "owner": "Owner (email)",
+          "phone": "Phone",
+          "email": "Email",
+          "province": "Province",
+          "contactName": "Contact name",
+          "contactEmail": "Contact email",
+          "contactPhone": "Contact phone",
+          "companyCode": "Customer code",
+          "contactRole": "Contact role",
+          "primaryContact": "Primary contact"
+        },
+        "preview": {
+          "valid": "Valid",
+          "warning": "Warning",
+          "error": "Error",
+          "colRow": "Row",
+          "colStatus": "Status",
+          "colMessage": "Message",
+          "skipErrorsHint": "Error rows are skipped · warning rows can be imported",
+          "filter": {
+            "all": "All",
+            "valid": "Valid",
+            "warning": "Warning",
+            "error": "Error"
+          },
+          "status": {
+            "valid": "Valid",
+            "warning": "Warning",
+            "error": "Error"
+          }
+        },
+        "errors": {
+          "invalidTaxId": "Invalid Tax ID format",
+          "missingCompany": "Missing customer name",
+          "duplicateTaxId": "Tax ID already exists in the system",
+          "missingOwner": "No owner — assign before import"
+        },
+        "actions": {
+          "back": "Back",
+          "next": "Next",
+          "import": "Confirm import",
+          "importing": "Importing..."
+        },
+        "duplicates": {
+          "hint": "Possible duplicate customers — choose an action per row",
+          "found": "{count} matches",
+          "colMatch": "Matches in system",
+          "colAction": "Action",
+          "actionSkip": "Skip",
+          "actionImport": "Import anyway",
+          "actionMerge": "Merge data"
+        },
+        "owner": {
+          "hint": "Assign owner after import — for rows without owner in the file",
+          "modeLabel": "Assignment mode",
+          "modeSingle": "Assign to one person",
+          "modeRoundRobin": "Round-robin sales team",
+          "modeByTier": "By customer tier",
+          "defaultLabel": "Default owner",
+          "somsak": "Somsak Jaidee",
+          "nicha": "Nicha Sriwong",
+          "wipa": "Wipa Sukjai",
+          "modeHint": {
+            "roundRobin": "Distribute to sales team in order — mock only",
+            "byTier": "Platinum/Gold → Key Account · Silver/SME → Inside Sales — mock"
+          },
+          "modeLabelValues": {
+            "roundRobin": "Round-robin sales team",
+            "byTier": "By customer tier"
+          }
+        },
+        "confirm": {
+          "title": "Import summary",
+          "file": "File",
+          "rows": "Rows to import",
+          "errors": "Error rows (skipped)",
+          "duplicates": "Duplicates",
+          "duplicatesDetail": "{total} rows · skip {skip}",
+          "owner": "Assignment",
+          "hint": "Click confirm to start processing — mock only"
+        },
+        "result": {
+          "title": "Import complete",
+          "subtitle": "File «{file}» has been processed",
+          "imported": "Customers",
+          "contacts": "Contacts",
+          "skipped": "Skipped",
+          "failed": "Failed",
+          "viewCustomers": "View customer list",
+          "importAnother": "Import another file"
+        },
+        "history": {
+          "title": "Import history",
+          "subtitle": "Recent imports in your org (mock)",
+          "colFile": "File",
+          "colDate": "Date",
+          "colUser": "Imported by",
+          "colTotal": "Customers",
+          "colContacts": "Contacts",
+          "colSuccess": "Success",
+          "colFailed": "Failed",
+          "colStatus": "Status",
+          "status": {
+            "completed": "All succeeded",
+            "partial": "Partial success",
+            "failed": "Failed"
+          }
+        }
+      }
+    }
+  }
+}

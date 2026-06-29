@@ -50,7 +50,7 @@ Module จะ auto-import `LineChart`, `BarChart`, `AreaChart`, `DonutChart` จ
 {
   key: 'cumulative',      // field ใน data
   label: 'ยอดสะสม',      // legend (ผ่าน i18n)
-  color: '#5fb76a',       // ใช้ APP_CHART_COLORS.primary
+  color: '#0b2a5b',       // ใช้ APP_CHART_COLORS.primary
   dashed?: true            // เส้นประ (เช่น เป้าหมาย)
 }
 ```
@@ -103,7 +103,8 @@ const series: AppChartSeries[] = [
 
 | Token | Hex | ใช้เมื่อ |
 |-------|-----|----------|
-| `primary` | `#5fb76a` | เส้นหลัก / brand |
+| `primary` | `#0b2a5b` | เส้นหลัก / brand navy |
+| `accent` | `#10b981` | เส้นเสริม / emerald |
 | `target` | `#f59e0b` | เป้าหมาย / benchmark |
 | `neutral` | `#94a3b8` | ข้อมูลรอง |
 | `error` | `#ef4444` | ต่ำกว่าเป้า |

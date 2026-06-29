@@ -21,6 +21,7 @@ defineProps<{
           <AppLogo
             variant="full"
             size="lg"
+            framed
           />
         </div>
 

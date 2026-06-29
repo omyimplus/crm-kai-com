@@ -6,6 +6,20 @@
 
 ## ประวัติ
 
+### 2026-06-25 — KuTo: รายชื่อผู้ติดต่อ
+
+- **ทำอะไร:** `frontend-kuto` — `/app/customers/contacts` mock · keys `kuto.customers.contacts.list.*`
+
+### 2026-06-25 — KuTo: แยกคำ Leads (เป้าหมาย) vs ลูกค้า (prospect status)
+
+- **ทำอะไร:** `frontend-kuto` — Leads เมนู/หน้าใช้ **เป้าหมาย** · แท็บลูกค้า `status=prospect` → **สถานะ: เป้าหมาย** / EN Prospect
+- **ไฟล์:** `frontend-kuto/i18n/locales/{th,en}.json` · keys `kuto.nav.sub.leads.*`, `kuto.leads.*`, `kuto.customers.list.tabs.target`
+
+### 2026-06-22 — Body weight 500 (Medium)
+
+- **ทำอะไร:** เนื้อหา/UI ใช้ IBM Plex Sans Thai **500** แทน 400 · โหลด `wght@400;500;600`
+- **อ้างอิง:** D-010 · [TYPOGRAPHY.md](./TYPOGRAPHY.md)
+
 ### 2026-06-16 — Customer Status i18n (5 lifecycle)
 
 - **ทำอะไร:** `masterData.customer.options.status` — active … pending (th + en)

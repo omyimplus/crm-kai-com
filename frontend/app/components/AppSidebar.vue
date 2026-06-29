@@ -6,6 +6,7 @@ import { setupMenuItems } from '~/config/setupMenu'
 const { t } = useI18n()
 const route = useRoute()
 const { canViewAppMenu, canViewMasterData, canAccessSetup } = usePermissions()
+const { open: mobileNavOpen, close: closeMobileNav } = useMobileNav()
 
 function isMasterDataRoute(path: string) {
   return path.startsWith('/app/master-data')
@@ -28,6 +29,7 @@ const masterDataOpen = ref(true)
 const setupOpen = ref(route.path.startsWith('/app/setup'))
 
 watch(() => route.path, (path) => {
+  closeMobileNav()
   if (isMasterDataRoute(path)) {
     masterDataOpen.value = true
     menuOpen.value = false
@@ -105,8 +107,19 @@ const isSetupSectionActive = computed(() => route.path.startsWith('/app/setup'))
 </script>
 
 <template>
-  <aside class="flex h-full w-72 shrink-0 flex-col overflow-hidden border-r border-gray-200 bg-white font-sans dark:border-gray-800 dark:bg-gray-900">
-    <div class="shrink-0 border-b border-gray-200 px-5 py-5 dark:border-gray-800">
+  <div class="contents">
+    <div
+      v-if="mobileNavOpen"
+      class="fixed inset-0 z-30 bg-gray-950/40 lg:hidden"
+      aria-hidden="true"
+      @click="closeMobileNav"
+    />
+
+    <aside
+      class="fixed inset-y-0 left-0 z-40 flex h-full w-72 shrink-0 flex-col overflow-hidden border-r border-shell-border bg-shell-card font-sans transition-transform duration-200 lg:static lg:z-auto lg:translate-x-0"
+      :class="mobileNavOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+    >
+    <div class="shrink-0 border-b border-shell-border px-5 py-5">
       <NuxtLink
         to="/app"
         class="block rounded-lg transition-opacity hover:opacity-90"
@@ -115,6 +128,7 @@ const isSetupSectionActive = computed(() => route.path.startsWith('/app/setup'))
         <AppLogo
           variant="full"
           size="md"
+          framed
         />
       </NuxtLink>
     </div>
@@ -208,5 +222,6 @@ const isSetupSectionActive = computed(() => route.path.startsWith('/app/setup'))
     </nav>
 
     <AppSidebarVersion />
-  </aside>
+    </aside>
+  </div>
 </template>

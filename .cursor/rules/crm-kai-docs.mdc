@@ -16,7 +16,7 @@ alwaysApply: true
 | SQL / migrations | `06-crm-schema/tables.md` + `06-crm-schema/DATA-CHANGE-LOG.md` + `02-database/PHASE-MATRIX.md` |
 | Phase 1 scope | `07-phases/PHASE-1-CHECKLIST.md` |
 | UI strings / i18n | `12-i18n/README.md` — **th + en always**, no hardcoded UI text |
-| Typography / fonts | `12-i18n/TYPOGRAPHY.md` — **IBM Plex Sans Thai** (Headline 600 · Body 400) |
+| Typography / fonts | `12-i18n/TYPOGRAPHY.md` — **IBM Plex Sans Thai** (Headline 600 · Body 500) |
 | Logo / brand | `05-frontend/BRAND-ASSETS.md` — `public/images/logo/*.webp` |
 | Glossary | `GLOSSARY.md` |
 | QA / tester / bug report | `11-dev-setup/QA-GUIDE.md` → checklist โมดูลใน `QA-*.md` |

@@ -181,7 +181,7 @@ function generate() {
       variant="solid"
       size="md"
       block
-      class="rounded-xl font-medium bg-menu-section text-white hover:bg-menu-section-hover dark:bg-primary dark:text-white dark:hover:bg-green-600"
+      class="rounded-xl font-medium bg-primary text-white hover:bg-blue-600 dark:bg-primary dark:text-white dark:hover:bg-blue-600"
       :disabled="disabled"
       @click="generate"
     >

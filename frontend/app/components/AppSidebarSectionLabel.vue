@@ -21,23 +21,27 @@ defineEmits<{
     :is="collapsible ? 'button' : 'div'"
     :type="collapsible ? 'button' : undefined"
     :class="[
-      'flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left font-sans text-white transition-colors',
+      'flex w-full items-center gap-2.5 rounded-2xl px-3 py-2.5 text-left font-sans transition-colors',
       appSidebarSectionTextClass,
-      'bg-menu-section hover:bg-menu-section-hover dark:bg-primary dark:hover:bg-green-600',
+      active
+        ? 'bg-sidebar-accent text-sidebar-accent-fg'
+        : 'text-slate-600 hover:bg-slate-50 dark:text-gray-300 dark:hover:bg-gray-800/80',
       hasContentBelow ? 'mb-3' : 'mb-0',
-      active && collapsible && 'ring-2 ring-menu-section/30 ring-offset-1 ring-offset-white dark:ring-green-700/30 dark:ring-offset-gray-900'
+      active && collapsible && 'ring-1 ring-shell-border'
     ]"
     @click="collapsible ? $emit('toggle') : undefined"
   >
     <UIcon
       :name="icon"
-      class="size-4 shrink-0 text-white [&_svg]:stroke-[2.25]"
+      class="size-4 shrink-0 [&_svg]:stroke-[2.25]"
+      :class="active ? 'text-sidebar-accent-fg' : 'text-slate-500 dark:text-gray-400'"
     />
-    <span class="flex-1 text-left">{{ label }}</span>
+    <span class="flex-1 text-left normal-case tracking-normal">{{ label }}</span>
     <UIcon
       v-if="collapsible"
       :name="open ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'"
-      class="size-4 shrink-0 text-white/95 [&_svg]:stroke-[2.5]"
+      class="size-4 shrink-0 [&_svg]:stroke-[2.5]"
+      :class="active ? 'text-sidebar-accent-fg' : 'text-slate-500 dark:text-gray-400'"
     />
   </component>
 </template>

@@ -22,15 +22,15 @@ export const appFormErrorClass
 export const appFormInfoClass
   = 'rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-xs leading-relaxed text-green-800 dark:border-green-900/50 dark:bg-green-950/40 dark:text-green-200'
 
-/** ตาราง — ขนาด body CRM + weight 400 ให้สม่ำเสมอ (D-010) */
-export const appTableTextClass = 'text-[calc(0.875rem+1px)] font-normal leading-snug'
+/** ตาราง — ขนาด body CRM + weight 500 ให้สม่ำเสมอ (D-010) */
+export const appTableTextClass = 'text-[calc(0.875rem+1px)] font-medium leading-snug'
 
 /** แถวตารางที่เน้นอ่านง่าย — ใช้กับ tasks list เป็นหลัก */
 export const appTableRowClass = 'text-[calc(0.875rem+1px)] font-semibold leading-snug'
 
 /** ลิงก์ใน cell ตาราง — ขนาด/น้ำหนักเดียวกับ appTableTextClass */
 export const appTableCellLinkClass
-  = 'text-[calc(0.875rem+1px)] font-normal leading-snug text-primary underline-offset-2 transition hover:text-primary/80 hover:underline'
+  = 'text-[calc(0.875rem+1px)] font-medium leading-snug text-primary underline-offset-2 transition hover:text-primary/80 hover:underline'
 
 /** ลิงก์ในแถวตาราง tasks — น้ำหนักเดียวกับ appTableRowClass */
 export const appTableRowLinkClass

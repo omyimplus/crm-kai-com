@@ -25,6 +25,7 @@ Roadmap — **Phase ปัจจุบัน: 1** (เริ่ม CRM ก่อ
 **เป้าหมาย:** ทีมขายใช้จริง + **CRM Menu** (เริ่มที่ Tasks)
 
 - **CRM Menu** — implement ทีละโมดูล เริ่ม [Tasks](../05-frontend/TASKS-MODULE.md)
+- **Customer 360** (spec ลูกค้า) — [CUSTOMER-360-FUNCTIONAL-SPEC.md](./CUSTOMER-360-FUNCTIONAL-SPEC.md)
 - Roles, activities, search/filter
 - Owner assignment, org settings
 - CSV import (optional), UX polish

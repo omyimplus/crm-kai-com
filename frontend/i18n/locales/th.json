@@ -790,7 +790,93 @@
     "openDeals": "ดีลที่เปิดอยู่",
     "wonDeals": "ดีลที่ชนะ",
     "pipelineValue": "มูลค่าในแพ็ปไลน์",
-    "dealsPipeline": "แพ็ปไลน์ดีล"
+    "dealsPipeline": "แพ็ปไลน์ดีล",
+    "mock": {
+      "modeTh": "โหมดภาษาไทย",
+      "modeEn": "English Mode",
+      "title": "ศูนย์ควบคุมธุรกิจ KC KuTo CRM",
+      "subtitle": "ระบบ CRM องค์กรพร้อมโครงสร้างภาษาไทยและอังกฤษแบบแยกสถานะจริง",
+      "kpi": {
+        "salesTarget": "เป้ายอดขาย",
+        "wonRevenue": "ยอดขายที่ปิดได้",
+        "openPipeline": "มูลค่า Pipeline ที่เปิดอยู่",
+        "forecastRevenue": "ยอดขายคาดการณ์",
+        "openTickets": "Ticket ที่ยังไม่ปิด",
+        "renewalAlert": "แจ้งเตือนรายการต่ออายุ"
+      },
+      "customerList": {
+        "title": "รายชื่อลูกค้า",
+        "hint": "แสดงหัวตาราง ปุ่ม และสถานะเป็นภาษาไทยเท่านั้น",
+        "newCustomer": "เพิ่มลูกค้าใหม่",
+        "searchPlaceholder": "ค้นหาลูกค้า",
+        "filter": "ตัวกรอง"
+      },
+      "table": {
+        "customerName": "ชื่อลูกค้า",
+        "customerCode": "รหัสลูกค้า",
+        "industry": "ประเภทธุรกิจ",
+        "customerType": "ประเภทลูกค้า",
+        "accountOwner": "ผู้ดูแลลูกค้า",
+        "customerTier": "ระดับลูกค้า",
+        "totalRevenue": "รายได้สะสม",
+        "openPipeline": "Pipeline ที่เปิดอยู่",
+        "openTickets": "Ticket ที่ยังไม่ปิด",
+        "healthScore": "คะแนนสุขภาพลูกค้า"
+      },
+      "customer360": {
+        "title": "มุมมองลูกค้า 360 องศา",
+        "sampleHint": "ข้อมูลตัวอย่างสำหรับการพัฒนา CRM จริง",
+        "tabs": {
+          "overview": "ภาพรวม",
+          "companyInfo": "ข้อมูลบริษัท",
+          "contacts": "ผู้ติดต่อ",
+          "opportunities": "โอกาสการขาย",
+          "documents": "เอกสาร",
+          "financial": "การเงิน"
+        },
+        "cards": {
+          "customerProfile": "ข้อมูลลูกค้า",
+          "revenueSummary": "สรุปรายได้",
+          "aiRecommendation": "คำแนะนำจาก AI"
+        }
+      },
+      "aiPanel": {
+        "title": "แผงข้อมูล AI",
+        "atRisk": "มีความเสี่ยง",
+        "renewalHint": "แนะนำให้นัดติดตามการต่ออายุภายใน 7 วัน",
+        "createActivity": "สร้างกิจกรรม",
+        "createOpportunity": "สร้าง Opportunity",
+        "createTicket": "สร้าง Ticket"
+      },
+      "statusBadges": {
+        "title": "ป้ายสถานะ"
+      },
+      "status": {
+        "active": "ใช้งานอยู่",
+        "prospect": "ลูกค้าเป้าหมาย",
+        "atRisk": "มีความเสี่ยง",
+        "approved": "อนุมัติแล้ว",
+        "won": "ชนะการขาย",
+        "lost": "แพ้การขาย"
+      }
+    }
+  },
+  "appHeader": {
+    "openMenu": "เปิดเมนู",
+    "search": "ค้นหาทั้งระบบ",
+    "approvalTasks": "งานรออนุมัติ",
+    "notifications": "การแจ้งเตือน",
+    "quickCreate": {
+      "label": "สร้างรายการด่วน",
+      "lead": "เพิ่ม Lead ใหม่",
+      "customer": "เพิ่มลูกค้าใหม่",
+      "contact": "เพิ่มผู้ติดต่อ",
+      "opportunity": "เพิ่มโอกาสการขาย",
+      "quotation": "สร้างใบเสนอราคา",
+      "contract": "สร้างสัญญา",
+      "ticket": "สร้าง Ticket",
+      "activity": "เพิ่มกิจกรรม"
+    }
   },
   "contacts": {
     "title": "ผู้ติดต่อ",

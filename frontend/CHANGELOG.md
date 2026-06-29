@@ -6,6 +6,43 @@
 
 ## ประวัติ
 
+### 2026-06-22 — Typography: body weight 500
+
+- **`main.css` / `app.vue`:** IBM Plex Sans Thai Medium (500) เป็นค่าเริ่มต้น · โหลด weight 500
+- **`appFormUi`:** ตาราง/sidebar ใช้ `font-medium` แทน `font-normal`
+- **Docs:** D-010 · `TYPOGRAPHY.md`
+
+### 2026-06-22 — Primary navy ตาม demo KuTo
+
+- **`primary: 'blue'`** · `#0b2a5b` — ปุ่ม header, CTA, sidebar icon active
+- **Accent emerald** `#10b981` — KPI, mode label (คง `green-*`)
+- **Sidebar:** `sidebar-accent` `#eef6ff` · หัว section แบบ demo
+- **`appChart.ts`** · `BRAND-ASSETS.md` sync
+
+### 2026-06-22 — Shell colors ตาม demo KuTo
+
+- **Palette:** emerald `#10b981` (primary) · พื้นหลัง `#f6f8fb` · token `shell-*` ใน `main.css`
+- **`appShellTheme.ts`** — ใช้ร่วม header + dashboard + layout
+
+### 2026-06-22 — Dashboard mock (KuTo demo)
+
+- **`DashboardMockView`** — KPI 6 ใบ · ตารางลูกค้า · Customer 360 · AI panel · status badges
+- ข้อมูลจำลองใน `config/dashboardMock.ts` · layout เปิด main บน `/app` (ไม่มีกล่องขาวซ้อน)
+
+### 2026-06-22 — Header แบบ demo KuTo
+
+- **`AppHeader`:** ค้นหาทั้งระบบ · Quick create · งานรออนุมัติ (admin) · แจ้งเตือน (placeholder)
+- **`LocaleSwitcher`:** ปุ่ม TH / EN แบบ mock (แทนธง)
+- **`ThemeToggle`:** ปุ่ม moon/sun ใน header · รองรับ dark mode
+- **`UserMenu`:** avatar/initials + ชื่อ + บทบาท แบบ demo
+- **Mobile:** ปุ่มเมนู + sidebar drawer (`useMobileNav`)
+
+### 2026-06-22 — Brand: โลโก้ CuTo CRM (แทน kai-com)
+
+- **Assets:** แปลง `public/images/logo.png` → `logo/logo-kai-com-crm.webp` (900×300) + `logo-kai-com-crm-icon.webp` (crop KC mark ซ้าย)
+- **`AppLogo`:** prop `framed` — กล่องขาวมุมโค้งแบบ demo KuTo
+- **ใช้ที่:** sidebar, auth brand panel, favicon, default avatar
+
 ### 2026-06-18 — Opportunities: รายการสินค้า/บริการ + หมวดสินค้า/บริการ
 
 - **UI:** `OpportunitiesLineItems.vue` — ตาราง line items แทน project cards (cascade หมวด 3 ชั้นสินค้า / 2–3 ชั้นบริการ · combobox สินค้า/บริการ · qty/price · quick-create)

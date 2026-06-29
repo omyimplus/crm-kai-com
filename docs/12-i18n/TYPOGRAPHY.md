@@ -9,7 +9,7 @@
 | รายการ | ค่า |
 |--------|-----|
 | **Headline** (`h1`–`h6`, `.font-heading`) | **IBM Plex Sans Thai SemiBold** — weight `600` |
-| **Body** (UI, ตาราง, ปุ่ม, label, auth) | **IBM Plex Sans Thai Regular** — weight `400` |
+| **Body** (UI, ตาราง, ปุ่ม, label, auth) | **IBM Plex Sans Thai Medium** — weight `500` |
 | **Locale** | th + en ใช้ฟอนต์เดียวกัน |
 | **ขนาดฐาน** | `html { font-size: 16px; }` — CRM `/app` ใช้ `15px` |
 | **เปลี่ยนเมื่อ** | user สั่งเท่านั้น |
@@ -21,7 +21,7 @@
 | ประเภท | ฟอนต์ | Weight |
 |--------|-------|--------|
 | หัวข้อ | IBM Plex Sans Thai | 600 (SemiBold) |
-| เนื้อหา / UI | IBM Plex Sans Thai | 400 (Regular) |
+| เนื้อหา / UI | IBM Plex Sans Thai | 500 (Medium) |
 
 ---
 
@@ -40,7 +40,7 @@
 
 ### เนื้อหา
 
-ใช้ element ปกติ — Nuxt UI inherit `--font-sans` (Regular 400)
+ใช้ element ปกติ — Nuxt UI inherit `--font-sans` (Medium 500)
 
 ---
 
@@ -49,20 +49,20 @@
 ```
 frontend/
 ├── app/
-│   ├── app.vue              # Google Fonts — IBM Plex Sans Thai 400, 600
+│   ├── app.vue              # Google Fonts — IBM Plex Sans Thai 400, 500, 600
 │   └── assets/css/main.css  # --font-sans / --font-heading
 ```
 
 ### Google Fonts
 
 ```
-IBM Plex Sans Thai — 400 (Regular), 600 (SemiBold)
+IBM Plex Sans Thai — 400 (Regular), 500 (Medium), 600 (SemiBold)
 ```
 
 URL ใน `app.vue`:
 
 ```
-family=IBM+Plex+Sans+Thai:wght@400;600
+family=IBM+Plex+Sans+Thai:wght@400;500;600
 ```
 
 ### CSS (`main.css`)
@@ -73,7 +73,7 @@ family=IBM+Plex+Sans+Thai:wght@400;600
   --font-heading: "IBM Plex Sans Thai", sans-serif;
 }
 
-body { font-weight: 400; }
+body { font-weight: 500; }
 
 .font-heading { font-weight: 600; }
 ```

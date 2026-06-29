@@ -1,41 +1,38 @@
 <script setup lang="ts">
-import { localeFlagByCode, type LocaleFlagCode } from '~/config/localeFlags'
+import { appHeaderControlClass } from '~/config/appHeaderUi'
 
-const { locale, locales, setLocale, t } = useI18n()
+const { locale, setLocale } = useI18n()
 
-const localeList = computed(() => locales.value as { code: LocaleFlagCode, name?: string }[])
+type AppLocale = 'th' | 'en'
 
-const otherLocale = computed(() =>
-  localeList.value.find(loc => loc.code !== locale.value) ?? localeList.value[0]
-)
+const locales: AppLocale[] = ['th', 'en']
 
-function flagSrc(code: string) {
-  return localeFlagByCode[code as LocaleFlagCode] ?? localeFlagByCode.th
-}
-
-async function toggleLocale() {
-  const next = otherLocale.value
-  if (next && next.code !== locale.value) {
-    await setLocale(next.code)
+async function pick(code: AppLocale) {
+  if (locale.value !== code) {
+    await setLocale(code)
   }
 }
 </script>
 
 <template>
-  <button
-    v-if="otherLocale"
-    type="button"
-    class="rounded-lg border border-gray-200 bg-gray-50/80 p-1 transition-opacity hover:opacity-90 dark:border-gray-700 dark:bg-gray-800/50"
-    :aria-label="t('common.switchLanguage', { language: otherLocale.name || otherLocale.code })"
-    @click="toggleLocale"
+  <div
+    :class="[appHeaderControlClass, 'flex shrink-0 p-1']"
+    role="group"
+    :aria-label="$t('common.language')"
   >
-    <img
-      :src="flagSrc(otherLocale.code)"
-      :alt="otherLocale.name || otherLocale.code"
-      width="28"
-      height="20"
-      class="block h-5 w-7 rounded-sm object-cover"
-      loading="lazy"
-    />
-  </button>
+    <button
+      v-for="code in locales"
+      :key="code"
+      type="button"
+      class="rounded-xl px-2.5 py-1.5 text-sm font-bold transition sm:px-3"
+      :class="locale === code
+        ? 'bg-primary text-white'
+        : 'text-shell-muted hover:text-shell-fg'"
+      :aria-pressed="locale === code"
+      :aria-label="code === 'th' ? 'ภาษาไทย' : 'English'"
+      @click="pick(code)"
+    >
+      {{ code.toUpperCase() }}
+    </button>
+  </div>
 </template>

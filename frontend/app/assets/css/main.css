@@ -2,25 +2,48 @@
 @import "@nuxt/ui";
 
 @theme static {
-  /* IBM Plex Sans Thai — Body 400 · Headline 600 (D-010) */
+  /* IBM Plex Sans Thai — Body 500 · Headline 600 (D-010) */
   --font-sans: "IBM Plex Sans Thai", sans-serif;
   --font-heading: "IBM Plex Sans Thai", sans-serif;
 
-  /* Brand primary: #5fb76a — Nuxt UI maps primary → green */
-  /* Sidebar section headers (light mode only) */
-  --color-menu-section: #2e9e3c;
-  --color-menu-section-hover: #268a33;
-  --color-green-50: #f3faf4;
-  --color-green-100: #e3f5e6;
-  --color-green-200: #c8ebcf;
-  --color-green-300: #9dd9a8;
-  --color-green-400: #72c87f;
-  --color-green-500: #5fb76a;
-  --color-green-600: #4d9e58;
-  --color-green-700: #3f8249;
-  --color-green-800: #34693c;
-  --color-green-900: #2b5632;
-  --color-green-950: #17301c;
+  /* KuTo demo — primary navy + accent emerald */
+  --color-blue-50: #eef6ff;
+  --color-blue-100: #dbeafe;
+  --color-blue-200: #bfdbfe;
+  --color-blue-300: #7da3c7;
+  --color-blue-400: #3d6a9e;
+  --color-blue-500: #0b2a5b;
+  --color-blue-600: #091f44;
+  --color-blue-700: #071833;
+  --color-blue-800: #05122a;
+  --color-blue-900: #030c1c;
+  --color-blue-950: #020610;
+
+  --color-menu-section: #0b2a5b;
+  --color-menu-section-hover: #091f44;
+  --color-sidebar-accent: #eef6ff;
+  --color-sidebar-accent-fg: #0b2a5b;
+
+  /* accent — emerald (KPI, mode label, ring) */
+  --color-green-50: #ecfdf5;
+  --color-green-100: #d1fae5;
+  --color-green-200: #a7f3d0;
+  --color-green-300: #6ee7b7;
+  --color-green-400: #34d399;
+  --color-green-500: #10b981;
+  --color-green-600: #059669;
+  --color-green-700: #047857;
+  --color-green-800: #065f46;
+  --color-green-900: #064e3b;
+  --color-green-950: #022c22;
+
+  /* demo/src/styles/theme.css */
+  --color-shell-bg: #f6f8fb;
+  --color-shell-fg: #0b1730;
+  --color-shell-muted: #64748b;
+  --color-shell-border: rgb(15 23 42 / 0.1);
+  --color-shell-input: #f8fafc;
+  --color-shell-card: #ffffff;
 }
 
 html {
@@ -30,7 +53,7 @@ html {
 
 body {
   font-family: var(--font-sans);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.55;
   @apply text-gray-900 dark:text-gray-100;
   -webkit-font-smoothing: antialiased;
@@ -61,11 +84,11 @@ html:has(.crm-app) body {
   overflow: hidden;
 }
 
-/* CRM — scrollbar เล็ก สีเขียวอ่อน (sidebar + main) */
+/* CRM — scrollbar เล็ก สีน้ำเงินอ่อน (sidebar + main) */
 .crm-app {
   --crm-scrollbar-size: 6px;
-  --crm-scrollbar-thumb: var(--color-green-200);
-  --crm-scrollbar-thumb-hover: var(--color-green-300);
+  --crm-scrollbar-thumb: var(--color-blue-200);
+  --crm-scrollbar-thumb-hover: var(--color-blue-300);
   font-family: var(--font-sans);
 }
 
@@ -78,9 +101,9 @@ html:has(.crm-app) body {
   font-family: var(--font-sans);
 }
 
-/* Sidebar nav — โหลด IBM Plex แค่ 400/600; ห้ามใช้ 500 (font-medium) จะ fallback เป็นฟอนต์ระบบ */
+/* Sidebar nav — IBM Plex 500 ปกติ · 600 เมื่อเน้น */
 .crm-app aside nav a {
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .crm-app aside nav a.font-semibold {
@@ -88,8 +111,14 @@ html:has(.crm-app) body {
 }
 
 .dark .crm-app {
-  --crm-scrollbar-thumb: color-mix(in srgb, var(--color-green-600) 55%, transparent);
-  --crm-scrollbar-thumb-hover: color-mix(in srgb, var(--color-green-500) 70%, transparent);
+  --color-shell-bg: #0b1220;
+  --color-shell-fg: #f1f5f9;
+  --color-shell-muted: #94a3b8;
+  --color-shell-border: rgb(148 163 184 / 0.15);
+  --color-shell-input: #1e293b;
+  --color-shell-card: #111827;
+  --crm-scrollbar-thumb: color-mix(in srgb, var(--color-blue-600) 55%, transparent);
+  --crm-scrollbar-thumb-hover: color-mix(in srgb, var(--color-blue-500) 70%, transparent);
 }
 
 .crm-app * {

@@ -6,6 +6,58 @@
 
 ## ประวัติ
 
+### 2026-06-25 — KuTo: หน้ารายชื่อลูกค้า mock
+
+- **ทำอะไร:** `/app/customers` hub ตาม figma.site
+- **ไฟล์ที่กระทบ:** `KutoCustomersListPage.vue`, `KUTO-CUSTOMERS-IA.md`, `KUTO-MENU-PAGE-MATRIX.md`
+
+### 2026-06-25 — KuTo: ประวัติการติดต่อใน sidebar ลูกค้า
+
+- **ทำอะไร:** `/app/customers/contact-history` — เช็ค timeline ข้ามลูกค้า
+- **ไฟล์ที่กระทบ:** `kutoMenu.ts`, `KUTO-CUSTOMERS-IA.md`, `KUTO-MENU-PAGE-MATRIX.md`
+
+### 2026-06-25 — KuTo: รายชื่อผู้ติดต่อใน sidebar ลูกค้า
+
+- **ทำอะไร:** `/app/customers/contacts` เป็นเมนูย่อยที่ 2 ใต้ลูกค้า
+- **ไฟล์ที่กระทบ:** `kutoMenu.ts`, `KUTO-CUSTOMERS-IA.md`, `KUTO-CONTACTS-IA.md`, `KUTO-MENU-PAGE-MATRIX.md`
+
+### 2026-06-25 — KuTo Contacts IA รวมเข้าลูกค้า
+
+- **ทำอะไร:** ไม่มี sidebar ผู้ติดต่อ · ประวัติการติดต่อใน C360 · spec `KUTO-CONTACTS-IA.md`
+- **ไฟล์ที่กระทบ:** `KUTO-CONTACTS-IA.md`, `KUTO-CUSTOMERS-IA.md`, `KUTO-MENU-PAGE-MATRIX.md`, `kutoMenu.ts`
+
+### 2026-06-25 — KuTo Customers IA ยุบเมนู
+
+- **ทำอะไร:** Customers sidebar 8 → 2 รายการ · spec `KUTO-CUSTOMERS-IA.md`
+- **ไฟล์ที่กระทบ:** `KUTO-CUSTOMERS-IA.md`, `KUTO-MENU-PAGE-MATRIX.md`, `kutoMenu.ts`
+
+### 2026-06-25 — KuTo Leads IA ยุบเมนู
+
+- **ทำอะไร:** Leads sidebar 2 รายการ · spec ฟีเจอร์ในหน้า `KUTO-LEADS-IA.md`
+- **ไฟล์ที่กระทบ:** `KUTO-LEADS-IA.md`, `KUTO-MENU-PAGE-MATRIX.md`, `kutoMenu.ts`
+
+### 2026-06-25 — frontend-kuto: sidebar dropdown IA + page matrix
+
+- **ทำอะไร:** nested sidebar ตรง figma.site · บันทึก route ทั้งหมดใน `KUTO-MENU-PAGE-MATRIX.md`
+- **ไฟล์ที่กระทบ:** `KUTO-MENU-PAGE-MATRIX.md`, `FRONTEND-KUTO.md`, `.cursor/rules/frontend-kuto.mdc`
+
+### 2026-06-25 — frontend-kuto v0 (shell + Dashboard แดชบอร์ดของฉัน)
+
+- **ทำอะไร:** โฟลเดอร์ `frontend-kuto/` แยกจาก legacy · port 3001 · UI ตาม figma.site
+- **ไฟล์ที่กระทบ:** `FRONTEND-KUTO.md`, `.cursor/rules/frontend-kuto.mdc`
+- **หมายเหตุ:** ยัง mock data · ไม่ใช้ SQL Figma
+
+### 2026-06-22 — Header แบบ demo KuTo
+
+- Search · Quick create · locale TH/EN · dark mode · user chip
+- ดู `app/config/appHeaderUi.ts` · `AppHeader.vue`
+
+### 2026-06-22 — Brand: โลโก้ CuTo CRM
+
+- ต้นฉบับ `frontend/public/images/logo.png` → webp คู่ใน `public/images/logo/`
+- **`AppLogo` `framed`** — sidebar + login ตาม demo
+- ดู [BRAND-ASSETS.md](./BRAND-ASSETS.md)
+
 ### 2026-06-18 — Opportunities: standalone create
 
 - **Route:** `/app/opportunities/new` · ลูกค้า pattern Lead

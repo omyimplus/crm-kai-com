@@ -17,7 +17,15 @@ alwaysApply: true
 
 **อาการ:** กดปุ่มแล้ว dialog ไม่ขึ้น, ไม่มี error ชัดใน UI
 
-## 2. Nested routes — ห้ามมีทั้ง `foo.vue` และ `foo/bar.vue`
+**frontend-kuto — `components/kuto/customers/`:** อย่าตั้งชื่อไฟล์ขึ้นต้น `Kuto` ซ้ำ (เช่น `KutoContactsListPage.vue` → Nuxt ได้ `KutoCustomersKutoContactsListPage`) · ใช้ `ContactsListPage.vue` หรือ **import ตรงใน page** (`import ContactsListPage from '...'`)
+
+| ❌ ผิด | ✅ ถูก |
+|--------|--------|
+| `<KutoContactsListPage>` | `<KutoCustomersContactsListPage>` หรือ import ตรง |
+| `KutoContactHistoryPage.vue` | `KutoCustomersContactHistoryPage.vue` |
+| `ContactsListPage.vue` (import path เก่า) | `KutoCustomersContactsListPage.vue` |
+
+**อาการ:** หน้าว่างเปล่า · breadcrumb ขึ้นแต่ไม่มีเนื้อหา · console `Failed to resolve component`
 
 | ❌ ผิด | ✅ ถูก |
 |--------|--------|

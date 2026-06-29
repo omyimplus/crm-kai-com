@@ -2,7 +2,8 @@ import type { BulletLegendItemInterface } from 'vue-chrts'
 
 /** สีมาตรฐานกราฟ CRM Kai — สอดคล้อง brand primary + semantic */
 export const APP_CHART_COLORS = {
-  primary: '#5fb76a',
+  primary: '#0b2a5b',
+  accent: '#10b981',
   target: '#f59e0b',
   neutral: '#94a3b8',
   error: '#ef4444',

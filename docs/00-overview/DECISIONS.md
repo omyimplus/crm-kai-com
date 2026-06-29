@@ -119,7 +119,7 @@
 
 | | |
 |--|--|
-| **ตัดสินใจ (ปัจจุบัน)** | **IBM Plex Sans Thai** — Headline SemiBold (600) · Body Regular (400) · ทุก locale + auth |
+| **ตัดสินใจ (ปัจจุบัน)** | **IBM Plex Sans Thai** — Headline SemiBold (600) · Body Medium (500) · ทุก locale + auth |
 | **เปลี่ยนเมื่อ** | user สั่งเท่านั้น |
 | **Implementation** | Google Fonts ใน `app.vue`, `--font-sans` / `--font-heading` ใน `main.css` |
 | **อ้างอิง** | [TYPOGRAPHY.md](../12-i18n/TYPOGRAPHY.md) |
